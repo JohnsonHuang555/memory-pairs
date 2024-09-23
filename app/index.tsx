@@ -1,14 +1,11 @@
 import { Text, View } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { cn } from '@/utils';
 
 export default function HomeScreen() {
   return (
     <View>
-      <Text className="text-5xl">123</Text>
+      <Text className={cn('text-4xl', 'font-semibold')}>33333</Text>
     </View>
     // <ParallaxScrollView
     //   headerBackgroundColor={{ light: '#fff', dark: '#fff' }}

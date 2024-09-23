@@ -1,0 +1,14 @@
+{
+  "arrowParens": "avoid",
+  "endOfLine": "auto",
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false,
+  "jsxSingleQuote": false,
+  "importOrder": ["^react", "^react-native", "<THIRD_PARTY_MODULES>", "^[a-zA-Z]", "^@?\\w', '^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"]
+}
