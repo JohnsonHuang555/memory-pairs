@@ -1,51 +1,30 @@
-import { Text, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 
-import { cn } from '@/utils';
+import CoolButton from '@/components/CoolButton';
+
+import { router } from 'expo-router';
 
 export default function HomeScreen() {
   return (
-    <View>
-      <Text className={cn('text-4xl', 'font-semibold')}>33333</Text>
-    </View>
-    // <ParallaxScrollView
-    //   headerBackgroundColor={{ light: '#fff', dark: '#fff' }}
-    //   headerImage={
-    //     <Image
-    //       source={require('@/assets/images/partial-react-logo.png')}
-    //       style={styles.reactLogo}
-    //     />
-    //   }>
-    //   <ThemedView style={styles.titleContainer}>
-    //     <ThemedText type="title">Welcome</ThemedText>
-    //     <HelloWave />
-    //   </ThemedView>
-    //   <ThemedView style={styles.stepContainer}>
-    //     <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-    //     <ThemedText>
-    //       Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-    //       Press{' '}
-    //       <ThemedText type="defaultSemiBold">
-    //         {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-    //       </ThemedText>{' '}
-    //       to open developer tools.
-    //     </ThemedText>
-    //   </ThemedView>
-    //   <ThemedView style={styles.stepContainer}>
-    //     <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-    //     <ThemedText>
-    //       Tap the Explore tab to learn more about what's included in this starter app.
-    //     </ThemedText>
-    //   </ThemedView>
-    //   <ThemedView style={styles.stepContainer}>
-    //     <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-    //     <ThemedText>
-    //       When you're ready, run{' '}
-    //       <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-    //       <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-    //       <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-    //       <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-    //     </ThemedText>
-    //   </ThemedView>
-    // </ParallaxScrollView>
+    <>
+      <Image
+        source={require('@/assets/images/logo.webp')}
+        style={{ width: 250, height: 100 }}
+        resizeMode="contain"
+        className="-mt-32 mb-16 border"
+      />
+      <View className="gap-6 border">
+        <CoolButton
+          text="顏色關卡"
+          onClick={() => router.push('/colors')}
+          icon="color-palette"
+        />
+        <CoolButton
+          text="中文關卡"
+          onClick={() => {}}
+          icon="extension-puzzle"
+        />
+      </View>
+    </>
   );
 }
