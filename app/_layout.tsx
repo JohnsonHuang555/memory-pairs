@@ -4,13 +4,6 @@ import 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import '../global.css';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from '@react-navigation/native';
 
 import { useFonts } from 'expo-font';
 import { Slot } from 'expo-router';
@@ -20,9 +13,13 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    GenSenRounded2TWB: require('../assets/fonts/GenSenRounded2TW-B.otf'), // 粗體
+    GenSenRounded2TWEL: require('../assets/fonts/GenSenRounded2TW-EL.otf'), // 很細
+    GenSenRounded2TWH: require('../assets/fonts/GenSenRounded2TW-H.otf'), // 很粗
+    GenSenRounded2TWL: require('../assets/fonts/GenSenRounded2TW-L.otf'), // light
+    GenSenRounded2TWM: require('../assets/fonts/GenSenRounded2TW-M.otf'), // medium
+    GenSenRounded2TWR: require('../assets/fonts/GenSenRounded2TW-R.otf'), // regular
   });
 
   useEffect(() => {
@@ -40,7 +37,7 @@ export default function RootLayout() {
       <ImageBackground
         source={require('@/assets/images/background.webp')}
         resizeMode="cover"
-        imageStyle={{ opacity: 0.3 }}
+        imageStyle={{ opacity: 0.5 }}
         style={{
           flex: 1,
           justifyContent: 'center',

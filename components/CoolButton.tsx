@@ -21,13 +21,13 @@ const CoolButton = ({
   onClick,
 }: CoolButtonProps) => {
   return (
-    <AwesomeButton
-      raiseLevel={6}
-      width={width}
-      onPress={onClick}
-    >
+    <AwesomeButton raiseLevel={6} width={width} onPress={onClick}>
       <Ionicons name={icon} size={iconSize} />
-      <Text style={{ fontSize, marginLeft: 8 }}>{text}</Text>
+      <Text
+        style={{ fontSize, marginLeft: 8, fontFamily: 'GenSenRounded2TWB' }}
+      >
+        {text}
+      </Text>
     </AwesomeButton>
   );
 };
