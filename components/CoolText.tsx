@@ -1,12 +1,12 @@
 import { Text } from 'react-native';
 
 type CoolButtonProps = {
-  text: string;
+  text: string | number;
   className?: string;
-  fontFamily?: 'bold' | 'thin' | 'light' | 'medium' | 'regular';
+  fontWeight?: 'bold' | 'thin' | 'light' | 'medium' | 'regular';
 };
 
-const fontFamilyObj = {
+const fontWeightObj = {
   bold: 'GenSenRounded2TWB',
   thin: 'GenSenRounded2TWEL',
   light: 'GenSenRounded2TWL',
@@ -17,11 +17,11 @@ const fontFamilyObj = {
 const CoolText = ({
   text,
   className,
-  fontFamily = 'regular',
+  fontWeight = 'regular',
 }: CoolButtonProps) => {
   return (
     <Text
-      style={{ fontFamily: fontFamilyObj[fontFamily] }}
+      style={{ fontFamily: fontWeightObj[fontWeight] }}
       className={className}
     >
       {text}

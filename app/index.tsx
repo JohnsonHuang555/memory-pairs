@@ -1,4 +1,6 @@
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, View } from 'react-native';
+
+import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 
 import { router } from 'expo-router';
@@ -8,56 +10,47 @@ export default function HomeScreen() {
     <>
       <Image
         source={require('@/assets/images/logo.png')}
-        style={{ width: 250, height: 100 }}
+        style={{ width: 260, height: 100 }}
         resizeMode="contain"
         className="-mt-4 mb-16"
       />
       <View className="items-center">
         <CoolText
-          text="24"
+          text="1"
           className="mb-4 text-[60px] shadow-sm"
-          fontFamily="regular"
+          fontWeight="regular"
         />
         <CoolText text="Now Level" className="mb-24 text-2xl" />
-        <TouchableOpacity activeOpacity={0.7}>
-          <View className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]">
-            <Image
-              source={require('@/assets/images/play.png')}
-              style={{ width: 80, height: 80 }}
-              className="ml-4 shadow shadow-white"
-            />
-          </View>
-        </TouchableOpacity>
-        <View className="mt-28 flex-row gap-16">
-          <TouchableOpacity activeOpacity={0.7}>
+        <BounceAnimation
+          onPress={() => router.push('/levels')}
+          className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
+        >
+          <Image
+            source={require('@/assets/images/play.png')}
+            style={{ width: 80, height: 80 }}
+            className="ml-4 shadow shadow-white"
+          />
+        </BounceAnimation>
+        <View className="mt-28 flex-row items-center gap-16">
+          <BounceAnimation>
             <Image
               source={require('@/assets/images/shop.png')}
               style={{ width: 40, height: 40 }}
             />
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.7}>
+          </BounceAnimation>
+          <BounceAnimation>
             <Image
               source={require('@/assets/images/trophy.png')}
-              style={{ width: 40, height: 40 }}
+              style={{ width: 36, height: 36 }}
             />
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.7}>
+          </BounceAnimation>
+          <BounceAnimation>
             <Image
               source={require('@/assets/images/settings.png')}
-              style={{ width: 40, height: 40 }}
+              style={{ width: 42, height: 42 }}
             />
-          </TouchableOpacity>
+          </BounceAnimation>
         </View>
-        {/* <CoolButton
-          text="顏色關卡"
-          onClick={() => router.push('/colors')}
-          icon="color-palette"
-        />
-        <CoolButton
-          text="中文關卡"
-          onClick={() => {}}
-          icon="extension-puzzle"
-        /> */}
       </View>
     </>
   );

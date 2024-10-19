@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+export const PrimaryTextColor = 'text-[#834B4B]'
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
