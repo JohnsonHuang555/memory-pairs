@@ -13,7 +13,7 @@ type CoolButtonProps = {
 const CoolButton = ({
   text,
   width = 200,
-  fontSize = 18,
+  fontSize = 24,
   onClick,
   backgroundColor,
   textColor = '#FFF',

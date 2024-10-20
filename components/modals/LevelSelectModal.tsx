@@ -1,10 +1,10 @@
 import { Image, StyleSheet, View } from 'react-native';
-import Modal from 'react-native-modal';
 
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
+import BaseModal from './BaseModal';
 
-import { router, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 type LevelSelectModalProps = {
   level: number;
@@ -22,126 +22,105 @@ const LevelSelectModal = ({
   const { push } = useRouter();
 
   return (
-    <Modal isVisible={show} onBackdropPress={onClose} className="border">
-      <View className="flex-1 items-center justify-center">
-        <View
-          className="relative items-center justify-center"
+    <BaseModal
+      title={`Level ${level}`}
+      show={show}
+      width={80}
+      onClose={onClose}
+    >
+      <View className="mb-6 flex-row" style={{ gap: 4 }}>
+        <Image
+          source={require('@/assets/images/grey-star.png')}
           style={{
-            backgroundColor: '#FFF1E5',
-            width: 300,
-            borderColor: '#C08A76',
-            borderWidth: 6,
-            padding: 20,
-            borderRadius: 20,
+            width: 60,
+            height: 60,
+            marginTop: 24,
+            transform: [{ rotate: '-25deg' }],
           }}
-        >
-          <View
-            className="items-center justify-center bg-[#C08A76] p-2"
-            style={{
-              width: 150,
-              borderTopLeftRadius: 16,
-              borderTopRightRadius: 16,
-              position: 'absolute',
-              top: -43,
-            }}
-          >
-            <CoolText text={`Level ${level}`} className="text-2xl text-white" />
-          </View>
-          <View className="mb-6 flex-row" style={{ gap: 4 }}>
-            <Image
-              source={require('@/assets/images/grey-star.png')}
-              style={{
-                width: 60,
-                height: 60,
-                marginTop: 24,
-                transform: [{ rotate: '-25deg' }],
-              }}
-            />
-            <Image
-              source={require('@/assets/images/grey-star.png')}
-              style={{ width: 70, height: 70 }}
-            />
-            <Image
-              source={require('@/assets/images/grey-star.png')}
-              style={{
-                width: 60,
-                height: 60,
-                marginTop: 24,
-                transform: [{ rotate: '25deg' }],
-              }}
-            />
-          </View>
-          <View className="items-center" style={{ marginBottom: 28 }}>
-            <CoolText
-              text="主題"
-              fontWeight="medium"
-              className="mb-4"
-              style={{ fontSize: 18, color: '#717171' }}
-            />
-            <CoolText
-              text={`${theme}, 兩個一組`}
-              fontWeight="medium"
-              style={{ fontSize: 22, color: '#834B4B' }}
-            />
-          </View>
-          <View className="items-center" style={{ marginBottom: 32 }}>
-            <CoolText
-              text="使用道具"
-              fontWeight="medium"
-              className="mb-6"
-              style={{ fontSize: 18, color: '#717171' }}
-            />
-            <View className="flex-row" style={{ gap: 12 }}>
-              <View className="rounded-xl border" style={styles.itemsContainer}>
-                <View style={styles.item}>
-                  <CoolText
-                    text={2}
-                    className="text-white"
-                    style={{ fontSize: 16 }}
-                  />
-                </View>
-                <Image
-                  source={require('@/assets/images/timer.png')}
-                  style={{ width: 50, height: 50 }}
-                />
-              </View>
-              <View className="rounded-xl border" style={styles.itemsContainer}>
-                <View style={styles.item}>
-                  <CoolText
-                    text={2}
-                    className="text-white"
-                    style={{ fontSize: 16 }}
-                  />
-                </View>
-                <Image
-                  source={require('@/assets/images/eye.png')}
-                  style={{ width: 50, height: 50 }}
-                />
-              </View>
-              <View className="rounded-xl border" style={styles.itemsContainer}>
-                <View style={styles.item}>
-                  <CoolText
-                    text={2}
-                    className="text-white"
-                    style={{ fontSize: 16 }}
-                  />
-                </View>
-                <Image
-                  source={require('@/assets/images/paris.png')}
-                  style={{ width: 50, height: 50 }}
-                />
-              </View>
+        />
+        <Image
+          source={require('@/assets/images/grey-star.png')}
+          style={{ width: 70, height: 70 }}
+        />
+        <Image
+          source={require('@/assets/images/grey-star.png')}
+          style={{
+            width: 60,
+            height: 60,
+            marginTop: 24,
+            transform: [{ rotate: '25deg' }],
+          }}
+        />
+      </View>
+      <View className="items-center" style={{ marginBottom: 28 }}>
+        <CoolText
+          text="主題"
+          fontWeight="medium"
+          className="mb-4"
+          style={{ fontSize: 18, color: '#717171' }}
+        />
+        <CoolText
+          text={`${theme}, 兩個一組`}
+          fontWeight="medium"
+          style={{ fontSize: 22, color: '#834B4B' }}
+        />
+      </View>
+      <View className="items-center" style={{ marginBottom: 32 }}>
+        <CoolText
+          text="使用道具"
+          fontWeight="medium"
+          className="mb-6"
+          style={{ fontSize: 18, color: '#717171' }}
+        />
+        <View className="flex-row" style={{ gap: 12 }}>
+          <View className="rounded-xl border" style={styles.itemsContainer}>
+            <View style={styles.item}>
+              <CoolText
+                text={2}
+                className="text-white"
+                style={{ fontSize: 16 }}
+              />
             </View>
+            <Image
+              source={require('@/assets/images/timer.png')}
+              style={{ width: 50, height: 50 }}
+            />
           </View>
-          <CoolButton
-            width={150}
-            text="挑戰"
-            backgroundColor="#834B4B"
-            onClick={() => router.push('/playing')}
-          />
+          <View className="rounded-xl border" style={styles.itemsContainer}>
+            <View style={styles.item}>
+              <CoolText
+                text={2}
+                className="text-white"
+                style={{ fontSize: 16 }}
+              />
+            </View>
+            <Image
+              source={require('@/assets/images/eye.png')}
+              style={{ width: 50, height: 50 }}
+            />
+          </View>
+          <View className="rounded-xl border" style={styles.itemsContainer}>
+            <View style={styles.item}>
+              <CoolText
+                text={2}
+                className="text-white"
+                style={{ fontSize: 16 }}
+              />
+            </View>
+            <Image
+              source={require('@/assets/images/paris.png')}
+              style={{ width: 50, height: 50 }}
+            />
+          </View>
         </View>
       </View>
-    </Modal>
+      <CoolButton
+        width={150}
+        text="挑戰"
+        backgroundColor="#834B4B"
+        onClick={() => push('/playing')}
+      />
+    </BaseModal>
   );
 };
 

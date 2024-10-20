@@ -5,12 +5,15 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  withTiming,
 } from 'react-native-reanimated';
 
 import CoolText from './CoolText';
 
-const FlipCard = () => {
+type FlipCardProps = {
+  onFlip: () => void;
+};
+
+const FlipCard = ({ onFlip }: FlipCardProps) => {
   const [flipped, setFlipped] = useState(false);
   const rotation = useSharedValue(0); // 初始旋轉角度
   const scale = useSharedValue(1); // 初始化卡片的縮放比例
@@ -19,6 +22,7 @@ const FlipCard = () => {
   const flipCard = () => {
     // 翻開卡片時，觸發 2 秒後自動翻回
     if (!flipped) {
+      onFlip();
       rotation.value = withSpring(180);
       setFlipped(true);
 

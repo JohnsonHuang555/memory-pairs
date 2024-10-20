@@ -1,8 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { Image, View } from 'react-native';
 
 import BounceAnimation from './BounceAnimation';
 import CoolText from './CoolText';
+import PauseGameModal from './modals/PauseGameMdoal';
 
 import { useRouter } from 'expo-router';
 
@@ -21,13 +22,18 @@ const MainContainer = ({
   children,
   title,
 }: MainContainerProps) => {
-  const { push, back } = useRouter();
+  const { back } = useRouter();
+  const [showPauseGameModal, setPauseGameModal] = useState(false);
 
   return (
-    <View className="h-[85%] w-[90%]">
+    <View style={{ height: '85%', width: '90%' }}>
+      <PauseGameModal
+        show={showPauseGameModal}
+        onClose={() => setPauseGameModal(false)}
+      />
       <View className="mb-6 flex-row items-center justify-between">
         {showLeftIcon && (
-          <View className="w-10">
+          <View style={{ width: 40}}>
             <BounceAnimation onPress={back}>
               <Image
                 source={require('@/assets/images/left-arrow.png')}
@@ -37,8 +43,8 @@ const MainContainer = ({
           </View>
         )}
         {showPauseIcon && (
-          <View className="w-10">
-            <BounceAnimation onPress={() => {}}>
+          <View style={{ width: 40}}>
+            <BounceAnimation onPress={() => setPauseGameModal(true)}>
               <Image
                 source={require('@/assets/images/pause.png')}
                 style={{ width: 40, height: 40 }}
@@ -50,8 +56,9 @@ const MainContainer = ({
           text={title}
           className="text-3xl text-[#834B4B]"
           fontWeight="bold"
+          style={{ fontSize: 24}}
         />
-        <View className="w-10">
+        <View style={{ width: 40}}>
           {showQuestionIcon && (
             <BounceAnimation onPress={back}>
               <Image
