@@ -3,6 +3,7 @@ import { Dimensions, Image, TouchableOpacity, View } from 'react-native';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
+import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
 import { PrimaryTextColor, cn, getOrdinalSuffix } from '@/utils';
 
@@ -59,26 +60,7 @@ export default function LevelsPage() {
         show={showLevelModal}
         onClose={() => setShowLevelModal(false)}
       />
-      <View className="h-[85%] w-[90%]">
-        <View className="mb-6 flex-row items-center justify-between">
-          <BounceAnimation onPress={back} className="w-10">
-            <Image
-              source={require('@/assets/images/left-arrow.png')}
-              style={{ width: 40, height: 40 }}
-            />
-          </BounceAnimation>
-          <CoolText
-            text="關卡"
-            className="text-3xl text-[#834B4B]"
-            fontWeight="bold"
-          />
-          <BounceAnimation onPress={back} className="w-10">
-            <Image
-              source={require('@/assets/images/question.png')}
-              style={{ width: 32, height: 32 }}
-            />
-          </BounceAnimation>
-        </View>
+      <MainContainer title="關卡" showLeftIcon showQuestionIcon>
         <View className="mb-6 flex-row items-center justify-end">
           <Image
             source={require('@/assets/images/yellow-star.png')}
@@ -96,31 +78,36 @@ export default function LevelsPage() {
               activeOpacity={0.8}
               key={item.level}
               onPress={toggleModal}
-              className="mb-5 aspect-square w-[22%] items-center justify-center rounded-xl bg-[#C08A76] p-2 shadow"
+              className="mb-5 aspect-square w-[22%] rounded-xl bg-[#C08A76] p-2 shadow"
             >
-              <CoolText
-                text={item.level}
-                className="my-2 text-[28px] text-white"
-                fontWeight="medium"
-              />
-              <View className="flex-row">
-                <Image
-                  source={require('@/assets/images/grey-star.png')}
-                  style={{ width: 20, height: 20 }}
+              <View
+                className="items-center justify-center"
+                style={{ width: '100%', height: '100%' }}
+              >
+                <CoolText
+                  text={item.level}
+                  className="my-2 text-[28px] text-white"
+                  fontWeight="medium"
                 />
-                <Image
-                  source={require('@/assets/images/grey-star.png')}
-                  style={{ width: 20, height: 20 }}
-                />
-                <Image
-                  source={require('@/assets/images/grey-star.png')}
-                  style={{ width: 20, height: 20 }}
-                />
+                <View className="flex-row">
+                  <Image
+                    source={require('@/assets/images/grey-star.png')}
+                    style={{ width: 20, height: 20 }}
+                  />
+                  <Image
+                    source={require('@/assets/images/grey-star.png')}
+                    style={{ width: 20, height: 20 }}
+                  />
+                  <Image
+                    source={require('@/assets/images/grey-star.png')}
+                    style={{ width: 20, height: 20 }}
+                  />
+                </View>
               </View>
             </TouchableOpacity>
           ))}
         </View>
-      </View>
+      </MainContainer>
     </>
   );
 }

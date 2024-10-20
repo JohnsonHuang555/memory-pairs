@@ -1,15 +1,10 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
 
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
+
+import { router, useRouter } from 'expo-router';
 
 type LevelSelectModalProps = {
   level: number;
@@ -24,6 +19,8 @@ const LevelSelectModal = ({
   theme,
   onClose,
 }: LevelSelectModalProps) => {
+  const { push } = useRouter();
+
   return (
     <Modal isVisible={show} onBackdropPress={onClose} className="border">
       <View className="flex-1 items-center justify-center">
@@ -74,7 +71,7 @@ const LevelSelectModal = ({
               }}
             />
           </View>
-          <View className="items-center" style={{ marginBottom: 24 }}>
+          <View className="items-center" style={{ marginBottom: 28 }}>
             <CoolText
               text="主題"
               fontWeight="medium"
@@ -84,10 +81,10 @@ const LevelSelectModal = ({
             <CoolText
               text={`${theme}, 兩個一組`}
               fontWeight="medium"
-              style={{ fontSize: 24, color: '#834B4B' }}
+              style={{ fontSize: 22, color: '#834B4B' }}
             />
           </View>
-          <View className="items-center" style={{ marginBottom: 30 }}>
+          <View className="items-center" style={{ marginBottom: 32 }}>
             <CoolText
               text="使用道具"
               fontWeight="medium"
@@ -140,7 +137,7 @@ const LevelSelectModal = ({
             width={150}
             text="挑戰"
             backgroundColor="#834B4B"
-            onClick={() => {}}
+            onClick={() => router.push('/playing')}
           />
         </View>
       </View>
