@@ -47,11 +47,6 @@ export default function LevelsPage() {
   const [showLevelModal, setShowLevelModal] = useState(false);
   const { push, back } = useRouter();
 
-  const numColumns = 4;
-  const gap = 15;
-  const totalGap = (numColumns - 1) * gap; // 總間距
-  const itemWidth = (Dimensions.get('window').width - totalGap) / numColumns; // 動態計算每個項目的寬度
-
   const toggleModal = () => {
     setShowLevelModal(!showLevelModal);
   };
@@ -59,6 +54,8 @@ export default function LevelsPage() {
   return (
     <>
       <LevelSelectModal
+        level={1}
+        theme={'顏色'}
         show={showLevelModal}
         onClose={() => setShowLevelModal(false)}
       />
@@ -98,11 +95,12 @@ export default function LevelsPage() {
             <TouchableOpacity
               activeOpacity={0.8}
               key={item.level}
+              onPress={toggleModal}
               className="mb-5 aspect-square w-[22%] items-center justify-center rounded-xl bg-[#C08A76] p-2 shadow"
             >
               <CoolText
                 text={item.level}
-                className="my-1 text-[28px] text-white"
+                className="my-2 text-[28px] text-white"
                 fontWeight="medium"
               />
               <View className="flex-row">

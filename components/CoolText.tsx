@@ -4,6 +4,7 @@ type CoolButtonProps = {
   text: string | number;
   className?: string;
   fontWeight?: 'bold' | 'thin' | 'light' | 'medium' | 'regular';
+  style?: any;
 };
 
 const fontWeightObj = {
@@ -18,10 +19,11 @@ const CoolText = ({
   text,
   className,
   fontWeight = 'regular',
+  style,
 }: CoolButtonProps) => {
   return (
     <Text
-      style={{ fontFamily: fontWeightObj[fontWeight] }}
+      style={[style, { fontFamily: fontWeightObj[fontWeight] }]}
       className={className}
     >
       {text}
