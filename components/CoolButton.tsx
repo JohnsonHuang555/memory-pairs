@@ -8,11 +8,15 @@ type CoolButtonProps = {
   text: string;
   subText?: string;
   width?: number | null;
+  height?: number;
   fontSize?: number;
   onClick: () => void;
   backgroundColor?: string;
   textColor?: string;
   fontWeight?: 'bold' | 'thin' | 'light' | 'medium' | 'regular';
+  disabled?: boolean;
+  raiseLevel?: number;
+  borderRadius?: number;
 };
 
 const CoolButton = ({
@@ -20,19 +24,25 @@ const CoolButton = ({
   text,
   subText,
   width = null,
-  fontSize = 24,
+  height,
+  fontSize = 22,
   onClick,
-  backgroundColor,
+  backgroundColor = '#834B4B',
   textColor = '#FFF',
   fontWeight,
+  disabled = false,
+  raiseLevel = 4,
+  borderRadius = 12,
 }: CoolButtonProps) => {
   return (
     <AwesomeButton
-      raiseLevel={6}
-      borderRadius={12}
+      raiseLevel={raiseLevel}
+      borderRadius={borderRadius}
       width={width}
+      height={height}
       onPress={onClick}
       backgroundColor={backgroundColor}
+      disabled={disabled}
     >
       {prefix}
       <View className="items-center">

@@ -1,11 +1,8 @@
 import { StyleSheet, View } from 'react-native';
-import { useSharedValue } from 'react-native-reanimated';
 
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
-
-import { useRouter } from 'expo-router';
 
 type GameRulesProps = {
   show: boolean;
@@ -13,20 +10,8 @@ type GameRulesProps = {
 };
 
 const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
-  const isMusicOn = useSharedValue(false);
-  const isSoundOn = useSharedValue(false);
-  const { push, replace } = useRouter();
-
-  const handleMusicPress = () => {
-    isMusicOn.value = !isMusicOn.value;
-  };
-
-  const handleSoundPress = () => {
-    isSoundOn.value = !isSoundOn.value;
-  };
-
   return (
-    <BaseModal title="遊戲規則" show={show} width={90} onClose={onClose}>
+    <BaseModal title="遊戲規則" show={show} width={100} onClose={onClose}>
       <View className="items-center justify-between">
         <View
           className="mb-4 items-center justify-between"

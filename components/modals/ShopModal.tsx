@@ -16,13 +16,13 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
         className="flex-row items-center justify-between"
         style={{ width: '100%', marginBottom: 20 }}
       >
-        <CoolText text="道具" style={styles.text} />
+        <CoolText text="道具" style={styles.text} fontWeight="medium" />
         <View className="flex-row items-center">
           <Image
             source={require('@/assets/images/coin.png')}
-            style={{ width: 30, height: 30, marginRight: 4 }}
+            style={{ width: 32, height: 32, marginRight: 2 }}
           />
-          <CoolText text="1000" style={styles.text} fontWeight="medium" />
+          <CoolText text="1000" style={styles.text} fontWeight="bold" />
         </View>
       </View>
       <View
@@ -59,17 +59,16 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
           <View className="mb-4">
             <CoolButton
               width={90}
-              text="使用 800"
+              text="用 800 金"
               subText="升級"
               backgroundColor="#E3803E"
               onClick={onClose}
               fontSize={14}
             />
           </View>
-
           <CoolButton
             width={90}
-            text="使用 200"
+            text="用 200 金"
             subText="購買"
             backgroundColor="#834B4B"
             onClick={onClose}
@@ -106,17 +105,16 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
           <View className="mb-4">
             <CoolButton
               width={90}
-              text="使用 800"
+              text="用 800 金"
               subText="升級"
               backgroundColor="#E3803E"
               onClick={onClose}
               fontSize={14}
             />
           </View>
-
           <CoolButton
             width={90}
-            text="使用 300"
+            text="用 300 金"
             subText="購買"
             backgroundColor="#834B4B"
             onClick={onClose}
@@ -153,7 +151,7 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
           <View className="mb-4">
             <CoolButton
               width={90}
-              text="使用 800"
+              text="用 800 金"
               subText="升級"
               backgroundColor="#E3803E"
               onClick={onClose}
@@ -162,7 +160,7 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
           </View>
           <CoolButton
             width={90}
-            text="使用 500"
+            text="用 500 金"
             subText="購買"
             backgroundColor="#834B4B"
             onClick={onClose}
@@ -177,14 +175,14 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
         <CoolButton
           prefix={
             <Image
-            source={require('@/assets/images/video-play.png')}
-            style={{ width: 24, height: 24, marginRight: 4 }}
-          />
+              source={require('@/assets/images/video-play.png')}
+              style={{ width: 24, height: 24, marginRight: 4 }}
+            />
           }
           width={200}
-          text="觀看廣告隨機獲得"
+          text="觀看廣告隨機道具"
           backgroundColor="#C94343"
-          onClick={()=>{}}
+          onClick={() => {}}
           fontSize={18}
         />
       </View>
