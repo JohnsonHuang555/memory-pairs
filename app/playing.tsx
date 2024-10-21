@@ -11,6 +11,7 @@ import CoolText from '@/components/CoolText';
 import FadeInOutText from '@/components/FadeInOutText';
 import FlipCard from '@/components/FlipCard';
 import MainContainer from '@/components/MainContainer';
+import ProgressBarWithStars from '@/components/ProgressBarWithStars';
 
 // const testData = [
 //   {
@@ -23,7 +24,7 @@ import MainContainer from '@/components/MainContainer';
 //   }
 // ]
 
-const testData = Array.from({ length: 16 }, (_, i) => i + 1);
+const testData = Array.from({ length: 24 }, (_, i) => i + 1);
 
 const PlayingPage = () => {
   const [timeLeft, setTimeLeft] = useState(60); // 初始時間 60 秒
@@ -56,7 +57,16 @@ const PlayingPage = () => {
 
   return (
     <MainContainer title="Level 1" showPauseIcon>
-      <View className="mb-6 mt-10 flex-row items-center justify-between">
+      <View className="items-center" style={{ marginBottom: 8 }}>
+        <View style={{ width: '90%' }}>
+          <ProgressBarWithStars />
+        </View>
+      </View>
+      {/* 分數 */}
+      <View
+        className="flex-row items-center justify-between"
+        style={{ marginBottom: 16 }}
+      >
         <CoolText
           text="分數: 99"
           className="ml-2 text-2xl text-[#834B4B]"
@@ -75,13 +85,18 @@ const PlayingPage = () => {
           />
         </View>
       </View>
-      <View className="mb-4 flex-row flex-wrap justify-between">
+      {/* 牌組 */}
+      <View
+        className="flex-row flex-wrap justify-between"
+        style={{ marginBottom: 4 }}
+      >
         {testData.map(t => (
           <View className="mb-4 aspect-square w-[22%]" key={t}>
             <FlipCard onFlip={startTimer} />
           </View>
         ))}
       </View>
+      {/* combo */}
       <View className="items-center">
         <FadeInOutText text="1 Combo" showText={true} />
       </View>
@@ -90,21 +105,3 @@ const PlayingPage = () => {
 };
 
 export default PlayingPage;
-
-const styles = StyleSheet.create({
-  card: {
-    position: 'absolute',
-    backgroundColor: 'skyblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backfaceVisibility: 'hidden', // 隱藏背面
-  },
-  cardBack: {
-    backgroundColor: 'tomato',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-});

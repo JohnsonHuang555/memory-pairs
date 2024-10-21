@@ -27,7 +27,7 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
       </View>
       <View
         className="flex-row items-center justify-between"
-        style={{ width: '100%', gap: 10, marginBottom: 20 }}
+        style={{ width: '100%', gap: 10 }}
       >
         <View className="items-center">
           <View className="rounded-xl" style={styles.itemsContainer}>
@@ -168,10 +168,18 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
           />
         </View>
       </View>
-      <View
+      {/* <View
         className="flex-row items-center justify-center"
-        style={{ width: '100%' }}
+        style={{ width: '100%', gap: 10 }}
       >
+        <CoolButton
+          width={90}
+          height={50}
+          text="關閉"
+          backgroundColor="#834B4B"
+          onClick={onClose}
+          fontSize={18}
+        />
         <CoolButton
           prefix={
             <Image
@@ -180,12 +188,13 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
             />
           }
           width={200}
+          height={50}
           text="觀看廣告隨機道具"
           backgroundColor="#C94343"
           onClick={() => {}}
           fontSize={18}
         />
-      </View>
+      </View> */}
     </BaseModal>
   );
 };

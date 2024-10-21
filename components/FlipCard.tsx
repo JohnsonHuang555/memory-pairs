@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
   },
   cardBack: {
     backgroundColor: '#FFF',
-    borderWidth: 0,
+    borderColor: '#eee',
+    borderWidth: 2,
   },
   text: {
     fontSize: 20,

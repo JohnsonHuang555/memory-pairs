@@ -20,7 +20,7 @@ export default function HomeScreen() {
         show={showSettingsModal}
         onClose={() => setShowSettingsModal(false)}
       />
-      <View className="items-end" style={{ width: '80%', marginBottom: 40 }}>
+      <View className="items-end" style={{ width: '80%', marginBottom: 20 }}>
         <View className="flex-row items-center">
           <Image
             source={require('@/assets/images/coin.png')}
@@ -35,9 +35,8 @@ export default function HomeScreen() {
       </View>
       <Image
         source={require('@/assets/images/logo.png')}
-        style={{ width: 260, height: 100 }}
+        style={{ width: 260, height: 100, marginBottom: 80 }}
         resizeMode="contain"
-        className="mb-16"
       />
       <View className="items-center">
         <CoolText

@@ -12,11 +12,11 @@ type GameRulesProps = {
 const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
   return (
     <BaseModal title="遊戲規則" show={show} width={100} onClose={onClose}>
-      <View className="items-center justify-between">
-        <View
-          className="mb-4 items-center justify-between"
-          style={{ marginTop: 8 }}
-        >
+      <View
+        className="items-center justify-between"
+        style={{ marginVertical: 10 }}
+      >
+        <View className="mb-4 justify-between">
           <View className="items-center">
             <CoolText
               text="玩法"
@@ -37,7 +37,7 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
             style={styles.rule}
           />
         </View>
-        <View style={{ marginBottom: 40 }}>
+        <View className="justify-start">
           <View className="items-center">
             <CoolText
               text="計分"
@@ -62,12 +62,6 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
             style={styles.rule}
           />
         </View>
-        <CoolButton
-          width={150}
-          text="關閉"
-          backgroundColor="#834B4B"
-          onClick={onClose}
-        />
       </View>
     </BaseModal>
   );

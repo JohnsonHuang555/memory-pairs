@@ -1,6 +1,7 @@
 import { Image, StyleSheet, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 
+import CoolButton from '../CoolButton';
 import CoolSwitch from '../CoolSwitch';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
@@ -26,7 +27,7 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
     <BaseModal title="設定" show={show} width={75} onClose={onClose}>
       <View
         className="mb-4 flex-row justify-between"
-        style={{ marginTop: 10, width: '100%' }}
+        style={{ marginVertical: 10, width: '100%' }}
       >
         <View className="flex-row items-center">
           <Image
@@ -47,7 +48,7 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
       </View>
       <View
         className="flex-row justify-between"
-        style={{ width: '100%', marginBottom: 10 }}
+        style={{ width: '100%' }}
       >
         <View className="flex-row items-center">
           <Image
@@ -66,6 +67,13 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
           style={{ width: 80 }}
         />
       </View>
+      {/* <CoolButton
+        width={100}
+        height={50}
+        text="關閉"
+        backgroundColor="#834B4B"
+        onClick={onClose}
+      /> */}
     </BaseModal>
   );
 };

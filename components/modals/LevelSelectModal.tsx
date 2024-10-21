@@ -54,7 +54,7 @@ const LevelSelectModal = ({
       </View>
       <View className="items-center" style={{ marginBottom: 28 }}>
         <CoolText
-          text="主題"
+          text="關卡"
           fontWeight="medium"
           className="mb-4"
           style={{ fontSize: 18, color: '#717171' }}
@@ -65,7 +65,7 @@ const LevelSelectModal = ({
           style={{ fontSize: 22, color: '#834B4B' }}
         />
       </View>
-      <View className="items-center" style={{ marginBottom: 32 }}>
+      <View className="items-center" style={{ marginBottom: 28 }}>
         <CoolText
           text="使用道具"
           fontWeight="medium"
@@ -116,6 +116,8 @@ const LevelSelectModal = ({
       </View>
       <CoolButton
         width={150}
+        height={50}
+        fontSize={20}
         text="挑戰"
         backgroundColor="#834B4B"
         onClick={() => push('/playing')}

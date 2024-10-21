@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Image, View } from 'react-native';
 
 import BounceAnimation from './BounceAnimation';
