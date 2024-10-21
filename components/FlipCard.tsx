@@ -20,7 +20,7 @@ const FlipCard = ({ onFlip }: FlipCardProps) => {
 
   // 當點擊卡片時觸發翻轉
   const flipCard = () => {
-    // 翻開卡片時，觸發 2 秒後自動翻回
+    // 翻開卡片時，觸發 1 秒後自動翻回
     if (!flipped) {
       onFlip();
       rotation.value = withSpring(180);
@@ -29,7 +29,7 @@ const FlipCard = ({ onFlip }: FlipCardProps) => {
       setTimeout(() => {
         rotation.value = withSpring(0); // 2 秒後蓋回卡片
         setFlipped(false);
-      }, 2000); // 2 秒後自動翻回
+      }, 1000); // 1 秒後自動翻回
     }
   };
 
@@ -103,6 +103,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
+    shadowOffset: {
+      width: 2,
+      height: 8,
+    },
+    shadowOpacity: 0.2,
   },
   card: {
     position: 'absolute',

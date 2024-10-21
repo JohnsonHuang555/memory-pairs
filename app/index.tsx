@@ -1,13 +1,18 @@
+import { useState } from 'react';
 import { Image, View } from 'react-native';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
+import ShopModal from '@/components/modals/ShopModal';
 
 import { router } from 'expo-router';
 
 export default function HomeScreen() {
+  const [showShopModal, setShowShopModal] = useState(false);
+
   return (
     <>
+      <ShopModal show={showShopModal} onClose={() => setShowShopModal(false)} />
       <Image
         source={require('@/assets/images/logo.png')}
         style={{ width: 260, height: 100 }}
@@ -17,7 +22,7 @@ export default function HomeScreen() {
       <View className="items-center">
         <CoolText
           text="1"
-          className="mb-4 text-[60px] shadow-sm"
+          className="mb-4 text-[65px] shadow-sm"
           fontWeight="regular"
         />
         <CoolText text="Now Level" className="mb-24 text-2xl" />
@@ -32,7 +37,7 @@ export default function HomeScreen() {
           />
         </BounceAnimation>
         <View className="mt-28 flex-row items-center gap-16">
-          <BounceAnimation>
+          <BounceAnimation onPress={() => setShowShopModal(true)}>
             <Image
               source={require('@/assets/images/shop.png')}
               style={{ width: 40, height: 40 }}

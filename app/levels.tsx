@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Dimensions, Image, TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 
-import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
@@ -13,34 +12,42 @@ const levels = [
   {
     level: 1,
     title: '紅色',
+    isLock: false,
   },
   {
     level: 2,
     title: '橘色',
+    isLock: true,
   },
   {
     level: 3,
     title: '黃色',
+    isLock: true,
   },
   {
     level: 4,
     title: '綠色',
+    isLock: true,
   },
   {
     level: 5,
     title: '綠色',
+    isLock: true,
   },
   {
     level: 6,
     title: '綠色',
+    isLock: true,
   },
   {
     level: 7,
     title: '綠色',
+    isLock: true,
   },
   {
     level: 8,
     title: '綠色',
+    isLock: true,
   },
 ];
 
@@ -75,34 +82,59 @@ export default function LevelsPage() {
         <View className="flex-row flex-wrap justify-between">
           {levels.map(item => (
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={!item.isLock ? 0.8 : 1}
               key={item.level}
-              onPress={toggleModal}
-              className="mb-5 aspect-square w-[22%] rounded-xl bg-[#C08A76] p-2 shadow"
+              onPress={() => {
+                if (!item.isLock) {
+                  toggleModal();
+                }
+              }}
+              className="mb-5 aspect-square w-[22%] rounded-xl bg-[#C08A76] p-2"
+              style={[
+                !item.isLock
+                  ? { backgroundColor: '#C08A76' }
+                  : { backgroundColor: '#B3A9A5' },
+                {
+                  shadowOffset: {
+                    width: 2,
+                    height: 8,
+                  },
+                  shadowOpacity: 0.2,
+                },
+              ]}
             >
               <View
                 className="items-center justify-center"
                 style={{ width: '100%', height: '100%' }}
               >
-                <CoolText
-                  text={item.level}
-                  className="my-2 text-[28px] text-white"
-                  fontWeight="medium"
-                />
-                <View className="flex-row">
+                {!item.isLock ? (
+                  <>
+                    <CoolText
+                      text={item.level}
+                      className="my-2 text-[28px] text-white"
+                      fontWeight="medium"
+                    />
+                    <View className="flex-row">
+                      <Image
+                        source={require('@/assets/images/grey-star.png')}
+                        style={{ width: 20, height: 20 }}
+                      />
+                      <Image
+                        source={require('@/assets/images/grey-star.png')}
+                        style={{ width: 20, height: 20 }}
+                      />
+                      <Image
+                        source={require('@/assets/images/grey-star.png')}
+                        style={{ width: 20, height: 20 }}
+                      />
+                    </View>
+                  </>
+                ) : (
                   <Image
-                    source={require('@/assets/images/grey-star.png')}
-                    style={{ width: 20, height: 20 }}
+                    source={require('@/assets/images/lock.png')}
+                    style={{ width: 40, height: 40 }}
                   />
-                  <Image
-                    source={require('@/assets/images/grey-star.png')}
-                    style={{ width: 20, height: 20 }}
-                  />
-                  <Image
-                    source={require('@/assets/images/grey-star.png')}
-                    style={{ width: 20, height: 20 }}
-                  />
-                </View>
+                )}
               </View>
             </TouchableOpacity>
           ))}

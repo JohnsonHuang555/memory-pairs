@@ -25,28 +25,28 @@ const LevelSelectModal = ({
     <BaseModal
       title={`Level ${level}`}
       show={show}
-      width={80}
+      width={90}
       onClose={onClose}
     >
       <View className="mb-6 flex-row" style={{ gap: 4 }}>
         <Image
           source={require('@/assets/images/grey-star.png')}
           style={{
-            width: 60,
-            height: 60,
+            width: 65,
+            height: 65,
             marginTop: 24,
             transform: [{ rotate: '-25deg' }],
           }}
         />
         <Image
           source={require('@/assets/images/grey-star.png')}
-          style={{ width: 70, height: 70 }}
+          style={{ width: 75, height: 75 }}
         />
         <Image
           source={require('@/assets/images/grey-star.png')}
           style={{
-            width: 60,
-            height: 60,
+            width: 65,
+            height: 65,
             marginTop: 24,
             transform: [{ rotate: '25deg' }],
           }}
@@ -72,7 +72,7 @@ const LevelSelectModal = ({
           className="mb-6"
           style={{ fontSize: 18, color: '#717171' }}
         />
-        <View className="flex-row" style={{ gap: 12 }}>
+        <View className="flex-row" style={{ gap: 16 }}>
           <View className="rounded-xl border" style={styles.itemsContainer}>
             <View style={styles.item}>
               <CoolText

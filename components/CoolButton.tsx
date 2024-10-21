@@ -1,22 +1,30 @@
-import { Text } from 'react-native';
+import { View } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 
+import CoolText from './CoolText';
+
 type CoolButtonProps = {
+  prefix?: any;
   text: string;
-  width?: number;
+  subText?: string;
+  width?: number | null;
   fontSize?: number;
   onClick: () => void;
   backgroundColor?: string;
   textColor?: string;
+  fontWeight?: 'bold' | 'thin' | 'light' | 'medium' | 'regular';
 };
 
 const CoolButton = ({
+  prefix,
   text,
-  width = 200,
+  subText,
+  width = null,
   fontSize = 24,
   onClick,
   backgroundColor,
   textColor = '#FFF',
+  fontWeight,
 }: CoolButtonProps) => {
   return (
     <AwesomeButton
@@ -26,11 +34,28 @@ const CoolButton = ({
       onPress={onClick}
       backgroundColor={backgroundColor}
     >
-      <Text
-        style={{ fontSize, color: textColor, fontFamily: 'GenSenRounded2TWB' }}
-      >
-        {text}
-      </Text>
+      {prefix}
+      <View className="items-center">
+        <CoolText
+          style={{
+            fontSize,
+            color: textColor,
+          }}
+          text={text}
+          fontWeight={fontWeight}
+        />
+        {subText && (
+          <CoolText
+            style={{
+              fontSize,
+              color: textColor,
+              marginTop: 4,
+            }}
+            text={subText}
+            fontWeight="bold"
+          />
+        )}
+      </View>
     </AwesomeButton>
   );
 };
