@@ -69,7 +69,7 @@ const ProgressBarWithStars = () => {
               {
                 left: `${star.position * 100}%`,
                 // 調整為進度條內部，避免超出
-                transform: [{ translateX: -15 }], // 假設星星寬度為30
+                transform: [{ translateX: -10 }], // 假設星星寬度為30
               },
             ]}
           >
@@ -89,7 +89,11 @@ const ProgressBarWithStars = () => {
                 })),
               ]}
             />
-            <CoolText text={1223} style={{ marginTop: 14 }} fontWeight="bold"/>
+            <CoolText
+              text={1223}
+              style={{ marginTop: 14, right: 5, color: '#717171' }}
+              fontWeight="bold"
+            />
           </View>
         ))}
       </View>
@@ -104,11 +108,12 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 20,
+    marginTop: 5,
+    marginBottom: 25,
   },
   progressBarBackground: {
     width: '100%',
-    height: 6,
+    height: 3,
     backgroundColor: '#e0e0e0',
     borderRadius: 10,
     overflow: 'hidden',
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
   },
   starContainer: {
     position: 'absolute',
-    top: -34, // 調整星星的位置
+    top: -25, // 調整星星的位置
     left: 0,
     right: 0,
     height: 20,
@@ -132,13 +137,8 @@ const styles = StyleSheet.create({
     top: 0,
   },
   star: {
-    width: 30,
-    height: 30,
-  },
-  button: {
-    fontSize: 18,
-    color: 'blue',
-    marginTop: 10,
+    width: 20,
+    height: 20,
   },
 });
 

@@ -16,30 +16,34 @@ type FlipCardProps = {
   card: Card;
   type: LevelType;
   theme: LevelTheme;
-  onFlip: () => void;
+  onFlip: (card: Card) => void;
+  updateCard: (id: number) => void;
 };
 
-const FlipCard = ({ card, type, theme, onFlip }: FlipCardProps) => {
-  const [flipped, setFlipped] = useState(false);
+const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
   const rotation = useSharedValue(0); // 初始旋轉角度
   const scale = useSharedValue(1); // 初始化卡片的縮放比例
 
   // 當點擊卡片時觸發翻轉
   const flipCard = () => {
     // 翻開卡片時，觸發 1 秒後自動翻回
-    if (!flipped) {
-      onFlip();
-      rotation.value = withSpring(180);
-      setFlipped(true);
+    if (!card.isFlipped) {
+      onFlip(card);
+      rotation.value = withSpring(180, { duration: 3000 }, finish => {
+        // if (finish) {
+        //   console.log('finish');
+        //   updateCard(card.id);
+        // }
+      });
 
-      setTimeout(() => {
-        rotation.value = withSpring(0); // 2 秒後蓋回卡片
-        setFlipped(false);
-      }, 1000); // 1 秒後自動翻回
+      // setTimeout(() => {
+      //   rotation.value = withSpring(0); // 2 秒後蓋回卡片
+      //   onFlip(card.id);
+      // }, 1000); // 1 秒後自動翻回
     }
   };
 
-  // 卡片的正面樣式
+  // 卡片的背面樣式
   const frontAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -50,7 +54,7 @@ const FlipCard = ({ card, type, theme, onFlip }: FlipCardProps) => {
     };
   });
 
-  // 卡片的背面樣式
+  // 卡片的正面樣式
   const backAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -62,16 +66,22 @@ const FlipCard = ({ card, type, theme, onFlip }: FlipCardProps) => {
   });
 
   const handlePressIn = () => {
+    if (card.isFlipped) {
+      return;
+    }
     scale.value = withSpring(1.15, {
-      damping: 8,
-      stiffness: 150,
+      damping: 10,
+      stiffness: 200,
     });
   };
 
   const handlePressOut = () => {
+    if (card.isFlipped) {
+      return;
+    }
     scale.value = withSpring(1, {
-      damping: 8,
-      stiffness: 150,
+      damping: 10,
+      stiffness: 200,
     });
     flipCard(); // 點擊後翻轉卡片
   };
@@ -91,9 +101,9 @@ const FlipCard = ({ card, type, theme, onFlip }: FlipCardProps) => {
     }
     switch (type) {
       case LevelType.ImageUrl:
-        // return (
-        //   <Image source={card.content} style={{ width: 50, height: 50 }} />
-        // );
+      // return (
+      //   <Image source={card.content} style={{ width: 50, height: 50 }} />
+      // );
       case LevelType.String:
       default:
         return (

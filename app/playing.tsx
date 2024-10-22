@@ -7,13 +7,17 @@ import FlipCard from '@/components/FlipCard';
 import MainContainer from '@/components/MainContainer';
 import ProgressBarWithStars from '@/components/ProgressBarWithStars';
 import useLevelInfo from '@/hooks/useLevelInfo';
+import { Card } from '@/models/Card';
 import useGameStore from '@/stores/GameState';
 
 const PlayingPage = () => {
   const [timeLeft, setTimeLeft] = useState(60); // 初始時間 60 秒
   const [isRunning, setIsRunning] = useState(false);
   const { levelInfo } = useLevelInfo();
-  const { generateCards, cards } = useGameStore();
+  const { generateCards, cards, onFlip, checkIsMatch, selectedCards } =
+    useGameStore();
+
+  console.log(selectedCards);
 
   if (!levelInfo) return null;
 
@@ -46,6 +50,12 @@ const PlayingPage = () => {
   //   setTimeLeft(60); // 重設為 60 秒
   // };
 
+  const handleFlip = (card: Card) => {
+    // startTimer();
+    onFlip(card.id);
+    checkIsMatch(card);
+  };
+
   return (
     <MainContainer title="Level 1" showPauseIcon>
       <View className="items-center" style={{ marginBottom: 8 }}>
@@ -66,7 +76,7 @@ const PlayingPage = () => {
         <View className="flex-row items-center">
           <Image
             source={require('@/assets/images/timer-outline.png')}
-            style={{ width: 30, height: 30 }}
+            style={{ width: 28, height: 28 }}
           />
           <CoolText
             text={timeLeft}
@@ -84,10 +94,11 @@ const PlayingPage = () => {
         {cards.map(card => (
           <View className="mb-4 aspect-square w-[22%]" key={card.id}>
             <FlipCard
-              onFlip={startTimer}
+              onFlip={handleFlip}
               card={card}
               type={levelInfo.type}
               theme={levelInfo.theme}
+              updateCard={() => {}}
             />
           </View>
         ))}
