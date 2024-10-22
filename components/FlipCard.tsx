@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   interpolate,
@@ -8,12 +8,18 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import CoolText from './CoolText';
+import { LevelType } from '@/constants/AllLevels';
+import { Card } from '@/models/Card';
+import { LevelTheme } from '@/models/Level';
 
 type FlipCardProps = {
+  card: Card;
+  type: LevelType;
+  theme: LevelTheme;
   onFlip: () => void;
 };
 
-const FlipCard = ({ onFlip }: FlipCardProps) => {
+const FlipCard = ({ card, type, theme, onFlip }: FlipCardProps) => {
   const [flipped, setFlipped] = useState(false);
   const rotation = useSharedValue(0); // 初始旋轉角度
   const scale = useSharedValue(1); // 初始化卡片的縮放比例
@@ -70,6 +76,36 @@ const FlipCard = ({ onFlip }: FlipCardProps) => {
     flipCard(); // 點擊後翻轉卡片
   };
 
+  const cardContent = useMemo(() => {
+    if (theme === LevelTheme.Color) {
+      return (
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: card.content,
+            borderRadius: 12,
+          }}
+        />
+      );
+    }
+    switch (type) {
+      case LevelType.ImageUrl:
+        // return (
+        //   <Image source={card.content} style={{ width: 50, height: 50 }} />
+        // );
+      case LevelType.String:
+      default:
+        return (
+          <CoolText
+            text={card.content}
+            fontWeight="medium"
+            style={{ fontSize: 24 }}
+          />
+        );
+    }
+  }, []);
+
   return (
     <TouchableOpacity
       onPress={flipCard}
@@ -78,7 +114,7 @@ const FlipCard = ({ onFlip }: FlipCardProps) => {
       onPressOut={handlePressOut}
     >
       <View style={styles.container}>
-        {/* 正面 */}
+        {/* 背面 */}
         <Animated.View style={[styles.card, frontAnimatedStyle]}>
           <Image
             source={require('@/assets/images/card-question.png')}
@@ -86,11 +122,11 @@ const FlipCard = ({ onFlip }: FlipCardProps) => {
           />
         </Animated.View>
 
-        {/* 背面 */}
+        {/* 正面 */}
         <Animated.View
           style={[styles.card, styles.cardBack, backAnimatedStyle]}
         >
-          <CoolText style={styles.text} text={2} />
+          {cardContent}
         </Animated.View>
       </View>
     </TouchableOpacity>
@@ -123,12 +159,12 @@ const styles = StyleSheet.create({
   },
   cardBack: {
     backgroundColor: '#FFF',
-    borderColor: '#eee',
+    borderColor: '#d9d9d9',
     borderWidth: 2,
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#000',
   },
 });

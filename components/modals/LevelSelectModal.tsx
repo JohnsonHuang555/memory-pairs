@@ -4,27 +4,24 @@ import BounceAnimation from '../BounceAnimation';
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
+import useLevelInfo, { gameMatchCount, gameTheme } from '@/hooks/useLevelInfo';
 
 import { useRouter } from 'expo-router';
 
 type LevelSelectModalProps = {
-  level: number;
-  theme: string;
   show: boolean;
   onClose: () => void;
 };
 
-const LevelSelectModal = ({
-  level,
-  show,
-  theme,
-  onClose,
-}: LevelSelectModalProps) => {
+const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { push } = useRouter();
+  const { levelInfo } = useLevelInfo();
+
+  if (!levelInfo) return null;
 
   return (
     <BaseModal
-      title={`Level ${level}`}
+      title={`Level ${levelInfo?.id}`}
       show={show}
       width={90}
       onClose={onClose}
@@ -61,7 +58,7 @@ const LevelSelectModal = ({
           style={{ fontSize: 18, color: '#717171' }}
         />
         <CoolText
-          text={`${theme}, 兩個一組`}
+          text={`${gameTheme[levelInfo.theme]}, ${gameMatchCount[levelInfo.matchCount]}`}
           fontWeight="medium"
           style={{ fontSize: 22, color: '#834B4B' }}
         />

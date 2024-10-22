@@ -9,14 +9,14 @@ import useLevelStore from '@/stores/LevelStore';
 
 export default function LevelsPage() {
   const [showLevelModal, setShowLevelModal] = useState(false);
-  const { currentLevel, levels } = useLevelStore();
+  const { currentLevelId, levels, setPlayLevel } = useLevelStore();
 
   const toggleModal = () => {
     setShowLevelModal(!showLevelModal);
   };
 
   const checkIsLock = useCallback((levelId: number) => {
-    if (levelId <= currentLevel) {
+    if (levelId <= currentLevelId) {
       return false;
     }
     return true;
@@ -66,8 +66,6 @@ export default function LevelsPage() {
   return (
     <>
       <LevelSelectModal
-        level={1}
-        theme={'顏色'}
         show={showLevelModal}
         onClose={() => setShowLevelModal(false)}
       />
@@ -90,12 +88,13 @@ export default function LevelsPage() {
               key={level.id}
               onPress={() => {
                 if (!checkIsLock(level.id)) {
+                  setPlayLevel(level.id);
                   toggleModal();
                 }
               }}
               className="mb-5 aspect-square w-[22%] rounded-xl p-2"
               style={[
-                currentLevel === level.id
+                currentLevelId === level.id
                   ? {
                       backgroundColor: '#9C5B43',
                     }

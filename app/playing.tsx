@@ -1,34 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
+import { Image, View } from 'react-native';
 
 import CoolText from '@/components/CoolText';
 import FadeInOutText from '@/components/FadeInOutText';
 import FlipCard from '@/components/FlipCard';
 import MainContainer from '@/components/MainContainer';
 import ProgressBarWithStars from '@/components/ProgressBarWithStars';
-
-// const testData = [
-//   {
-//     id: '1',
-//     value: '1',
-//   },
-//   {
-//     id: '1',
-//     value: '1',
-//   }
-// ]
-
-const testData = Array.from({ length: 24 }, (_, i) => i + 1);
+import useLevelInfo from '@/hooks/useLevelInfo';
+import useGameStore from '@/stores/GameState';
 
 const PlayingPage = () => {
   const [timeLeft, setTimeLeft] = useState(60); // 初始時間 60 秒
   const [isRunning, setIsRunning] = useState(false);
+  const { levelInfo } = useLevelInfo();
+  const { generateCards, cards } = useGameStore();
+
+  if (!levelInfo) return null;
 
   useEffect(() => {
     let timer: any;
@@ -41,6 +28,10 @@ const PlayingPage = () => {
     }
     return () => clearInterval(timer); // 清除計時器避免內存洩漏
   }, [isRunning, timeLeft]);
+
+  useEffect(() => {
+    generateCards(levelInfo);
+  }, []);
 
   const startTimer = () => {
     setIsRunning(true);
@@ -90,9 +81,14 @@ const PlayingPage = () => {
         className="flex-row flex-wrap justify-between"
         style={{ marginBottom: 4 }}
       >
-        {testData.map(t => (
-          <View className="mb-4 aspect-square w-[22%]" key={t}>
-            <FlipCard onFlip={startTimer} />
+        {cards.map(card => (
+          <View className="mb-4 aspect-square w-[22%]" key={card.id}>
+            <FlipCard
+              onFlip={startTimer}
+              card={card}
+              type={levelInfo.type}
+              theme={levelInfo.theme}
+            />
           </View>
         ))}
       </View>
