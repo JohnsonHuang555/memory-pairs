@@ -9,10 +9,16 @@ import Animated, {
 type BounceAnimationProps = {
   className?: string;
   children: ReactNode;
+  scaleValue?: number;
   onPress?: () => void;
-}
+};
 
-const BounceAnimation = ({ className, children, onPress }: BounceAnimationProps) => {
+const BounceAnimation = ({
+  className,
+  children,
+  scaleValue = 1.2,
+  onPress,
+}: BounceAnimationProps) => {
   // 控制縮放值的共享變量
   const scale = useSharedValue(1);
 
@@ -25,7 +31,7 @@ const BounceAnimation = ({ className, children, onPress }: BounceAnimationProps)
 
   // 當按下時，放大，帶有彈跳效果
   const handlePressIn = () => {
-    scale.value = withSpring(1.2, {
+    scale.value = withSpring(scaleValue, {
       damping: 3, // 控制阻尼，數值越小，彈跳幅度越大
       stiffness: 100, // 剛度，數值越大，恢復原始大小越快
     });

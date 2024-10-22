@@ -1,6 +1,5 @@
 import { StyleSheet, View } from 'react-native';
 
-import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 
@@ -25,15 +24,15 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
             />
           </View>
           <CoolText
-            text=">> 玩家在一個 4x4 或 6x6 的卡片格子中進行翻牌記憶並配對。"
+            text=">> 每次翻到相同卡片，成功配對即得分"
             style={styles.rule}
           />
           <CoolText
-            text=">> 每次翻到相同卡片，成功配對即得分。"
+            text=">> 計時結束或完成所有配對即關卡結束"
             style={styles.rule}
           />
           <CoolText
-            text=">> 計時結束或完成所有配對即關卡結束。"
+            text=">> 過關即可開啟下一個關卡"
             style={styles.rule}
           />
         </View>
@@ -46,19 +45,19 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
             />
           </View>
           <CoolText
-            text=">> 每成功配對一組卡片，獲得 30 分。"
+            text=">> 成功配對一組卡片，獲得 30 分"
             style={styles.rule}
           />
           <CoolText
-            text=">> 剩餘時間轉換成額外分數：每剩餘 10 秒，額外獲得 10 分。"
+            text=">> 遊戲結束時每剩餘 1 秒額外獲得 1 分"
             style={styles.rule}
           />
           <CoolText
-            text=">> 連續成功配對可觸發 Combo，額外加分。"
+            text=">> 連續成功配對可觸發 Combo"
             style={styles.rule}
           />
           <CoolText
-            text=">> 每次成功連擊額外獲得 30 分。"
+            text=">> 每 Combo 額外獲得 30 分"
             style={styles.rule}
           />
         </View>

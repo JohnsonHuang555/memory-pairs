@@ -1,62 +1,66 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
-import { PrimaryTextColor, cn, getOrdinalSuffix } from '@/utils';
-
-import { useRouter } from 'expo-router';
-
-const levels = [
-  {
-    level: 1,
-    title: '紅色',
-    isLock: false,
-  },
-  {
-    level: 2,
-    title: '橘色',
-    isLock: true,
-  },
-  {
-    level: 3,
-    title: '黃色',
-    isLock: true,
-  },
-  {
-    level: 4,
-    title: '綠色',
-    isLock: true,
-  },
-  {
-    level: 5,
-    title: '綠色',
-    isLock: true,
-  },
-  {
-    level: 6,
-    title: '綠色',
-    isLock: true,
-  },
-  {
-    level: 7,
-    title: '綠色',
-    isLock: true,
-  },
-  {
-    level: 8,
-    title: '綠色',
-    isLock: true,
-  },
-];
+import { Level } from '@/models/Level';
+import useLevelStore from '@/stores/LevelStore';
 
 export default function LevelsPage() {
   const [showLevelModal, setShowLevelModal] = useState(false);
-  const { push, back } = useRouter();
+  const { currentLevel, levels } = useLevelStore();
 
   const toggleModal = () => {
     setShowLevelModal(!showLevelModal);
+  };
+
+  const checkIsLock = useCallback((levelId: number) => {
+    if (levelId <= currentLevel) {
+      return false;
+    }
+    return true;
+  }, []);
+
+  const renderStars = (level: Level) => {
+    if (checkIsLock(level.id)) {
+      return (
+        <Image
+          source={require('@/assets/images/lock.png')}
+          style={{ width: 40, height: 40 }}
+        />
+      );
+    } else {
+      const stars = Array.from({ length: 3 }, (_, i) => i + 1).map(s => {
+        if (level.stars && s <= level.stars) {
+          return (
+            <Image
+              key={s}
+              source={require('@/assets/images/yellow-star.png')}
+              style={{ width: 20, height: 20 }}
+            />
+          );
+        } else {
+          return (
+            <Image
+              key={s}
+              source={require('@/assets/images/grey-star.png')}
+              style={{ width: 20, height: 20 }}
+            />
+          );
+        }
+      });
+      return (
+        <>
+          <CoolText
+            text={level.id}
+            className="my-2 text-[28px] text-white"
+            fontWeight="medium"
+          />
+          <View className="flex-row">{stars}</View>
+        </>
+      );
+    }
   };
 
   return (
@@ -80,20 +84,24 @@ export default function LevelsPage() {
           />
         </View>
         <View className="flex-row flex-wrap justify-between">
-          {levels.map(item => (
+          {levels.map(level => (
             <TouchableOpacity
-              activeOpacity={!item.isLock ? 0.8 : 1}
-              key={item.level}
+              activeOpacity={!checkIsLock(level.id) ? 0.8 : 1}
+              key={level.id}
               onPress={() => {
-                if (!item.isLock) {
+                if (!checkIsLock(level.id)) {
                   toggleModal();
                 }
               }}
-              className="mb-5 aspect-square w-[22%] rounded-xl bg-[#C08A76] p-2"
+              className="mb-5 aspect-square w-[22%] rounded-xl p-2"
               style={[
-                !item.isLock
-                  ? { backgroundColor: '#C08A76' }
-                  : { backgroundColor: '#B3A9A5' },
+                currentLevel === level.id
+                  ? {
+                      backgroundColor: '#9C5B43',
+                    }
+                  : checkIsLock(level.id)
+                    ? { backgroundColor: '#B3A9A5' }
+                    : { backgroundColor: '#C08A76' },
                 {
                   shadowOffset: {
                     width: 2,
@@ -107,34 +115,7 @@ export default function LevelsPage() {
                 className="items-center justify-center"
                 style={{ width: '100%', height: '100%' }}
               >
-                {!item.isLock ? (
-                  <>
-                    <CoolText
-                      text={item.level}
-                      className="my-2 text-[28px] text-white"
-                      fontWeight="medium"
-                    />
-                    <View className="flex-row">
-                      <Image
-                        source={require('@/assets/images/grey-star.png')}
-                        style={{ width: 20, height: 20 }}
-                      />
-                      <Image
-                        source={require('@/assets/images/grey-star.png')}
-                        style={{ width: 20, height: 20 }}
-                      />
-                      <Image
-                        source={require('@/assets/images/grey-star.png')}
-                        style={{ width: 20, height: 20 }}
-                      />
-                    </View>
-                  </>
-                ) : (
-                  <Image
-                    source={require('@/assets/images/lock.png')}
-                    style={{ width: 40, height: 40 }}
-                  />
-                )}
+                {renderStars(level)}
               </View>
             </TouchableOpacity>
           ))}

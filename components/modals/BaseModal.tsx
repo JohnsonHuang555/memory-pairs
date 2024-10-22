@@ -38,16 +38,21 @@ const BaseModal = ({
         }}
       >
         <View
-          className="items-center justify-center bg-[#C08A76] p-2"
+          className="items-center justify-center p-2"
           style={{
             width: 150,
             borderTopLeftRadius: 16,
             borderTopRightRadius: 16,
             position: 'absolute',
             top: -43,
+            backgroundColor: '#C08A76',
           }}
         >
-          <CoolText text={title} className="text-2xl text-white" />
+          <CoolText
+            text={title}
+            className="text-2xl text-white"
+            fontWeight="medium"
+          />
         </View>
         {children}
       </View>

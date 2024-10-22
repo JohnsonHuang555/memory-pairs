@@ -1,27 +1,28 @@
 import { useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, View } from 'react-native';
 
 import CoolButton from '@/components/CoolButton';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
+import { Achievement } from '@/models/Achievement';
 
-const achievements = [
+const achievements: Achievement[] = [
   {
-    id: '1',
+    id: 1,
     title: '初次挑戰',
     description: '完成第一關',
     completed: true,
     received: false,
   },
   {
-    id: '2',
+    id: 2,
     title: '星級達人 Ⅳ',
-    description: '連續完成三場遊戲',
+    description: '連續完成三場遊戲123456 hhh',
     completed: false,
     received: true,
   },
   {
-    id: '3',
+    id: 3,
     title: '限時高手',
     description: '在30秒內完成遊戲',
     completed: true,
@@ -61,12 +62,12 @@ export default function AchievementPage() {
         />
       </View>
       <CoolButton
-        text="收取"
+        text={item.received ? '已收取' : '收取'}
         disabled={item.received}
         onClick={() => {}}
         height={39}
         fontSize={16}
-        width={70}
+        width={80}
         raiseLevel={item.received ? 0 : 2}
         borderRadius={8}
         backgroundColor={item.received ? '#D6D1D1' : '#834B4B'}
@@ -77,7 +78,7 @@ export default function AchievementPage() {
     <MainContainer title="成就" showLeftIcon>
       <FlatList
         data={achievements}
-        keyExtractor={item => item.id}
+        keyExtractor={item => String(item.id)}
         renderItem={renderItem}
       />
     </MainContainer>
@@ -95,6 +96,7 @@ const styles = StyleSheet.create({
     borderColor: '#C08A76',
     justifyContent: 'space-between',
     flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     fontSize: 18,

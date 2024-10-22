@@ -1,5 +1,6 @@
 import { Image, StyleSheet, View } from 'react-native';
 
+import BounceAnimation from '../BounceAnimation';
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
@@ -73,45 +74,51 @@ const LevelSelectModal = ({
           style={{ fontSize: 18, color: '#717171' }}
         />
         <View className="flex-row" style={{ gap: 16 }}>
-          <View className="rounded-xl border" style={styles.itemsContainer}>
-            <View style={styles.item}>
-              <CoolText
-                text={2}
-                className="text-white"
-                style={{ fontSize: 16 }}
+          <BounceAnimation scaleValue={1.1}>
+            <View className="rounded-xl border" style={styles.itemsContainer}>
+              <View style={styles.item}>
+                <CoolText
+                  text={2}
+                  className="text-white"
+                  style={{ fontSize: 16 }}
+                />
+              </View>
+              <Image
+                source={require('@/assets/images/timer.png')}
+                style={{ width: 50, height: 50 }}
               />
             </View>
-            <Image
-              source={require('@/assets/images/timer.png')}
-              style={{ width: 50, height: 50 }}
-            />
-          </View>
-          <View className="rounded-xl border" style={styles.itemsContainer}>
-            <View style={styles.item}>
-              <CoolText
-                text={2}
-                className="text-white"
-                style={{ fontSize: 16 }}
+          </BounceAnimation>
+          <BounceAnimation scaleValue={1.1}>
+            <View className="rounded-xl border" style={styles.itemsContainer}>
+              <View style={styles.item}>
+                <CoolText
+                  text={2}
+                  className="text-white"
+                  style={{ fontSize: 16 }}
+                />
+              </View>
+              <Image
+                source={require('@/assets/images/eye.png')}
+                style={{ width: 50, height: 50 }}
               />
             </View>
-            <Image
-              source={require('@/assets/images/eye.png')}
-              style={{ width: 50, height: 50 }}
-            />
-          </View>
-          <View className="rounded-xl border" style={styles.itemsContainer}>
-            <View style={styles.item}>
-              <CoolText
-                text={2}
-                className="text-white"
-                style={{ fontSize: 16 }}
+          </BounceAnimation>
+          <BounceAnimation scaleValue={1.1}>
+            <View className="rounded-xl border" style={styles.itemsContainer}>
+              <View style={styles.item}>
+                <CoolText
+                  text={2}
+                  className="text-white"
+                  style={{ fontSize: 16 }}
+                />
+              </View>
+              <Image
+                source={require('@/assets/images/paris.png')}
+                style={{ width: 50, height: 50 }}
               />
             </View>
-            <Image
-              source={require('@/assets/images/paris.png')}
-              style={{ width: 50, height: 50 }}
-            />
-          </View>
+          </BounceAnimation>
         </View>
       </View>
       <CoolButton
