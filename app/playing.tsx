@@ -14,10 +14,14 @@ const PlayingPage = () => {
   const [timeLeft, setTimeLeft] = useState(60); // 初始時間 60 秒
   const [isRunning, setIsRunning] = useState(false);
   const { levelInfo } = useLevelInfo();
-  const { generateCards, cards, onFlip, checkIsMatch, selectedCards } =
-    useGameStore();
-
-  console.log(selectedCards);
+  const {
+    generateCards,
+    cards,
+    onFlip,
+    checkIsMatch,
+    selectedCards,
+    updateCard,
+  } = useGameStore();
 
   if (!levelInfo) return null;
 
@@ -98,7 +102,7 @@ const PlayingPage = () => {
               card={card}
               type={levelInfo.type}
               theme={levelInfo.theme}
-              updateCard={() => {}}
+              updateCard={updateCard}
             />
           </View>
         ))}

@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   interpolate,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -21,6 +22,7 @@ type FlipCardProps = {
 };
 
 const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
+  const prevIsFlipped = useRef(card.isFlipped);
   const rotation = useSharedValue(0); // 初始旋轉角度
   const scale = useSharedValue(1); // 初始化卡片的縮放比例
 
@@ -29,19 +31,33 @@ const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
     // 翻開卡片時，觸發 1 秒後自動翻回
     if (!card.isFlipped) {
       onFlip(card);
-      rotation.value = withSpring(180, { duration: 3000 }, finish => {
-        // if (finish) {
-        //   console.log('finish');
-        //   updateCard(card.id);
-        // }
-      });
-
-      // setTimeout(() => {
-      //   rotation.value = withSpring(0); // 2 秒後蓋回卡片
-      //   onFlip(card.id);
-      // }, 1000); // 1 秒後自動翻回
+      rotation.value = withSpring(
+        180,
+        {
+          damping: 20, // 增大阻尼，减少反弹
+          stiffness: 150, // 增大刚度，加快动画响应
+          mass: 1, // 设置适中的质量
+          overshootClamping: true, // 禁止超过目标值
+        },
+        finish => {
+          if (finish) {
+            runOnJS(updateCard)(card.id);
+          }
+        },
+      );
     }
   };
+
+  useEffect(() => {
+    // 判斷是否從 true 變成 false
+    if (prevIsFlipped.current === true && card.isFlipped === false) {
+      // 觸發動畫，當 isFlipped 從 true 變為 false 時
+      rotation.value = withSpring(0);
+    }
+
+    // 更新前一個值
+    prevIsFlipped.current = card.isFlipped;
+  }, [card.isFlipped]);
 
   // 卡片的背面樣式
   const frontAnimatedStyle = useAnimatedStyle(() => {
