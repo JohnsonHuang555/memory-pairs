@@ -7,6 +7,7 @@ import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 
 import { useRouter } from 'expo-router';
+import useGameStore from '@/stores/GameState';
 
 type PauseGameModalProps = {
   show: boolean;
@@ -14,6 +15,7 @@ type PauseGameModalProps = {
 };
 
 const PauseGameModal = ({ show, onClose }: PauseGameModalProps) => {
+  const { reset } = useGameStore();
   const isMusicOn = useSharedValue(false);
   const isSoundOn = useSharedValue(false);
   const { push, replace } = useRouter();
@@ -79,7 +81,12 @@ const PauseGameModal = ({ show, onClose }: PauseGameModalProps) => {
             />
           </View>
         </BounceAnimation>
-        <BounceAnimation onPress={() => replace('/playing')}>
+        <BounceAnimation
+          onPress={() => {
+            reset();
+            replace('/playing');
+          }}
+        >
           <View className="rounded-full border" style={styles.actions}>
             <Image
               source={require('@/assets/images/replay.png')}

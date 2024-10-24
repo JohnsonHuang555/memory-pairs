@@ -12,6 +12,7 @@ type GameState = {
   onFlip: (id: number) => void;
   checkIsMatch: (card: Card) => void;
   updateCard: (id: number) => void;
+  reset: () => void;
 };
 
 const useGameStore = create<GameState>((set, get) => ({
@@ -38,7 +39,6 @@ const useGameStore = create<GameState>((set, get) => ({
     }, []);
     const shuffledCards = shuffleArray(cards);
     set(() => ({
-      selectedCards: [],
       cards: shuffledCards,
       matchCount,
     }));

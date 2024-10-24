@@ -23,6 +23,8 @@ const PlayingPage = () => {
     updateCard,
   } = useGameStore();
 
+  console.log(cards, 'ccc')
+
   if (!levelInfo) return null;
 
   useEffect(() => {

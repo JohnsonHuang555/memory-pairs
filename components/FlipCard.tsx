@@ -23,6 +23,7 @@ type FlipCardProps = {
 
 const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
   const prevIsFlipped = useRef(card.isFlipped);
+  const prevIsMatched = useRef(card.isMatched);
   const rotation = useSharedValue(0); // 初始旋轉角度
   const scale = useSharedValue(1); // 初始化卡片的縮放比例
 
@@ -59,6 +60,23 @@ const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
     prevIsFlipped.current = card.isFlipped;
   }, [card.isFlipped]);
 
+  useEffect(() => {
+    if (prevIsMatched.current === false && card.isMatched) {
+      scale.value = withSpring(1.15, {
+        damping: 10,
+        stiffness: 200,
+      });
+      setTimeout(() => {
+        scale.value = withSpring(1, {
+          damping: 10,
+          stiffness: 200,
+        });
+      }, 200);
+    }
+    // 更新前一個值
+    prevIsMatched.current = card.isMatched;
+  }, [card.isMatched])
+
   // 卡片的背面樣式
   const frontAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -82,7 +100,7 @@ const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
   });
 
   const handlePressIn = () => {
-    if (card.isFlipped) {
+    if (card.isFlipped || card.isMatched) {
       return;
     }
     scale.value = withSpring(1.15, {
@@ -92,7 +110,7 @@ const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
   };
 
   const handlePressOut = () => {
-    if (card.isFlipped) {
+    if (card.isFlipped || card.isMatched) {
       return;
     }
     scale.value = withSpring(1, {

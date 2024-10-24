@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 5,
+    marginTop: 10,
     marginBottom: 25,
   },
   progressBarBackground: {
