@@ -12,7 +12,7 @@ export const allLevels = [
     type: LevelType.String,
     matchCount: 2,
     questions: ['#00FFFF', '#FF00CC'],
-    timer: 60,
+    timer: 90,
     star1Score: 240,
     star2Score: 360,
     star3Score: 720,

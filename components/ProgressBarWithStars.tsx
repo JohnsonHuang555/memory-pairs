@@ -8,12 +8,20 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import CoolText from './CoolText';
-
-const starThresholds = [100, 250, 300]; // 每顆星的分數門檻
+import useLevelInfo from '@/hooks/useLevelInfo';
+import useGameStore from '@/stores/GameState';
 
 const ProgressBarWithStars = () => {
-  const maxScore = 300; // 三顆星的最高分
-  const [playerScore, setPlayerScore] = useState(100); // 玩家得分
+  const { score: playerScore } = useGameStore();
+  const { levelInfo } = useLevelInfo();
+  if (!levelInfo) return null;
+
+  const maxScore = levelInfo.star3Score; // 三顆星的最高分
+  const starThresholds = [
+    levelInfo.star1Score,
+    levelInfo.star2Score,
+    levelInfo.star3Score,
+  ]; // 每顆星的分數門檻
 
   // 設置進度（基於得分的比例）
   const progress = useSharedValue(0);
@@ -32,7 +40,7 @@ const ProgressBarWithStars = () => {
   useEffect(() => {
     progress.value = withTiming(
       playerScore / maxScore,
-      { duration: 1000 },
+      { duration: 300 },
       () => {
         const reachedStar = starThresholds.some(
           threshold => playerScore >= threshold,
@@ -52,6 +60,7 @@ const ProgressBarWithStars = () => {
       id: index,
       position: threshold / maxScore, // 比例位置
       completed: playerScore >= threshold,
+      score: threshold,
     }));
   };
 
@@ -90,7 +99,7 @@ const ProgressBarWithStars = () => {
               ]}
             />
             <CoolText
-              text={1223}
+              text={star.score}
               style={{ marginTop: 14, right: 5, color: '#717171' }}
               fontWeight="bold"
             />

@@ -5,9 +5,9 @@ import BounceAnimation from '../BounceAnimation';
 import CoolSwitch from '../CoolSwitch';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
+import useGameStore from '@/stores/GameState';
 
 import { useRouter } from 'expo-router';
-import useGameStore from '@/stores/GameState';
 
 type PauseGameModalProps = {
   show: boolean;
@@ -73,7 +73,12 @@ const PauseGameModal = ({ show, onClose }: PauseGameModalProps) => {
         />
       </View>
       <View className="flex-row justify-between" style={{ width: '100%' }}>
-        <BounceAnimation onPress={() => push('/levels')}>
+        <BounceAnimation
+          onPress={() => {
+            reset();
+            push('/levels');
+          }}
+        >
           <View className="rounded-full border" style={styles.actions}>
             <Image
               source={require('@/assets/images/levels.png')}
@@ -94,7 +99,12 @@ const PauseGameModal = ({ show, onClose }: PauseGameModalProps) => {
             />
           </View>
         </BounceAnimation>
-        <BounceAnimation onPress={onClose}>
+        <BounceAnimation
+          onPress={() => {
+            reset();
+            onClose();
+          }}
+        >
           <View
             className="items-center justify-center rounded-full border"
             style={[styles.actions, { width: 60, height: 60 }]}

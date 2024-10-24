@@ -5,9 +5,11 @@ import { shuffleArray } from '@/utils';
 import { create } from 'zustand';
 
 type GameState = {
+  score: number;
   cards: Card[];
   selectedCards: Card[];
   matchCount: number;
+  timer: number;
   generateCards: (levelInfo: Level) => void;
   onFlip: (id: number) => void;
   checkIsMatch: (card: Card) => void;
@@ -16,13 +18,15 @@ type GameState = {
 };
 
 const useGameStore = create<GameState>((set, get) => ({
+  score: 0,
   cards: [],
   selectedCards: [],
   matchCount: 0,
+  timer: 0,
   reset: () => {
-    set(() => ({ cards: [], selectedCards: [], matchCount: 0 }));
+    set(() => ({ cards: [], selectedCards: [], matchCount: 0, score: 0 }));
   },
-  generateCards: ({ questions, matchCount }: Level) => {
+  generateCards: ({ questions, matchCount, timer }: Level) => {
     let tempId = 0;
     const cards: Card[] = questions.reduce<Card[]>((acc, content) => {
       for (let index = 0; index < matchCount; index++) {
@@ -41,6 +45,7 @@ const useGameStore = create<GameState>((set, get) => ({
     set(() => ({
       cards: shuffledCards,
       matchCount,
+      timer,
     }));
   },
   onFlip: (id: number) => {
@@ -63,7 +68,7 @@ const useGameStore = create<GameState>((set, get) => ({
     if (alreadyExist) return;
 
     const temp: Card[] = [...selectedCards, { ...card }];
-    let newCards: Card[];
+    let newCards: Card[] = [];
 
     switch (matchCount) {
       case 2:
@@ -187,13 +192,16 @@ const useGameStore = create<GameState>((set, get) => ({
           }
           return c;
         });
-        set(() => ({ cards: newCards }));
 
         const newSelectCards = selectedCards.filter(
           c => ![id, otherCard?.id].includes(c.id),
         );
 
-        set(() => ({ selectedCards: newSelectCards }));
+        set(state => ({
+          cards: newCards,
+          selectedCards: newSelectCards,
+          score: state.score + 30,
+        }));
       } else {
         const newSelectCards = selectedCards.map(c => {
           if (c.id === id) {
@@ -211,12 +219,11 @@ const useGameStore = create<GameState>((set, get) => ({
           }
           return c;
         });
-        set(() => ({ cards: newCards }));
 
         const newSelectCards = selectedCards.filter(
           c => ![id, otherCard?.id].includes(c.id),
         );
-        set(() => ({ selectedCards: newSelectCards }));
+        set(() => ({ cards: newCards, selectedCards: newSelectCards }));
       } else {
         const newSelectCards = selectedCards.map(c => {
           if (c.id === id) {

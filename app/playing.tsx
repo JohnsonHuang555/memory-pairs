@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Image, View } from 'react-native';
+import { useSharedValue, withTiming } from 'react-native-reanimated';
 
 import CoolText from '@/components/CoolText';
 import FadeInOutText from '@/components/FadeInOutText';
@@ -11,21 +12,25 @@ import { Card } from '@/models/Card';
 import useGameStore from '@/stores/GameState';
 
 const PlayingPage = () => {
-  const [timeLeft, setTimeLeft] = useState(60); // 初始時間 60 秒
-  const [isRunning, setIsRunning] = useState(false);
   const { levelInfo } = useLevelInfo();
-  const {
-    generateCards,
-    cards,
-    onFlip,
-    checkIsMatch,
-    selectedCards,
-    updateCard,
-  } = useGameStore();
+  const [timeLeft, setTimeLeft] = useState(levelInfo?.timer || 0);
+  const [isRunning, setIsRunning] = useState(false);
+  const { generateCards, cards, onFlip, checkIsMatch, updateCard, score } =
+    useGameStore();
 
-  console.log(cards, 'ccc')
+  // 使用 useSharedValue 定義動畫數值
+  const animatedValue = useSharedValue(0);
+  const [displayedValue, setDisplayedValue] = useState(0);
 
   if (!levelInfo) return null;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDisplayedValue(Math.floor(animatedValue.value));
+    }, 50); // 每 50 毫秒更新畫面
+
+    return () => clearInterval(interval);
+  }, [animatedValue]);
 
   useEffect(() => {
     let timer: any;
@@ -43,7 +48,13 @@ const PlayingPage = () => {
     generateCards(levelInfo);
   }, []);
 
+  // 驅動動畫，將數值從 0 變到 score
+  useEffect(() => {
+    animatedValue.value = withTiming(score, { duration: 1000 });
+  }, [score]);
+
   const startTimer = () => {
+    if (isRunning) return;
     setIsRunning(true);
   };
 
@@ -57,13 +68,17 @@ const PlayingPage = () => {
   // };
 
   const handleFlip = (card: Card) => {
-    // startTimer();
+    startTimer();
     onFlip(card.id);
     checkIsMatch(card);
   };
 
   return (
-    <MainContainer title="Level 1" showPauseIcon>
+    <MainContainer
+      title={`Level ${levelInfo.id}`}
+      showPauseIcon
+      onPause={stopTimer}
+    >
       <View className="items-center" style={{ marginBottom: 8 }}>
         <View style={{ width: '90%' }}>
           <ProgressBarWithStars />
@@ -74,11 +89,18 @@ const PlayingPage = () => {
         className="flex-row items-center justify-between"
         style={{ marginBottom: 16 }}
       >
-        <CoolText
-          text="分數: 99"
-          className="ml-2 text-2xl text-[#834B4B]"
-          fontWeight="medium"
-        />
+        <View className="flex-row items-center">
+          <CoolText
+            text="分數:"
+            className="mr-3 text-2xl text-[#834B4B]"
+            fontWeight="medium"
+          />
+          <CoolText
+            text={displayedValue}
+            className="text-2xl text-[#D14343]"
+            fontWeight="bold"
+          />
+        </View>
         <View className="flex-row items-center">
           <Image
             source={require('@/assets/images/timer-outline.png')}

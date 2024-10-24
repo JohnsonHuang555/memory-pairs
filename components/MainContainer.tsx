@@ -14,6 +14,7 @@ type MainContainerProps = {
   showPauseIcon?: boolean;
   showQuestionIcon?: boolean;
   children: ReactNode;
+  onPause?: () => void;
 };
 
 const MainContainer = ({
@@ -22,6 +23,7 @@ const MainContainer = ({
   showQuestionIcon,
   children,
   title,
+  onPause,
 }: MainContainerProps) => {
   const { push } = useRouter();
   const [showPauseGameModal, setPauseGameModal] = useState(false);
@@ -31,7 +33,9 @@ const MainContainer = ({
     <View style={{ height: '85%', width: '90%' }}>
       <PauseGameModal
         show={showPauseGameModal}
-        onClose={() => setPauseGameModal(false)}
+        onClose={() => {
+          setPauseGameModal(false);
+        }}
       />
       <GameRulesModal
         show={showGameRuleModal}
@@ -48,9 +52,14 @@ const MainContainer = ({
             </BounceAnimation>
           </View>
         )}
-        {showPauseIcon && (
+        {showPauseIcon && onPause && (
           <View style={{ width: 40 }}>
-            <BounceAnimation onPress={() => setPauseGameModal(true)}>
+            <BounceAnimation
+              onPress={() => {
+                onPause();
+                setPauseGameModal(true);
+              }}
+            >
               <Image
                 source={require('@/assets/images/pause.png')}
                 style={{ width: 40, height: 40 }}
