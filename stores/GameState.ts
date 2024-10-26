@@ -13,6 +13,7 @@ type GameState = {
   isPreviousMatch: boolean;
   combo: number;
   passGame: boolean;
+  stars: number;
   generateCards: (levelInfo: Level) => void;
   onFlip: (id: number) => void;
   checkIsMatch: (card: Card) => void;
@@ -29,6 +30,7 @@ const initState = {
   combo: 0,
   isPreviousMatch: false,
   passGame: false,
+  stars: 0,
 };
 
 const useGameStore = create<GameState>((set, get) => ({

@@ -4,69 +4,40 @@ import { Image, View } from 'react-native';
 import BounceAnimation from './BounceAnimation';
 import CoolText from './CoolText';
 import GameRulesModal from './modals/GameRulesModal';
-import PauseGameModal from './modals/PauseGameMdoal';
 
 import { useRouter } from 'expo-router';
 
 type MainContainerProps = {
   title: string;
   showLeftIcon?: boolean;
-  showPauseIcon?: boolean;
   showQuestionIcon?: boolean;
   children: ReactNode;
-  onPause?: () => void;
-  onResume?: () => void;
+  leftChildren?: ReactNode;
 };
 
 const MainContainer = ({
   showLeftIcon,
-  showPauseIcon,
   showQuestionIcon,
   children,
   title,
-  onPause,
-  onResume,
+  leftChildren,
 }: MainContainerProps) => {
   const { push } = useRouter();
-  const [showPauseGameModal, setPauseGameModal] = useState(false);
   const [showGameRuleModal, setGameRuleModal] = useState(false);
 
   return (
     <View style={{ height: '85%', width: '90%' }}>
-      <PauseGameModal
-        show={showPauseGameModal}
-        onResume={() => {
-          if (onResume) {
-            onResume();
-            setPauseGameModal(false);
-          }
-        }}
-      />
       <GameRulesModal
         show={showGameRuleModal}
         onClose={() => setGameRuleModal(false)}
       />
       <View className="mb-6 flex-row items-center justify-between">
+        {leftChildren}
         {showLeftIcon && (
           <View style={{ width: 40 }}>
             <BounceAnimation onPress={() => push('/')}>
               <Image
                 source={require('@/assets/images/left-arrow.png')}
-                style={{ width: 40, height: 40 }}
-              />
-            </BounceAnimation>
-          </View>
-        )}
-        {showPauseIcon && onPause && (
-          <View style={{ width: 40 }}>
-            <BounceAnimation
-              onPress={() => {
-                onPause();
-                setPauseGameModal(true);
-              }}
-            >
-              <Image
-                source={require('@/assets/images/pause.png')}
                 style={{ width: 40, height: 40 }}
               />
             </BounceAnimation>

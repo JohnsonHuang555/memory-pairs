@@ -2,18 +2,21 @@ import { Image, StyleSheet, View } from 'react-native';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import useGameStore from '@/stores/GameState';
+import useLevelStore from '@/stores/LevelStore';
 
 import { useRouter } from 'expo-router';
 
 const ReplayButton = () => {
   const { resetGame } = useGameStore();
-  const { replace } = useRouter();
+  const { setShowLevelModal } = useLevelStore();
+  const { push } = useRouter();
 
   return (
     <BounceAnimation
       onPress={() => {
+        push('/levels');
         resetGame();
-        replace('/playing');
+        setShowLevelModal(true);
       }}
     >
       <View className="rounded-full border" style={styles.actions}>

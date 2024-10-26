@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 
 import CoolText from '@/components/CoolText';
@@ -8,12 +8,12 @@ import { Level } from '@/models/Level';
 import useLevelStore from '@/stores/LevelStore';
 
 export default function LevelsPage() {
-  const [showLevelModal, setShowLevelModal] = useState(false);
   const {
     currentLevelId,
     levels,
     setPlayLevel,
-    showNextLevelModal,
+    showLevelModal,
+    setShowLevelModal,
   } = useLevelStore();
 
   const toggleModal = () => {
@@ -68,21 +68,14 @@ export default function LevelsPage() {
     }
   };
 
-  useEffect(() => {
-    if (showNextLevelModal) {
-      const nextLevel = currentLevelId + 1;
-      if (!checkIsLock(nextLevel)) {
-        setPlayLevel(nextLevel);
-        toggleModal();
-      }
-    }
-  }, [showNextLevelModal])
-
   return (
     <>
       <LevelSelectModal
         show={showLevelModal}
-        onClose={() => setShowLevelModal(false)}
+        onClose={() => {
+          setPlayLevel(undefined);
+          setShowLevelModal(false);
+        }}
       />
       <MainContainer title="關卡" showLeftIcon showQuestionIcon>
         <View className="mb-6 flex-row items-center justify-end">

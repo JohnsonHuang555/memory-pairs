@@ -7,7 +7,6 @@ import BaseModal from './BaseModal';
 import useLevelInfo, { gameMatchCount, gameTheme } from '@/hooks/useLevelInfo';
 
 import { useRouter } from 'expo-router';
-import useLevelStore from '@/stores/LevelStore';
 
 type LevelSelectModalProps = {
   show: boolean;
@@ -17,7 +16,6 @@ type LevelSelectModalProps = {
 const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { push } = useRouter();
   const { levelInfo } = useLevelInfo();
-  const { setShowNextLevelModal } = useLevelStore();
 
   if (!levelInfo) return null;
 
@@ -127,8 +125,6 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
         text="挑戰"
         backgroundColor="#834B4B"
         onClick={() => {
-          // 關閉自動選擇關卡彈窗
-          setShowNextLevelModal(false);
           push('/playing');
         }}
       />

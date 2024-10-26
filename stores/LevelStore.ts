@@ -7,9 +7,9 @@ type LevelState = {
   currentLevelId: number;
   selectedLevelId?: number;
   levels: Level[];
-  showNextLevelModal: boolean; // 自動跳出關卡彈窗
-  setPlayLevel: (level: number) => void; // 確定要玩的關卡
-  setShowNextLevelModal: (value: boolean) => void;
+  showLevelModal: boolean;
+  setPlayLevel: (level?: number) => void;
+  setShowLevelModal: (value: boolean) => void;
 };
 
 const useLevelStore = create<LevelState>(set => ({
@@ -18,21 +18,19 @@ const useLevelStore = create<LevelState>(set => ({
     ...level,
     stars: 0,
   })),
-  showNextLevelModal: false,
-  setPlayLevel: (level: number) => {
+  showLevelModal: false,
+  setPlayLevel: (level?: number) => {
     set(() => ({
       selectedLevelId: level,
     }));
   },
-  setShowNextLevelModal: (value: boolean) => {
+  setShowLevelModal: (value: boolean) => {
     set(() => ({
-      showNextLevelModal: value,
+      showLevelModal: value,
     }));
   },
   // 過關
-  passGame: () => {
-    
-  }
+  passGame: () => {},
 }));
 
 export default useLevelStore;

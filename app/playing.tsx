@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { Image, View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 
+import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 import FadeInOutText from '@/components/FadeInOutText';
 import FlipCard from '@/components/FlipCard';
 import MainContainer from '@/components/MainContainer';
 import ProgressBarWithStars from '@/components/ProgressBarWithStars';
 import GameOverModal from '@/components/modals/GameOverModal';
+import PauseGameModal from '@/components/modals/PauseGameModal';
 import useLevelInfo from '@/hooks/useLevelInfo';
 import { Card } from '@/models/Card';
 import useGameStore from '@/stores/GameState';
@@ -15,8 +17,11 @@ import useGameStore from '@/stores/GameState';
 const PlayingPage = () => {
   const { levelInfo } = useLevelInfo();
   const [showGameOverModal, setShowOverModal] = useState(false);
+  const [showPauseGameModal, setPauseGameModal] = useState(false);
+
   const [timeLeft, setTimeLeft] = useState(levelInfo?.timer || 0);
   const [isRunning, setIsRunning] = useState(false);
+
   const {
     generateCards,
     cards,
@@ -33,6 +38,7 @@ const PlayingPage = () => {
 
   if (!levelInfo) return null;
 
+  // timer
   useEffect(() => {
     const interval = setInterval(() => {
       setDisplayedValue(Math.floor(animatedValue.value));
@@ -48,12 +54,14 @@ const PlayingPage = () => {
         setTimeLeft(prevTime => prevTime - 1); // 每秒減少 1
       }, 1000);
     } else if (timeLeft === 0) {
+      // game over
       setShowOverModal(true);
       clearInterval(timer); // 倒數到 0 時停止
     }
     return () => clearInterval(timer); // 清除計時器避免內存洩漏
   }, [isRunning, timeLeft]);
 
+  // create game
   useEffect(() => {
     generateCards(levelInfo);
   }, []);
@@ -89,11 +97,30 @@ const PlayingPage = () => {
         show={showGameOverModal}
         onClose={() => setShowOverModal(false)}
       />
+      <PauseGameModal
+        show={showPauseGameModal}
+        onResume={() => {
+          startTimer();
+          setPauseGameModal(false);
+        }}
+      />
       <MainContainer
         title={`Level ${levelInfo.id}`}
-        showPauseIcon
-        onPause={stopTimer}
-        onResume={startTimer}
+        leftChildren={
+          <View style={{ width: 40 }}>
+            <BounceAnimation
+              onPress={() => {
+                stopTimer();
+                setPauseGameModal(true);
+              }}
+            >
+              <Image
+                source={require('@/assets/images/pause.png')}
+                style={{ width: 40, height: 40 }}
+              />
+            </BounceAnimation>
+          </View>
+        }
       >
         <View className="items-center" style={{ marginBottom: 8 }}>
           <View style={{ width: '90%' }}>

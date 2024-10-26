@@ -1,12 +1,11 @@
 import { Image, View } from 'react-native';
 
-import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import useGameStore from '@/stores/GameState';
-import useLevelStore from '@/stores/LevelStore';
 
-import { router } from 'expo-router';
+import GoLevelsButton from './buttons/GoLevelsButton';
+import ReplayButton from './buttons/ReplayButton';
 
 type GameOverModalProps = {
   show: boolean;
@@ -14,12 +13,11 @@ type GameOverModalProps = {
 };
 
 const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
-  const { score, resetGame } = useGameStore();
-  const { setShowNextLevelModal } = useLevelStore();
+  const { score } = useGameStore();
 
   return (
     <BaseModal
-      title="過關"
+      title="失敗"
       show={show}
       width={80}
       onClose={onClose}
@@ -62,36 +60,21 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
           style={{ fontSize: 22, color: '#834B4B' }}
         />
       </View>
-      <View className="items-center" style={{ marginBottom: 28 }}>
-        <CoolText
-          text="獲得金幣"
-          fontWeight="medium"
-          className="mb-4"
-          style={{ fontSize: 18, color: '#717171' }}
-        />
-        <View className="flex-row items-center">
-          <Image
-            source={require('@/assets/images/coin.png')}
-            style={{ width: 30, height: 30, marginRight: 4 }}
-          />
-          <CoolText
-            text={30}
-            fontWeight="medium"
-            style={{ fontSize: 22, color: '#834B4B' }}
-          />
-        </View>
+      <View className="flex-row justify-between" style={{ width: '60%' }}>
+        <GoLevelsButton />
+        <ReplayButton />
       </View>
-      <CoolButton
+      {/* <CoolButton
         width={150}
         height={50}
-        text="前往下一關"
+        text="重新開始"
         fontSize={18}
         onClick={() => {
           resetGame();
-          setShowNextLevelModal(true);
+          setShowLevelModal(true);
           router.push('/levels');
         }}
-      />
+      /> */}
     </BaseModal>
   );
 };
