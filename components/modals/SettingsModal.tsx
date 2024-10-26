@@ -1,7 +1,6 @@
 import { Image, StyleSheet, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 
-import CoolButton from '../CoolButton';
 import CoolSwitch from '../CoolSwitch';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
@@ -67,13 +66,6 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
           style={{ width: 80 }}
         />
       </View>
-      {/* <CoolButton
-        width={100}
-        height={50}
-        text="關閉"
-        backgroundColor="#834B4B"
-        onClick={onClose}
-      /> */}
     </BaseModal>
   );
 };

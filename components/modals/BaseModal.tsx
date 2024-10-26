@@ -9,7 +9,8 @@ type BaseModalProps = {
   show: boolean;
   width: number;
   children: ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
+  disabledBackdropPress?: boolean;
 };
 
 const BaseModal = ({
@@ -18,11 +19,17 @@ const BaseModal = ({
   width,
   children,
   onClose,
+  disabledBackdropPress,
 }: BaseModalProps) => {
   return (
     <Modal
       isVisible={show}
-      onBackdropPress={onClose}
+      onBackdropPress={() => {
+        if (disabledBackdropPress) return;
+        if (onClose) {
+          onClose();
+        }
+      }}
       className="items-center"
       backdropTransitionOutTiming={0}
     >

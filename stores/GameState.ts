@@ -10,21 +10,31 @@ type GameState = {
   selectedCards: Card[];
   matchCount: number;
   timer: number;
+  isPreviousMatch: boolean;
+  combo: number;
+  passGame: boolean;
   generateCards: (levelInfo: Level) => void;
   onFlip: (id: number) => void;
   checkIsMatch: (card: Card) => void;
   updateCard: (id: number) => void;
-  reset: () => void;
+  resetGame: () => void;
 };
 
-const useGameStore = create<GameState>((set, get) => ({
+const initState = {
   score: 0,
   cards: [],
   selectedCards: [],
   matchCount: 0,
   timer: 0,
-  reset: () => {
-    set(() => ({ cards: [], selectedCards: [], matchCount: 0, score: 0 }));
+  combo: 0,
+  isPreviousMatch: false,
+  passGame: false,
+};
+
+const useGameStore = create<GameState>((set, get) => ({
+  ...initState,
+  resetGame: () => {
+    set(() => ({ ...initState }));
   },
   generateCards: ({ questions, matchCount, timer }: Level) => {
     let tempId = 0;
@@ -201,6 +211,8 @@ const useGameStore = create<GameState>((set, get) => ({
           cards: newCards,
           selectedCards: newSelectCards,
           score: state.score + 30,
+          isPreviousMatch: true,
+          combo: state.isPreviousMatch ? state.combo + 1 : 0,
         }));
       } else {
         const newSelectCards = selectedCards.map(c => {
@@ -223,7 +235,11 @@ const useGameStore = create<GameState>((set, get) => ({
         const newSelectCards = selectedCards.filter(
           c => ![id, otherCard?.id].includes(c.id),
         );
-        set(() => ({ cards: newCards, selectedCards: newSelectCards }));
+        set(() => ({
+          cards: newCards,
+          selectedCards: newSelectCards,
+          isPreviousMatch: false,
+        }));
       } else {
         const newSelectCards = selectedCards.map(c => {
           if (c.id === id) {

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Image, View } from 'react-native';
 
 import BounceAnimation from './BounceAnimation';
@@ -15,6 +15,7 @@ type MainContainerProps = {
   showQuestionIcon?: boolean;
   children: ReactNode;
   onPause?: () => void;
+  onResume?: () => void;
 };
 
 const MainContainer = ({
@@ -24,6 +25,7 @@ const MainContainer = ({
   children,
   title,
   onPause,
+  onResume,
 }: MainContainerProps) => {
   const { push } = useRouter();
   const [showPauseGameModal, setPauseGameModal] = useState(false);
@@ -33,8 +35,11 @@ const MainContainer = ({
     <View style={{ height: '85%', width: '90%' }}>
       <PauseGameModal
         show={showPauseGameModal}
-        onClose={() => {
-          setPauseGameModal(false);
+        onResume={() => {
+          if (onResume) {
+            onResume();
+            setPauseGameModal(false);
+          }
         }}
       />
       <GameRulesModal

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 
 import CoolText from '@/components/CoolText';
@@ -9,7 +9,12 @@ import useLevelStore from '@/stores/LevelStore';
 
 export default function LevelsPage() {
   const [showLevelModal, setShowLevelModal] = useState(false);
-  const { currentLevelId, levels, setPlayLevel } = useLevelStore();
+  const {
+    currentLevelId,
+    levels,
+    setPlayLevel,
+    showNextLevelModal,
+  } = useLevelStore();
 
   const toggleModal = () => {
     setShowLevelModal(!showLevelModal);
@@ -62,6 +67,16 @@ export default function LevelsPage() {
       );
     }
   };
+
+  useEffect(() => {
+    if (showNextLevelModal) {
+      const nextLevel = currentLevelId + 1;
+      if (!checkIsLock(nextLevel)) {
+        setPlayLevel(nextLevel);
+        toggleModal();
+      }
+    }
+  }, [showNextLevelModal])
 
   return (
     <>

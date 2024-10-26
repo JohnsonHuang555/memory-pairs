@@ -6,7 +6,6 @@ export type Level = {
   type: LevelType;
   matchCount: number; // 幾個一組 ex. 2
   questions: string[]; // 題目組
-  bestScore: number; // 最佳分數
   stars: number;
   timer: number;
   star1Score: number; // 星星門檻

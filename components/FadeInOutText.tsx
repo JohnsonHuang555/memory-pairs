@@ -21,7 +21,7 @@ const FadeInOutText = ({ showText, text }: FadeInOutTextProps) => {
     // 淡入效果，透明度從 0 漸變到 1
     opacity.value = withTiming(1, { duration: 500 });
     scale.value = withSequence(
-      withSpring(1.2, { damping: 4, stiffness: 100 }), // 彈跳放大
+      withSpring(1.15, { damping: 4, stiffness: 100 }), // 彈跳放大
       withSpring(1, { damping: 4, stiffness: 80 }), // 回到原始大小
     );
   };

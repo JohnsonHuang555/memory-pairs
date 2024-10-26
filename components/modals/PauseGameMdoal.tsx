@@ -1,24 +1,21 @@
 import { Image, StyleSheet, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 
-import BounceAnimation from '../BounceAnimation';
 import CoolSwitch from '../CoolSwitch';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
-import useGameStore from '@/stores/GameState';
-
-import { useRouter } from 'expo-router';
+import GamePlayButton from './buttons/GamePlayButton';
+import GoLevelsButton from './buttons/GoLevelsButton';
+import ReplayButton from './buttons/ReplayButton';
 
 type PauseGameModalProps = {
   show: boolean;
-  onClose: () => void;
+  onResume: () => void;
 };
 
-const PauseGameModal = ({ show, onClose }: PauseGameModalProps) => {
-  const { reset } = useGameStore();
+const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
   const isMusicOn = useSharedValue(false);
   const isSoundOn = useSharedValue(false);
-  const { push, replace } = useRouter();
 
   const handleMusicPress = () => {
     isMusicOn.value = !isMusicOn.value;
@@ -29,7 +26,12 @@ const PauseGameModal = ({ show, onClose }: PauseGameModalProps) => {
   };
 
   return (
-    <BaseModal title="暫停" show={show} width={75} onClose={onClose}>
+    <BaseModal
+      title="暫停"
+      show={show}
+      width={75}
+      disabledBackdropPress
+    >
       <View
         className="mb-4 flex-row justify-between"
         style={{ marginTop: 12, width: '100%' }}
@@ -53,7 +55,7 @@ const PauseGameModal = ({ show, onClose }: PauseGameModalProps) => {
       </View>
       <View
         className="flex-row justify-between"
-        style={{ marginBottom: 40, width: '100%' }}
+        style={{ marginBottom: 20, width: '100%' }}
       >
         <View className="flex-row items-center">
           <Image
@@ -73,53 +75,9 @@ const PauseGameModal = ({ show, onClose }: PauseGameModalProps) => {
         />
       </View>
       <View className="flex-row justify-between" style={{ width: '100%' }}>
-        <BounceAnimation
-          onPress={() => {
-            reset();
-            push('/levels');
-          }}
-        >
-          <View className="rounded-full border" style={styles.actions}>
-            <Image
-              source={require('@/assets/images/levels.png')}
-              style={{ width: 30, height: 30 }}
-            />
-          </View>
-        </BounceAnimation>
-        <BounceAnimation
-          onPress={() => {
-            reset();
-            replace('/playing');
-          }}
-        >
-          <View className="rounded-full border" style={styles.actions}>
-            <Image
-              source={require('@/assets/images/replay.png')}
-              style={{ width: 30, height: 30 }}
-            />
-          </View>
-        </BounceAnimation>
-        <BounceAnimation
-          onPress={() => {
-            reset();
-            onClose();
-          }}
-        >
-          <View
-            className="items-center justify-center rounded-full border"
-            style={[styles.actions, { width: 60, height: 60 }]}
-          >
-            <Image
-              source={require('@/assets/images/game-play.png')}
-              style={{
-                width: 30,
-                height: 30,
-                position: 'absolute',
-                left: 15,
-              }}
-            />
-          </View>
-        </BounceAnimation>
+        <GoLevelsButton />
+        <ReplayButton />
+        <GamePlayButton onResume={onResume} />
       </View>
     </BaseModal>
   );
