@@ -9,6 +9,7 @@ import FlipCard from '@/components/FlipCard';
 import MainContainer from '@/components/MainContainer';
 import ProgressBarWithStars from '@/components/ProgressBarWithStars';
 import GameOverModal from '@/components/modals/GameOverModal';
+import GamePassModal from '@/components/modals/GamePassModal';
 import PauseGameModal from '@/components/modals/PauseGameModal';
 import useLevelInfo from '@/hooks/useLevelInfo';
 import { Card } from '@/models/Card';
@@ -16,7 +17,8 @@ import useGameStore from '@/stores/GameState';
 
 const PlayingPage = () => {
   const { levelInfo } = useLevelInfo();
-  const [showGameOverModal, setShowOverModal] = useState(false);
+  const [showGameOverModal, setShowGameOverModal] = useState(false);
+  const [showGamePassModal, setShowGamePassModal] = useState(false);
   const [showPauseGameModal, setPauseGameModal] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState(levelInfo?.timer || 0);
@@ -30,6 +32,7 @@ const PlayingPage = () => {
     updateCard,
     score,
     combo,
+    isCompleteGame,
   } = useGameStore();
 
   // 使用 useSharedValue 定義動畫數值
@@ -55,7 +58,7 @@ const PlayingPage = () => {
       }, 1000);
     } else if (timeLeft === 0) {
       // game over
-      setShowOverModal(true);
+      setShowGameOverModal(true);
       clearInterval(timer); // 倒數到 0 時停止
     }
     return () => clearInterval(timer); // 清除計時器避免內存洩漏
@@ -71,6 +74,15 @@ const PlayingPage = () => {
     animatedValue.value = withTiming(score, { duration: 1000 });
   }, [score]);
 
+  useEffect(() => {
+    if (isCompleteGame) {
+      stopTimer();
+      setTimeout(() => {
+        setShowGamePassModal(true);
+      }, 1000);
+    }
+  }, [isCompleteGame]);
+
   const startTimer = () => {
     if (isRunning) return;
     setIsRunning(true);
@@ -79,11 +91,6 @@ const PlayingPage = () => {
   const stopTimer = () => {
     setIsRunning(false);
   };
-
-  // const resetTimer = () => {
-  //   setIsRunning(false);
-  //   setTimeLeft(60); // 重設為 60 秒
-  // };
 
   const handleFlip = (card: Card) => {
     startTimer();
@@ -95,7 +102,11 @@ const PlayingPage = () => {
     <>
       <GameOverModal
         show={showGameOverModal}
-        onClose={() => setShowOverModal(false)}
+        onClose={() => setShowGameOverModal(false)}
+      />
+      <GamePassModal
+        show={showGamePassModal}
+        onClose={() => setShowGamePassModal(false)}
       />
       <PauseGameModal
         show={showPauseGameModal}
@@ -170,6 +181,7 @@ const PlayingPage = () => {
                 type={levelInfo.type}
                 theme={levelInfo.theme}
                 updateCard={updateCard}
+                disabled={isCompleteGame}
               />
             </View>
           ))}

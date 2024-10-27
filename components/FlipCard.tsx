@@ -17,11 +17,12 @@ type FlipCardProps = {
   card: Card;
   type: LevelType;
   theme: LevelTheme;
+  disabled: boolean;
   onFlip: (card: Card) => void;
   updateCard: (id: number) => void;
 };
 
-const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
+const FlipCard = ({ card, type, theme, disabled, onFlip, updateCard }: FlipCardProps) => {
   const prevIsFlipped = useRef(card.isFlipped);
   const prevIsMatched = useRef(card.isMatched);
   const rotation = useSharedValue(0); // 初始旋轉角度
@@ -100,7 +101,7 @@ const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
   });
 
   const handlePressIn = () => {
-    if (card.isFlipped || card.isMatched) {
+    if (card.isFlipped || card.isMatched || disabled) {
       return;
     }
     scale.value = withSpring(1.15, {
@@ -110,7 +111,7 @@ const FlipCard = ({ card, type, theme, onFlip, updateCard }: FlipCardProps) => {
   };
 
   const handlePressOut = () => {
-    if (card.isFlipped || card.isMatched) {
+    if (card.isFlipped || card.isMatched || disabled) {
       return;
     }
     scale.value = withSpring(1, {

@@ -14,6 +14,8 @@ type GameState = {
   combo: number;
   passGame: boolean;
   stars: number;
+  isCompleteGame: boolean;
+  setStars: (stars: number) => void;
   generateCards: (levelInfo: Level) => void;
   onFlip: (id: number) => void;
   checkIsMatch: (card: Card) => void;
@@ -31,12 +33,16 @@ const initState = {
   isPreviousMatch: false,
   passGame: false,
   stars: 0,
+  isCompleteGame: false
 };
 
 const useGameStore = create<GameState>((set, get) => ({
   ...initState,
   resetGame: () => {
     set(() => ({ ...initState }));
+  },
+  setStars: (stars: number) => {
+    set(() => ({ stars }));
   },
   generateCards: ({ questions, matchCount, timer }: Level) => {
     let tempId = 0;
@@ -209,12 +215,15 @@ const useGameStore = create<GameState>((set, get) => ({
           c => ![id, otherCard?.id].includes(c.id),
         );
 
+        const isCompleteGame = newCards.filter(n => n.isMatched).length === cards.length
+
         set(state => ({
           cards: newCards,
           selectedCards: newSelectCards,
           score: state.score + 30,
           isPreviousMatch: true,
           combo: state.isPreviousMatch ? state.combo + 1 : 0,
+          isCompleteGame,
         }));
       } else {
         const newSelectCards = selectedCards.map(c => {

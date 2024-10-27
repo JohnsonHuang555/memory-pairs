@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -12,7 +12,7 @@ import useLevelInfo from '@/hooks/useLevelInfo';
 import useGameStore from '@/stores/GameState';
 
 const ProgressBarWithStars = () => {
-  const { score: playerScore } = useGameStore();
+  const { score: playerScore, setStars } = useGameStore();
   const { levelInfo } = useLevelInfo();
   if (!levelInfo) return null;
 
@@ -65,6 +65,13 @@ const ProgressBarWithStars = () => {
   };
 
   const stars = calculateStarPositions();
+  const currentStars = stars.filter(s => s.completed).length;
+
+  useEffect(() => {
+    if (currentStars) {
+      setStars(currentStars);
+    }
+  }, [currentStars]);
 
   return (
     <View style={styles.container}>
