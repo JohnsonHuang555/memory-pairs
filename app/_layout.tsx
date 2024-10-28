@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ImageBackground, View } from 'react-native';
 import 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import '../global.css';
 

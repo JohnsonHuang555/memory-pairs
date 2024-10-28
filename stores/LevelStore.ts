@@ -10,9 +10,11 @@ type LevelState = {
   showLevelModal: boolean;
   setPlayLevel: (level?: number) => void;
   setShowLevelModal: (value: boolean) => void;
+  setSelectedLevelId: (id: number) => void;
+  updateLevel: (id: number, stars: number) => void;
 };
 
-const useLevelStore = create<LevelState>(set => ({
+const useLevelStore = create<LevelState>((set, get) => ({
   currentLevelId: 1,
   levels: allLevels.map(level => ({
     ...level,
@@ -29,8 +31,26 @@ const useLevelStore = create<LevelState>(set => ({
       showLevelModal: value,
     }));
   },
-  // 過關
-  passGame: () => {},
+  updateLevel: (id: number, stars: number) => {
+    const levels = get().levels;
+    const newLevels = [...levels].map(level => {
+      if (id === level.id) {
+        return { ...level, stars };
+      }
+      return level;
+    });
+
+    set(state => ({
+      levels: newLevels,
+      currentLevelId:
+        id === state.currentLevelId
+          ? state.currentLevelId + 1
+          : state.currentLevelId,
+    }));
+  },
+  setSelectedLevelId: (id: number) => {
+    set(() => ({ selectedLevelId: id }));
+  },
 }));
 
 export default useLevelStore;

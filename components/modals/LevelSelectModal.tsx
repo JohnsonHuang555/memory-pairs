@@ -5,6 +5,7 @@ import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import useLevelInfo, { gameMatchCount, gameTheme } from '@/hooks/useLevelInfo';
+import useLevelStore from '@/stores/LevelStore';
 
 import { useRouter } from 'expo-router';
 
@@ -15,40 +16,74 @@ type LevelSelectModalProps = {
 
 const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { push } = useRouter();
+  const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
 
   if (!levelInfo) return null;
 
+  const { id, stars } = levelInfo;
+
   return (
     <BaseModal
-      title={`Level ${levelInfo?.id}`}
+      title={`Level ${id}`}
       show={show}
       width={90}
       onClose={onClose}
     >
       <View className="mb-6 flex-row" style={{ gap: 4 }}>
-        <Image
-          source={require('@/assets/images/grey-star.png')}
-          style={{
-            width: 65,
-            height: 65,
-            marginTop: 24,
-            transform: [{ rotate: '-25deg' }],
-          }}
-        />
-        <Image
-          source={require('@/assets/images/grey-star.png')}
-          style={{ width: 75, height: 75 }}
-        />
-        <Image
-          source={require('@/assets/images/grey-star.png')}
-          style={{
-            width: 65,
-            height: 65,
-            marginTop: 24,
-            transform: [{ rotate: '25deg' }],
-          }}
-        />
+        {stars > 0 ? (
+          <Image
+            source={require('@/assets/images/yellow-star.png')}
+            style={{
+              width: 65,
+              height: 65,
+              marginTop: 24,
+              transform: [{ rotate: '-25deg' }],
+            }}
+          />
+        ) : (
+          <Image
+            source={require('@/assets/images/grey-star.png')}
+            style={{
+              width: 65,
+              height: 65,
+              marginTop: 24,
+              transform: [{ rotate: '-25deg' }],
+            }}
+          />
+        )}
+        {stars > 1 ? (
+          <Image
+            source={require('@/assets/images/yellow-star.png')}
+            style={{ width: 75, height: 75 }}
+          />
+        ) : (
+          <Image
+            source={require('@/assets/images/grey-star.png')}
+            style={{ width: 75, height: 75 }}
+          />
+        )}
+        {stars > 2 ? (
+          <Image
+            source={require('@/assets/images/yellow-star.png')}
+            style={{
+              width: 65,
+              height: 65,
+              marginTop: 24,
+              transform: [{ rotate: '25deg' }],
+            }}
+          />
+        ) : (
+          <Image
+            source={require('@/assets/images/grey-star.png')}
+            style={{
+              width: 65,
+              height: 65,
+              marginTop: 24,
+              transform: [{ rotate: '25deg' }],
+            }}
+          />
+        )}
       </View>
       <View className="items-center" style={{ marginBottom: 28 }}>
         <CoolText
@@ -125,6 +160,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
         text="挑戰"
         backgroundColor="#834B4B"
         onClick={() => {
+          setShowLevelModal(false);
           push('/playing');
         }}
       />

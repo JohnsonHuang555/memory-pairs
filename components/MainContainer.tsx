@@ -32,17 +32,18 @@ const MainContainer = ({
         onClose={() => setGameRuleModal(false)}
       />
       <View className="mb-6 flex-row items-center justify-between">
-        {leftChildren}
-        {showLeftIcon && (
-          <View style={{ width: 40 }}>
+        <View style={{ width: 40 }}>
+          {leftChildren}
+          {showLeftIcon && (
             <BounceAnimation onPress={() => push('/')}>
               <Image
                 source={require('@/assets/images/left-arrow.png')}
                 style={{ width: 40, height: 40 }}
               />
             </BounceAnimation>
-          </View>
-        )}
+          )}
+        </View>
+
         <CoolText
           text={title}
           className="text-3xl text-[#834B4B]"

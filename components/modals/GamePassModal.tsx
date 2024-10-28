@@ -1,8 +1,10 @@
 import { Image, View } from 'react-native';
+import Animated, { BounceIn, FadeIn } from 'react-native-reanimated';
 
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import GoLevelsButton from './buttons/GoLevelsButton';
+import NextLevelButton from './buttons/NextLevelButton';
 import ReplayButton from './buttons/ReplayButton';
 import useGameStore from '@/stores/GameState';
 
@@ -24,60 +26,76 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
     >
       <View className="mb-6 flex-row" style={{ gap: 4 }}>
         {stars > 0 ? (
-          <Image
-            source={require('@/assets/images/yellow-star.png')}
-            style={{
-              width: 65,
-              height: 65,
-              marginTop: 24,
-              transform: [{ rotate: '-25deg' }],
-            }}
-          />
+          <Animated.View entering={BounceIn.duration(300).delay(500)}>
+            <Image
+              source={require('@/assets/images/yellow-star.png')}
+              style={{
+                width: 65,
+                height: 65,
+                marginTop: 24,
+                transform: [{ rotate: '-25deg' }],
+              }}
+            />
+          </Animated.View>
         ) : (
-          <Image
-            source={require('@/assets/images/grey-star.png')}
-            style={{
-              width: 65,
-              height: 65,
-              marginTop: 24,
-              transform: [{ rotate: '-25deg' }],
-            }}
-          />
+          <Animated.View entering={BounceIn.duration(300).delay(500)}>
+            <Image
+              source={require('@/assets/images/grey-star.png')}
+              style={{
+                width: 65,
+                height: 65,
+                marginTop: 24,
+                transform: [{ rotate: '-25deg' }],
+              }}
+            />
+          </Animated.View>
         )}
         {stars > 1 ? (
-          <Image
-            source={require('@/assets/images/yellow-star.png')}
-            style={{ width: 75, height: 75 }}
-          />
+          <Animated.View entering={BounceIn.duration(300).delay(800)}>
+            <Image
+              source={require('@/assets/images/yellow-star.png')}
+              style={{ width: 75, height: 75 }}
+            />
+          </Animated.View>
         ) : (
-          <Image
-            source={require('@/assets/images/grey-star.png')}
-            style={{ width: 75, height: 75 }}
-          />
+          <Animated.View entering={BounceIn.duration(300).delay(800)}>
+            <Image
+              source={require('@/assets/images/grey-star.png')}
+              style={{ width: 75, height: 75 }}
+            />
+          </Animated.View>
         )}
         {stars > 2 ? (
-          <Image
-            source={require('@/assets/images/yellow-star.png')}
-            style={{
-              width: 65,
-              height: 65,
-              marginTop: 24,
-              transform: [{ rotate: '25deg' }],
-            }}
-          />
+          <Animated.View entering={BounceIn.duration(300).delay(1100)}>
+            <Image
+              source={require('@/assets/images/yellow-star.png')}
+              style={{
+                width: 65,
+                height: 65,
+                marginTop: 24,
+                transform: [{ rotate: '25deg' }],
+              }}
+            />
+          </Animated.View>
         ) : (
-          <Image
-            source={require('@/assets/images/grey-star.png')}
-            style={{
-              width: 65,
-              height: 65,
-              marginTop: 24,
-              transform: [{ rotate: '25deg' }],
-            }}
-          />
+          <Animated.View entering={BounceIn.duration(300).delay(1100)}>
+            <Image
+              source={require('@/assets/images/grey-star.png')}
+              style={{
+                width: 65,
+                height: 65,
+                marginTop: 24,
+                transform: [{ rotate: '25deg' }],
+              }}
+            />
+          </Animated.View>
         )}
       </View>
-      <View className="items-center" style={{ marginBottom: 28 }}>
+      <Animated.View
+        entering={FadeIn.delay(1400)}
+        className="items-center"
+        style={{ marginBottom: 28 }}
+      >
         <CoolText
           text="分數"
           fontWeight="medium"
@@ -89,8 +107,12 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
           fontWeight="medium"
           style={{ fontSize: 22, color: '#834B4B' }}
         />
-      </View>
-      <View className="items-center" style={{ marginBottom: 28 }}>
+      </Animated.View>
+      <Animated.View
+        entering={FadeIn.delay(1700)}
+        className="items-center"
+        style={{ marginBottom: 28 }}
+      >
         <CoolText
           text="獲得金幣"
           fontWeight="medium"
@@ -108,11 +130,12 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
             style={{ fontSize: 22, color: '#834B4B' }}
           />
         </View>
-      </View>
-      <View className="flex-row justify-between" style={{ width: '60%' }}>
+      </Animated.View>
+      <Animated.View entering={FadeIn.delay(2000)} className="flex-row justify-between" style={{ width: '90%' }}>
         <GoLevelsButton />
         <ReplayButton />
-      </View>
+        <NextLevelButton />
+      </Animated.View>
     </BaseModal>
   );
 };

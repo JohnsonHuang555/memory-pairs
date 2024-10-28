@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 
 import CoolText from '@/components/CoolText';
@@ -15,6 +15,11 @@ export default function LevelsPage() {
     showLevelModal,
     setShowLevelModal,
   } = useLevelStore();
+
+  const totalStars = useMemo(() => levels.reduce((acc, current) => {
+    acc += current.stars;
+    return acc;
+  }, 0), [])
 
   const toggleModal = () => {
     setShowLevelModal(!showLevelModal);
@@ -84,7 +89,7 @@ export default function LevelsPage() {
             style={{ width: 26, height: 26 }}
           />
           <CoolText
-            text="0/10"
+            text={`${totalStars}/10`}
             className="ml-2 text-2xl text-[#834B4B]"
             fontWeight="medium"
           />

@@ -64,17 +64,6 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
         <GoLevelsButton />
         <ReplayButton />
       </View>
-      {/* <CoolButton
-        width={150}
-        height={50}
-        text="重新開始"
-        fontSize={18}
-        onClick={() => {
-          resetGame();
-          setShowLevelModal(true);
-          router.push('/levels');
-        }}
-      /> */}
     </BaseModal>
   );
 };
