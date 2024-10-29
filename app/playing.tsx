@@ -3,6 +3,7 @@ import { Image, View } from 'react-native';
 import Animated, {
   BounceIn,
   Easing,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
@@ -48,10 +49,12 @@ const PlayingPage = () => {
     combo,
     isCompleteGame,
     stars,
+    finalCalculateScore,
   } = useGameStore();
 
   // 使用 useSharedValue 定義動畫數值
-  const animatedValue = useSharedValue(0);
+  const scoreAnimatedValue = useSharedValue(0);
+  const remainedTimeAnimatedValue = useSharedValue(timeLeft);
   const timerRotation = useSharedValue<number>(0);
 
   if (!levelInfo) return null;
@@ -59,19 +62,20 @@ const PlayingPage = () => {
   // timer
   useEffect(() => {
     const interval = setInterval(() => {
-      setDisplayedValue(Math.floor(animatedValue.value));
+      setDisplayedValue(Math.floor(scoreAnimatedValue.value));
     }, 50); // 每 50 毫秒更新畫面
 
     return () => clearInterval(interval);
-  }, [animatedValue]);
+  }, [scoreAnimatedValue]);
 
+  // 倒數計時
   useEffect(() => {
     let timer: any;
     if (isRunning && timeLeft > 0) {
       timer = setInterval(() => {
         setTimeLeft(prevTime => prevTime - 1); // 每秒減少 1
       }, 1000);
-    } else if (timeLeft === 0) {
+    } else if (timeLeft === 0 && !isCompleteGame) {
       // game over
       setShowGameOverModal(true);
       clearInterval(timer); // 倒數到 0 時停止
@@ -86,22 +90,43 @@ const PlayingPage = () => {
 
   // 驅動動畫，將數值從 0 變到 score
   useEffect(() => {
-    animatedValue.value = withTiming(score, { duration: 1000 });
+    scoreAnimatedValue.value = withTiming(score, { duration: 500 }, () => {
+      if (isCompleteGame) {
+        runOnJS(updateLevel)(levelInfo.id, stars);
+      }
+    });
   }, [score]);
 
+  // 遊戲過關
   useEffect(() => {
     if (isCompleteGame) {
       stopTimer();
-      updateLevel(levelInfo.id, stars);
+
+      const interval = setInterval(() => {
+        setTimeLeft(Math.floor(remainedTimeAnimatedValue.value));
+      }, 50); // 每 50 毫秒更新畫面
+
+      // 驅動動畫，將剩餘時間變到 0
+      setTimeout(() => {
+        remainedTimeAnimatedValue.value = withTiming(
+          0,
+          { duration: 500 },
+          () => {
+            runOnJS(clearInterval)(interval);
+            runOnJS(finalCalculateScore)(timeLeft);
+          },
+        );
+      }, 1000);
 
       setTimeout(() => {
         setShowGamePassModal(true);
-      }, 1000);
+      }, 2000);
     }
   }, [isCompleteGame]);
 
+  // 時間快到動畫
   useEffect(() => {
-    if (timeLeft <= 10 && timeLeft > 0) {
+    if (timeLeft <= 10 && timeLeft > 0 && !isCompleteGame) {
       timerRotation.value = withSequence(
         // deviate left to start from -ANGLE
         withTiming(-ANGLE, { duration: TIME / 2, easing: EASING }),
@@ -161,6 +186,7 @@ const PlayingPage = () => {
         leftChildren={
           <BounceAnimation
             onPress={() => {
+              if (isCompleteGame) return;
               stopTimer();
               setPauseGameModal(true);
             }}

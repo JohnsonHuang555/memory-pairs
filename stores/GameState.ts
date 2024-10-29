@@ -21,6 +21,7 @@ type GameState = {
   checkIsMatch: (card: Card) => void;
   updateCard: (id: number) => void;
   resetGame: () => void;
+  finalCalculateScore: (remainedTime: number) => void;
 };
 
 const initState = {
@@ -33,7 +34,7 @@ const initState = {
   isPreviousMatch: false,
   passGame: false,
   stars: 0,
-  isCompleteGame: false
+  isCompleteGame: false,
 };
 
 const useGameStore = create<GameState>((set, get) => ({
@@ -190,6 +191,7 @@ const useGameStore = create<GameState>((set, get) => ({
   updateCard: (id: number) => {
     const selectedCards = get().selectedCards;
     const cards = get().cards;
+    const combo = get().combo;
     if (selectedCards.length === 0) return;
     const currentIndex = selectedCards.findIndex(card => card.id === id);
     // 確保找到的索引有效且不是負數
@@ -215,12 +217,14 @@ const useGameStore = create<GameState>((set, get) => ({
           c => ![id, otherCard?.id].includes(c.id),
         );
 
-        const isCompleteGame = newCards.filter(n => n.isMatched).length === cards.length
+        const isCompleteGame =
+          newCards.filter(n => n.isMatched).length === cards.length;
 
         set(state => ({
           cards: newCards,
           selectedCards: newSelectCards,
-          score: state.score + 30,
+          score:
+            state.score + 30 + (state.isPreviousMatch ? combo + 1 * 30 : 0),
           isPreviousMatch: true,
           combo: state.isPreviousMatch ? state.combo + 1 : 0,
           isCompleteGame,
@@ -261,6 +265,11 @@ const useGameStore = create<GameState>((set, get) => ({
         set(() => ({ selectedCards: newSelectCards }));
       }
     }
+  },
+  finalCalculateScore: (remainedTime: number) => {
+    set(state => ({
+      score: state.score + remainedTime,
+    }));
   },
 }));
 
