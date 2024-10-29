@@ -23,6 +23,7 @@ import useLevelInfo from '@/hooks/useLevelInfo';
 import { Card } from '@/models/Card';
 import useGameStore from '@/stores/GameState';
 import useLevelStore from '@/stores/LevelStore';
+import usePlayerStore from '@/stores/PlayerState';
 
 const ANGLE = 10;
 const TIME = 100;
@@ -30,6 +31,7 @@ const EASING = Easing.elastic(1.5);
 
 const PlayingPage = () => {
   const { levelInfo } = useLevelInfo();
+  const { updateCurrentLevelId, setStarsOfLevel } = usePlayerStore();
   const { updateLevel } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
@@ -54,7 +56,7 @@ const PlayingPage = () => {
 
   // 使用 useSharedValue 定義動畫數值
   const scoreAnimatedValue = useSharedValue(0);
-  const remainedTimeAnimatedValue = useSharedValue(timeLeft);
+  const remainedTimeAnimatedValue = useSharedValue(0);
   const timerRotation = useSharedValue<number>(0);
 
   if (!levelInfo) return null;
@@ -91,16 +93,22 @@ const PlayingPage = () => {
   // 驅動動畫，將數值從 0 變到 score
   useEffect(() => {
     scoreAnimatedValue.value = withTiming(score, { duration: 500 }, () => {
-      if (isCompleteGame) {
+      if (isCompleteGame && remainedTimeAnimatedValue.value === 0) {
+        // 更新成績
         runOnJS(updateLevel)(levelInfo.id, stars);
+
+        // 寫入手機
+        runOnJS(updateCurrentLevelId)(levelInfo.id);
+        runOnJS(setStarsOfLevel)(levelInfo.id, stars);
       }
     });
-  }, [score]);
+  }, [score, isCompleteGame, remainedTimeAnimatedValue.value]);
 
   // 遊戲過關
   useEffect(() => {
     if (isCompleteGame) {
       stopTimer();
+      remainedTimeAnimatedValue.value = timeLeft;
 
       const interval = setInterval(() => {
         setTimeLeft(Math.floor(remainedTimeAnimatedValue.value));
@@ -120,7 +128,7 @@ const PlayingPage = () => {
 
       setTimeout(() => {
         setShowGamePassModal(true);
-      }, 2000);
+      }, 2500);
     }
   }, [isCompleteGame]);
 

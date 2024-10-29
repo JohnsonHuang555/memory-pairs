@@ -5,10 +5,12 @@ import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
+import usePlayerStore from '@/stores/PlayerState';
 
 import { router, useRouter } from 'expo-router';
 
 export default function HomeScreen() {
+  const { coins } = usePlayerStore();
   const [showShopModal, setShowShopModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const { push } = useRouter();
@@ -20,14 +22,14 @@ export default function HomeScreen() {
         show={showSettingsModal}
         onClose={() => setShowSettingsModal(false)}
       />
-      <View className="items-end" style={{ width: '80%', marginBottom: 20 }}>
+      <View className="items-end" style={{ width: '80%', marginBottom: 30 }}>
         <View className="flex-row items-center">
           <Image
             source={require('@/assets/images/coin.png')}
-            style={{ width: 32, height: 32 }}
+            style={{ width: 32, height: 32, marginRight: 8 }}
           />
           <CoolText
-            text={100}
+            text={coins}
             className="text-3xl text-[#834B4B]"
             fontWeight="bold"
           />

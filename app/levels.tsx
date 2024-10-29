@@ -6,10 +6,11 @@ import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
 import { Level } from '@/models/Level';
 import useLevelStore from '@/stores/LevelStore';
+import usePlayerStore from '@/stores/PlayerState';
 
 export default function LevelsPage() {
+  const { currentLevelId } = usePlayerStore();
   const {
-    currentLevelId,
     levels,
     setPlayLevel,
     showLevelModal,

@@ -4,7 +4,6 @@ import { Level } from '@/models/Level';
 import { create } from 'zustand';
 
 type LevelState = {
-  currentLevelId: number;
   selectedLevelId?: number;
   levels: Level[];
   showLevelModal: boolean;
@@ -15,7 +14,6 @@ type LevelState = {
 };
 
 const useLevelStore = create<LevelState>((set, get) => ({
-  currentLevelId: 1,
   levels: allLevels.map(level => ({
     ...level,
     stars: 0,
@@ -40,12 +38,8 @@ const useLevelStore = create<LevelState>((set, get) => ({
       return level;
     });
 
-    set(state => ({
+    set(() => ({
       levels: newLevels,
-      currentLevelId:
-        id === state.currentLevelId
-          ? state.currentLevelId + 1
-          : state.currentLevelId,
     }));
   },
   setSelectedLevelId: (id: number) => {
