@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
@@ -5,7 +6,7 @@ import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import { allItems } from '@/constants/AllItems';
-import { Item } from '@/models/Item';
+import { Item, PlayerItem } from '@/models/Item';
 import usePlayerStore from '@/stores/PlayerStore';
 
 type ShopModalProps = {
@@ -13,43 +14,54 @@ type ShopModalProps = {
   onClose: () => void;
 };
 
+type SelectedItem = {
+  type: Item;
+  price: number;
+  action: 'purchase' | 'upgrade';
+  name: string;
+};
+
 const ShopModal = ({ show, onClose }: ShopModalProps) => {
-  const { coins, items } = usePlayerStore();
+  const { coins, items, updatePlayerItem } = usePlayerStore();
+  const [selectedItem, setSelectedItem] = useState<SelectedItem>();
 
-  const getItemInfo = (type: Item) => {
-    const item = items.find(i => i.type === type);
-    if (!item) return;
-    let name = '';
-    switch (type) {
-      case Item.AddTime:
-        if (item?.level === 1) {
-          name = `加時 5 秒`;
-        } else {
-          name = `加時 ${5 + item.level * 3} 秒`;
-        }
-        break;
-      case Item.ViewFirst:
-        if (item?.level === 1) {
-          name = `先看 1 秒`;
-        } else {
-          name = `先看 ${1 + item.level * 1} 秒`;
-        }
-        break;
-      case Item.AutoPairs:
-        if (item?.level === 1) {
-          name = `配對 1 組`;
-        } else {
-          name = `配對 ${1 + item.level * 1} 組`;
-        }
-        break;
-    }
+  const getItemInfo = useCallback(
+    (type: Item) => {
+      const item = items.find(i => i.type === type);
+      if (!item) return;
+      let name = '';
+      switch (type) {
+        case Item.AddTime:
+          if (item?.level === 1) {
+            name = `加時 5 秒`;
+          } else {
+            name = `加時 ${2 + item.level * 3} 秒`;
+          }
+          break;
+        case Item.ViewFirst:
+          if (item?.level === 1) {
+            name = `先看 1 秒`;
+          } else {
+            name = `先看 ${item.level * 1} 秒`;
+          }
+          break;
+        case Item.AutoPairs:
+          if (item?.level === 1) {
+            name = `配對 1 組`;
+          } else {
+            name = `配對 ${item.level * 1} 組`;
+          }
+          break;
+      }
 
-    return {
-      quantity: item.quantity,
-      level: item.level,
-      name,
-    };
-  };
+      return {
+        quantity: item.quantity,
+        level: item.level,
+        name,
+      };
+    },
+    [items],
+  );
 
   const getItemIcon = (type: Item) => {
     switch (type) {
@@ -78,7 +90,15 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
   };
 
   return (
-    <BaseModal title="商店" show={show} width={100} onClose={onClose}>
+    <BaseModal
+      title="商店"
+      show={show}
+      width={100}
+      onClose={() => {
+        setSelectedItem(undefined);
+        onClose();
+      }}
+    >
       <View
         className="flex-row items-center justify-between"
         style={{ width: '100%', marginBottom: 26 }}
@@ -87,7 +107,7 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
         <View className="flex-row items-center">
           <Image
             source={require('@/assets/images/coin.png')}
-            style={{ width: 32, height: 32, marginRight: 2 }}
+            style={{ width: 28, height: 28, marginRight: 4 }}
           />
           <CoolText text={coins} style={styles.text} fontWeight="medium" />
         </View>
@@ -127,7 +147,14 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
                 text={`用 ${item.upgradeGold} 金`}
                 subText="升級"
                 backgroundColor="#E3803E"
-                onClick={onClose}
+                onClick={() => {
+                  setSelectedItem({
+                    type: item.type,
+                    action: 'upgrade',
+                    price: item.upgradeGold,
+                    name: getItemInfo(item.type)?.name || '',
+                  });
+                }}
                 fontSize={14}
               />
             </View>
@@ -136,49 +163,63 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
               text={`用 ${item.purchaseGold} 金`}
               subText="購買"
               backgroundColor="#834B4B"
-              onClick={onClose}
+              onClick={() => {
+                setSelectedItem({
+                  type: item.type,
+                  action: 'purchase',
+                  price: item.purchaseGold,
+                  name: getItemInfo(item.type)?.name || '',
+                });
+              }}
               fontSize={14}
             />
           </View>
         ))}
-        <Animated.View
-          entering={FadeIn}
-          className="absolute bottom-0 bg-[#fff]"
-          style={{
-            width: '110%',
-            position: 'absolute',
-            bottom: -150,
-            left: -15,
-            backgroundColor: '#FFF1E5',
-            borderRadius: 12,
-            padding: 16,
-          }}
-        >
-          <CoolText
-            text="確定要使用 500 購買道具加時 5 秒嗎?"
-            className="text-[#834B4B]"
-            style={{ fontSize: 16, marginBottom: 16 }}
-            fontWeight="medium"
-          />
-          <View className="flex-row justify-end" style={{ gap: 8 }}>
-            <CoolButton
-              width={80}
-              height={40}
-              text="取消"
-              backgroundColor="#8E8E8E"
-              onClick={onClose}
-              fontSize={14}
+        {selectedItem && (
+          <Animated.View
+            entering={FadeIn}
+            className="absolute bottom-0 bg-[#fff]"
+            style={{
+              width: '110%',
+              position: 'absolute',
+              bottom: -150,
+              left: -15,
+              backgroundColor: '#FFF1E5',
+              borderRadius: 12,
+              padding: 16,
+            }}
+          >
+            <CoolText
+              text={`確定使用 ${selectedItem.price} 金購買道具<${selectedItem.name}>嗎?`}
+              className="text-[#834B4B]"
+              style={{ fontSize: 16, marginBottom: 16 }}
+              fontWeight="medium"
             />
-            <CoolButton
-              width={80}
-              height={40}
-              text="購買"
-              backgroundColor="#E3803E"
-              onClick={onClose}
-              fontSize={14}
-            />
-          </View>
-        </Animated.View>
+            <View className="flex-row justify-end" style={{ gap: 8 }}>
+              <CoolButton
+                width={80}
+                height={40}
+                text="取消"
+                backgroundColor="#8E8E8E"
+                onClick={() => setSelectedItem(undefined)}
+                fontSize={14}
+              />
+              <CoolButton
+                width={80}
+                height={40}
+                text={selectedItem.action === 'purchase' ? '購買' : '升級'}
+                backgroundColor={
+                  selectedItem.action === 'purchase' ? '#834B4B' : '#E3803E'
+                }
+                onClick={() => {
+                  updatePlayerItem(selectedItem.type, selectedItem.action);
+                  setSelectedItem(undefined);
+                }}
+                fontSize={14}
+              />
+            </View>
+          </Animated.View>
+        )}
       </View>
     </BaseModal>
   );

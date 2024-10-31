@@ -52,6 +52,7 @@ const PlayingPage = () => {
     isCompleteGame,
     stars,
     finalCalculateScore,
+    useItems,
   } = useGameStore();
 
   // 使用 useSharedValue 定義動畫數值

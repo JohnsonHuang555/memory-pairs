@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 import BounceAnimation from '../BounceAnimation';
@@ -5,7 +6,10 @@ import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import useLevelInfo, { gameMatchCount, gameTheme } from '@/hooks/useLevelInfo';
+import { Item } from '@/models/Item';
+import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
+import usePlayerStore from '@/stores/PlayerStore';
 
 import { useRouter } from 'expo-router';
 
@@ -18,18 +22,42 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { push } = useRouter();
   const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
+  const { items } = usePlayerStore();
+  const { setUseItems } = useGameStore();
 
+  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
   if (!levelInfo) return null;
 
   const { id, stars } = levelInfo;
 
+  const getItemIcon = (type: Item) => {
+    switch (type) {
+      case Item.AddTime:
+        return (
+          <Image
+            source={require('@/assets/images/timer.png')}
+            style={{ width: 50, height: 50 }}
+          />
+        );
+      case Item.ViewFirst:
+        return (
+          <Image
+            source={require('@/assets/images/eye.png')}
+            style={{ width: 50, height: 50 }}
+          />
+        );
+      case Item.AutoPairs:
+        return (
+          <Image
+            source={require('@/assets/images/paris.png')}
+            style={{ width: 50, height: 50 }}
+          />
+        );
+    }
+  };
+
   return (
-    <BaseModal
-      title={`Level ${id}`}
-      show={show}
-      width={90}
-      onClose={onClose}
-    >
+    <BaseModal title={`Level ${id}`} show={show} width={90} onClose={onClose}>
       <View className="mb-6 flex-row" style={{ gap: 4 }}>
         {stars > 0 ? (
           <Image
@@ -106,51 +134,61 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           style={{ fontSize: 18, color: '#717171' }}
         />
         <View className="flex-row" style={{ gap: 16 }}>
-          <BounceAnimation scaleValue={1.1}>
-            <View className="rounded-xl border" style={styles.itemsContainer}>
-              <View style={styles.item}>
-                <CoolText
-                  text={2}
-                  className="text-white"
-                  style={{ fontSize: 16 }}
-                />
-              </View>
-              <Image
-                source={require('@/assets/images/timer.png')}
-                style={{ width: 50, height: 50 }}
-              />
-            </View>
-          </BounceAnimation>
-          <BounceAnimation scaleValue={1.1}>
-            <View className="rounded-xl border" style={styles.itemsContainer}>
-              <View style={styles.item}>
-                <CoolText
-                  text={2}
-                  className="text-white"
-                  style={{ fontSize: 16 }}
-                />
-              </View>
-              <Image
-                source={require('@/assets/images/eye.png')}
-                style={{ width: 50, height: 50 }}
-              />
-            </View>
-          </BounceAnimation>
-          <BounceAnimation scaleValue={1.1}>
-            <View className="rounded-xl border" style={styles.itemsContainer}>
-              <View style={styles.item}>
-                <CoolText
-                  text={2}
-                  className="text-white"
-                  style={{ fontSize: 16 }}
-                />
-              </View>
-              <Image
-                source={require('@/assets/images/paris.png')}
-                style={{ width: 50, height: 50 }}
-              />
-            </View>
-          </BounceAnimation>
+          {items.map(item => {
+            const currentType = selectedItems.find(
+              selected => selected === item.type,
+            );
+            return (
+              <BounceAnimation
+                scaleValue={1.1}
+                key={item.type}
+                onPress={() => {
+                  if (item.quantity > 0) {
+                    if (currentType) {
+                      setSelectedItems(state =>
+                        state.filter(s => s !== item.type),
+                      );
+                    } else {
+                      setSelectedItems(state => [...state, item.type]);
+                    }
+                  }
+                }}
+              >
+                <View
+                  className="rounded-xl border"
+                  style={[
+                    styles.itemsContainer,
+                    {
+                      backgroundColor: currentType ? '#FCECAA' : '#FFFCF0',
+                    },
+                  ]}
+                >
+                  <View
+                    style={[
+                      styles.item,
+                      {
+                        backgroundColor: currentType ? '#78AD27' : '#C94343',
+                      },
+                    ]}
+                  >
+                    {currentType ? (
+                      <Image
+                        source={require('@/assets/images/check.png')}
+                        style={{ width: 20, height: 20 }}
+                      />
+                    ) : (
+                      <CoolText
+                        text={item.quantity}
+                        className="text-white"
+                        style={{ fontSize: 16 }}
+                      />
+                    )}
+                  </View>
+                  {getItemIcon(item.type)}
+                </View>
+              </BounceAnimation>
+            );
+          })}
         </View>
       </View>
       <CoolButton
@@ -161,6 +199,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
         backgroundColor="#834B4B"
         onClick={() => {
           setShowLevelModal(false);
+          setUseItems(selectedItems);
           push('/playing');
         }}
       />
@@ -174,7 +213,6 @@ const styles = StyleSheet.create({
   itemsContainer: {
     borderColor: '#C08A76',
     borderWidth: 3,
-    backgroundColor: '#FFFCF0',
     padding: 4,
     position: 'relative',
   },

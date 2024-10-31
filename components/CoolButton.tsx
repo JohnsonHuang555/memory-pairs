@@ -40,7 +40,7 @@ const CoolButton = ({
       borderRadius={borderRadius}
       width={width}
       height={height}
-      onPress={onClick}
+      onPressOut={onClick}
       backgroundColor={backgroundColor}
       disabled={disabled}
     >

@@ -15,6 +15,7 @@ type PlayerState = {
   items: PlayerItem[];
   updateCurrentLevelId: (id: number) => void;
   setStarsOfLevel: (id: number, stars: number, coins: number) => void;
+  updatePlayerItem: (type: Item, action: 'purchase' | 'upgrade') => void;
 };
 
 // 需存到手機裡的資料
@@ -25,7 +26,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
   items: allItems.map(item => ({
     ...item,
     level: 1,
-    quantity: 1,
+    quantity: 0,
   })),
   updateCurrentLevelId: (id: number) => {
     set(state => ({
@@ -67,7 +68,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
           case 'purchase':
             return { ...item, quantity: item.quantity + 1 };
           case 'upgrade':
-            return { ...item, quantity: item.quantity + 1 };
+            return { ...item, level: item.level + 1 };
         }
       }
       return item;
