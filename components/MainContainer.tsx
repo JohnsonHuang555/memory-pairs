@@ -43,14 +43,13 @@ const MainContainer = ({
             </BounceAnimation>
           )}
         </View>
-
         <CoolText
           text={title}
           className="text-3xl text-[#834B4B]"
           fontWeight="bold"
           style={{ fontSize: 24 }}
         />
-        <View style={{ width: 40 }}>
+        <View style={{ width: 40, alignItems: 'flex-end' }}>
           {showQuestionIcon && (
             <BounceAnimation onPress={() => setGameRuleModal(true)}>
               <Image

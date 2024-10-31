@@ -5,7 +5,7 @@ import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
-import usePlayerStore from '@/stores/PlayerState';
+import usePlayerStore from '@/stores/PlayerStore';
 
 import { router, useRouter } from 'expo-router';
 
@@ -31,7 +31,7 @@ export default function HomeScreen() {
           <CoolText
             text={coins}
             className="text-3xl text-[#834B4B]"
-            fontWeight="bold"
+            fontWeight="medium"
           />
         </View>
       </View>

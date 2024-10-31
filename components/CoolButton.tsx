@@ -59,7 +59,7 @@ const CoolButton = ({
             style={{
               fontSize,
               color: textColor,
-              marginTop: 4,
+              marginTop: 6,
             }}
             text={subText}
             fontWeight="bold"

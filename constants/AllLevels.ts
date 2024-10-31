@@ -16,6 +16,9 @@ export const allLevels = [
     star1Score: 30,
     star2Score: 60,
     star3Score: 100,
+    star1Coins: 10,
+    star2Coins: 30,
+    star3Coins: 50,
   },
   {
     id: 2,
@@ -27,6 +30,9 @@ export const allLevels = [
     star1Score: 240,
     star2Score: 360,
     star3Score: 720,
+    star1Coins: 10,
+    star2Coins: 30,
+    star3Coins: 50,
   },
   {
     id: 3,
@@ -38,6 +44,9 @@ export const allLevels = [
     star1Score: 300,
     star2Score: 450,
     star3Score: 900,
+    star1Coins: 10,
+    star2Coins: 30,
+    star3Coins: 50,
   },
   {
     id: 4,
@@ -49,5 +58,8 @@ export const allLevels = [
     star1Score: 300,
     star2Score: 450,
     star3Score: 900,
+    star1Coins: 10,
+    star2Coins: 30,
+    star3Coins: 50,
   },
 ];

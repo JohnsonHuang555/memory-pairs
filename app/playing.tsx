@@ -21,9 +21,9 @@ import GamePassModal from '@/components/modals/GamePassModal';
 import PauseGameModal from '@/components/modals/PauseGameModal';
 import useLevelInfo from '@/hooks/useLevelInfo';
 import { Card } from '@/models/Card';
-import useGameStore from '@/stores/GameState';
+import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
-import usePlayerStore from '@/stores/PlayerState';
+import usePlayerStore from '@/stores/PlayerStore';
 
 const ANGLE = 10;
 const TIME = 100;
@@ -99,10 +99,19 @@ const PlayingPage = () => {
 
         // 寫入手機
         runOnJS(updateCurrentLevelId)(levelInfo.id);
-        runOnJS(setStarsOfLevel)(levelInfo.id, stars);
+
+        let coins = 0;
+        if (stars === 1) {
+          coins = levelInfo.star1Coins;
+        } else if (stars === 2) {
+          coins = levelInfo.star1Coins;
+        } else {
+          coins = levelInfo.star3Coins;
+        }
+        runOnJS(setStarsOfLevel)(levelInfo.id, stars, coins);
       }
     });
-  }, [score, isCompleteGame, remainedTimeAnimatedValue.value]);
+  }, [score]);
 
   // 遊戲過關
   useEffect(() => {

@@ -6,10 +6,10 @@ import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
 import { Level } from '@/models/Level';
 import useLevelStore from '@/stores/LevelStore';
-import usePlayerStore from '@/stores/PlayerState';
+import usePlayerStore from '@/stores/PlayerStore';
 
 export default function LevelsPage() {
-  const { currentLevelId } = usePlayerStore();
+  const { currentLevelId, coins } = usePlayerStore();
   const {
     levels,
     setPlayLevel,
@@ -17,10 +17,10 @@ export default function LevelsPage() {
     setShowLevelModal,
   } = useLevelStore();
 
-  const totalStars = useMemo(() => levels.reduce((acc, current) => {
-    acc += current.stars;
-    return acc;
-  }, 0), [])
+  // const totalStars = useMemo(() => levels.reduce((acc, current) => {
+  //   acc += current.stars;
+  //   return acc;
+  // }, 0), [])
 
   const toggleModal = () => {
     setShowLevelModal(!showLevelModal);
@@ -86,11 +86,11 @@ export default function LevelsPage() {
       <MainContainer title="關卡" showLeftIcon showQuestionIcon>
         <View className="mb-6 flex-row items-center justify-end">
           <Image
-            source={require('@/assets/images/yellow-star.png')}
+            source={require('@/assets/images/coin.png')}
             style={{ width: 26, height: 26 }}
           />
           <CoolText
-            text={`${totalStars}/10`}
+            text={coins}
             className="ml-2 text-2xl text-[#834B4B]"
             fontWeight="medium"
           />

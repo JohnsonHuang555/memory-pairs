@@ -9,7 +9,7 @@ import Animated, {
 
 import CoolText from './CoolText';
 import useLevelInfo from '@/hooks/useLevelInfo';
-import useGameStore from '@/stores/GameState';
+import useGameStore from '@/stores/GameStore';
 
 const ProgressBarWithStars = () => {
   const { score: playerScore, setStars } = useGameStore();

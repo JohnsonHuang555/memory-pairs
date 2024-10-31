@@ -1,5 +1,5 @@
 import BounceAnimation from "@/components/BounceAnimation";
-import useGameStore from "@/stores/GameState";
+import useGameStore from "@/stores/GameStore";
 import { useRouter } from "expo-router";
 import { Image, StyleSheet, View } from 'react-native';
 

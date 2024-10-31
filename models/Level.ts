@@ -11,6 +11,9 @@ export type Level = {
   star1Score: number; // 星星門檻
   star2Score: number;
   star3Score: number;
+  star1Coins: number; // 星星獎勵
+  star2Coins: number;
+  star3Coins: number;
 };
 
 export enum LevelTheme {

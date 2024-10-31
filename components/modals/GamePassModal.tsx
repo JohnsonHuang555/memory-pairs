@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Image, View } from 'react-native';
 import Animated, { BounceIn, FadeIn } from 'react-native-reanimated';
 
@@ -6,7 +7,8 @@ import BaseModal from './BaseModal';
 import GoLevelsButton from './buttons/GoLevelsButton';
 import NextLevelButton from './buttons/NextLevelButton';
 import ReplayButton from './buttons/ReplayButton';
-import useGameStore from '@/stores/GameState';
+import useLevelInfo from '@/hooks/useLevelInfo';
+import useGameStore from '@/stores/GameStore';
 
 type GamePassModalProps = {
   show: boolean;
@@ -15,6 +17,19 @@ type GamePassModalProps = {
 
 const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
   const { score, stars } = useGameStore();
+  const { levelInfo } = useLevelInfo();
+
+  if (!levelInfo) return null;
+
+  const coins = useMemo(() => {
+    if (stars === 1) {
+      return levelInfo.star1Coins;
+    } else if (stars === 2) {
+      return levelInfo.star2Coins;
+    } else {
+      return levelInfo.star3Coins;
+    }
+  }, []);
 
   return (
     <BaseModal
@@ -125,13 +140,17 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
             style={{ width: 32, height: 32, marginRight: 4 }}
           />
           <CoolText
-            text={score}
+            text={coins}
             fontWeight="medium"
             style={{ fontSize: 22, color: '#834B4B' }}
           />
         </View>
       </Animated.View>
-      <Animated.View entering={FadeIn.delay(2000)} className="flex-row justify-between" style={{ width: '90%' }}>
+      <Animated.View
+        entering={FadeIn.delay(2000)}
+        className="flex-row justify-between"
+        style={{ width: '90%' }}
+      >
         <GoLevelsButton />
         <ReplayButton />
         <NextLevelButton />
