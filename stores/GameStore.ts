@@ -1,5 +1,5 @@
 import { Card } from '@/models/Card';
-import { Item } from '@/models/Item';
+import { UseItem } from '@/models/Item';
 import { Level } from '@/models/Level';
 import { shuffleArray } from '@/utils';
 
@@ -16,7 +16,7 @@ type GameState = {
   passGame: boolean;
   stars: number;
   isCompleteGame: boolean;
-  useItems: Item[];
+  useItems: UseItem[];
   setStars: (stars: number) => void;
   generateCards: (levelInfo: Level) => void;
   onFlip: (id: number) => void;
@@ -24,7 +24,7 @@ type GameState = {
   updateCard: (id: number) => void;
   resetGame: () => void;
   finalCalculateScore: (remainedTime: number) => void;
-  setUseItems: (items: Item[]) => void;
+  setUseItems: (items: UseItem[]) => void;
 };
 
 const initState = {
@@ -275,7 +275,7 @@ const useGameStore = create<GameState>((set, get) => ({
       score: state.score + remainedTime,
     }));
   },
-  setUseItems: (useItems: Item[]) => {
+  setUseItems: (useItems: UseItem[]) => {
     set(() => ({ useItems }));
   },
 }));

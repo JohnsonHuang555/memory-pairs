@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Image, View } from 'react-native';
 import Animated, {
   BounceIn,
@@ -19,8 +19,10 @@ import ProgressBarWithStars from '@/components/ProgressBarWithStars';
 import GameOverModal from '@/components/modals/GameOverModal';
 import GamePassModal from '@/components/modals/GamePassModal';
 import PauseGameModal from '@/components/modals/PauseGameModal';
+import UseItemModal from '@/components/modals/UseItemsModal';
 import useLevelInfo from '@/hooks/useLevelInfo';
 import { Card } from '@/models/Card';
+import { ItemType } from '@/models/Item';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
@@ -36,10 +38,11 @@ const PlayingPage = () => {
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
   const [showPauseGameModal, setPauseGameModal] = useState(false);
+  const [showUseItemsModal, setUseItemsModal] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState(levelInfo?.timer || 0);
   const [isRunning, setIsRunning] = useState(false);
-  const [displayedValue, setDisplayedValue] = useState(0);
+  const [displayedScore, setDisplayedScore] = useState(0);
 
   const {
     generateCards,
@@ -62,10 +65,22 @@ const PlayingPage = () => {
 
   if (!levelInfo) return null;
 
-  // timer
+  const usedAddTime = useMemo(
+    () => useItems.find(item => item.type === ItemType.AddTime),
+    [useItems],
+  );
+  const usedViewFirst = useMemo(
+    () => useItems.find(item => item.type === ItemType.ViewFirst),
+    [useItems],
+  );
+  const usedAutoPairs = useMemo(
+    () => useItems.find(item => item.type === ItemType.AutoPairs),
+    [useItems],
+  );
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setDisplayedValue(Math.floor(scoreAnimatedValue.value));
+      setDisplayedScore(Math.floor(scoreAnimatedValue.value));
     }, 50); // 每 50 毫秒更新畫面
 
     return () => clearInterval(interval);
@@ -88,8 +103,13 @@ const PlayingPage = () => {
 
   // create game
   useEffect(() => {
+    if (usedAddTime || usedViewFirst || usedAutoPairs) {
+      setTimeout(() => {
+        setUseItemsModal(true);
+      }, 500);
+    }
     generateCards(levelInfo);
-  }, []);
+  }, [useItems, levelInfo]);
 
   // 驅動動畫，將數值從 0 變到 score
   useEffect(() => {
@@ -177,6 +197,7 @@ const PlayingPage = () => {
   };
 
   const handleFlip = (card: Card) => {
+    if (showUseItemsModal) return;
     startTimer();
     onFlip(card.id);
     checkIsMatch(card);
@@ -184,6 +205,13 @@ const PlayingPage = () => {
 
   return (
     <>
+      <UseItemModal
+        usedAddTime={!!usedAddTime}
+        usedViewFirst={!!usedViewFirst}
+        usedAutoPairs={!!usedAutoPairs}
+        show={showUseItemsModal}
+        onClose={() => setUseItemsModal(false)}
+      />
       <GameOverModal
         show={showGameOverModal}
         onClose={() => setShowGameOverModal(false)}
@@ -233,7 +261,7 @@ const PlayingPage = () => {
               fontWeight="medium"
             />
             <CoolText
-              text={displayedValue}
+              text={displayedScore}
               className="text-2xl text-[#D14343]"
               fontWeight="bold"
             />

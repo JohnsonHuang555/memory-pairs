@@ -6,7 +6,7 @@ import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import useLevelInfo, { gameMatchCount, gameTheme } from '@/hooks/useLevelInfo';
-import { Item } from '@/models/Item';
+import { ItemType, UseItem } from '@/models/Item';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
@@ -22,31 +22,31 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { push } = useRouter();
   const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
-  const { items } = usePlayerStore();
+  const { items, updatePlayerItem } = usePlayerStore();
   const { setUseItems } = useGameStore();
 
-  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+  const [selectedItems, setSelectedItems] = useState<UseItem[]>([]);
   if (!levelInfo) return null;
 
   const { id, stars } = levelInfo;
 
-  const getItemIcon = (type: Item) => {
+  const getItemIcon = (type: ItemType) => {
     switch (type) {
-      case Item.AddTime:
+      case ItemType.AddTime:
         return (
           <Image
             source={require('@/assets/images/timer.png')}
             style={{ width: 50, height: 50 }}
           />
         );
-      case Item.ViewFirst:
+      case ItemType.ViewFirst:
         return (
           <Image
             source={require('@/assets/images/eye.png')}
             style={{ width: 50, height: 50 }}
           />
         );
-      case Item.AutoPairs:
+      case ItemType.AutoPairs:
         return (
           <Image
             source={require('@/assets/images/paris.png')}
@@ -136,7 +136,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
         <View className="flex-row" style={{ gap: 16 }}>
           {items.map(item => {
             const currentType = selectedItems.find(
-              selected => selected === item.type,
+              selected => selected.type === item.type,
             );
             return (
               <BounceAnimation
@@ -146,10 +146,24 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
                   if (item.quantity > 0) {
                     if (currentType) {
                       setSelectedItems(state =>
-                        state.filter(s => s !== item.type),
+                        state.filter(s => s.type !== item.type),
                       );
                     } else {
-                      setSelectedItems(state => [...state, item.type]);
+                      let value = 0;
+                      switch (item.type) {
+                        case ItemType.AddTime:
+                          value = 2 + item.level * 3;
+                          break;
+                        case ItemType.ViewFirst:
+                        case ItemType.AutoPairs:
+                          value = item.level * 1;
+                          break;
+                      }
+
+                      setSelectedItems(state => [
+                        ...state,
+                        { type: item.type, value },
+                      ]);
                     }
                   }
                 }}
@@ -198,6 +212,11 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
         text="挑戰"
         backgroundColor="#834B4B"
         onClick={() => {
+          if (selectedItems.length > 0) {
+            selectedItems.forEach(selectedItem => {
+              updatePlayerItem(selectedItem.type, 'use');
+            });
+          }
           setShowLevelModal(false);
           setUseItems(selectedItems);
           push('/playing');

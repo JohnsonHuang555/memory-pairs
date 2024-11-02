@@ -1,22 +1,22 @@
-import { Item } from "@/models/Item";
+import { ItemType } from "@/models/Item";
 
 export const allItems = [
   {
-    type: Item.AddTime,
+    type: ItemType.AddTime,
     maxLevel: 6,
     upgradeGold: 500,
-    purchaseGold: 200,
+    purchaseGold: 250,
   },
   {
-    type: Item.ViewFirst,
-    maxLevel: 6,
+    type: ItemType.ViewFirst,
+    maxLevel: 5,
     upgradeGold: 600,
     purchaseGold: 300,
   },
   {
-    type: Item.AutoPairs,
-    maxLevel: 6,
-    upgradeGold: 800,
-    purchaseGold: 500,
+    type: ItemType.AutoPairs,
+    maxLevel: 3,
+    upgradeGold: 700,
+    purchaseGold: 350,
   }
 ];

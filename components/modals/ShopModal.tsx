@@ -6,7 +6,7 @@ import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import { allItems } from '@/constants/AllItems';
-import { Item, PlayerItem } from '@/models/Item';
+import { ItemType, PlayerItem } from '@/models/Item';
 import usePlayerStore from '@/stores/PlayerStore';
 
 type ShopModalProps = {
@@ -15,7 +15,7 @@ type ShopModalProps = {
 };
 
 type SelectedItem = {
-  type: Item;
+  type: ItemType;
   price: number;
   action: 'purchase' | 'upgrade';
   name: string;
@@ -26,26 +26,24 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
   const [selectedItem, setSelectedItem] = useState<SelectedItem>();
 
   const getItemInfo = useCallback(
-    (type: Item) => {
-      const item = items.find(i => i.type === type);
-      if (!item) return;
+    (item: PlayerItem) => {
       let name = '';
-      switch (type) {
-        case Item.AddTime:
+      switch (item.type) {
+        case ItemType.AddTime:
           if (item?.level === 1) {
             name = `加時 5 秒`;
           } else {
             name = `加時 ${2 + item.level * 3} 秒`;
           }
           break;
-        case Item.ViewFirst:
+        case ItemType.ViewFirst:
           if (item?.level === 1) {
             name = `先看 1 秒`;
           } else {
             name = `先看 ${item.level * 1} 秒`;
           }
           break;
-        case Item.AutoPairs:
+        case ItemType.AutoPairs:
           if (item?.level === 1) {
             name = `配對 1 組`;
           } else {
@@ -57,29 +55,30 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
       return {
         quantity: item.quantity,
         level: item.level,
+        maxLevel: item.maxLevel,
         name,
       };
     },
     [items],
   );
 
-  const getItemIcon = (type: Item) => {
+  const getItemIcon = (type: ItemType) => {
     switch (type) {
-      case Item.AddTime:
+      case ItemType.AddTime:
         return (
           <Image
             source={require('@/assets/images/timer.png')}
             style={{ width: 50, height: 50 }}
           />
         );
-      case Item.ViewFirst:
+      case ItemType.ViewFirst:
         return (
           <Image
             source={require('@/assets/images/eye.png')}
             style={{ width: 50, height: 50 }}
           />
         );
-      case Item.AutoPairs:
+      case ItemType.AutoPairs:
         return (
           <Image
             source={require('@/assets/images/paris.png')}
@@ -116,107 +115,130 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
         className="flex-row items-center justify-between"
         style={{ width: '100%', gap: 10 }}
       >
-        {allItems.map(item => (
-          <View className="items-center" key={item.type}>
-            <View className="rounded-xl" style={styles.itemsContainer}>
-              <View style={styles.item}>
-                <CoolText
-                  text={getItemInfo(item.type)?.quantity || 0}
-                  className="text-white"
-                  style={{ fontSize: 16 }}
+        {allItems.map(item => {
+          const currentItem = items.find(i => i.type === item.type);
+          if (!currentItem)
+            return <View className="items-center" key={item.type} />;
+
+          const { quantity, level, maxLevel, name } = getItemInfo(currentItem);
+
+          return (
+            <View className="items-center" key={item.type}>
+              <View className="rounded-xl" style={styles.itemsContainer}>
+                <View style={styles.item}>
+                  <CoolText
+                    text={quantity || 0}
+                    className="text-white"
+                    style={{ fontSize: 16 }}
+                  />
+                </View>
+                <View style={styles.level}>
+                  <CoolText
+                    text={level === maxLevel ? 'Max' : `Lv. ${level || 1}`}
+                    className="text-white"
+                    style={{ fontSize: 14 }}
+                  />
+                </View>
+                {getItemIcon(item.type)}
+              </View>
+              <CoolText
+                text={name || ''}
+                className="text-[#834B4B]"
+                style={{ fontSize: 16, marginBottom: 20 }}
+                fontWeight="medium"
+              />
+              <View className="mb-4">
+                <CoolButton
+                  width={90}
+                  text={`用 ${item.upgradeGold} 金`}
+                  subText="升級"
+                  backgroundColor={level === maxLevel ? '#C1C1C1' : '#E3803E'}
+                  disabled={level === maxLevel}
+                  onClick={() => {
+                    setSelectedItem({
+                      type: item.type,
+                      action: 'upgrade',
+                      price: item.upgradeGold,
+                      name: name || '',
+                    });
+                  }}
+                  fontSize={14}
                 />
               </View>
-              <View style={styles.level}>
-                <CoolText
-                  text={`Lv. ${getItemInfo(item.type)?.level || 1}`}
-                  className="text-white"
-                  style={{ fontSize: 14 }}
-                />
-              </View>
-              {getItemIcon(item.type)}
-            </View>
-            <CoolText
-              text={getItemInfo(item.type)?.name || ''}
-              className="text-[#834B4B]"
-              style={{ fontSize: 16, marginBottom: 20 }}
-              fontWeight="medium"
-            />
-            <View className="mb-4">
               <CoolButton
                 width={90}
-                text={`用 ${item.upgradeGold} 金`}
-                subText="升級"
-                backgroundColor="#E3803E"
+                text={`用 ${item.purchaseGold} 金`}
+                subText="購買"
+                backgroundColor="#834B4B"
                 onClick={() => {
                   setSelectedItem({
                     type: item.type,
-                    action: 'upgrade',
-                    price: item.upgradeGold,
-                    name: getItemInfo(item.type)?.name || '',
+                    action: 'purchase',
+                    price: item.purchaseGold,
+                    name: getItemInfo(currentItem).name || '',
                   });
                 }}
                 fontSize={14}
               />
             </View>
-            <CoolButton
-              width={90}
-              text={`用 ${item.purchaseGold} 金`}
-              subText="購買"
-              backgroundColor="#834B4B"
-              onClick={() => {
-                setSelectedItem({
-                  type: item.type,
-                  action: 'purchase',
-                  price: item.purchaseGold,
-                  name: getItemInfo(item.type)?.name || '',
-                });
-              }}
-              fontSize={14}
-            />
-          </View>
-        ))}
+          );
+        })}
         {selectedItem && (
           <Animated.View
             entering={FadeIn}
             className="absolute bottom-0 bg-[#fff]"
             style={{
-              width: '110%',
+              width: '115%',
               position: 'absolute',
               bottom: -150,
-              left: -15,
+              left: -20,
               backgroundColor: '#FFF1E5',
               borderRadius: 12,
               padding: 16,
+              borderColor: '#C08A76',
+              borderWidth: 3,
             }}
           >
             <CoolText
-              text={`確定使用 ${selectedItem.price} 金購買道具<${selectedItem.name}>嗎?`}
+              text={`確定使用 ${selectedItem.price} 金購買道具 <${selectedItem.name}> 嗎?`}
               className="text-[#834B4B]"
               style={{ fontSize: 16, marginBottom: 16 }}
               fontWeight="medium"
             />
-            <View className="flex-row justify-end" style={{ gap: 8 }}>
-              <CoolButton
-                width={80}
-                height={40}
-                text="取消"
-                backgroundColor="#8E8E8E"
-                onClick={() => setSelectedItem(undefined)}
-                fontSize={14}
-              />
-              <CoolButton
-                width={80}
-                height={40}
-                text={selectedItem.action === 'purchase' ? '購買' : '升級'}
-                backgroundColor={
-                  selectedItem.action === 'purchase' ? '#834B4B' : '#E3803E'
-                }
-                onClick={() => {
-                  updatePlayerItem(selectedItem.type, selectedItem.action);
-                  setSelectedItem(undefined);
-                }}
-                fontSize={14}
-              />
+            <View className="flex-row justify-between">
+              <View className="flex-1 justify-center">
+                {coins < selectedItem.price && (
+                  <CoolText
+                    text="金幣不足！"
+                    fontWeight="bold"
+                    className="text-[#D14343]"
+                  />
+                )}
+              </View>
+              <View className="flex-row" style={{ gap: 8 }}>
+                <CoolButton
+                  width={80}
+                  height={40}
+                  text="取消"
+                  backgroundColor="#8E8E8E"
+                  onClick={() => setSelectedItem(undefined)}
+                  fontSize={14}
+                />
+                <CoolButton
+                  width={80}
+                  height={40}
+                  disabled={coins < selectedItem.price}
+                  text={selectedItem.action === 'purchase' ? '購買' : '升級'}
+                  backgroundColor={
+                    selectedItem.action === 'purchase' ? '#834B4B' : '#E3803E'
+                  }
+                  onClick={() => {
+                    updatePlayerItem(selectedItem.type, selectedItem.action);
+                    setSelectedItem(undefined);
+                  }}
+                  fontSize={14}
+                />
+              </View>
             </View>
           </Animated.View>
         )}
@@ -255,7 +277,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: -13,
     bottom: -13,
-    width: 40,
+    width: 45,
     height: 20,
     backgroundColor: '#C08A76',
     borderRadius: 999,
