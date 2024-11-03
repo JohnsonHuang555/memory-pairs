@@ -44,6 +44,9 @@ const PlayingPage = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [displayedScore, setDisplayedScore] = useState(0);
 
+  // 使用先看牌的道具
+  const [itemViewFirst, setItemViewFirst] = useState(false);
+
   const {
     generateCards,
     cards,
@@ -103,6 +106,7 @@ const PlayingPage = () => {
 
   // create game
   useEffect(() => {
+    if (isCompleteGame) return;
     if (usedAddTime || usedViewFirst || usedAutoPairs) {
       setTimeout(() => {
         setUseItemsModal(true);
@@ -215,6 +219,11 @@ const PlayingPage = () => {
           if (usedAddTime) {
             setTimeLeft(state => state + usedAddTime.value);
           }
+          if (usedViewFirst) {
+            setItemViewFirst(true);
+          }
+          if (usedAutoPairs) {
+          }
         }}
       />
       <GameOverModal
@@ -228,7 +237,9 @@ const PlayingPage = () => {
       <PauseGameModal
         show={showPauseGameModal}
         onResume={() => {
-          startTimer();
+          if (isRunning) {
+            startTimer();
+          }
           setPauseGameModal(false);
         }}
       />
@@ -305,6 +316,8 @@ const PlayingPage = () => {
                 theme={levelInfo.theme}
                 updateCard={updateCard}
                 disabled={isCompleteGame}
+                itemViewFirst={itemViewFirst}
+                itemViewFirstValue={usedViewFirst?.value}
               />
             </View>
           ))}

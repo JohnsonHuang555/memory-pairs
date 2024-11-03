@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
@@ -233,6 +234,12 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
                     selectedItem.action === 'purchase' ? '#834B4B' : '#E3803E'
                   }
                   onClick={() => {
+                    Toast.show({
+                      type: 'success',
+                      visibilityTime: 1000,
+                      text1:
+                        selectedItem.action === 'purchase' ? '✅ 購買成功' : '⬆️ 升級成功',
+                    });
                     updatePlayerItem(selectedItem.type, selectedItem.action);
                     setSelectedItem(undefined);
                   }}

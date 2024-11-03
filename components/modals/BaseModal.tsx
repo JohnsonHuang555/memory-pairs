@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import Modal from 'react-native-modal';
 
 import CoolText from '../CoolText';
+import Toast from 'react-native-toast-message';
 
 type BaseModalProps = {
   title: string;
@@ -33,6 +34,7 @@ const BaseModal = ({
       className="items-center"
       backdropTransitionOutTiming={0}
     >
+      <Toast />
       <View
         className="relative items-center justify-center"
         style={{

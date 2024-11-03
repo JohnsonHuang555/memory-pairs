@@ -57,7 +57,15 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   };
 
   return (
-    <BaseModal title={`Level ${id}`} show={show} width={90} onClose={onClose}>
+    <BaseModal
+      title={`Level ${id}`}
+      show={show}
+      width={90}
+      onClose={() => {
+        setSelectedItems([]);
+        onClose();
+      }}
+    >
       <View className="mb-6 flex-row" style={{ gap: 4 }}>
         {stars > 0 ? (
           <Image
@@ -217,6 +225,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
               updatePlayerItem(selectedItem.type, 'use');
             });
           }
+          setSelectedItems([]);
           setShowLevelModal(false);
           setUseItems(selectedItems);
           push('/playing');

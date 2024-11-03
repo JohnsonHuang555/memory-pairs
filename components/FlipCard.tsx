@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   interpolate,
@@ -18,15 +18,27 @@ type FlipCardProps = {
   type: LevelType;
   theme: LevelTheme;
   disabled: boolean;
+  itemViewFirst: boolean;
+  itemViewFirstValue?: number;
   onFlip: (card: Card) => void;
   updateCard: (id: number) => void;
 };
 
-const FlipCard = ({ card, type, theme, disabled, onFlip, updateCard }: FlipCardProps) => {
+const FlipCard = ({
+  card,
+  type,
+  theme,
+  disabled,
+  itemViewFirst,
+  itemViewFirstValue,
+  onFlip,
+  updateCard,
+}: FlipCardProps) => {
   const prevIsFlipped = useRef(card.isFlipped);
   const prevIsMatched = useRef(card.isMatched);
   const rotation = useSharedValue(0); // 初始旋轉角度
   const scale = useSharedValue(1); // 初始化卡片的縮放比例
+  const [isViewFirst, setIsViewFirst] = useState(false);
 
   // 當點擊卡片時觸發翻轉
   const flipCard = () => {
@@ -62,6 +74,22 @@ const FlipCard = ({ card, type, theme, disabled, onFlip, updateCard }: FlipCardP
   }, [card.isFlipped]);
 
   useEffect(() => {
+    if (itemViewFirst && itemViewFirstValue) {
+      setIsViewFirst(true);
+      rotation.value = withSpring(180, {
+        damping: 20, // 增大阻尼，减少反弹
+        stiffness: 150, // 增大刚度，加快动画响应
+        mass: 1, // 设置适中的质量
+        overshootClamping: true, // 禁止超过目标值
+      });
+      setTimeout(() => {
+        setIsViewFirst(false);
+        rotation.value = withSpring(0);
+      }, itemViewFirstValue * 1000);
+    }
+  }, [itemViewFirst, itemViewFirstValue]);
+
+  useEffect(() => {
     if (prevIsMatched.current === false && card.isMatched) {
       scale.value = withSpring(1.15, {
         damping: 10,
@@ -76,7 +104,7 @@ const FlipCard = ({ card, type, theme, disabled, onFlip, updateCard }: FlipCardP
     }
     // 更新前一個值
     prevIsMatched.current = card.isMatched;
-  }, [card.isMatched])
+  }, [card.isMatched]);
 
   // 卡片的背面樣式
   const frontAnimatedStyle = useAnimatedStyle(() => {
@@ -101,7 +129,7 @@ const FlipCard = ({ card, type, theme, disabled, onFlip, updateCard }: FlipCardP
   });
 
   const handlePressIn = () => {
-    if (card.isFlipped || card.isMatched || disabled) {
+    if (card.isFlipped || card.isMatched || disabled || isViewFirst) {
       return;
     }
     scale.value = withSpring(1.15, {
@@ -111,7 +139,7 @@ const FlipCard = ({ card, type, theme, disabled, onFlip, updateCard }: FlipCardP
   };
 
   const handlePressOut = () => {
-    if (card.isFlipped || card.isMatched || disabled) {
+    if (card.isFlipped || card.isMatched || disabled || isViewFirst) {
       return;
     }
     scale.value = withSpring(1, {
