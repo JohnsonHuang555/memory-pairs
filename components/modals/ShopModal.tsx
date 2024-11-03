@@ -31,9 +31,9 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
       switch (item.type) {
         case ItemType.AddTime:
           if (item?.level === 1) {
-            name = `加時 5 秒`;
+            name = `加時 10 秒`;
           } else {
-            name = `加時 ${2 + item.level * 3} 秒`;
+            name = `加時 ${5 + item.level * 5} 秒`;
           }
           break;
         case ItemType.ViewFirst:

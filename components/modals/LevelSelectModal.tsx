@@ -152,7 +152,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
                       let value = 0;
                       switch (item.type) {
                         case ItemType.AddTime:
-                          value = 2 + item.level * 3;
+                          value = 5 + item.level * 5;
                           break;
                         case ItemType.ViewFirst:
                         case ItemType.AutoPairs:

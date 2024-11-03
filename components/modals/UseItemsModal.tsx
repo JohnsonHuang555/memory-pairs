@@ -8,6 +8,7 @@ type UseItemsModalProps = {
   usedAutoPairs: boolean;
   show: boolean;
   onClose: () => void;
+  onModalHide: () => void;
 };
 
 const UseItemsModal = ({
@@ -16,11 +17,12 @@ const UseItemsModal = ({
   usedAutoPairs,
   show,
   onClose,
+  onModalHide,
 }: UseItemsModalProps) => {
   useEffect(() => {
     setTimeout(() => {
-      // onClose();
-    }, 2000);
+      onClose();
+    }, 1500);
   }, []);
 
   return (
@@ -31,7 +33,9 @@ const UseItemsModal = ({
       }}
       className="items-center"
       backdropTransitionOutTiming={0}
-      animationIn="bounceIn"
+      animationIn="slideInRight"
+      animationOut="slideOutLeft"
+      onModalHide={onModalHide}
     >
       <View
         className="flex-row items-center justify-center"

@@ -106,7 +106,7 @@ const PlayingPage = () => {
     if (usedAddTime || usedViewFirst || usedAutoPairs) {
       setTimeout(() => {
         setUseItemsModal(true);
-      }, 500);
+      }, 100);
     }
     generateCards(levelInfo);
   }, [useItems, levelInfo]);
@@ -211,6 +211,11 @@ const PlayingPage = () => {
         usedAutoPairs={!!usedAutoPairs}
         show={showUseItemsModal}
         onClose={() => setUseItemsModal(false)}
+        onModalHide={() => {
+          if (usedAddTime) {
+            setTimeLeft(state => state + usedAddTime.value);
+          }
+        }}
       />
       <GameOverModal
         show={showGameOverModal}
