@@ -20,7 +20,7 @@ export const getOrdinalSuffix = (rank: number) => {
     default:
       return `${rank}th`;
   }
-}
+};
 
 /* shuffle */
 export function shuffleArray<T>(array: T[]) {
@@ -37,4 +37,18 @@ export function shuffleArray<T>(array: T[]) {
   }
 
   return shuffledArray;
+}
+
+/** 隨機從陣列中取幾筆資料(不打亂陣列) */
+export function getRandomElementsFromArray<T>(arr: T[], num: number) {
+  const originalArray = [...arr]; // 複製原始陣列
+  const selectedItems = [];
+
+  while (selectedItems.length < num) {
+    const randomIndex = Math.floor(Math.random() * originalArray.length);
+    selectedItems.push(originalArray[randomIndex]);
+    originalArray.splice(randomIndex, 1); // 避免重複選取
+  }
+
+  return selectedItems;
 }

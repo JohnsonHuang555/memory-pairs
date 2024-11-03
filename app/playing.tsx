@@ -59,6 +59,7 @@ const PlayingPage = () => {
     stars,
     finalCalculateScore,
     useItems,
+    setAutoPairsItemEffect,
   } = useGameStore();
 
   // 使用 useSharedValue 定義動畫數值
@@ -223,6 +224,7 @@ const PlayingPage = () => {
             setItemViewFirst(true);
           }
           if (usedAutoPairs) {
+            setAutoPairsItemEffect(usedAutoPairs.value);
           }
         }}
       />
@@ -318,6 +320,7 @@ const PlayingPage = () => {
                 disabled={isCompleteGame}
                 itemViewFirst={itemViewFirst}
                 itemViewFirstValue={usedViewFirst?.value}
+                itemAutoPairs={!!usedAutoPairs}
               />
             </View>
           ))}

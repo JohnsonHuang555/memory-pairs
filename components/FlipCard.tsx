@@ -18,8 +18,9 @@ type FlipCardProps = {
   type: LevelType;
   theme: LevelTheme;
   disabled: boolean;
-  itemViewFirst: boolean;
-  itemViewFirstValue?: number;
+  itemViewFirst: boolean; // 道具先看幾秒
+  itemViewFirstValue?: number; // 道具先看幾秒
+  itemAutoPairs: boolean; // 道具自動配對
   onFlip: (card: Card) => void;
   updateCard: (id: number) => void;
 };
@@ -31,6 +32,7 @@ const FlipCard = ({
   disabled,
   itemViewFirst,
   itemViewFirstValue,
+  itemAutoPairs,
   onFlip,
   updateCard,
 }: FlipCardProps) => {
@@ -74,20 +76,53 @@ const FlipCard = ({
   }, [card.isFlipped]);
 
   useEffect(() => {
-    if (itemViewFirst && itemViewFirstValue) {
-      setIsViewFirst(true);
+    // 兩個道具都有用
+    if (itemViewFirst && itemViewFirstValue && itemAutoPairs) {
+      if (!card.isMatched) {
+        setIsViewFirst(true);
+        rotation.value = withSpring(180, {
+          damping: 20, // 增大阻尼，减少反弹
+          stiffness: 150, // 增大刚度，加快动画响应
+          mass: 1, // 设置适中的质量
+          overshootClamping: true, // 禁止超过目标值
+        });
+        setTimeout(() => {
+          setIsViewFirst(false);
+          rotation.value = withSpring(0);
+        }, itemViewFirstValue * 1000);
+      } else {
+        rotation.value = withSpring(180, {
+          damping: 20, // 增大阻尼，减少反弹
+          stiffness: 150, // 增大刚度，加快动画响应
+          mass: 1, // 设置适中的质量
+          overshootClamping: true, // 禁止超过目标值
+        });
+      }
+      // 只用先看幾秒的道具
+    } else if (itemViewFirst && itemViewFirstValue) {
+      if (!card.isMatched) {
+        setIsViewFirst(true);
+        rotation.value = withSpring(180, {
+          damping: 20, // 增大阻尼，减少反弹
+          stiffness: 150, // 增大刚度，加快动画响应
+          mass: 1, // 设置适中的质量
+          overshootClamping: true, // 禁止超过目标值
+        });
+        setTimeout(() => {
+          setIsViewFirst(false);
+          rotation.value = withSpring(0);
+        }, itemViewFirstValue * 1000);
+      }
+      // 只用自動配對的道具
+    } else if (itemAutoPairs && card.isMatched) {
       rotation.value = withSpring(180, {
         damping: 20, // 增大阻尼，减少反弹
         stiffness: 150, // 增大刚度，加快动画响应
         mass: 1, // 设置适中的质量
         overshootClamping: true, // 禁止超过目标值
       });
-      setTimeout(() => {
-        setIsViewFirst(false);
-        rotation.value = withSpring(0);
-      }, itemViewFirstValue * 1000);
     }
-  }, [itemViewFirst, itemViewFirstValue]);
+  }, [itemViewFirst, itemViewFirstValue, itemAutoPairs, card.isMatched]);
 
   useEffect(() => {
     if (prevIsMatched.current === false && card.isMatched) {

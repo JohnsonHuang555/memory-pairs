@@ -1,7 +1,7 @@
 import { Card } from '@/models/Card';
 import { UseItem } from '@/models/Item';
 import { Level } from '@/models/Level';
-import { shuffleArray } from '@/utils';
+import { getRandomElementsFromArray, shuffleArray } from '@/utils';
 
 import { create } from 'zustand';
 
@@ -10,6 +10,7 @@ type GameState = {
   cards: Card[];
   selectedCards: Card[];
   matchCount: number;
+  questions: string[];
   timer: number;
   isPreviousMatch: boolean;
   combo: number;
@@ -25,6 +26,7 @@ type GameState = {
   resetGame: () => void;
   finalCalculateScore: (remainedTime: number) => void;
   setUseItems: (items: UseItem[]) => void;
+  setAutoPairsItemEffect: (count: number) => void;
 };
 
 const initState = {
@@ -32,6 +34,7 @@ const initState = {
   cards: [],
   selectedCards: [],
   matchCount: 0,
+  questions: [],
   timer: 0,
   combo: 0,
   isPreviousMatch: false,
@@ -69,6 +72,7 @@ const useGameStore = create<GameState>((set, get) => ({
       cards: shuffledCards,
       matchCount,
       timer,
+      questions,
     }));
   },
   onFlip: (id: number) => {
@@ -277,6 +281,30 @@ const useGameStore = create<GameState>((set, get) => ({
   },
   setUseItems: (useItems: UseItem[]) => {
     set(() => ({ useItems }));
+  },
+  // 自動配對道具效果
+  setAutoPairsItemEffect: (count: number) => {
+    const cards = get().cards;
+    const questions = get().questions;
+    const matchCount = get().matchCount;
+
+    // 防呆：配對數不得大於關卡總配對數
+    if (count > matchCount) return;
+
+    const randomValue = getRandomElementsFromArray(questions, count);
+    const newCards = cards.map(card => {
+      if (randomValue.includes(card.content)) {
+        return { ...card, isFlipped: true, isMatched: true };
+      }
+      return card;
+    });
+
+    set(() => ({
+      cards: newCards,
+      score: count * 30 + ((count - 1) * 30),
+      isPreviousMatch: true,
+      combo: count - 1,
+    }));
   },
 }));
 
