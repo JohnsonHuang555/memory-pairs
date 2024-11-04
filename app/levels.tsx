@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
@@ -10,17 +11,17 @@ import usePlayerStore from '@/stores/PlayerStore';
 
 export default function LevelsPage() {
   const { currentLevelId, coins } = usePlayerStore();
-  const {
-    levels,
-    setPlayLevel,
-    showLevelModal,
-    setShowLevelModal,
-  } = useLevelStore();
+  const { levels, setPlayLevel, showLevelModal, setShowLevelModal } =
+    useLevelStore();
 
-  // const totalStars = useMemo(() => levels.reduce((acc, current) => {
-  //   acc += current.stars;
-  //   return acc;
-  // }, 0), [])
+  const totalStars = useMemo(
+    () =>
+      levels.reduce((acc, current) => {
+        acc += current.stars;
+        return acc;
+      }, 0),
+    [],
+  );
 
   const toggleModal = () => {
     setShowLevelModal(!showLevelModal);
@@ -75,7 +76,7 @@ export default function LevelsPage() {
   };
 
   return (
-    <>
+    <MainContainer title="關卡" showLeftIcon showQuestionIcon>
       <LevelSelectModal
         show={showLevelModal}
         onClose={() => {
@@ -83,17 +84,33 @@ export default function LevelsPage() {
           setShowLevelModal(false);
         }}
       />
-      <MainContainer title="關卡" showLeftIcon showQuestionIcon>
-        <View className="mb-6 flex-row items-center justify-end">
-          <Image
-            source={require('@/assets/images/coin.png')}
-            style={{ width: 26, height: 26 }}
-          />
-          <CoolText
-            text={coins}
-            className="ml-2 text-2xl text-[#834B4B]"
-            fontWeight="medium"
-          />
+      <Animated.View
+        entering={FadeIn.delay(300)}
+        exiting={FadeOut.duration(100)}
+      >
+        <View className="mb-6 flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <Image
+              source={require('@/assets/images/coin.png')}
+              style={{ width: 26, height: 26, marginRight: 4 }}
+            />
+            <CoolText
+              text={coins}
+              className="text-2xl text-[#834B4B]"
+              fontWeight="medium"
+            />
+          </View>
+          <View className="flex-row items-center">
+            <Image
+              source={require('@/assets/images/yellow-star.png')}
+              style={{ width: 26, height: 26, marginRight: 4 }}
+            />
+            <CoolText
+              text={totalStars}
+              className="text-2xl text-[#834B4B]"
+              fontWeight="medium"
+            />
+          </View>
         </View>
         <View className="flex-row flex-wrap justify-between">
           {levels.map(level => (
@@ -133,7 +150,7 @@ export default function LevelsPage() {
             </TouchableOpacity>
           ))}
         </View>
-      </MainContainer>
-    </>
+      </Animated.View>
+    </MainContainer>
   );
 }

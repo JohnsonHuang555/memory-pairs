@@ -3,6 +3,8 @@ import { Image, View } from 'react-native';
 import Animated, {
   BounceIn,
   Easing,
+  FadeIn,
+  FadeOut,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
@@ -209,7 +211,23 @@ const PlayingPage = () => {
   };
 
   return (
-    <>
+    <MainContainer
+      title={`Level ${levelInfo.id}`}
+      leftChildren={
+        <BounceAnimation
+          onPress={() => {
+            if (isCompleteGame) return;
+            stopTimer();
+            setPauseGameModal(true);
+          }}
+        >
+          <Image
+            source={require('@/assets/images/pause.png')}
+            style={{ width: 40, height: 40 }}
+          />
+        </BounceAnimation>
+      }
+    >
       <UseItemModal
         usedAddTime={!!usedAddTime}
         usedViewFirst={!!usedViewFirst}
@@ -245,22 +263,9 @@ const PlayingPage = () => {
           setPauseGameModal(false);
         }}
       />
-      <MainContainer
-        title={`Level ${levelInfo.id}`}
-        leftChildren={
-          <BounceAnimation
-            onPress={() => {
-              if (isCompleteGame) return;
-              stopTimer();
-              setPauseGameModal(true);
-            }}
-          >
-            <Image
-              source={require('@/assets/images/pause.png')}
-              style={{ width: 40, height: 40 }}
-            />
-          </BounceAnimation>
-        }
+      <Animated.View
+        entering={FadeIn.delay(300)}
+        exiting={FadeOut.duration(100)}
       >
         <View className="items-center" style={{ marginBottom: 8 }}>
           <View style={{ width: '90%' }}>
@@ -341,8 +346,8 @@ const PlayingPage = () => {
             </Animated.Text>
           </View>
         )}
-      </MainContainer>
-    </>
+      </Animated.View>
+    </MainContainer>
   );
 };
 

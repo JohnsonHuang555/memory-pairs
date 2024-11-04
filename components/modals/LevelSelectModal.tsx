@@ -19,7 +19,7 @@ type LevelSelectModalProps = {
 };
 
 const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
-  const { push } = useRouter();
+  const { replace } = useRouter();
   const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
   const { items, updatePlayerItem } = usePlayerStore();
@@ -228,7 +228,9 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           setSelectedItems([]);
           setShowLevelModal(false);
           setUseItems(selectedItems);
-          push('/playing');
+          setTimeout(() => {
+            replace('/playing');
+          }, 300);
         }}
       />
     </BaseModal>

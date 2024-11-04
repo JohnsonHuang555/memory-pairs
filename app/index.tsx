@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Image, View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
@@ -16,24 +17,25 @@ export default function HomeScreen() {
   const { push } = useRouter();
 
   return (
-    <>
+    <Animated.View className="items-center" entering={FadeIn.delay(300)}>
       <ShopModal show={showShopModal} onClose={() => setShowShopModal(false)} />
       <SettingsModal
         show={showSettingsModal}
         onClose={() => setShowSettingsModal(false)}
       />
-      <View className="items-end" style={{ width: '80%', marginBottom: 30 }}>
-        <View className="flex-row items-center">
-          <Image
-            source={require('@/assets/images/coin.png')}
-            style={{ width: 32, height: 32, marginRight: 8 }}
-          />
-          <CoolText
-            text={coins}
-            className="text-3xl text-[#834B4B]"
-            fontWeight="medium"
-          />
-        </View>
+      <View
+        className="flex-row justify-end"
+        style={{ width: '80%', marginBottom: 30 }}
+      >
+        <Image
+          source={require('@/assets/images/coin.png')}
+          style={{ width: 32, height: 32, marginRight: 4 }}
+        />
+        <CoolText
+          text={coins}
+          className="text-3xl text-[#834B4B]"
+          fontWeight="medium"
+        />
       </View>
       <Image
         source={require('@/assets/images/logo.png')}
@@ -48,6 +50,7 @@ export default function HomeScreen() {
         />
         <CoolText text="Now Level" className="mb-20 text-2xl" />
         <BounceAnimation
+          scaleValue={0.9}
           onPress={() => router.push('/levels')}
           className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
         >
@@ -78,6 +81,6 @@ export default function HomeScreen() {
           </BounceAnimation>
         </View>
       </View>
-    </>
+    </Animated.View>
   );
 }

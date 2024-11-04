@@ -10,7 +10,7 @@ type GameRulesProps = {
 
 const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
   return (
-    <BaseModal title="遊戲規則" show={show} width={100} onClose={onClose}>
+    <BaseModal title="遊戲規則" show={show} width={95} onClose={onClose}>
       <View
         className="items-center justify-between"
         style={{ marginVertical: 10 }}

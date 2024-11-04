@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import CoolButton from '@/components/CoolButton';
 import CoolText from '@/components/CoolText';
@@ -76,11 +77,16 @@ export default function AchievementPage() {
   );
   return (
     <MainContainer title="成就" showLeftIcon>
-      <FlatList
-        data={achievements}
-        keyExtractor={item => String(item.id)}
-        renderItem={renderItem}
-      />
+      <Animated.View
+        entering={FadeIn.delay(300)}
+        exiting={FadeOut.duration(100)}
+      >
+        <FlatList
+          data={achievements}
+          keyExtractor={item => String(item.id)}
+          renderItem={renderItem}
+        />
+      </Animated.View>
     </MainContainer>
   );
 }
