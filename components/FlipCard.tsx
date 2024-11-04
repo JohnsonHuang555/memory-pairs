@@ -167,7 +167,7 @@ const FlipCard = ({
     if (card.isFlipped || card.isMatched || disabled || isViewFirst) {
       return;
     }
-    scale.value = withSpring(1.15, {
+    scale.value = withSpring(0.9, {
       damping: 10,
       stiffness: 200,
     });
