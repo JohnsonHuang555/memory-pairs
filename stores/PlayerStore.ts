@@ -1,4 +1,6 @@
+import { allAchievements } from '@/constants/AllAchievements';
 import { allItems } from '@/constants/AllItems';
+import { Achievement } from '@/models/Achievement';
 import { ItemType, PlayerItem } from '@/models/Item';
 
 import { create } from 'zustand';
@@ -13,12 +15,14 @@ type PlayerState = {
   starsOfLevel: StarsOfLevel[];
   coins: number;
   items: PlayerItem[];
+  achievements: Achievement[];
   updateCurrentLevelId: (id: number) => void;
   setStarsOfLevel: (id: number, stars: number, coins: number) => void;
   updatePlayerItem: (
     type: ItemType,
     action: 'purchase' | 'upgrade' | 'use',
   ) => void;
+  receiveAchievementRewards: (id: number, rewards: number) => void;
 };
 
 // 需存到手機裡的資料
@@ -30,6 +34,11 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     ...item,
     level: 1,
     quantity: 0,
+  })),
+  achievements: allAchievements.map(achievement => ({
+    ...achievement,
+    received: false,
+    completed: false,
   })),
   updateCurrentLevelId: (id: number) => {
     set(state => ({
@@ -86,6 +95,20 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
       return item;
     });
     set(state => ({ items: newItems, coins: state.coins - price }));
+  },
+  receiveAchievementRewards: (id: number, rewards: number) => {
+    const achievements = get().achievements;
+    const newAchievements = achievements.map(achievement => {
+      if (achievement.id === id) {
+        return { ...achievement, received: true };
+      }
+      return achievement;
+    });
+
+    set(state => ({
+      achievements: newAchievements,
+      coins: state.coins + rewards,
+    }));
   },
 }));
 

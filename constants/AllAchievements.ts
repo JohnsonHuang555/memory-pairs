@@ -1,0 +1,92 @@
+export const allAchievements = [
+  {
+    id: 1,
+    title: '初次挑戰',
+    description: '完成第一關',
+    rewards: 100,
+  },
+  {
+    id: 2,
+    title: '記憶新手',
+    description: '完成 5 個關卡',
+    rewards: 200,
+  },
+  {
+    id: 3,
+    title: '記憶高手',
+    description: '完成 20 個關卡',
+    rewards: 300,
+  },
+  {
+    id: 4,
+    title: '完美表現',
+    description: '在一關中獲得 3 顆星',
+    rewards: 100,
+  },
+  {
+    id: 5,
+    title: '星級達人 Ⅰ',
+    description: '總共獲得 30 顆星',
+    rewards: 100,
+  },
+  {
+    id: 6,
+    title: '星級達人 Ⅱ',
+    description: '總共獲得 60 顆星',
+    rewards: 200,
+  },
+  {
+    id: 7,
+    title: '星級達人 Ⅲ',
+    description: '總共獲得 90 顆星',
+    rewards: 300,
+  },
+  {
+    id: 8,
+    title: '星級達人 Ⅳ',
+    description: '總共獲得 120 顆星',
+    rewards: 400,
+  },
+  {
+    id: 9,
+    title: '星級達人 Ⅴ',
+    description: '總共獲得 150 顆星',
+    rewards: 500,
+  },
+  {
+    id: 10,
+    title: '快速反應',
+    description: '剩餘超過 30 秒以上完成關卡',
+    rewards: 200,
+  },
+  {
+    id: 11,
+    title: 'Combo 大師',
+    description: '在一關中達成 5 次連擊',
+    rewards: 300,
+  },
+  {
+    id: 12,
+    title: '小試身手',
+    description: '在一關中獲得超過 300 分',
+    rewards: 500,
+  },
+  {
+    id: 13,
+    title: '得心應手',
+    description: '在一關中獲得超過 500 分',
+    rewards: 1000,
+  },
+  {
+    id: 14,
+    title: '超級配對',
+    description: '在 10 秒內完成 3 次配對',
+    rewards: 500,
+  },
+  {
+    id: 15,
+    title: '壓秒過關',
+    description: '在剩餘時間不足 3 秒時完成一關',
+    rewards: 500,
+  },
+];

@@ -4,4 +4,5 @@ export type Achievement = {
   description: string;
   completed: boolean;
   received: boolean;
+  rewards: number;
 };

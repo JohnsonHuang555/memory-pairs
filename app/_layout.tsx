@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { ImageBackground, View } from 'react-native';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 
 import '../global.css';
 
@@ -32,19 +33,22 @@ export default function RootLayout() {
   }
 
   return (
-    <View className="flex-1">
-      <ImageBackground
-        source={require('@/assets/images/background.webp')}
-        resizeMode="cover"
-        imageStyle={{ opacity: 0.5 }}
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Slot />
-      </ImageBackground>
-    </View>
+    <>
+      <View className="flex-1">
+        <ImageBackground
+          source={require('@/assets/images/background.webp')}
+          resizeMode="cover"
+          imageStyle={{ opacity: 0.5 }}
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Slot />
+        </ImageBackground>
+      </View>
+      <Toast />
+    </>
   );
 }
