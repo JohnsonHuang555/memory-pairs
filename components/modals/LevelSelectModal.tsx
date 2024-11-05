@@ -230,7 +230,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           setUseItems(selectedItems);
           setTimeout(() => {
             replace('/playing');
-          }, 300);
+          }, 200);
         }}
       />
     </BaseModal>

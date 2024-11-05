@@ -2,6 +2,7 @@ import { allAchievements } from '@/constants/AllAchievements';
 import { allItems } from '@/constants/AllItems';
 import { Achievement } from '@/models/Achievement';
 import { ItemType, PlayerItem } from '@/models/Item';
+import { Level } from '@/models/Level';
 
 import { create } from 'zustand';
 
@@ -16,7 +17,13 @@ type PlayerState = {
   coins: number;
   items: PlayerItem[];
   achievements: Achievement[];
-  updateCurrentLevelId: (id: number) => void;
+  updateCurrentLevelId: (
+    levelInfo: Level,
+    totalStars: number,
+    timeLeft: number,
+    maxCombo: number,
+    score: number,
+  ) => void;
   setStarsOfLevel: (id: number, stars: number, coins: number) => void;
   updatePlayerItem: (
     type: ItemType,
@@ -40,12 +47,75 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     received: false,
     completed: false,
   })),
-  updateCurrentLevelId: (id: number) => {
+  // 過關
+  updateCurrentLevelId: (
+    levelInfo: Level,
+    totalStars: number,
+    timeLeft: number,
+    maxCombo: number,
+    score: number,
+  ) => {
+    const achievements = get().achievements;
+    const currentLevelId = get().currentLevelId;
+
+    const newAchievements = [...achievements];
+
+    // 成就檢查
+    if (currentLevelId > 0 && !newAchievements[0].completed) {
+      newAchievements[0].completed = true;
+    }
+    if (currentLevelId > 5 && !newAchievements[1].completed) {
+      newAchievements[1].completed = true;
+    }
+    if (currentLevelId > 20 && !newAchievements[2].completed) {
+      newAchievements[2].completed = true;
+    }
+    if (currentLevelId > 50 && !newAchievements[3].completed) {
+      newAchievements[3].completed = true;
+    }
+    if (levelInfo.stars === 3 && !newAchievements[4].completed) {
+      newAchievements[4].completed = true;
+    }
+    if (totalStars >= 30 && !newAchievements[5].completed) {
+      newAchievements[5].completed = true;
+    }
+    if (totalStars >= 60 && !newAchievements[6].completed) {
+      newAchievements[6].completed = true;
+    }
+    if (totalStars >= 90 && !newAchievements[7].completed) {
+      newAchievements[7].completed = true;
+    }
+    if (totalStars >= 120 && !newAchievements[8].completed) {
+      newAchievements[8].completed = true;
+    }
+    if (totalStars >= 150 && !newAchievements[9].completed) {
+      newAchievements[9].completed = true;
+    }
+    if (timeLeft >= 30 && !newAchievements[10].completed) {
+      newAchievements[10].completed = true;
+    }
+    if (maxCombo >= 3 && !newAchievements[11].completed) {
+      newAchievements[11].completed = true;
+    }
+    if (maxCombo >= 5 && !newAchievements[12].completed) {
+      newAchievements[12].completed = true;
+    }
+    if (score >= 300 && !newAchievements[13].completed) {
+      newAchievements[13].completed = true;
+    }
+    if (score >= 600 && !newAchievements[14].completed) {
+      newAchievements[14].completed = true;
+    }
+    if (timeLeft < 3 && !newAchievements[15].completed) {
+      newAchievements[15].completed = true;
+    }
+
     set(state => ({
       currentLevelId:
-        id === state.currentLevelId
+        levelInfo.id === state.currentLevelId
           ? state.currentLevelId + 1
           : state.currentLevelId,
+      achievements: newAchievements,
     }));
   },
   setStarsOfLevel: (id: number, stars: number, coins: number) => {
@@ -96,6 +166,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     });
     set(state => ({ items: newItems, coins: state.coins - price }));
   },
+  updateAchievement: () => {},
   receiveAchievementRewards: (id: number, rewards: number) => {
     const achievements = get().achievements;
     const newAchievements = achievements.map(achievement => {

@@ -54,7 +54,7 @@ export default function AchievementPage() {
         onClick={() => {
           Toast.show({
             type: 'info',
-            text1: `獲得 ${rewards} 金幣`,
+            text1: `💰 獲得 ${rewards} 金幣`,
             visibilityTime: 2000,
           });
           receiveAchievementRewards(id, rewards);

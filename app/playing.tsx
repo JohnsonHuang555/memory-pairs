@@ -36,7 +36,7 @@ const EASING = Easing.elastic(1.5);
 const PlayingPage = () => {
   const { levelInfo } = useLevelInfo();
   const { updateCurrentLevelId, setStarsOfLevel } = usePlayerStore();
-  const { updateLevel } = useLevelStore();
+  const { updateLevel, levels } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
   const [showPauseGameModal, setPauseGameModal] = useState(false);
@@ -45,9 +45,19 @@ const PlayingPage = () => {
   const [timeLeft, setTimeLeft] = useState(levelInfo?.timer || 0);
   const [isRunning, setIsRunning] = useState(false);
   const [displayedScore, setDisplayedScore] = useState(0);
+  const [maxCombo, setMaxCombo] = useState(0);
 
   // 使用先看牌的道具
   const [itemViewFirst, setItemViewFirst] = useState(false);
+
+  const currentAllStars = useMemo(
+    () =>
+      levels.reduce((acc, current) => {
+        acc += current.stars;
+        return acc;
+      }, 0),
+    [],
+  );
 
   const {
     generateCards,
@@ -83,6 +93,12 @@ const PlayingPage = () => {
     () => useItems.find(item => item.type === ItemType.AutoPairs),
     [useItems],
   );
+
+  useEffect(() => {
+    if (combo > maxCombo) {
+      setMaxCombo(combo);
+    }
+  }, [combo]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -126,7 +142,13 @@ const PlayingPage = () => {
         runOnJS(updateLevel)(levelInfo.id, stars);
 
         // 寫入手機
-        runOnJS(updateCurrentLevelId)(levelInfo.id);
+        runOnJS(updateCurrentLevelId)(
+          levelInfo,
+          stars + currentAllStars,
+          timeLeft,
+          maxCombo,
+          score,
+        );
 
         let coins = 0;
         if (stars === 1) {

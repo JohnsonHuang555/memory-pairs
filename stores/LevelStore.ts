@@ -9,7 +9,6 @@ type LevelState = {
   showLevelModal: boolean;
   setPlayLevel: (level?: number) => void;
   setShowLevelModal: (value: boolean) => void;
-  setSelectedLevelId: (id: number) => void;
   updateLevel: (id: number, stars: number) => void;
 };
 
@@ -41,9 +40,6 @@ const useLevelStore = create<LevelState>((set, get) => ({
     set(() => ({
       levels: newLevels,
     }));
-  },
-  setSelectedLevelId: (id: number) => {
-    set(() => ({ selectedLevelId: id }));
   },
 }));
 

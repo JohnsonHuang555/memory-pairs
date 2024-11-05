@@ -11,7 +11,7 @@ import usePlayerStore from '@/stores/PlayerStore';
 import { router, useRouter } from 'expo-router';
 
 export default function HomeScreen() {
-  const { coins } = usePlayerStore();
+  const { coins, currentLevelId } = usePlayerStore();
   const [showShopModal, setShowShopModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const { push } = useRouter();
@@ -44,7 +44,7 @@ export default function HomeScreen() {
       />
       <View className="items-center">
         <CoolText
-          text="1"
+          text={currentLevelId}
           className="mb-4 text-[65px] shadow-sm"
           fontWeight="regular"
         />
