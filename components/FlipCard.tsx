@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   interpolate,
   runOnJS,
@@ -10,8 +10,11 @@ import Animated, {
 
 import CoolText from './CoolText';
 import { LevelType } from '@/constants/AllLevels';
+import { imageList } from '@/constants/AllQuestion';
 import { Card } from '@/models/Card';
 import { LevelTheme } from '@/models/Level';
+
+import { Image } from 'expo-image';
 
 type FlipCardProps = {
   card: Card;
@@ -51,7 +54,7 @@ const FlipCard = ({
         180,
         {
           damping: 20, // 增大阻尼，减少反弹
-          stiffness: 150, // 增大刚度，加快动画响应
+          stiffness: 200, // 增大刚度，加快动画响应
           mass: 1, // 设置适中的质量
           overshootClamping: true, // 禁止超过目标值
         },
@@ -68,7 +71,12 @@ const FlipCard = ({
     // 判斷是否從 true 變成 false
     if (prevIsFlipped.current === true && card.isFlipped === false) {
       // 觸發動畫，當 isFlipped 從 true 變為 false 時
-      rotation.value = withSpring(0);
+      rotation.value = withSpring(0, {
+        damping: 20, // 增大阻尼，减少反弹
+        stiffness: 200, // 增大刚度，加快动画响应
+        mass: 1, // 设置适中的质量
+        overshootClamping: true, // 禁止超过目标值
+      });
     }
 
     // 更新前一個值
@@ -82,7 +90,7 @@ const FlipCard = ({
         setIsViewFirst(true);
         rotation.value = withSpring(180, {
           damping: 20, // 增大阻尼，减少反弹
-          stiffness: 150, // 增大刚度，加快动画响应
+          stiffness: 200, // 增大刚度，加快动画响应
           mass: 1, // 设置适中的质量
           overshootClamping: true, // 禁止超过目标值
         });
@@ -93,7 +101,7 @@ const FlipCard = ({
       } else {
         rotation.value = withSpring(180, {
           damping: 20, // 增大阻尼，减少反弹
-          stiffness: 150, // 增大刚度，加快动画响应
+          stiffness: 200, // 增大刚度，加快动画响应
           mass: 1, // 设置适中的质量
           overshootClamping: true, // 禁止超过目标值
         });
@@ -104,7 +112,7 @@ const FlipCard = ({
         setIsViewFirst(true);
         rotation.value = withSpring(180, {
           damping: 20, // 增大阻尼，减少反弹
-          stiffness: 150, // 增大刚度，加快动画响应
+          stiffness: 200, // 增大刚度，加快动画响应
           mass: 1, // 设置适中的质量
           overshootClamping: true, // 禁止超过目标值
         });
@@ -117,7 +125,7 @@ const FlipCard = ({
     } else if (itemAutoPairs && card.isMatched) {
       rotation.value = withSpring(180, {
         damping: 20, // 增大阻尼，减少反弹
-        stiffness: 150, // 增大刚度，加快动画响应
+        stiffness: 200, // 增大刚度，加快动画响应
         mass: 1, // 设置适中的质量
         overshootClamping: true, // 禁止超过目标值
       });
@@ -199,9 +207,7 @@ const FlipCard = ({
     }
     switch (type) {
       case LevelType.ImageUrl:
-      // return (
-      //   <Image source={card.content} style={{ width: 50, height: 50 }} />
-      // );
+        return imageList[card.content];
       case LevelType.String:
       default:
         return (

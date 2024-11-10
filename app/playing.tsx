@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, {
   BounceIn,
   Easing,
@@ -28,6 +28,8 @@ import { ItemType } from '@/models/Item';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
+
+import { Image } from 'expo-image';
 
 const ANGLE = 10;
 const TIME = 100;

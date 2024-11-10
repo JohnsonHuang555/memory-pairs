@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import BounceAnimation from '../BounceAnimation';
 import CoolButton from '../CoolButton';
@@ -11,6 +11,7 @@ import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 
 type LevelSelectModalProps = {

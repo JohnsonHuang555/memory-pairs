@@ -91,22 +91,22 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     if (totalStars >= 150 && !newAchievements[9].completed) {
       newAchievements[9].completed = true;
     }
-    if (timeLeft >= 30 && !newAchievements[10].completed) {
+    if (maxCombo >= 3 && !newAchievements[10].completed) {
       newAchievements[10].completed = true;
     }
-    if (maxCombo >= 3 && !newAchievements[11].completed) {
+    if (maxCombo >= 5 && !newAchievements[11].completed) {
       newAchievements[11].completed = true;
     }
-    if (maxCombo >= 5 && !newAchievements[12].completed) {
+    if (maxCombo >= 8 && !newAchievements[12].completed) {
       newAchievements[12].completed = true;
     }
-    if (score >= 300 && !newAchievements[13].completed) {
+    if (maxCombo >= 12 && !newAchievements[13].completed) {
       newAchievements[13].completed = true;
     }
-    if (score >= 600 && !newAchievements[14].completed) {
+    if (score >= 300 && !newAchievements[14].completed) {
       newAchievements[14].completed = true;
     }
-    if (timeLeft < 3 && !newAchievements[15].completed) {
+    if (score >= 600 && !newAchievements[15].completed) {
       newAchievements[15].completed = true;
     }
 

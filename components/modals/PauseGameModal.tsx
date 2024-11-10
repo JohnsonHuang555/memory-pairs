@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 
 import CoolSwitch from '../CoolSwitch';
@@ -7,6 +7,8 @@ import BaseModal from './BaseModal';
 import GamePlayButton from './buttons/GamePlayButton';
 import GoLevelsButton from './buttons/GoLevelsButton';
 import ReplayButton from './buttons/ReplayButton';
+
+import { Image } from 'expo-image';
 
 type PauseGameModalProps = {
   show: boolean;
@@ -26,12 +28,7 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
   };
 
   return (
-    <BaseModal
-      title="暫停"
-      show={show}
-      width={75}
-      disabledBackdropPress
-    >
+    <BaseModal title="暫停" show={show} width={75} disabledBackdropPress>
       <View
         className="mb-4 flex-row justify-between"
         style={{ marginTop: 12, width: '100%' }}

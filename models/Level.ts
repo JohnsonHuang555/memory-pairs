@@ -19,4 +19,5 @@ export type Level = {
 export enum LevelTheme {
   Color = 'color',
   ChineseWord = 'chineseWord',
+  Animal = 'animal',
 }

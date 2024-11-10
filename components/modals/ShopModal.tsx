@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
@@ -9,6 +9,8 @@ import BaseModal from './BaseModal';
 import { allItems } from '@/constants/AllItems';
 import { ItemType, PlayerItem } from '@/models/Item';
 import usePlayerStore from '@/stores/PlayerStore';
+
+import { Image } from 'expo-image';
 
 type ShopModalProps = {
   show: boolean;
@@ -238,7 +240,9 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
                       type: 'success',
                       visibilityTime: 1000,
                       text1:
-                        selectedItem.action === 'purchase' ? '✅ 購買成功' : '⬆️ 升級成功',
+                        selectedItem.action === 'purchase'
+                          ? '✅ 購買成功'
+                          : '⬆️ 升級成功',
                     });
                     updatePlayerItem(selectedItem.type, selectedItem.action);
                     setSelectedItem(undefined);

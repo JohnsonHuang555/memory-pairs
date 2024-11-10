@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, { BounceIn, FadeIn } from 'react-native-reanimated';
 
 import CoolText from '../CoolText';
@@ -9,6 +9,8 @@ import NextLevelButton from './buttons/NextLevelButton';
 import ReplayButton from './buttons/ReplayButton';
 import useLevelInfo from '@/hooks/useLevelInfo';
 import useGameStore from '@/stores/GameStore';
+
+import { Image } from 'expo-image';
 
 type GamePassModalProps = {
   show: boolean;

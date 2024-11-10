@@ -1,10 +1,11 @@
 import { ReactNode, useState } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 
 import BounceAnimation from './BounceAnimation';
 import CoolText from './CoolText';
 import GameRulesModal from './modals/GameRulesModal';
 
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 
 type MainContainerProps = {

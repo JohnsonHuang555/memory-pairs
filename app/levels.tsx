@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import CoolText from '@/components/CoolText';
@@ -8,6 +8,8 @@ import LevelSelectModal from '@/components/modals/LevelSelectModal';
 import { Level } from '@/models/Level';
 import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
+
+import { Image } from 'expo-image';
 
 export default function LevelsPage() {
   const { currentLevelId, coins } = usePlayerStore();

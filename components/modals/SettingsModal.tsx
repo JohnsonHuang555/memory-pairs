@@ -1,9 +1,11 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 
 import CoolSwitch from '../CoolSwitch';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
+
+import { Image } from 'expo-image';
 
 type SettingsModalProps = {
   show: boolean;
@@ -45,10 +47,7 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
           style={{ width: 80 }}
         />
       </View>
-      <View
-        className="flex-row justify-between"
-        style={{ width: '100%' }}
-      >
+      <View className="flex-row justify-between" style={{ width: '100%' }}>
         <View className="flex-row items-center">
           <Image
             source={require('@/assets/images/sound.png')}

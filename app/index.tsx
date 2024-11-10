@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 import BounceAnimation from '@/components/BounceAnimation';
@@ -8,6 +8,7 @@ import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
 import usePlayerStore from '@/stores/PlayerStore';
 
+import { Image } from 'expo-image';
 import { router, useRouter } from 'expo-router';
 
 export default function HomeScreen() {
@@ -40,7 +41,7 @@ export default function HomeScreen() {
       <Image
         source={require('@/assets/images/logo.png')}
         style={{ width: 260, height: 100, marginBottom: 80 }}
-        resizeMode="contain"
+        contentFit="contain"
       />
       <View className="items-center">
         <CoolText
@@ -56,8 +57,8 @@ export default function HomeScreen() {
         >
           <Image
             source={require('@/assets/images/play.png')}
-            style={{ width: 80, height: 80 }}
-            className="ml-4 shadow shadow-white"
+            style={{ width: 80, height: 80, marginLeft: 12 }}
+            className="shadow shadow-white"
           />
         </BounceAnimation>
         <View className="mt-20 flex-row items-center gap-16">

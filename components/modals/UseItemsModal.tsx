@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import Modal from 'react-native-modal';
+
+import { Image } from 'expo-image';
 
 type UseItemsModalProps = {
   usedAddTime: boolean;

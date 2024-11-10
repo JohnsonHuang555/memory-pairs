@@ -1,6 +1,7 @@
-import { FlatList, Image, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
+import { Image } from 'expo-image';
 
 import CoolButton from '@/components/CoolButton';
 import CoolText from '@/components/CoolText';

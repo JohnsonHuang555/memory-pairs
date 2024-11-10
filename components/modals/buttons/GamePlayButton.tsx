@@ -1,6 +1,8 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import BounceAnimation from '@/components/BounceAnimation';
+
+import { Image } from 'expo-image';
 
 type GamePlayButtonProps = {
   onResume: () => void;
@@ -8,9 +10,7 @@ type GamePlayButtonProps = {
 
 const GamePlayButton = ({ onResume }: GamePlayButtonProps) => {
   return (
-    <BounceAnimation
-      onPress={onResume}
-    >
+    <BounceAnimation onPress={onResume}>
       <View
         className="items-center justify-center rounded-full border"
         style={[styles.actions, { width: 60, height: 60 }]}

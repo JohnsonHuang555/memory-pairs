@@ -1,9 +1,10 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 
 const ReplayButton = () => {

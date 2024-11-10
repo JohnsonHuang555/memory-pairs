@@ -1,11 +1,12 @@
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
-import useGameStore from '@/stores/GameStore';
-
 import GoLevelsButton from './buttons/GoLevelsButton';
 import ReplayButton from './buttons/ReplayButton';
+import useGameStore from '@/stores/GameStore';
+
+import { Image } from 'expo-image';
 
 type GameOverModalProps = {
   show: boolean;
