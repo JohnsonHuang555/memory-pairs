@@ -10,7 +10,6 @@ import Animated, {
 
 import CoolText from './CoolText';
 import { LevelType } from '@/constants/AllLevels';
-import { imageList } from '@/constants/AllQuestion';
 import { Card } from '@/models/Card';
 import { LevelTheme } from '@/models/Level';
 
@@ -207,7 +206,9 @@ const FlipCard = ({
     }
     switch (type) {
       case LevelType.ImageUrl:
-        return imageList[card.content];
+        return (
+          <Image source={card.content} style={{ width: 50, height: 50 }} />
+        );
       case LevelType.String:
       default:
         return (

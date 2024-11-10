@@ -23,13 +23,14 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { replace } = useRouter();
   const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
-  const { items, updatePlayerItem } = usePlayerStore();
+  const { items, updatePlayerItem, starsOfLevel } = usePlayerStore();
   const { setUseItems } = useGameStore();
 
   const [selectedItems, setSelectedItems] = useState<UseItem[]>([]);
   if (!levelInfo) return null;
 
-  const { id, stars } = levelInfo;
+  const { id } = levelInfo;
+  const stars = starsOfLevel.find(s => s.id === id)?.stars || 0;
 
   const getItemIcon = (type: ItemType) => {
     switch (type) {

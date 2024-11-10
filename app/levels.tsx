@@ -19,7 +19,7 @@ export default function LevelsPage() {
 
   const totalStars = useMemo(
     () =>
-      levels.reduce((acc, current) => {
+      starsOfLevel.reduce((acc, current) => {
         acc += current.stars;
         return acc;
       }, 0),

@@ -51,3 +51,4 @@ Join our community of developers creating universal apps.
 
 ## Reference
 https://www.svgrepo.com/collection/animal-flat-vectors/
+https://www.svgrepo.com/collection/bright-fruits-and-vegetables/

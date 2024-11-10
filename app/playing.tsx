@@ -149,6 +149,7 @@ const PlayingPage = () => {
           stars + currentAllStars,
           maxCombo,
           score,
+          levels.length,
         );
 
         let coins = 0;
@@ -280,9 +281,7 @@ const PlayingPage = () => {
       <PauseGameModal
         show={showPauseGameModal}
         onResume={() => {
-          if (isRunning) {
-            startTimer();
-          }
+          startTimer();
           setPauseGameModal(false);
         }}
       />

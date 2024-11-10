@@ -1,4 +1,4 @@
-import { LevelType } from "@/constants/AllLevels";
+import { LevelType } from '@/constants/AllLevels';
 
 export type Level = {
   id: number; // 關卡編號
@@ -20,4 +20,6 @@ export enum LevelTheme {
   Color = 'color',
   ChineseWord = 'chineseWord',
   Animal = 'animal',
+  Fruit = 'fruit',
+  Emoji = 'emoji',
 }

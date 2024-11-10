@@ -26,6 +26,7 @@ type PlayerState = {
     totalStars: number,
     maxCombo: number,
     score: number,
+    lastLevelId: number,
   ) => void;
   setStarsOfLevel: (id: number, stars: number, coins: number) => void;
   updatePlayerItem: (
@@ -79,6 +80,7 @@ export const usePlayerStore = create<PlayerState>()(
         totalStars: number,
         maxCombo: number,
         score: number,
+        lastLevelId: number,
       ) => {
         const achievements = get().achievements;
         const currentLevelId = get().currentLevelId;
@@ -137,7 +139,8 @@ export const usePlayerStore = create<PlayerState>()(
 
         set(state => ({
           currentLevelId:
-            levelInfo.id === state.currentLevelId
+            levelInfo.id === state.currentLevelId &&
+            lastLevelId !== levelInfo.id
               ? state.currentLevelId + 1
               : state.currentLevelId,
           achievements: newAchievements,
