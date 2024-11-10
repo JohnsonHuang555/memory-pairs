@@ -349,6 +349,182 @@ const useGameStore = create<GameState>((set, get) => ({
         }
         break;
       }
+      case 4: {
+        const needCheck = currentIndex % 4 === 3;
+        // 前一張
+        const prevFirstCard = selectedCards[currentIndex - 1];
+        // 前第二張
+        const prevSecondCard = selectedCards[currentIndex - 2];
+        // 前第三張
+        const prevThirdCard = selectedCards[currentIndex - 3];
+
+        if (needCheck) {
+          if (selectedCards[currentIndex].isMatched) {
+            const newCards = cards.map(c => {
+              if (
+                c.id === id ||
+                c.id === prevFirstCard.id ||
+                c.id === prevSecondCard.id ||
+                c.id === prevThirdCard.id
+              ) {
+                return { ...c, isMatched: true };
+              }
+              return c;
+            });
+
+            const newSelectCards = selectedCards.filter(
+              c =>
+                ![
+                  id,
+                  prevFirstCard.id,
+                  prevSecondCard.id,
+                  prevThirdCard.id,
+                ].includes(c.id),
+            );
+
+            const isCompleteGame =
+              newCards.filter(n => n.isMatched).length === cards.length;
+
+            set(state => ({
+              cards: newCards,
+              selectedCards: newSelectCards,
+              score:
+                state.score + 30 + (state.isPreviousMatch ? combo + 1 * 30 : 0),
+              isPreviousMatch: true,
+              combo: state.isPreviousMatch ? state.combo + 1 : 0,
+              isCompleteGame,
+            }));
+          } else {
+            const newCards = cards.map(c => {
+              if (
+                c.id === id ||
+                c.id === prevFirstCard.id ||
+                c.id === prevSecondCard.id ||
+                c.id === prevThirdCard.id
+              ) {
+                return { ...c, isFlipped: false };
+              }
+              return c;
+            });
+
+            const newSelectCards = selectedCards.filter(
+              c =>
+                ![
+                  id,
+                  prevFirstCard.id,
+                  prevSecondCard.id,
+                  prevThirdCard.id,
+                ].includes(c.id),
+            );
+
+            set(() => ({
+              cards: newCards,
+              selectedCards: newSelectCards,
+              isPreviousMatch: false,
+            }));
+          }
+        } else {
+          const newSelectCards = selectedCards.map(c => {
+            if (c.id === id) {
+              return { ...c, isAnimateComplete: true };
+            }
+            return c;
+          });
+          set(() => ({ selectedCards: newSelectCards }));
+        }
+        break;
+      }
+      case 5: {
+        const needCheck = currentIndex % 5 === 4;
+        // 前一張
+        const prevFirstCard = selectedCards[currentIndex - 1];
+        // 前第二張
+        const prevSecondCard = selectedCards[currentIndex - 2];
+        // 前第三張
+        const prevThirdCard = selectedCards[currentIndex - 3];
+        // 前第四張
+        const prevFourthCard = selectedCards[currentIndex - 4];
+
+        if (needCheck) {
+          if (selectedCards[currentIndex].isMatched) {
+            const newCards = cards.map(c => {
+              if (
+                c.id === id ||
+                c.id === prevFirstCard.id ||
+                c.id === prevSecondCard.id ||
+                c.id === prevThirdCard.id ||
+                c.id === prevFourthCard.id
+              ) {
+                return { ...c, isMatched: true };
+              }
+              return c;
+            });
+
+            const newSelectCards = selectedCards.filter(
+              c =>
+                ![
+                  id,
+                  prevFirstCard.id,
+                  prevSecondCard.id,
+                  prevThirdCard.id,
+                  prevFourthCard.id,
+                ].includes(c.id),
+            );
+
+            const isCompleteGame =
+              newCards.filter(n => n.isMatched).length === cards.length;
+
+            set(state => ({
+              cards: newCards,
+              selectedCards: newSelectCards,
+              score:
+                state.score + 30 + (state.isPreviousMatch ? combo + 1 * 30 : 0),
+              isPreviousMatch: true,
+              combo: state.isPreviousMatch ? state.combo + 1 : 0,
+              isCompleteGame,
+            }));
+          } else {
+            const newCards = cards.map(c => {
+              if (
+                c.id === id ||
+                c.id === prevFirstCard.id ||
+                c.id === prevSecondCard.id ||
+                c.id === prevThirdCard.id ||
+                c.id === prevFourthCard.id
+              ) {
+                return { ...c, isFlipped: false };
+              }
+              return c;
+            });
+
+            const newSelectCards = selectedCards.filter(
+              c =>
+                ![
+                  id,
+                  prevFirstCard.id,
+                  prevSecondCard.id,
+                  prevThirdCard.id,
+                  prevFourthCard.id,
+                ].includes(c.id),
+            );
+
+            set(() => ({
+              cards: newCards,
+              selectedCards: newSelectCards,
+              isPreviousMatch: false,
+            }));
+          }
+        } else {
+          const newSelectCards = selectedCards.map(c => {
+            if (c.id === id) {
+              return { ...c, isAnimateComplete: true };
+            }
+            return c;
+          });
+          set(() => ({ selectedCards: newSelectCards }));
+        }
+        break;
+      }
     }
   },
   finalCalculateScore: (remainedTime: number) => {

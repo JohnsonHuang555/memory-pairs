@@ -10,6 +10,7 @@ export const gameMatchCount: {[key: string]: string } = {
   2: '兩個一組',
   3: '三個一組',
   4: '四個一組',
+  5: '五個一組',
 }
 
 const useLevelInfo = () => {

@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
+import CoolButton from '@/components/CoolButton';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
@@ -114,7 +115,7 @@ export default function LevelsPage() {
             />
           </View>
         </View>
-        <View className="flex-row flex-wrap justify-between">
+        <View className="mb-4 flex-row flex-wrap justify-between">
           {levels.map(level => (
             <TouchableOpacity
               activeOpacity={!checkIsLock(level.id) ? 0.8 : 1}
@@ -151,6 +152,36 @@ export default function LevelsPage() {
               </View>
             </TouchableOpacity>
           ))}
+        </View>
+        <View className="flex-row justify-between">
+          <View>
+            <CoolButton
+            prefix={
+              <Image
+                source={require('@/assets/images/arrow-left-2.png')}
+                style={{ width: 20, height: 20 }}
+              />
+            }
+            height={40}
+            width={50}
+            backgroundColor='#919191'
+            onClick={() => {}}
+          />
+          </View>
+          <View>
+            <CoolButton
+              prefix={
+                <Image
+                  source={require('@/assets/images/arrow-right-2.png')}
+                  style={{ width: 20, height: 20 }}
+                />
+              }
+              height={40}
+              width={50}
+              backgroundColor="#919191"
+              onClick={() => {}}
+            />
+          </View>
         </View>
       </Animated.View>
     </MainContainer>

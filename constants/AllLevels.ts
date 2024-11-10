@@ -5,12 +5,19 @@ export enum LevelType {
   ImageUrl = 'imageUrl',
 }
 
+export enum MatchCount {
+  Two = 2,
+  Three = 3,
+  Four = 4,
+  Five = 5,
+}
+
 export const allLevels = [
   {
     id: 1,
     theme: LevelTheme.Animal,
     type: LevelType.ImageUrl,
-    matchCount: 2,
+    matchCount: MatchCount.Two,
     questions: [
       'cat',
       'dog',
@@ -20,17 +27,17 @@ export const allLevels = [
       'rabbit',
     ],
     timer: 60,
-    star1Score: 180,
-    star2Score: 220,
-    star3Score: 250,
+    star1Score: 200,
+    star2Score: 350,
+    star3Score: 400,
     star1Coins: 10,
     star2Coins: 20,
     star3Coins: 50,
   },
   {
     id: 2,
-    theme: LevelTheme.Animal,
-    type: LevelType.ImageUrl,
+    theme: LevelTheme.Color,
+    type: LevelType.String,
     matchCount: 2,
     questions: [
       '#FF5733',
@@ -41,9 +48,9 @@ export const allLevels = [
       '#FF3380',
     ],
     timer: 60,
-    star1Score: 210,
-    star2Score: 315,
-    star3Score: 420,
+    star1Score: 200,
+    star2Score: 350,
+    star3Score: 400,
     star1Coins: 10,
     star2Coins: 20,
     star3Coins: 50,
@@ -55,9 +62,9 @@ export const allLevels = [
     matchCount: 2,
     questions: ['#00FFFF', '#FF00CC'],
     timer: 60,
-    star1Score: 300,
-    star2Score: 450,
-    star3Score: 900,
+    star1Score: 200,
+    star2Score: 350,
+    star3Score: 400,
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,

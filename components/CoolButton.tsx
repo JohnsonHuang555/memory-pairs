@@ -5,7 +5,7 @@ import CoolText from './CoolText';
 
 type CoolButtonProps = {
   prefix?: any;
-  text: string;
+  text?: string;
   subText?: string;
   width?: number | null;
   height?: number;
@@ -45,7 +45,7 @@ const CoolButton = ({
       disabled={disabled}
     >
       {prefix}
-      <View className="items-center">
+      {text && <View className="items-center">
         <CoolText
           style={{
             fontSize,
@@ -65,7 +65,7 @@ const CoolButton = ({
             fontWeight="bold"
           />
         )}
-      </View>
+      </View>}
     </AwesomeButton>
   );
 };
