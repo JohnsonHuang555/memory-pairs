@@ -79,7 +79,7 @@ const PlayingPage = () => {
   // 使用 useSharedValue 定義動畫數值
   const scoreAnimatedValue = useSharedValue(0);
   const remainedTimeAnimatedValue = useSharedValue(0);
-  const timerRotation = useSharedValue<number>(0);
+  const timerRotationValue = useSharedValue<number>(0);
 
   if (!levelInfo) return null;
 
@@ -147,7 +147,6 @@ const PlayingPage = () => {
         runOnJS(updateCurrentLevelId)(
           levelInfo,
           stars + currentAllStars,
-          timeLeft,
           maxCombo,
           score,
         );
@@ -196,7 +195,7 @@ const PlayingPage = () => {
   // 時間快到動畫
   useEffect(() => {
     if (timeLeft <= 10 && timeLeft > 0 && !isCompleteGame) {
-      timerRotation.value = withSequence(
+      timerRotationValue.value = withSequence(
         // deviate left to start from -ANGLE
         withTiming(-ANGLE, { duration: TIME / 2, easing: EASING }),
         // wobble between -ANGLE and ANGLE 7 times
@@ -215,7 +214,7 @@ const PlayingPage = () => {
   }, [timeLeft]);
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ rotateZ: `${timerRotation.value}deg` }],
+    transform: [{ rotateZ: `${timerRotationValue.value}deg` }],
   }));
 
   const startTimer = () => {

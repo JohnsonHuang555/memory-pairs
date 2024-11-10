@@ -4,6 +4,7 @@ import { useSharedValue } from 'react-native-reanimated';
 import CoolSwitch from '../CoolSwitch';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
+import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
 
@@ -13,15 +14,18 @@ type SettingsModalProps = {
 };
 
 const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
-  const isMusicOn = useSharedValue(false);
-  const isSoundOn = useSharedValue(false);
+  const { isMusicOn, isSoundOn, setIsMusicOn, setIsSoundOn } = usePlayerStore();
+  const isMusicOnValue = useSharedValue(isMusicOn);
+  const isSoundOnValue = useSharedValue(isSoundOn);
 
   const handleMusicPress = () => {
-    isMusicOn.value = !isMusicOn.value;
+    isMusicOnValue.value = !isMusicOnValue.value;
+    setIsMusicOn();
   };
 
   const handleSoundPress = () => {
-    isSoundOn.value = !isSoundOn.value;
+    isSoundOnValue.value = !isSoundOnValue.value;
+    setIsSoundOn();
   };
 
   return (
@@ -42,7 +46,7 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
           />
         </View>
         <CoolSwitch
-          value={isMusicOn}
+          value={isMusicOnValue}
           onPress={handleMusicPress}
           style={{ width: 80 }}
         />
@@ -60,7 +64,7 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
           />
         </View>
         <CoolSwitch
-          value={isSoundOn}
+          value={isSoundOnValue}
           onPress={handleSoundPress}
           style={{ width: 80 }}
         />

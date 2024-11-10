@@ -13,7 +13,7 @@ import usePlayerStore from '@/stores/PlayerStore';
 import { Image } from 'expo-image';
 
 export default function LevelsPage() {
-  const { currentLevelId, coins } = usePlayerStore();
+  const { currentLevelId, coins, starsOfLevel } = usePlayerStore();
   const { levels, setPlayLevel, showLevelModal, setShowLevelModal } =
     useLevelStore();
 
@@ -46,8 +46,9 @@ export default function LevelsPage() {
         />
       );
     } else {
+      const playerLevel = starsOfLevel.find(l => l.id === level.id);
       const stars = Array.from({ length: 3 }, (_, i) => i + 1).map(s => {
-        if (level.stars && s <= level.stars) {
+        if (playerLevel && s <= playerLevel.stars) {
           return (
             <Image
               key={s}
@@ -156,17 +157,17 @@ export default function LevelsPage() {
         <View className="flex-row justify-between">
           <View>
             <CoolButton
-            prefix={
-              <Image
-                source={require('@/assets/images/arrow-left-2.png')}
-                style={{ width: 20, height: 20 }}
-              />
-            }
-            height={40}
-            width={50}
-            backgroundColor='#919191'
-            onClick={() => {}}
-          />
+              prefix={
+                <Image
+                  source={require('@/assets/images/arrow-left-2.png')}
+                  style={{ width: 20, height: 20 }}
+                />
+              }
+              height={40}
+              width={50}
+              backgroundColor="#919191"
+              onClick={() => {}}
+            />
           </View>
           <View>
             <CoolButton
