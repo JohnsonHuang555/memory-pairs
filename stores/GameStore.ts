@@ -353,7 +353,7 @@ const useGameStore = create<GameState>((set, get) => ({
   },
   finalCalculateScore: (remainedTime: number) => {
     set(state => ({
-      score: state.score + remainedTime,
+      score: state.score + remainedTime * 5,
     }));
   },
   setUseItems: (useItems: UseItem[]) => {

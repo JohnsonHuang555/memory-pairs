@@ -5,6 +5,7 @@ import Toast from 'react-native-toast-message';
 
 import '../global.css';
 
+import { useAssets } from 'expo-asset';
 import { useFonts } from 'expo-font';
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -13,6 +14,10 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [assets] = useAssets([
+    require('@/assets/images/background1.png'),
+  ]);
+
   const [loaded] = useFonts({
     GenSenRounded2TWB: require('../assets/fonts/GenSenRounded2TW-B.otf'), // 粗體
     GenSenRounded2TWEL: require('../assets/fonts/GenSenRounded2TW-EL.otf'), // 很細
@@ -23,12 +28,12 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && assets) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, assets]);
 
-  if (!loaded) {
+  if (!loaded || !assets) {
     return null;
   }
 
@@ -36,7 +41,7 @@ export default function RootLayout() {
     <>
       <View className="flex-1">
         <ImageBackground
-          source={require('@/assets/images/background.webp')}
+          source={require('@/assets/images/background1.png')}
           resizeMode="cover"
           imageStyle={{ opacity: 0.5 }}
           style={{

@@ -12,10 +12,10 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
   return (
     <BaseModal title="遊戲規則" show={show} width={95} onClose={onClose}>
       <View
-        className="items-center justify-between"
-        style={{ marginVertical: 10 }}
+        className="items-center"
+        style={{ marginVertical: 4 }}
       >
-        <View className="mb-4 justify-between">
+        <View className="mb-4">
           <View className="items-center">
             <CoolText
               text="玩法"
@@ -31,12 +31,9 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
             text="- 計時結束或完成所有配對即遊戲結束"
             style={styles.rule}
           />
-          <CoolText
-            text="- 過關即可開啟下一個關卡"
-            style={styles.rule}
-          />
+          <CoolText text="- 過關即可開啟下一個關卡" style={styles.rule} />
         </View>
-        <View className="justify-start">
+        <View className="mb-4">
           <View className="items-center">
             <CoolText
               text="計分"
@@ -44,22 +41,25 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
               fontWeight="bold"
             />
           </View>
+          <CoolText text="- 成功配對一組卡片，獲得 30 分" style={styles.rule} />
           <CoolText
-            text="- 成功配對一組卡片，獲得 30 分"
+            text="- 遊戲結束時每剩餘 1 秒額外獲得 5 分"
             style={styles.rule}
           />
-          <CoolText
-            text="- 遊戲結束時每剩餘 1 秒額外獲得 1 分"
-            style={styles.rule}
-          />
-          <CoolText
-            text="- 連續成功配對可觸發 Combo"
-            style={styles.rule}
-          />
-          <CoolText
-            text="- 每 Combo 額外獲得 30 分"
-            style={styles.rule}
-          />
+          <CoolText text="- 連續成功配對可觸發 Combo" style={styles.rule} />
+          <CoolText text="- 每 Combo 額外獲得 30 分" style={styles.rule} />
+        </View>
+        <View className="justify-start">
+          <View className="items-center">
+            <CoolText
+              text="道具"
+              style={{ fontSize: 20, color: '#834B4B', marginBottom: 12 }}
+              fontWeight="bold"
+            />
+          </View>
+          <CoolText text="- 加時 - 增加關卡倒數計時" style={styles.rule} />
+          <CoolText text="- 提前查看 - 關卡開始前揭開牌底" style={styles.rule} />
+          <CoolText text="- 隨機配對 - 遊戲開始後自動完成配對" style={styles.rule} />
         </View>
       </View>
     </BaseModal>
