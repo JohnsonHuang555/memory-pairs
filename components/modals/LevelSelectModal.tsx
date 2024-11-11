@@ -123,7 +123,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           />
         )}
       </View>
-      {playerInfo?.score && (
+      {/* {playerInfo?.score && (
         <View className="items-center" style={{ marginBottom: 28 }}>
           <CoolText
             text="最佳分數"
@@ -137,7 +137,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
             style={{ fontSize: 22, color: '#834B4B' }}
           />
         </View>
-      )}
+      )} */}
       <View className="items-center" style={{ marginBottom: 28 }}>
         <CoolText
           text="關卡"

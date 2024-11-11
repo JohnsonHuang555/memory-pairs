@@ -1,6 +1,5 @@
 import { allAchievements } from '@/constants/AllAchievements';
 import { allItems } from '@/constants/AllItems';
-import { Achievement } from '@/models/Achievement';
 import { ItemType, PlayerItem } from '@/models/Item';
 import { Level } from '@/models/Level';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,12 +13,18 @@ type StarsOfLevel = {
   score: number;
 };
 
+type PlayerAchievement = {
+  id: number;
+  completed: boolean;
+  received: boolean;
+};
+
 type PlayerState = {
   currentLevelId: number;
   starsOfLevel: StarsOfLevel[];
   coins: number;
   items: PlayerItem[];
-  achievements: Achievement[];
+  playerAchievements: PlayerAchievement[];
   isMusicOn: boolean;
   isSoundOn: boolean;
   updateCurrentLevelId: (
@@ -73,8 +78,8 @@ export const usePlayerStore = create<PlayerState>()(
         level: 1,
         quantity: 0,
       })),
-      achievements: allAchievements.map(achievement => ({
-        ...achievement,
+      playerAchievements: allAchievements.map(achievement => ({
+        id: achievement.id,
         received: false,
         completed: false,
       })),
@@ -88,10 +93,10 @@ export const usePlayerStore = create<PlayerState>()(
         score: number,
         lastLevelId: number,
       ) => {
-        const achievements = get().achievements;
+        const playerAchievements = get().playerAchievements;
         const currentLevelId = get().currentLevelId;
 
-        const newAchievements = [...achievements];
+        const newAchievements = [...playerAchievements];
 
         // 成就檢查
         if (currentLevelId > 0 && !newAchievements[0].completed) {
@@ -106,41 +111,47 @@ export const usePlayerStore = create<PlayerState>()(
         if (currentLevelId > 50 && !newAchievements[3].completed) {
           newAchievements[3].completed = true;
         }
-        if (levelInfo.stars === 3 && !newAchievements[4].completed) {
+        if (currentLevelId > 80 && !newAchievements[4].completed) {
           newAchievements[4].completed = true;
         }
-        if (totalStars >= 30 && !newAchievements[5].completed) {
+        if (currentLevelId === 100 && !newAchievements[5].completed) {
           newAchievements[5].completed = true;
         }
-        if (totalStars >= 60 && !newAchievements[6].completed) {
+        if (levelInfo.stars === 3 && !newAchievements[6].completed) {
           newAchievements[6].completed = true;
         }
-        if (totalStars >= 90 && !newAchievements[7].completed) {
+        if (totalStars >= 30 && !newAchievements[7].completed) {
           newAchievements[7].completed = true;
         }
-        if (totalStars >= 120 && !newAchievements[8].completed) {
+        if (totalStars >= 60 && !newAchievements[8].completed) {
           newAchievements[8].completed = true;
         }
-        if (totalStars >= 150 && !newAchievements[9].completed) {
+        if (totalStars >= 90 && !newAchievements[9].completed) {
           newAchievements[9].completed = true;
         }
-        if (maxCombo >= 3 && !newAchievements[10].completed) {
+        if (totalStars >= 120 && !newAchievements[10].completed) {
           newAchievements[10].completed = true;
         }
-        if (maxCombo >= 5 && !newAchievements[11].completed) {
+        if (totalStars >= 150 && !newAchievements[11].completed) {
           newAchievements[11].completed = true;
         }
-        if (maxCombo >= 8 && !newAchievements[12].completed) {
+        if (maxCombo >= 3 && !newAchievements[12].completed) {
           newAchievements[12].completed = true;
         }
-        if (maxCombo >= 12 && !newAchievements[13].completed) {
+        if (maxCombo >= 5 && !newAchievements[13].completed) {
           newAchievements[13].completed = true;
         }
-        if (score >= 300 && !newAchievements[14].completed) {
+        if (maxCombo >= 8 && !newAchievements[14].completed) {
           newAchievements[14].completed = true;
         }
-        if (score >= 600 && !newAchievements[15].completed) {
+        if (maxCombo >= 12 && !newAchievements[15].completed) {
           newAchievements[15].completed = true;
+        }
+        if (score >= 300 && !newAchievements[16].completed) {
+          newAchievements[16].completed = true;
+        }
+        if (score >= 600 && !newAchievements[17].completed) {
+          newAchievements[17].completed = true;
         }
 
         set(state => ({
@@ -149,7 +160,7 @@ export const usePlayerStore = create<PlayerState>()(
             lastLevelId !== levelInfo.id
               ? state.currentLevelId + 1
               : state.currentLevelId,
-          achievements: newAchievements,
+          playerAchievements: newAchievements,
         }));
       },
       setStarsOfLevel: (
@@ -213,8 +224,8 @@ export const usePlayerStore = create<PlayerState>()(
         set(state => ({ items: newItems, coins: state.coins - price }));
       },
       receiveAchievementRewards: (id: number, rewards: number) => {
-        const achievements = get().achievements;
-        const newAchievements = achievements.map(achievement => {
+        const playerAchievements = get().playerAchievements;
+        const newAchievements = playerAchievements.map(achievement => {
           if (achievement.id === id) {
             return { ...achievement, received: true };
           }
@@ -222,7 +233,7 @@ export const usePlayerStore = create<PlayerState>()(
         });
 
         set(state => ({
-          achievements: newAchievements,
+          playerAchievements: newAchievements,
           coins: state.coins + rewards,
         }));
       },

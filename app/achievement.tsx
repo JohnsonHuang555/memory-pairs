@@ -1,16 +1,18 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
-import { Image } from 'expo-image';
 
 import CoolButton from '@/components/CoolButton';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
+import { allAchievements } from '@/constants/AllAchievements';
 import { Achievement } from '@/models/Achievement';
 import usePlayerStore from '@/stores/PlayerStore';
 
+import { Image } from 'expo-image';
+
 export default function AchievementPage() {
-  const { achievements, receiveAchievementRewards } = usePlayerStore();
+  const { playerAchievements, receiveAchievementRewards } = usePlayerStore();
 
   const renderItem = ({
     received,
@@ -20,7 +22,11 @@ export default function AchievementPage() {
     id,
     completed,
   }: Achievement) => (
-    <View style={styles.achievementItem}>
+    <Animated.View
+      entering={FadeIn.delay(id * 50)}
+      exiting={FadeOut.duration(100)}
+      style={styles.achievementItem}
+    >
       <View style={{ width: 130 }}>
         <CoolText
           style={styles.title}
@@ -67,23 +73,28 @@ export default function AchievementPage() {
         borderRadius={8}
         backgroundColor={received || !completed ? '#D6D1D1' : '#834B4B'}
       />
-    </View>
+    </Animated.View>
   );
 
   return (
     <MainContainer title="成就" showLeftIcon>
-      <Animated.View
-        entering={FadeIn.delay(300)}
-        exiting={FadeOut.duration(100)}
-      >
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={achievements}
-          keyExtractor={item => String(item.id)}
-          renderItem={v => renderItem(v.item)}
-          style={{ marginBottom: 30 }}
-        />
-      </Animated.View>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={allAchievements.map(achievement => {
+          const playerAchievement = playerAchievements.find(
+            p => p.id === achievement.id,
+          );
+
+          return {
+            ...achievement,
+            completed: playerAchievement?.completed || false,
+            received: playerAchievement?.received || false,
+          };
+        })}
+        keyExtractor={item => String(item.id)}
+        renderItem={v => renderItem(v.item)}
+        style={{ marginBottom: 30 }}
+      />
     </MainContainer>
   );
 }
@@ -108,6 +119,6 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: '#555',
-    lineHeight: 18
+    lineHeight: 18,
   },
 });

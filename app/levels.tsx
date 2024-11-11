@@ -110,7 +110,7 @@ export default function LevelsPage() {
               style={{ width: 26, height: 26, marginRight: 4 }}
             />
             <CoolText
-              text={totalStars}
+              text={`${totalStars} / ${levels.length * 3}`}
               className="text-2xl text-[#834B4B]"
               fontWeight="medium"
             />
@@ -139,7 +139,7 @@ export default function LevelsPage() {
                 {
                   shadowOffset: {
                     width: 2,
-                    height: 8,
+                    height: 5,
                   },
                   shadowOpacity: 0.2,
                 },
@@ -155,34 +155,30 @@ export default function LevelsPage() {
           ))}
         </View>
         <View className="flex-row justify-between">
-          <View>
-            <CoolButton
-              prefix={
-                <Image
-                  source={require('@/assets/images/arrow-left-2.png')}
-                  style={{ width: 20, height: 20 }}
-                />
-              }
-              height={40}
-              width={50}
-              backgroundColor="#919191"
-              onClick={() => {}}
-            />
-          </View>
-          <View>
-            <CoolButton
-              prefix={
-                <Image
-                  source={require('@/assets/images/arrow-right-2.png')}
-                  style={{ width: 20, height: 20 }}
-                />
-              }
-              height={40}
-              width={50}
-              backgroundColor="#919191"
-              onClick={() => {}}
-            />
-          </View>
+          <CoolButton
+            prefix={
+              <Image
+                source={require('@/assets/images/arrow-left-2.png')}
+                style={{ width: 20, height: 20 }}
+              />
+            }
+            height={40}
+            width={50}
+            backgroundColor="#919191"
+            onClick={() => {}}
+          />
+          <CoolButton
+            prefix={
+              <Image
+                source={require('@/assets/images/arrow-right-2.png')}
+                style={{ width: 20, height: 20 }}
+              />
+            }
+            height={40}
+            width={50}
+            backgroundColor="#919191"
+            onClick={() => {}}
+          />
         </View>
       </Animated.View>
     </MainContainer>

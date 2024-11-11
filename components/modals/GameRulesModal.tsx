@@ -57,9 +57,9 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
               fontWeight="bold"
             />
           </View>
-          <CoolText text="- 加時 - 增加關卡倒數計時" style={styles.rule} />
-          <CoolText text="- 提前查看 - 關卡開始前揭開牌底" style={styles.rule} />
-          <CoolText text="- 隨機配對 - 遊戲開始後自動完成配對" style={styles.rule} />
+          <CoolText text="- 加時 - 增加關卡剩餘時間" style={styles.rule} />
+          <CoolText text="- 提前查看 - 關卡開始前觀看牌底" style={styles.rule} />
+          <CoolText text="- 隨機配對 - 關卡開始後自動完成配對" style={styles.rule} />
         </View>
       </View>
     </BaseModal>

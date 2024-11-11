@@ -256,9 +256,9 @@ const styles = StyleSheet.create({
     height: '100%',
     shadowOffset: {
       width: 2,
-      height: 8,
+      height: 4,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
   },
   card: {
     position: 'absolute',
@@ -274,8 +274,8 @@ const styles = StyleSheet.create({
   },
   cardBack: {
     backgroundColor: '#FFF',
-    borderColor: '#d9d9d9',
-    borderWidth: 2,
+    borderColor: '#ccc',
+    borderWidth: 3,
   },
   text: {
     fontSize: 20,
