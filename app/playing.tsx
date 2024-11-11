@@ -160,7 +160,7 @@ const PlayingPage = () => {
         } else {
           coins = levelInfo.star3Coins;
         }
-        runOnJS(setStarsOfLevel)(levelInfo.id, stars, coins);
+        runOnJS(setStarsOfLevel)(levelInfo.id, stars, coins, score);
       }
     });
   }, [score]);

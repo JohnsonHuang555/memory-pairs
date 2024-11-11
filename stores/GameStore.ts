@@ -539,10 +539,6 @@ const useGameStore = create<GameState>((set, get) => ({
   setAutoPairsItemEffect: (count: number) => {
     const cards = get().cards;
     const questions = get().questions;
-    const matchCount = get().matchCount;
-
-    // 防呆：配對數不得大於關卡總配對數
-    if (count > matchCount) return;
 
     const randomValue = getRandomElementsFromArray(questions, count);
     const newCards = cards.map(card => {

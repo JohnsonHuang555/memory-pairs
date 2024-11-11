@@ -30,7 +30,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   if (!levelInfo) return null;
 
   const { id } = levelInfo;
-  const stars = starsOfLevel.find(s => s.id === id)?.stars || 0;
+  const playerInfo = starsOfLevel.find(s => s.id === id);
 
   const getItemIcon = (type: ItemType) => {
     switch (type) {
@@ -69,7 +69,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
       }}
     >
       <View className="mb-6 flex-row" style={{ gap: 4 }}>
-        {stars > 0 ? (
+        {playerInfo?.stars && playerInfo.stars > 0 ? (
           <Image
             source={require('@/assets/images/yellow-star.png')}
             style={{
@@ -90,7 +90,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
             }}
           />
         )}
-        {stars > 1 ? (
+        {playerInfo?.stars && playerInfo.stars > 1 ? (
           <Image
             source={require('@/assets/images/yellow-star.png')}
             style={{ width: 75, height: 75 }}
@@ -101,7 +101,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
             style={{ width: 75, height: 75 }}
           />
         )}
-        {stars > 2 ? (
+        {playerInfo?.stars && playerInfo.stars > 2 ? (
           <Image
             source={require('@/assets/images/yellow-star.png')}
             style={{
@@ -123,6 +123,21 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           />
         )}
       </View>
+      {playerInfo?.score && (
+        <View className="items-center" style={{ marginBottom: 28 }}>
+          <CoolText
+            text="最佳分數"
+            fontWeight="medium"
+            className="mb-4"
+            style={{ fontSize: 18, color: '#717171' }}
+          />
+          <CoolText
+            text={playerInfo.score}
+            fontWeight="medium"
+            style={{ fontSize: 22, color: '#834B4B' }}
+          />
+        </View>
+      )}
       <View className="items-center" style={{ marginBottom: 28 }}>
         <CoolText
           text="關卡"

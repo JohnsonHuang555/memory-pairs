@@ -8,7 +8,7 @@ type LevelState = {
   selectedLevelId?: number;
   levels: Level[];
   showLevelModal: boolean;
-  setPlayLevel: (level?: number) => void;
+  setPlayLevel: (id?: number) => void;
   setShowLevelModal: (value: boolean) => void;
   updateLevel: (id: number, stars: number) => void;
 };
@@ -18,11 +18,12 @@ const useLevelStore = create<LevelState>((set, get) => ({
   levels: allLevels.map(level => ({
     ...level,
     stars: 0,
+    bestScore: 0,
   })),
   showLevelModal: false,
-  setPlayLevel: (level?: number) => {
+  setPlayLevel: (id?: number) => {
     set(() => ({
-      selectedLevelId: level,
+      selectedLevelId: id,
     }));
   },
   setShowLevelModal: (value: boolean) => {

@@ -3,23 +3,24 @@ import { StyleSheet, View } from 'react-native';
 import BounceAnimation from '@/components/BounceAnimation';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
-import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
+import useLevelInfo from '@/hooks/useLevelInfo';
 
 const NextLevelButton = () => {
   const { resetGame } = useGameStore();
   const { setShowLevelModal, setPlayLevel } = useLevelStore();
-  const { currentLevelId } = usePlayerStore();
+  const { levelInfo } = useLevelInfo();
   const { push } = useRouter();
 
   return (
     <BounceAnimation
       onPress={() => {
+        if (!levelInfo) return;
         push('/levels');
         resetGame();
-        setPlayLevel(currentLevelId);
+        setPlayLevel(levelInfo.id + 1);
         setShowLevelModal(true);
       }}
     >

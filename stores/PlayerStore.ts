@@ -11,6 +11,7 @@ import { StateStorage, createJSONStorage, persist } from 'zustand/middleware';
 type StarsOfLevel = {
   id: number;
   stars: number;
+  score: number;
 };
 
 type PlayerState = {
@@ -28,7 +29,12 @@ type PlayerState = {
     score: number,
     lastLevelId: number,
   ) => void;
-  setStarsOfLevel: (id: number, stars: number, coins: number) => void;
+  setStarsOfLevel: (
+    id: number,
+    stars: number,
+    coins: number,
+    score: number,
+  ) => void;
   updatePlayerItem: (
     type: ItemType,
     action: 'purchase' | 'upgrade' | 'use',
@@ -146,26 +152,38 @@ export const usePlayerStore = create<PlayerState>()(
           achievements: newAchievements,
         }));
       },
-      setStarsOfLevel: (id: number, stars: number, coins: number) => {
+      setStarsOfLevel: (
+        id: number,
+        stars: number,
+        coins: number,
+        score: number,
+      ) => {
         const starsOfLevel = get().starsOfLevel;
         const isAlreadyHasStars = starsOfLevel.find(s => s.id === id);
         if (isAlreadyHasStars) {
-          if (isAlreadyHasStars.stars < stars) {
-            const newStarsOfLevel = starsOfLevel.map(level => {
-              if (level.id === id) {
-                return { ...level, stars };
-              }
-              return level;
-            });
-            set(state => ({
-              starsOfLevel: newStarsOfLevel,
-              coins: state.coins + coins,
-            }));
-          }
-          set(state => ({ coins: state.coins + coins }));
+          const newStarsOfLevel = starsOfLevel.map(level => {
+            if (level.id === id) {
+              return {
+                ...level,
+                stars:
+                  isAlreadyHasStars.stars < stars
+                    ? stars
+                    : isAlreadyHasStars.stars,
+                score:
+                  (isAlreadyHasStars.score || 0) < score
+                    ? score
+                    : isAlreadyHasStars.score,
+              };
+            }
+            return level;
+          });
+          set(state => ({
+            starsOfLevel: newStarsOfLevel,
+            coins: state.coins + coins,
+          }));
         } else {
           set(state => ({
-            starsOfLevel: [...state.starsOfLevel, { id, stars }],
+            starsOfLevel: [...state.starsOfLevel, { id, stars, score }],
             coins: state.coins + coins,
           }));
         }

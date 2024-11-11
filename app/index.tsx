@@ -7,6 +7,7 @@ import CoolText from '@/components/CoolText';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
 import usePlayerStore from '@/stores/PlayerStore';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Image } from 'expo-image';
 import { router, useRouter } from 'expo-router';
@@ -74,7 +75,12 @@ export default function HomeScreen() {
               style={{ width: 36, height: 36 }}
             />
           </BounceAnimation>
-          <BounceAnimation onPress={() => setShowSettingsModal(true)}>
+          <BounceAnimation
+            onPress={() => {
+              // AsyncStorage.clear();
+              setShowSettingsModal(true);
+            }}
+          >
             <Image
               source={require('@/assets/images/settings.png')}
               style={{ width: 42, height: 42 }}
