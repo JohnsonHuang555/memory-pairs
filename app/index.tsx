@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
@@ -6,6 +6,7 @@ import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
+import useLevelStore, { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -14,9 +15,17 @@ import { router, useRouter } from 'expo-router';
 
 export default function HomeScreen() {
   const { coins, currentLevelId } = usePlayerStore();
+  const { setDefaultCurrentPage } = useLevelStore();
   const [showShopModal, setShowShopModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const { push } = useRouter();
+
+  useEffect(() => {
+    if (currentLevelId) {
+      const page = Math.ceil(currentLevelId / itemsPerPage);
+      setDefaultCurrentPage(page);
+    }
+  }, [currentLevelId]);
 
   return (
     <Animated.View className="items-center" entering={FadeIn.delay(300)}>

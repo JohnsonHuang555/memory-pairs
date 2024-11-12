@@ -62,3 +62,5 @@ https://www.svgrepo.com/collection/sideview-emoji-vectors/
 https://www.svgrepo.com/collection/envelope-bordered-vectors/
 https://www.svgrepo.com/collection/tree-green-filled-vectors/
 https://www.svgrepo.com/collection/christmas-tiny-icons/
+https://www.svgrepo.com/collection/sport-balls-vectors/
+https://www.svgrepo.com/collection/battery-flat-vectors/

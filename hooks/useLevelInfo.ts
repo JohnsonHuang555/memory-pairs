@@ -2,6 +2,7 @@ import { LevelTheme } from '@/models/Level';
 import useLevelStore from '@/stores/LevelStore';
 
 export const gameTheme: {[key: string]: string } = {
+  [LevelTheme.ChineseWord]: '中文字',
   [LevelTheme.Color]: '顏色',
   [LevelTheme.Animal]: '動物',
   [LevelTheme.Fruit]: '水果',
@@ -15,7 +16,11 @@ export const gameTheme: {[key: string]: string } = {
   [LevelTheme.Entertainments]: '娛樂活動',
   [LevelTheme.ChineseEra]: '天干地支',
   [LevelTheme.Envelopes]: '信封袋',
-  [LevelTheme.Tree]: '樹',
+  [LevelTheme.Tree]: '各種樹',
+  [LevelTheme.Christmas]: '聖誕節',
+  [LevelTheme.Ball]: '球類',
+  [LevelTheme.Battery]: '電池',
+  [LevelTheme.Planet]: '星球',
 }
 
 export const gameMatchCount: {[key: string]: string } = {

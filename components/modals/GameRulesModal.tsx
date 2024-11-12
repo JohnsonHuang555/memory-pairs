@@ -18,7 +18,7 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
         <View className="mb-4">
           <View className="items-center">
             <CoolText
-              text="玩法"
+              text="-- 玩法 --"
               style={{ fontSize: 20, color: '#834B4B', marginBottom: 12 }}
               fontWeight="bold"
             />
@@ -32,11 +32,12 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
             style={styles.rule}
           />
           <CoolText text="- 過關即可開啟下一個關卡" style={styles.rule} />
+          <CoolText text="- 每十個關卡為挑戰關卡" style={styles.rule} />
         </View>
         <View className="mb-4">
           <View className="items-center">
             <CoolText
-              text="計分"
+              text="-- 計分 --"
               style={{ fontSize: 20, color: '#834B4B', marginBottom: 12 }}
               fontWeight="bold"
             />
@@ -52,7 +53,7 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
         <View className="justify-start">
           <View className="items-center">
             <CoolText
-              text="道具"
+              text="-- 道具 --"
               style={{ fontSize: 20, color: '#834B4B', marginBottom: 12 }}
               fontWeight="bold"
             />

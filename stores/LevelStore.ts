@@ -3,6 +3,8 @@ import { Level } from '@/models/Level';
 
 import { create } from 'zustand';
 
+export const itemsPerPage = 20; // 每頁顯示 20 個關卡
+
 type LevelState = {
   currentPage: number;
   selectedLevelId?: number;
@@ -11,6 +13,8 @@ type LevelState = {
   setPlayLevel: (id?: number) => void;
   setShowLevelModal: (value: boolean) => void;
   updateLevel: (id: number, stars: number) => void;
+  setDefaultCurrentPage: (page: number) => void;
+  updateCurrentPage: (val: number) => void;
 };
 
 const useLevelStore = create<LevelState>((set, get) => ({
@@ -42,6 +46,16 @@ const useLevelStore = create<LevelState>((set, get) => ({
 
     set(() => ({
       levels: newLevels,
+    }));
+  },
+  setDefaultCurrentPage: (page: number) => {
+    set(() => ({
+      currentPage: page,
+    }));
+  },
+  updateCurrentPage: (val: number) => {
+    set(state => ({
+      currentPage: state.currentPage + val,
     }));
   },
 }));

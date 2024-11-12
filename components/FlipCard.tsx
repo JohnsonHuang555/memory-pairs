@@ -210,8 +210,8 @@ const FlipCard = ({
           <Image
             source={card.content}
             style={{
-              width: 65,
-              height: 65,
+              width: 60,
+              height: 60,
             }}
           />
         );
@@ -221,7 +221,7 @@ const FlipCard = ({
           <CoolText
             text={card.content}
             fontWeight="medium"
-            style={{ fontSize: 24 }}
+            style={{ fontSize: 36 }}
           />
         );
     }

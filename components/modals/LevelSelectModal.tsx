@@ -125,7 +125,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
       </View>
       <View
         className="flex-col"
-        style={{ marginBottom: 32, width: '70%', gap: 16 }}
+        style={{ marginBottom: 36, width: '70%', gap: 16 }}
       >
         {playerInfo?.score && (
           <View className="flex-row items-center justify-between">

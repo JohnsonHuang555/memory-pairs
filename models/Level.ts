@@ -33,4 +33,7 @@ export enum LevelTheme {
   Envelopes = 'envelopes',
   Tree = 'tree',
   Christmas = 'christmas',
+  Ball = 'ball',
+  Battery = 'battery',
+  Planet = 'planet',
 }
