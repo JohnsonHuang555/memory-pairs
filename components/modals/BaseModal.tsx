@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { View } from 'react-native';
 import Modal from 'react-native-modal';
+import Toast from 'react-native-toast-message';
 
 import CoolText from '../CoolText';
-import Toast from 'react-native-toast-message';
 
 type BaseModalProps = {
   title: string;
@@ -53,14 +53,15 @@ const BaseModal = ({
             borderTopLeftRadius: 16,
             borderTopRightRadius: 16,
             position: 'absolute',
-            top: -43,
+            top: -40,
             backgroundColor: '#C08A76',
           }}
         >
           <CoolText
             text={title}
-            className="text-2xl text-white"
+            className="text-white"
             fontWeight="medium"
+            style={{ fontSize: 22, marginTop: 2 }}
           />
         </View>
         {children}

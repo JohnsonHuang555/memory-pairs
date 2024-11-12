@@ -42,7 +42,7 @@ const GamePassModal = ({ isLastLevel, show, onClose }: GamePassModalProps) => {
       onClose={onClose}
       disabledBackdropPress
     >
-      <View className="mb-6 flex-row" style={{ gap: 4 }}>
+      <View className="flex-row" style={{ gap: 4, marginBottom: 32 }}>
         {stars > 0 ? (
           <Animated.View entering={BounceIn.duration(300).delay(500)}>
             <Image
@@ -111,53 +111,56 @@ const GamePassModal = ({ isLastLevel, show, onClose }: GamePassModalProps) => {
       </View>
       <Animated.View
         entering={FadeIn.delay(1400)}
-        className="items-center"
-        style={{ marginBottom: 28 }}
+        className="flex-col"
+        style={{ marginBottom: 28, width: '80%', gap: 16 }}
       >
-        <CoolText
-          text="分數"
-          fontWeight="medium"
-          className="mb-4"
-          style={{ fontSize: 18, color: '#717171' }}
-        />
-        <CoolText
-          text={score}
-          fontWeight="medium"
-          style={{ fontSize: 22, color: '#834B4B' }}
-        />
-      </Animated.View>
-      <Animated.View
-        entering={FadeIn.delay(1700)}
-        className="items-center"
-        style={{ marginBottom: 28 }}
-      >
-        <CoolText
-          text="獲得金幣"
-          fontWeight="medium"
-          className="mb-4"
-          style={{ fontSize: 18, color: '#717171' }}
-        />
-        <View className="flex-row items-center">
-          <Image
-            source={require('@/assets/images/icons/coin.png')}
-            style={{ width: 32, height: 32, marginRight: 4 }}
+        <View className="flex-row items-center justify-between">
+          <CoolText
+            text="分數"
+            fontWeight="medium"
+            style={{ fontSize: 18, color: '#717171' }}
           />
           <CoolText
-            text={coins}
+            text={score}
             fontWeight="medium"
-            style={{ fontSize: 22, color: '#834B4B' }}
+            style={{ fontSize: 20, color: '#834B4B' }}
           />
         </View>
+        <View className="flex-row items-center justify-between">
+          <CoolText
+            text="獲得金幣"
+            fontWeight="medium"
+            style={{ fontSize: 18, color: '#717171' }}
+          />
+          <View className="flex-row items-center">
+            <Image
+              source={require('@/assets/images/icons/coin.png')}
+              style={{ width: 24, height: 24, marginRight: 4 }}
+            />
+            <CoolText
+              text={coins}
+              fontWeight="medium"
+              style={{ fontSize: 20, color: '#834B4B' }}
+            />
+          </View>
+        </View>
       </Animated.View>
-      <Animated.View
-        entering={FadeIn.delay(2000)}
+      <View
         className="flex-row justify-between"
-        style={{ width: isLastLevel ? '60%' : '90%' }}
+        style={{ width: isLastLevel ? '60%' : '90%', marginBottom: 8 }}
       >
-        <GoLevelsButton />
-        <ReplayButton />
-        {!isLastLevel && <NextLevelButton />}
-      </Animated.View>
+        <Animated.View entering={BounceIn.delay(1700)}>
+          <GoLevelsButton />
+        </Animated.View>
+        <Animated.View entering={BounceIn.delay(1900)}>
+          <ReplayButton />
+        </Animated.View>
+        {!isLastLevel && (
+          <Animated.View entering={BounceIn.delay(2000)}>
+            <NextLevelButton />
+          </Animated.View>
+        )}
+      </View>
     </BaseModal>
   );
 };
