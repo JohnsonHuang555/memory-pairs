@@ -246,7 +246,7 @@ const PlayingPage = () => {
           }}
         >
           <Image
-            source={require('@/assets/images/pause.png')}
+            source={require('@/assets/images/icons/pause.png')}
             style={{ width: 40, height: 40 }}
           />
         </BounceAnimation>
@@ -275,6 +275,7 @@ const PlayingPage = () => {
         onClose={() => setShowGameOverModal(false)}
       />
       <GamePassModal
+        isLastLevel={levels.length === levelInfo.id}
         show={showGamePassModal}
         onClose={() => setShowGamePassModal(false)}
       />
@@ -314,7 +315,7 @@ const PlayingPage = () => {
           <View className="flex-row items-center">
             <Animated.View style={animatedStyle}>
               <Image
-                source={require('@/assets/images/timer-outline.png')}
+                source={require('@/assets/images/icons/timer-outline.png')}
                 style={{ width: 28, height: 28 }}
               />
             </Animated.View>
@@ -332,7 +333,9 @@ const PlayingPage = () => {
           </View>
         </View>
         {/* 牌組 */}
-        <View
+        <Animated.View
+          entering={FadeIn}
+          exiting={FadeOut}
           className="flex-row flex-wrap justify-between"
           style={{ marginBottom: 4 }}
         >
@@ -351,7 +354,7 @@ const PlayingPage = () => {
               />
             </View>
           ))}
-        </View>
+        </Animated.View>
         {/* combo */}
         {combo > 0 && (
           <View className="items-center">

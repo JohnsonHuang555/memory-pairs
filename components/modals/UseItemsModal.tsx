@@ -51,19 +51,19 @@ const UseItemsModal = ({
       >
         {usedAddTime && (
           <Image
-            source={require('@/assets/images/timer.png')}
+            source={require('@/assets/images/icons/timer.png')}
             style={{ width: 60, height: 60 }}
           />
         )}
         {usedViewFirst && (
           <Image
-            source={require('@/assets/images/eye.png')}
+            source={require('@/assets/images/icons/eye.png')}
             style={{ width: 60, height: 60 }}
           />
         )}
         {usedAutoPairs && (
           <Image
-            source={require('@/assets/images/paris.png')}
+            source={require('@/assets/images/icons/paris.png')}
             style={{ width: 60, height: 60 }}
           />
         )}

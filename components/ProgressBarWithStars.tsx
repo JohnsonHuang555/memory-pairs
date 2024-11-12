@@ -92,8 +92,8 @@ const ProgressBarWithStars = () => {
             <Animated.Image
               source={
                 star.completed
-                  ? require('@/assets/images/yellow-star.png') // 已完成的星星
-                  : require('@/assets/images/grey-star.png') // 未完成的星星
+                  ? require('@/assets/images/icons/yellow-star.png') // 已完成的星星
+                  : require('@/assets/images/icons/grey-star.png') // 未完成的星星
               }
               style={[
                 styles.star,

@@ -36,7 +36,7 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
       >
         <View className="flex-row items-center">
           <Image
-            source={require('@/assets/images/music.png')}
+            source={require('@/assets/images/icons/music.png')}
             style={{ width: 30, height: 30 }}
           />
           <CoolText
@@ -54,7 +54,7 @@ const SettingsModal = ({ show, onClose }: SettingsModalProps) => {
       <View className="flex-row justify-between" style={{ width: '100%' }}>
         <View className="flex-row items-center">
           <Image
-            source={require('@/assets/images/sound.png')}
+            source={require('@/assets/images/icons/sound.png')}
             style={{ width: 30, height: 30 }}
           />
           <CoolText

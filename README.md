@@ -52,3 +52,13 @@ Join our community of developers creating universal apps.
 ## Reference
 https://www.svgrepo.com/collection/animal-flat-vectors/
 https://www.svgrepo.com/collection/bright-fruits-and-vegetables/
+https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
+https://www.svgrepo.com/collection/gift-packages-flat-icons/
+https://www.svgrepo.com/collection/types-of-leaves-vectors/
+https://www.svgrepo.com/collection/music-instruments-flat-icons/
+https://www.svgrepo.com/collection/transportation-flat-icons/
+https://www.svgrepo.com/collection/chinese-culture-icons/
+https://www.svgrepo.com/collection/sideview-emoji-vectors/
+https://www.svgrepo.com/collection/envelope-bordered-vectors/
+https://www.svgrepo.com/collection/tree-green-filled-vectors/
+https://www.svgrepo.com/collection/christmas-tiny-icons/

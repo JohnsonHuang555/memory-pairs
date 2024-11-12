@@ -26,7 +26,7 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
     >
       <View className="mb-6 flex-row" style={{ gap: 4 }}>
         <Image
-          source={require('@/assets/images/grey-star.png')}
+          source={require('@/assets/images/icons/grey-star.png')}
           style={{
             width: 65,
             height: 65,
@@ -35,11 +35,11 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
           }}
         />
         <Image
-          source={require('@/assets/images/grey-star.png')}
+          source={require('@/assets/images/icons/grey-star.png')}
           style={{ width: 75, height: 75 }}
         />
         <Image
-          source={require('@/assets/images/grey-star.png')}
+          source={require('@/assets/images/icons/grey-star.png')}
           style={{
             width: 65,
             height: 65,

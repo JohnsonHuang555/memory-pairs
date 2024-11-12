@@ -6,6 +6,16 @@ export const gameTheme: {[key: string]: string } = {
   [LevelTheme.Animal]: '動物',
   [LevelTheme.Fruit]: '水果',
   [LevelTheme.Emoji]: '表情',
+  [LevelTheme.Landmark]: '地標',
+  [LevelTheme.Gift]: '禮物盒',
+  [LevelTheme.Leaves]: '葉子',
+  [LevelTheme.Instrument]: '樂器',
+  [LevelTheme.Transport]: '交通工具',
+  [LevelTheme.Zodiac]: '十二生肖',
+  [LevelTheme.Entertainments]: '娛樂活動',
+  [LevelTheme.ChineseEra]: '天干地支',
+  [LevelTheme.Envelopes]: '信封袋',
+  [LevelTheme.Tree]: '樹',
 }
 
 export const gameMatchCount: {[key: string]: string } = {

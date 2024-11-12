@@ -207,7 +207,13 @@ const FlipCard = ({
     switch (type) {
       case LevelType.ImageUrl:
         return (
-          <Image source={card.content} style={{ width: 50, height: 50 }} />
+          <Image
+            source={card.content}
+            style={{
+              width: 65,
+              height: 65,
+            }}
+          />
         );
       case LevelType.String:
       default:
@@ -232,7 +238,7 @@ const FlipCard = ({
         {/* 背面 */}
         <Animated.View style={[styles.card, frontAnimatedStyle]}>
           <Image
-            source={require('@/assets/images/card-question.png')}
+            source={require('@/assets/images/icons/card-question.png')}
             style={{ width: 50, height: 50 }}
           />
         </Animated.View>
@@ -274,7 +280,7 @@ const styles = StyleSheet.create({
   },
   cardBack: {
     backgroundColor: '#FFF',
-    borderColor: '#ccc',
+    borderColor: '#ddd',
     borderWidth: 3,
   },
   text: {

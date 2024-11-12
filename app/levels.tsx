@@ -41,7 +41,7 @@ export default function LevelsPage() {
     if (checkIsLock(level.id)) {
       return (
         <Image
-          source={require('@/assets/images/lock.png')}
+          source={require('@/assets/images/icons/lock.png')}
           style={{ width: 40, height: 40 }}
         />
       );
@@ -52,7 +52,7 @@ export default function LevelsPage() {
           return (
             <Image
               key={s}
-              source={require('@/assets/images/yellow-star.png')}
+              source={require('@/assets/images/icons/yellow-star.png')}
               style={{ width: 20, height: 20 }}
             />
           );
@@ -60,7 +60,7 @@ export default function LevelsPage() {
           return (
             <Image
               key={s}
-              source={require('@/assets/images/grey-star.png')}
+              source={require('@/assets/images/icons/grey-star.png')}
               style={{ width: 20, height: 20 }}
             />
           );
@@ -95,7 +95,7 @@ export default function LevelsPage() {
         <View className="mb-6 flex-row items-center justify-between">
           <View className="flex-row items-center">
             <Image
-              source={require('@/assets/images/coin.png')}
+              source={require('@/assets/images/icons/coin.png')}
               style={{ width: 26, height: 26, marginRight: 4 }}
             />
             <CoolText
@@ -106,7 +106,7 @@ export default function LevelsPage() {
           </View>
           <View className="flex-row items-center">
             <Image
-              source={require('@/assets/images/yellow-star.png')}
+              source={require('@/assets/images/icons/yellow-star.png')}
               style={{ width: 26, height: 26, marginRight: 4 }}
             />
             <CoolText
@@ -158,7 +158,7 @@ export default function LevelsPage() {
           <CoolButton
             prefix={
               <Image
-                source={require('@/assets/images/arrow-left-2.png')}
+                source={require('@/assets/images/icons/arrow-left-2.png')}
                 style={{ width: 20, height: 20 }}
               />
             }
@@ -170,7 +170,7 @@ export default function LevelsPage() {
           <CoolButton
             prefix={
               <Image
-                source={require('@/assets/images/arrow-right-2.png')}
+                source={require('@/assets/images/icons/arrow-right-2.png')}
                 style={{ width: 20, height: 20 }}
               />
             }

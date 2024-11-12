@@ -30,7 +30,7 @@ export default function HomeScreen() {
         style={{ width: '80%', marginBottom: 30 }}
       >
         <Image
-          source={require('@/assets/images/coin.png')}
+          source={require('@/assets/images/icons/coin.png')}
           style={{ width: 32, height: 32, marginRight: 4 }}
         />
         <CoolText
@@ -57,7 +57,7 @@ export default function HomeScreen() {
           className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
         >
           <Image
-            source={require('@/assets/images/play.png')}
+            source={require('@/assets/images/icons/play.png')}
             style={{ width: 80, height: 80, marginLeft: 12 }}
             className="shadow shadow-white"
           />
@@ -65,13 +65,13 @@ export default function HomeScreen() {
         <View className="mt-20 flex-row items-center gap-16">
           <BounceAnimation onPress={() => setShowShopModal(true)}>
             <Image
-              source={require('@/assets/images/shop.png')}
+              source={require('@/assets/images/icons/shop.png')}
               style={{ width: 40, height: 40 }}
             />
           </BounceAnimation>
           <BounceAnimation onPress={() => push('/achievement')}>
             <Image
-              source={require('@/assets/images/trophy.png')}
+              source={require('@/assets/images/icons/trophy.png')}
               style={{ width: 36, height: 36 }}
             />
           </BounceAnimation>
@@ -82,7 +82,7 @@ export default function HomeScreen() {
             }}
           >
             <Image
-              source={require('@/assets/images/settings.png')}
+              source={require('@/assets/images/icons/settings.png')}
               style={{ width: 42, height: 42 }}
             />
           </BounceAnimation>

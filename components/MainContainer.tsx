@@ -38,7 +38,7 @@ const MainContainer = ({
           {showLeftIcon && (
             <BounceAnimation onPress={() => push('/')}>
               <Image
-                source={require('@/assets/images/left-arrow.png')}
+                source={require('@/assets/images/icons/left-arrow.png')}
                 style={{ width: 40, height: 40 }}
               />
             </BounceAnimation>
@@ -54,7 +54,7 @@ const MainContainer = ({
           {showQuestionIcon && (
             <BounceAnimation onPress={() => setGameRuleModal(true)}>
               <Image
-                source={require('@/assets/images/question.png')}
+                source={require('@/assets/images/icons/question.png')}
                 style={{ width: 32, height: 32 }}
               />
             </BounceAnimation>

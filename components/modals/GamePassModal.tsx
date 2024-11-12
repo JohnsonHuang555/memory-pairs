@@ -13,11 +13,12 @@ import useGameStore from '@/stores/GameStore';
 import { Image } from 'expo-image';
 
 type GamePassModalProps = {
+  isLastLevel: boolean;
   show: boolean;
   onClose: () => void;
 };
 
-const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
+const GamePassModal = ({ isLastLevel, show, onClose }: GamePassModalProps) => {
   const { score, stars } = useGameStore();
   const { levelInfo } = useLevelInfo();
 
@@ -45,7 +46,7 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
         {stars > 0 ? (
           <Animated.View entering={BounceIn.duration(300).delay(500)}>
             <Image
-              source={require('@/assets/images/yellow-star.png')}
+              source={require('@/assets/images/icons/yellow-star.png')}
               style={{
                 width: 65,
                 height: 65,
@@ -57,7 +58,7 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
         ) : (
           <Animated.View entering={BounceIn.duration(300).delay(500)}>
             <Image
-              source={require('@/assets/images/grey-star.png')}
+              source={require('@/assets/images/icons/grey-star.png')}
               style={{
                 width: 65,
                 height: 65,
@@ -70,14 +71,14 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
         {stars > 1 ? (
           <Animated.View entering={BounceIn.duration(300).delay(800)}>
             <Image
-              source={require('@/assets/images/yellow-star.png')}
+              source={require('@/assets/images/icons/yellow-star.png')}
               style={{ width: 75, height: 75 }}
             />
           </Animated.View>
         ) : (
           <Animated.View entering={BounceIn.duration(300).delay(800)}>
             <Image
-              source={require('@/assets/images/grey-star.png')}
+              source={require('@/assets/images/icons/grey-star.png')}
               style={{ width: 75, height: 75 }}
             />
           </Animated.View>
@@ -85,7 +86,7 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
         {stars > 2 ? (
           <Animated.View entering={BounceIn.duration(300).delay(1100)}>
             <Image
-              source={require('@/assets/images/yellow-star.png')}
+              source={require('@/assets/images/icons/yellow-star.png')}
               style={{
                 width: 65,
                 height: 65,
@@ -97,7 +98,7 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
         ) : (
           <Animated.View entering={BounceIn.duration(300).delay(1100)}>
             <Image
-              source={require('@/assets/images/grey-star.png')}
+              source={require('@/assets/images/icons/grey-star.png')}
               style={{
                 width: 65,
                 height: 65,
@@ -138,7 +139,7 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
         />
         <View className="flex-row items-center">
           <Image
-            source={require('@/assets/images/coin.png')}
+            source={require('@/assets/images/icons/coin.png')}
             style={{ width: 32, height: 32, marginRight: 4 }}
           />
           <CoolText
@@ -151,11 +152,11 @@ const GamePassModal = ({ show, onClose }: GamePassModalProps) => {
       <Animated.View
         entering={FadeIn.delay(2000)}
         className="flex-row justify-between"
-        style={{ width: '90%' }}
+        style={{ width: isLastLevel ? '60%' : '90%' }}
       >
         <GoLevelsButton />
         <ReplayButton />
-        <NextLevelButton />
+        {!isLastLevel && <NextLevelButton />}
       </Animated.View>
     </BaseModal>
   );

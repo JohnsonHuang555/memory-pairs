@@ -16,7 +16,7 @@ const GamePlayButton = ({ onResume }: GamePlayButtonProps) => {
         style={[styles.actions, { width: 60, height: 60 }]}
       >
         <Image
-          source={require('@/assets/images/game-play.png')}
+          source={require('@/assets/images/icons/game-play.png')}
           style={{
             width: 30,
             height: 30,

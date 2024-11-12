@@ -45,7 +45,7 @@ export default function AchievementPage() {
         style={{ flex: 1, marginLeft: 8, marginRight: 8 }}
       >
         <Image
-          source={require('@/assets/images/coin.png')}
+          source={require('@/assets/images/icons/coin.png')}
           style={{ width: 26, height: 26, marginRight: 2 }}
         />
         <CoolText

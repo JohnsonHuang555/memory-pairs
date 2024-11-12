@@ -22,7 +22,7 @@ const ReplayButton = () => {
     >
       <View className="rounded-full border" style={styles.actions}>
         <Image
-          source={require('@/assets/images/replay.png')}
+          source={require('@/assets/images/icons/replay.png')}
           style={{ width: 30, height: 30 }}
         />
       </View>

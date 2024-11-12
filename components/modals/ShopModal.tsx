@@ -70,21 +70,21 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
       case ItemType.AddTime:
         return (
           <Image
-            source={require('@/assets/images/timer.png')}
+            source={require('@/assets/images/icons/timer.png')}
             style={{ width: 50, height: 50 }}
           />
         );
       case ItemType.ViewFirst:
         return (
           <Image
-            source={require('@/assets/images/eye.png')}
+            source={require('@/assets/images/icons/eye.png')}
             style={{ width: 50, height: 50 }}
           />
         );
       case ItemType.AutoPairs:
         return (
           <Image
-            source={require('@/assets/images/paris.png')}
+            source={require('@/assets/images/icons/paris.png')}
             style={{ width: 50, height: 50 }}
           />
         );
@@ -108,7 +108,7 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
         <CoolText text="道具" style={styles.text} fontWeight="medium" />
         <View className="flex-row items-center">
           <Image
-            source={require('@/assets/images/coin.png')}
+            source={require('@/assets/images/icons/coin.png')}
             style={{ width: 28, height: 28, marginRight: 4 }}
           />
           <CoolText text={coins} style={styles.text} fontWeight="medium" />

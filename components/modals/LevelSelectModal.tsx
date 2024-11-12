@@ -37,21 +37,21 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
       case ItemType.AddTime:
         return (
           <Image
-            source={require('@/assets/images/timer.png')}
+            source={require('@/assets/images/icons/timer.png')}
             style={{ width: 50, height: 50 }}
           />
         );
       case ItemType.ViewFirst:
         return (
           <Image
-            source={require('@/assets/images/eye.png')}
+            source={require('@/assets/images/icons/eye.png')}
             style={{ width: 50, height: 50 }}
           />
         );
       case ItemType.AutoPairs:
         return (
           <Image
-            source={require('@/assets/images/paris.png')}
+            source={require('@/assets/images/icons/paris.png')}
             style={{ width: 50, height: 50 }}
           />
         );
@@ -71,7 +71,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
       <View className="mb-6 flex-row" style={{ gap: 4 }}>
         {playerInfo?.stars && playerInfo.stars > 0 ? (
           <Image
-            source={require('@/assets/images/yellow-star.png')}
+            source={require('@/assets/images/icons/yellow-star.png')}
             style={{
               width: 65,
               height: 65,
@@ -81,7 +81,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           />
         ) : (
           <Image
-            source={require('@/assets/images/grey-star.png')}
+            source={require('@/assets/images/icons/grey-star.png')}
             style={{
               width: 65,
               height: 65,
@@ -92,18 +92,18 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
         )}
         {playerInfo?.stars && playerInfo.stars > 1 ? (
           <Image
-            source={require('@/assets/images/yellow-star.png')}
+            source={require('@/assets/images/icons/yellow-star.png')}
             style={{ width: 75, height: 75 }}
           />
         ) : (
           <Image
-            source={require('@/assets/images/grey-star.png')}
+            source={require('@/assets/images/icons/grey-star.png')}
             style={{ width: 75, height: 75 }}
           />
         )}
         {playerInfo?.stars && playerInfo.stars > 2 ? (
           <Image
-            source={require('@/assets/images/yellow-star.png')}
+            source={require('@/assets/images/icons/yellow-star.png')}
             style={{
               width: 65,
               height: 65,
@@ -113,7 +113,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           />
         ) : (
           <Image
-            source={require('@/assets/images/grey-star.png')}
+            source={require('@/assets/images/icons/grey-star.png')}
             style={{
               width: 65,
               height: 65,
@@ -212,7 +212,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
                   >
                     {currentType ? (
                       <Image
-                        source={require('@/assets/images/check.png')}
+                        source={require('@/assets/images/icons/check.png')}
                         style={{ width: 20, height: 20 }}
                       />
                     ) : (

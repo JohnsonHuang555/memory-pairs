@@ -26,7 +26,7 @@ const NextLevelButton = () => {
     >
       <View className="rounded-full border" style={styles.actions}>
         <Image
-          source={require('@/assets/images/next-level.png')}
+          source={require('@/assets/images/icons/next-level.png')}
           style={{ width: 30, height: 30, right: -2 }}
         />
       </View>

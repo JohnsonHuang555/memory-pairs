@@ -9,6 +9,7 @@ import GoLevelsButton from './buttons/GoLevelsButton';
 import ReplayButton from './buttons/ReplayButton';
 
 import { Image } from 'expo-image';
+import usePlayerStore from '@/stores/PlayerStore';
 
 type PauseGameModalProps = {
   show: boolean;
@@ -16,15 +17,18 @@ type PauseGameModalProps = {
 };
 
 const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
-  const isMusicOn = useSharedValue(false);
-  const isSoundOn = useSharedValue(false);
+  const { isMusicOn, isSoundOn, setIsMusicOn, setIsSoundOn } = usePlayerStore();
+  const isMusicOnValue = useSharedValue(isMusicOn);
+  const isSoundOnValue = useSharedValue(isSoundOn);
 
   const handleMusicPress = () => {
-    isMusicOn.value = !isMusicOn.value;
+    isMusicOnValue.value = !isMusicOnValue.value;
+    setIsMusicOn();
   };
 
   const handleSoundPress = () => {
-    isSoundOn.value = !isSoundOn.value;
+    isSoundOnValue.value = !isSoundOnValue.value;
+    setIsSoundOn();
   };
 
   return (
@@ -35,7 +39,7 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
       >
         <View className="flex-row items-center">
           <Image
-            source={require('@/assets/images/music.png')}
+            source={require('@/assets/images/icons/music.png')}
             style={{ width: 30, height: 30 }}
           />
           <CoolText
@@ -45,7 +49,7 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
           />
         </View>
         <CoolSwitch
-          value={isMusicOn}
+          value={isMusicOnValue}
           onPress={handleMusicPress}
           style={{ width: 80 }}
         />
@@ -56,7 +60,7 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
       >
         <View className="flex-row items-center">
           <Image
-            source={require('@/assets/images/sound.png')}
+            source={require('@/assets/images/icons/sound.png')}
             style={{ width: 30, height: 30 }}
           />
           <CoolText
@@ -66,7 +70,7 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
           />
         </View>
         <CoolSwitch
-          value={isSoundOn}
+          value={isSoundOnValue}
           onPress={handleSoundPress}
           style={{ width: 80 }}
         />

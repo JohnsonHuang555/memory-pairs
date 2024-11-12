@@ -15,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [assets] = useAssets([
-    require('@/assets/images/background1.png'),
+    require('@/assets/images/background.png'),
   ]);
 
   const [loaded] = useFonts({
@@ -41,7 +41,7 @@ export default function RootLayout() {
     <>
       <View className="flex-1">
         <ImageBackground
-          source={require('@/assets/images/background1.png')}
+          source={require('@/assets/images/background.png')}
           resizeMode="cover"
           imageStyle={{ opacity: 0.5 }}
           style={{
