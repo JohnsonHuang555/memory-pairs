@@ -14,9 +14,7 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [assets] = useAssets([
-    require('@/assets/images/background.png'),
-  ]);
+  const [assets] = useAssets([require('@/assets/images/background.png')]);
 
   const [loaded] = useFonts({
     GenSenRounded2TWB: require('../assets/fonts/GenSenRounded2TW-B.otf'), // 粗體
@@ -39,7 +37,7 @@ export default function RootLayout() {
 
   return (
     <>
-      <View className="flex-1">
+      <View className="flex-1" style={{ backgroundColor: '#fff' }}>
         <ImageBackground
           source={require('@/assets/images/background.png')}
           resizeMode="cover"

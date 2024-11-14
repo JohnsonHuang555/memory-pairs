@@ -32,7 +32,7 @@ const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
             style={styles.rule}
           />
           <CoolText text="- 過關即可開啟下一個關卡" style={styles.rule} />
-          <CoolText text="- 每十個關卡為挑戰關卡" style={styles.rule} />
+          <CoolText text="- 每十個關卡為挑戰關卡，難度提升" style={styles.rule} />
         </View>
         <View className="mb-4">
           <View className="items-center">

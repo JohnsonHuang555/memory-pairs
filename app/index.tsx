@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import Animated, { FadeIn } from 'react-native-reanimated';
+import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
+import GameRulesModal from '@/components/modals/GameRulesModal';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
 import useLevelStore, { itemsPerPage } from '@/stores/LevelStore';
@@ -18,6 +19,7 @@ export default function HomeScreen() {
   const { setDefaultCurrentPage } = useLevelStore();
   const [showShopModal, setShowShopModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showGameRulesModal, setShowGameRulesModal] = useState(false);
   const { push } = useRouter();
 
   useEffect(() => {
@@ -33,6 +35,10 @@ export default function HomeScreen() {
       <SettingsModal
         show={showSettingsModal}
         onClose={() => setShowSettingsModal(false)}
+      />
+      <GameRulesModal
+        show={showGameRulesModal}
+        onClose={() => setShowGameRulesModal(false)}
       />
       <View
         className="flex-row justify-end"
@@ -50,7 +56,7 @@ export default function HomeScreen() {
       </View>
       <Image
         source={require('@/assets/images/logo.png')}
-        style={{ width: 260, height: 100, marginBottom: 80 }}
+        style={{ width: 260, height: 100, marginBottom: 60 }}
         contentFit="contain"
       />
       <View className="items-center">
@@ -59,42 +65,94 @@ export default function HomeScreen() {
           className="mb-4 text-[65px] shadow-sm"
           fontWeight="regular"
         />
-        <CoolText text="Now Level" className="mb-20 text-2xl" />
-        <BounceAnimation
-          scaleValue={0.9}
-          onPress={() => router.push('/levels')}
-          className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
+        <CoolText
+          text="Now Level"
+          className="text-2xl"
+          style={{ marginBottom: 60 }}
+        />
+        <Animated.View
+          entering={ZoomIn.delay(200)}
+          style={{ marginBottom: 60 }}
         >
-          <Image
-            source={require('@/assets/images/icons/play.png')}
-            style={{ width: 80, height: 80, marginLeft: 12 }}
-            className="shadow shadow-white"
-          />
-        </BounceAnimation>
-        <View className="mt-20 flex-row items-center gap-16">
-          <BounceAnimation onPress={() => setShowShopModal(true)}>
-            <Image
-              source={require('@/assets/images/icons/shop.png')}
-              style={{ width: 40, height: 40 }}
-            />
-          </BounceAnimation>
-          <BounceAnimation onPress={() => push('/achievement')}>
-            <Image
-              source={require('@/assets/images/icons/trophy.png')}
-              style={{ width: 36, height: 36 }}
-            />
-          </BounceAnimation>
           <BounceAnimation
-            onPress={() => {
-              AsyncStorage.clear();
-              setShowSettingsModal(true);
-            }}
+            scaleValue={0.9}
+            onPress={() => router.push('/levels')}
+            className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
           >
             <Image
-              source={require('@/assets/images/icons/settings.png')}
-              style={{ width: 42, height: 42 }}
+              source={require('@/assets/images/icons/play.png')}
+              style={{ width: 80, height: 80, marginLeft: 12 }}
+              className="shadow shadow-white"
             />
           </BounceAnimation>
+        </Animated.View>
+        <View
+          className="flex-row items-center"
+          style={{ marginBottom: 30, gap: 46 }}
+        >
+          <Animated.View entering={FadeIn.delay(500)}>
+            <BounceAnimation onPress={() => setShowShopModal(true)}>
+              <Image
+                source={require('@/assets/images/icons/shop.png')}
+                style={{ width: 44, height: 44 }}
+              />
+            </BounceAnimation>
+          </Animated.View>
+          <Animated.View entering={FadeIn.delay(500)}>
+            <BounceAnimation onPress={() => push('/achievement')}>
+              <Image
+                source={require('@/assets/images/icons/trophy.png')}
+                style={{ width: 38, height: 38 }}
+              />
+            </BounceAnimation>
+          </Animated.View>
+          <Animated.View entering={FadeIn.delay(500)}>
+            <BounceAnimation
+              onPress={() => {
+                // setShowSettingsModal(true);
+              }}
+            >
+              <Image
+                source={require('@/assets/images/icons/leaderboard.png')}
+                style={{ width: 44, height: 44 }}
+              />
+            </BounceAnimation>
+          </Animated.View>
+        </View>
+        <View className="flex-row items-center" style={{ gap: 46 }}>
+          <Animated.View entering={FadeIn.delay(500)}>
+            <BounceAnimation onPress={() => {}}>
+              <Image
+                source={require('@/assets/images/icons/info-circle.png')}
+                style={{ width: 44, height: 44 }}
+              />
+            </BounceAnimation>
+          </Animated.View>
+          <Animated.View entering={FadeIn.delay(500)}>
+            <BounceAnimation
+              onPress={() => {
+                setShowGameRulesModal(true);
+              }}
+            >
+              <Image
+                source={require('@/assets/images/icons/question-circle.png')}
+                style={{ width: 44, height: 44 }}
+              />
+            </BounceAnimation>
+          </Animated.View>
+          <Animated.View entering={FadeIn.delay(500)}>
+            <BounceAnimation
+              onPress={() => {
+                // AsyncStorage.clear();
+                setShowSettingsModal(true);
+              }}
+            >
+              <Image
+                source={require('@/assets/images/icons/settings.png')}
+                style={{ width: 44, height: 44 }}
+              />
+            </BounceAnimation>
+          </Animated.View>
         </View>
       </View>
     </Animated.View>

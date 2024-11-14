@@ -152,11 +152,11 @@ const GamePassModal = ({ isLastLevel, show, onClose }: GamePassModalProps) => {
         <Animated.View entering={BounceIn.delay(1700)}>
           <GoLevelsButton />
         </Animated.View>
-        <Animated.View entering={BounceIn.delay(1900)}>
+        <Animated.View entering={BounceIn.delay(2000)}>
           <ReplayButton />
         </Animated.View>
         {!isLastLevel && (
-          <Animated.View entering={BounceIn.delay(2000)}>
+          <Animated.View entering={BounceIn.delay(2300)}>
             <NextLevelButton />
           </Animated.View>
         )}
