@@ -95,7 +95,7 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
     <BaseModal
       title="商店"
       show={show}
-      width={100}
+      width={90}
       onClose={() => {
         setSelectedItem(undefined);
         onClose();

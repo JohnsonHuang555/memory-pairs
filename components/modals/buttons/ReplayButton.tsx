@@ -15,9 +15,11 @@ const ReplayButton = () => {
   return (
     <BounceAnimation
       onPress={() => {
-        push('/levels');
+        setTimeout(() => {
+          setShowLevelModal(true);
+        }, 100);
         resetGame();
-        setShowLevelModal(true);
+        push('/levels');
       }}
     >
       <View className="rounded-full border" style={styles.actions}>

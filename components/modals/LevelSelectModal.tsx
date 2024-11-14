@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import BounceAnimation from '../BounceAnimation';
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
@@ -62,7 +61,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
     <BaseModal
       title={`Level ${id}`}
       show={show}
-      width={90}
+      width={80}
       onClose={() => {
         setSelectedItems([]);
         onClose();
@@ -175,8 +174,8 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
             selected => selected.type === item.type,
           );
           return (
-            <BounceAnimation
-              scaleValue={0.85}
+            <TouchableOpacity
+            activeOpacity={0.8}
               key={item.type}
               onPress={() => {
                 if (item.quantity > 0) {
@@ -236,7 +235,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
                 </View>
                 {getItemIcon(item.type)}
               </View>
-            </BounceAnimation>
+            </TouchableOpacity>
           );
         })}
       </View>
@@ -258,7 +257,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
             setUseItems(selectedItems);
             setTimeout(() => {
               replace('/playing');
-            }, 200);
+            }, 100);
           }}
         />
       </View>
