@@ -176,7 +176,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           );
           return (
             <BounceAnimation
-              scaleValue={1.1}
+              scaleValue={0.85}
               key={item.type}
               onPress={() => {
                 if (item.quantity > 0) {

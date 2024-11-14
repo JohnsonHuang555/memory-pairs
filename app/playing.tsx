@@ -163,7 +163,7 @@ const PlayingPage = () => {
         runOnJS(setStarsOfLevel)(levelInfo.id, stars, coins, score);
       }
     });
-  }, [score]);
+  }, [score, stars]);
 
   // 遊戲過關
   useEffect(() => {
