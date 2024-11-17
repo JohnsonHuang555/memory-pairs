@@ -4,6 +4,7 @@ import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
+import AchievementModal from '@/components/modals/AchievementModal';
 import GameRulesModal from '@/components/modals/GameRulesModal';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
@@ -20,6 +21,7 @@ export default function HomeScreen() {
   const [showShopModal, setShowShopModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showGameRulesModal, setShowGameRulesModal] = useState(false);
+  const [showAchievementModal, setShowAchievementModal] = useState(false);
   const { push } = useRouter();
 
   useEffect(() => {
@@ -39,6 +41,10 @@ export default function HomeScreen() {
       <GameRulesModal
         show={showGameRulesModal}
         onClose={() => setShowGameRulesModal(false)}
+      />
+      <AchievementModal
+        show={showAchievementModal}
+        onClose={() => setShowAchievementModal(false)}
       />
       <Animated.View className="items-center" entering={FadeIn.delay(300)}>
         <View
@@ -82,8 +88,11 @@ export default function HomeScreen() {
             >
               <Image
                 source={require('@/assets/images/icons/play.png')}
-                style={{ width: 80, height: 80, marginLeft: 12 }}
-                className="shadow shadow-white"
+                style={{
+                  width: 80,
+                  height: 80,
+                  marginLeft: 12,
+                }}
               />
             </BounceAnimation>
           </Animated.View>
@@ -100,7 +109,7 @@ export default function HomeScreen() {
               </BounceAnimation>
             </Animated.View>
             <Animated.View entering={FadeIn.delay(500)}>
-              <BounceAnimation onPress={() => push('/achievement')}>
+              <BounceAnimation onPress={() => setShowAchievementModal(true)}>
                 <Image
                   source={require('@/assets/images/icons/trophy.png')}
                   style={{ width: 38, height: 38 }}
@@ -110,7 +119,7 @@ export default function HomeScreen() {
             <Animated.View entering={FadeIn.delay(500)}>
               <BounceAnimation
                 onPress={() => {
-                  // setShowSettingsModal(true);
+                  setShowAchievementModal(true);
                 }}
               >
                 <Image

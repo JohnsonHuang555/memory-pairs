@@ -78,3 +78,6 @@ https://www.svgrepo.com/collection/maps-and-navigation-flat-icons/
 https://www.svgrepo.com/collection/hand-washing-vectors/
 https://www.svgrepo.com/collection/fashion-and-clothes-vectors/
 https://www.svgrepo.com/collection/beer-festival-vectors/
+https://www.svgrepo.com/collection/food-game-art/
+https://www.svgrepo.com/collection/colorful-party-favors-vectors/
+https://www.svgrepo.com/collection/casino-gambling-2/

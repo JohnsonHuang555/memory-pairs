@@ -2,16 +2,21 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
-import CoolButton from '@/components/CoolButton';
-import CoolText from '@/components/CoolText';
-import MainContainer from '@/components/MainContainer';
+import CoolButton from '../CoolButton';
+import CoolText from '../CoolText';
+import BaseModal from './BaseModal';
 import { allAchievements } from '@/constants/AllAchievements';
 import { Achievement } from '@/models/Achievement';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
 
-export default function AchievementPage() {
+type AchievementModalProps = {
+  show: boolean;
+  onClose: () => void;
+};
+
+const AchievementModal = ({ show, onClose }: AchievementModalProps) => {
   const { playerAchievements, receiveAchievementRewards } = usePlayerStore();
 
   const renderItem = ({
@@ -22,12 +27,8 @@ export default function AchievementPage() {
     id,
     completed,
   }: Achievement) => (
-    <Animated.View
-      entering={FadeIn.delay(id * 50)}
-      exiting={FadeOut.duration(100)}
-      style={styles.achievementItem}
-    >
-      <View style={{ width: 130 }}>
+    <View style={styles.achievementItem}>
+      <View style={{ width: 110}}>
         <CoolText
           style={styles.title}
           text={title}
@@ -42,7 +43,7 @@ export default function AchievementPage() {
       </View>
       <View
         className="flex-row items-center"
-        style={{ flex: 1, marginLeft: 8, marginRight: 8 }}
+        style={{ flex: 1, marginLeft: 4, marginRight: 4 }}
       >
         <Image
           source={require('@/assets/images/icons/coin.png')}
@@ -73,40 +74,43 @@ export default function AchievementPage() {
         borderRadius={8}
         backgroundColor={received || !completed ? '#D6D1D1' : '#834B4B'}
       />
-    </Animated.View>
+    </View>
   );
 
   return (
-    <MainContainer title="成就" showLeftIcon>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={allAchievements.map(achievement => {
-          const playerAchievement = playerAchievements.find(
-            p => p.id === achievement.id,
-          );
+    <BaseModal title="成就" show={show} width={90} onClose={onClose}>
+      <View style={{ height: 500 }}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={allAchievements.map(achievement => {
+            const playerAchievement = playerAchievements.find(
+              p => p.id === achievement.id,
+            );
 
-          return {
-            ...achievement,
-            completed: playerAchievement?.completed || false,
-            received: playerAchievement?.received || false,
-          };
-        })}
-        keyExtractor={item => String(item.id)}
-        renderItem={v => renderItem(v.item)}
-        style={{ marginBottom: 30 }}
-      />
-    </MainContainer>
+            return {
+              ...achievement,
+              completed: playerAchievement?.completed || false,
+              received: playerAchievement?.received || false,
+            };
+          })}
+          keyExtractor={item => String(item.id)}
+          renderItem={v => renderItem(v.item)}
+        />
+      </View>
+    </BaseModal>
   );
-}
+};
+
+export default AchievementModal;
 
 const styles = StyleSheet.create({
   achievementItem: {
     padding: 12,
+    width: '100%',
     marginVertical: 6,
-    marginHorizontal: 4,
     borderRadius: 12,
     backgroundColor: '#FFF1E5',
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: '#C08A76',
     justifyContent: 'space-between',
     flexDirection: 'row',

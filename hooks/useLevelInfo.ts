@@ -34,6 +34,9 @@ export const gameTheme: {[key: string]: string } = {
   [LevelTheme.Clothes]: '衣服',
   [LevelTheme.Hat]: '帽子',
   [LevelTheme.Beer]: '啤酒',
+  [LevelTheme.Sushi]: '握壽司',
+  [LevelTheme.Party]: '慶祝',
+  [LevelTheme.Dice]: '骰子',
 }
 
 export const gameMatchCount: {[key: string]: string } = {

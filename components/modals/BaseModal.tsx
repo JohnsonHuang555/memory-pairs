@@ -52,6 +52,9 @@ const BaseModal = ({
   }, [show, modalHeight]);
 
   const closeModal = () => {
+    if (disabledBackdropPress) {
+      return;
+    }
     Animated.parallel([
       Animated.timing(slideAnim, {
         toValue: height + 100, // 對話框滑出畫面
@@ -64,7 +67,6 @@ const BaseModal = ({
         useNativeDriver: true,
       }),
     ]).start(() => {
-      if (disabledBackdropPress) return;
       if (onClose) {
         onClose();
       }
@@ -82,7 +84,6 @@ const BaseModal = ({
       <TouchableWithoutFeedback onPress={closeModal}>
         <Animated.View style={styles.modalOverlay} />
       </TouchableWithoutFeedback>
-      <Toast />
       <Animated.View
         className="items-center justify-center"
         style={[
@@ -125,6 +126,7 @@ const BaseModal = ({
         </View>
         {children}
       </Animated.View>
+      <Toast />
     </Modal>
   );
 };

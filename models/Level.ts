@@ -49,4 +49,7 @@ export enum LevelTheme {
   Clothes = 'clothes',
   Hat = 'hat',
   Beer = 'beer',
+  Sushi = 'sushi',
+  Party = 'party',
+  Dice = 'dice',
 }
