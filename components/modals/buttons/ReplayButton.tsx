@@ -17,7 +17,7 @@ const ReplayButton = () => {
       onPress={() => {
         setTimeout(() => {
           setShowLevelModal(true);
-        }, 100);
+        }, 500);
         resetGame();
         push('/levels');
       }}

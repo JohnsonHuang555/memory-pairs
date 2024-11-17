@@ -93,7 +93,7 @@ export default function LevelsPage() {
   };
 
   return (
-    <MainContainer title="關卡" showLeftIcon showQuestionIcon>
+    <>
       <LevelSelectModal
         show={showLevelModal}
         onClose={() => {
@@ -101,103 +101,105 @@ export default function LevelsPage() {
           setShowLevelModal(false);
         }}
       />
-      <View className="mb-6 flex-row items-center justify-between">
-        <View className="flex-row items-center">
-          <Image
-            source={require('@/assets/images/icons/coin.png')}
-            style={{ width: 26, height: 26, marginRight: 4 }}
-          />
-          <CoolText
-            text={coins}
-            className="text-2xl text-[#834B4B]"
-            fontWeight="medium"
-          />
-        </View>
-        <View className="flex-row items-center">
-          <Image
-            source={require('@/assets/images/icons/yellow-star.png')}
-            style={{ width: 26, height: 26, marginRight: 4 }}
-          />
-          <CoolText
-            text={`${totalStars} / ${levels.length * 3}`}
-            className="text-2xl text-[#834B4B]"
-            fontWeight="medium"
-          />
-        </View>
-      </View>
-      <View className="mb-4 flex-row flex-wrap justify-between">
-        {currentLevels.map(level => (
-          <Animated.View
-            key={level.id}
-            entering={FadeIn.delay(100)}
-            exiting={FadeOut.duration(100)}
-            className="mb-5 aspect-square w-[22%] rounded-xl p-2"
-            style={[
-              currentLevelId === level.id
-                ? {
-                    backgroundColor: '#9C5B43',
-                  }
-                : checkIsLock(level.id)
-                  ? { backgroundColor: '#B3A9A5' }
-                  : { backgroundColor: '#C08A76' },
-              {
-                shadowOffset: {
-                  width: 2,
-                  height: 5,
-                },
-                shadowOpacity: 0.2,
-              },
-            ]}
-          >
-            <TouchableOpacity
-              activeOpacity={!checkIsLock(level.id) ? 0.7 : 1}
-              onPress={() => {
-                if (!checkIsLock(level.id)) {
-                  setPlayLevel(level.id);
-                  toggleModal();
-                }
-              }}
-            >
-              <View
-                className="items-center justify-center"
-                style={{ width: '100%', height: '100%' }}
-              >
-                {renderStars(level)}
-              </View>
-            </TouchableOpacity>
-          </Animated.View>
-        ))}
-      </View>
-      <View className="flex-row justify-between">
-        <View>
-          {currentPage > 1 && (
-            <CoolButton
-              prefix={
-                <Image
-                  source={require('@/assets/images/icons/arrow-left-2.png')}
-                  style={{ width: 24, height: 24 }}
-                />
-              }
-              height={50}
-              width={50}
-              backgroundColor="#919191"
-              onClick={() => updateCurrentPage(-1)}
-            />
-          )}
-        </View>
-        <CoolButton
-          prefix={
+      <MainContainer title="關卡" showLeftIcon showQuestionIcon>
+        <View className="mb-6 flex-row items-center justify-between">
+          <View className="flex-row items-center">
             <Image
-              source={require('@/assets/images/icons/arrow-right-2.png')}
-              style={{ width: 24, height: 24 }}
+              source={require('@/assets/images/icons/coin.png')}
+              style={{ width: 26, height: 26, marginRight: 4 }}
             />
-          }
-          height={50}
-          width={50}
-          backgroundColor="#919191"
-          onClick={() => updateCurrentPage(1)}
-        />
-      </View>
-    </MainContainer>
+            <CoolText
+              text={coins}
+              className="text-2xl text-[#834B4B]"
+              fontWeight="medium"
+            />
+          </View>
+          <View className="flex-row items-center">
+            <Image
+              source={require('@/assets/images/icons/yellow-star.png')}
+              style={{ width: 26, height: 26, marginRight: 4 }}
+            />
+            <CoolText
+              text={`${totalStars} / ${levels.length * 3}`}
+              className="text-2xl text-[#834B4B]"
+              fontWeight="medium"
+            />
+          </View>
+        </View>
+        <View className="mb-4 flex-row flex-wrap justify-between">
+          {currentLevels.map(level => (
+            <Animated.View
+              key={level.id}
+              entering={FadeIn.delay(100)}
+              exiting={FadeOut.duration(100)}
+              className="mb-5 aspect-square w-[22%] rounded-xl p-2"
+              style={[
+                currentLevelId === level.id
+                  ? {
+                      backgroundColor: '#9C5B43',
+                    }
+                  : checkIsLock(level.id)
+                    ? { backgroundColor: '#B3A9A5' }
+                    : { backgroundColor: '#C08A76' },
+                {
+                  shadowOffset: {
+                    width: 2,
+                    height: 5,
+                  },
+                  shadowOpacity: 0.2,
+                },
+              ]}
+            >
+              <TouchableOpacity
+                activeOpacity={!checkIsLock(level.id) ? 0.7 : 1}
+                onPress={() => {
+                  if (!checkIsLock(level.id)) {
+                    setPlayLevel(level.id);
+                    toggleModal();
+                  }
+                }}
+              >
+                <View
+                  className="items-center justify-center"
+                  style={{ width: '100%', height: '100%' }}
+                >
+                  {renderStars(level)}
+                </View>
+              </TouchableOpacity>
+            </Animated.View>
+          ))}
+        </View>
+        <View className="flex-row justify-between">
+          <View>
+            {currentPage > 1 && (
+              <CoolButton
+                prefix={
+                  <Image
+                    source={require('@/assets/images/icons/arrow-left-2.png')}
+                    style={{ width: 24, height: 24 }}
+                  />
+                }
+                height={50}
+                width={50}
+                backgroundColor="#919191"
+                onClick={() => updateCurrentPage(-1)}
+              />
+            )}
+          </View>
+         {levels.length > startIdx * currentPage  && <CoolButton
+            prefix={
+              <Image
+                source={require('@/assets/images/icons/arrow-right-2.png')}
+                style={{ width: 24, height: 24 }}
+              />
+            }
+            height={50}
+            width={50}
+            backgroundColor="#919191"
+            onClick={() => updateCurrentPage(1)}
+          />}
+        </View>
+      </MainContainer>
+    </>
   );
 }

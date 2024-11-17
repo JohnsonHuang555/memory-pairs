@@ -35,6 +35,16 @@ const ANGLE = 10;
 const TIME = 100;
 const EASING = Easing.elastic(1.5);
 
+const ColumnWidth: { [key: string]: string } = {
+  3: '31%',
+  4: '23%',
+};
+
+const ColumnMarginBottom: { [key: string]: number } = {
+  3: 16,
+  4: 12,
+};
+
 const PlayingPage = () => {
   const { levelInfo } = useLevelInfo();
   const { updateCurrentLevelId, setStarsOfLevel } = usePlayerStore();
@@ -235,23 +245,7 @@ const PlayingPage = () => {
   };
 
   return (
-    <MainContainer
-      title={`Level ${levelInfo.id}`}
-      leftChildren={
-        <BounceAnimation
-          onPress={() => {
-            if (isCompleteGame) return;
-            stopTimer();
-            setPauseGameModal(true);
-          }}
-        >
-          <Image
-            source={require('@/assets/images/icons/pause.png')}
-            style={{ width: 40, height: 40 }}
-          />
-        </BounceAnimation>
-      }
-    >
+    <>
       <UseItemModal
         usedAddTime={!!usedAddTime}
         usedViewFirst={!!usedViewFirst}
@@ -282,97 +276,126 @@ const PlayingPage = () => {
       <PauseGameModal
         show={showPauseGameModal}
         onResume={() => {
-          startTimer();
+          // 遊戲開始後才要繼續倒數
+          if (levelInfo.timer !== timeLeft) {
+            startTimer();
+          }
           setPauseGameModal(false);
         }}
       />
-      <Animated.View
-        entering={FadeIn.delay(300)}
-        exiting={FadeOut.duration(100)}
+      <MainContainer
+        title={`Level ${levelInfo.id}`}
+        leftChildren={
+          <BounceAnimation
+            onPress={() => {
+              if (isCompleteGame) return;
+              stopTimer();
+              setPauseGameModal(true);
+            }}
+          >
+            <Image
+              source={require('@/assets/images/icons/pause.png')}
+              style={{ width: 40, height: 40 }}
+            />
+          </BounceAnimation>
+        }
       >
-        <View className="items-center" style={{ marginBottom: 8 }}>
-          <View style={{ width: '90%' }}>
-            <ProgressBarWithStars />
-          </View>
-        </View>
-        {/* 分數 */}
-        <View
-          className="flex-row items-center justify-between"
-          style={{ marginBottom: 16 }}
+        <Animated.View
+          entering={FadeIn.delay(300)}
+          exiting={FadeOut.duration(100)}
         >
-          <View className="flex-row items-center">
-            <CoolText
-              text="分數:"
-              className="mr-3 text-2xl text-[#834B4B]"
-              fontWeight="medium"
-            />
-            <CoolText
-              text={displayedScore}
-              className="text-2xl text-[#D14343]"
-              fontWeight="bold"
-            />
+          <View className="items-center" style={{ marginBottom: 8 }}>
+            <View style={{ width: '90%' }}>
+              <ProgressBarWithStars />
+            </View>
           </View>
-          <View className="flex-row items-center">
-            <Animated.View style={animatedStyle}>
-              <Image
-                source={require('@/assets/images/icons/timer-outline.png')}
-                style={{ width: 28, height: 28 }}
-              />
-            </Animated.View>
-            <View className="items-end" style={{ width: 35 }}>
+          {/* 分數 */}
+          <View
+            className="flex-row items-center justify-between"
+            style={{ marginBottom: 16 }}
+          >
+            <View className="flex-row items-center">
               <CoolText
-                text={timeLeft}
-                className="ml-2"
-                style={{
-                  fontSize: 24,
-                  color: timeLeft <= 10 ? '#D14343' : '#834B4B',
-                }}
+                text="分數:"
+                className="mr-3 text-2xl text-[#834B4B]"
                 fontWeight="medium"
               />
-            </View>
-          </View>
-        </View>
-        {/* 牌組 */}
-        <Animated.View
-          entering={FadeIn}
-          exiting={FadeOut}
-          className="flex-row flex-wrap justify-between"
-          style={{ marginBottom: 4 }}
-        >
-          {cards.map(card => (
-            <View className="mb-4 aspect-square w-[22%]" key={card.id}>
-              <FlipCard
-                onFlip={handleFlip}
-                card={card}
-                type={levelInfo.type}
-                theme={levelInfo.theme}
-                updateCard={updateCard}
-                disabled={isCompleteGame}
-                itemViewFirst={itemViewFirst}
-                itemViewFirstValue={usedViewFirst?.value}
-                itemAutoPairs={!!usedAutoPairs}
+              <CoolText
+                text={displayedScore}
+                className="text-2xl text-[#D14343]"
+                fontWeight="bold"
               />
             </View>
-          ))}
-        </Animated.View>
-        {/* combo */}
-        {combo > 0 && (
-          <View className="items-center">
-            <Animated.Text
-              entering={BounceIn.duration(500)}
-              style={{
-                fontSize: 24,
-                fontWeight: 'bold',
-                fontFamily: 'GenSenRounded2TWB',
-                color: '#D14343',
-              }}
-            >
-              {combo} Combo
-            </Animated.Text>
+            <View className="flex-row items-center">
+              <Animated.View style={animatedStyle}>
+                <Image
+                  source={require('@/assets/images/icons/timer-outline.png')}
+                  style={{ width: 28, height: 28 }}
+                />
+              </Animated.View>
+              <View className="items-end" style={{ width: 35 }}>
+                <CoolText
+                  text={timeLeft}
+                  className="ml-2"
+                  style={{
+                    fontSize: 24,
+                    color: timeLeft <= 10 ? '#D14343' : '#834B4B',
+                  }}
+                  fontWeight="medium"
+                />
+              </View>
+            </View>
           </View>
-        )}
-      </Animated.View>
-    </MainContainer>
+          {/* 牌組 */}
+          <Animated.View
+            entering={FadeIn}
+            exiting={FadeOut}
+            className="flex-row flex-wrap justify-between"
+            style={{ marginBottom: 4 }}
+          >
+            {cards.map(card => (
+              <View
+                className="aspect-square"
+                style={{
+                  width: ColumnWidth[String(levelInfo.columns)] as any,
+                  marginBottom: ColumnMarginBottom[levelInfo.columns],
+                }}
+                key={card.id}
+              >
+                <FlipCard
+                  onFlip={handleFlip}
+                  card={card}
+                  type={levelInfo.type}
+                  theme={levelInfo.theme}
+                  columns={levelInfo.columns}
+                  updateCard={updateCard}
+                  disabled={isCompleteGame}
+                  itemViewFirst={itemViewFirst}
+                  itemViewFirstValue={usedViewFirst?.value}
+                  itemAutoPairs={!!usedAutoPairs}
+                />
+              </View>
+            ))}
+          </Animated.View>
+          {/* combo */}
+          {combo > 0 && (
+            <View className="items-center">
+              <Animated.Text
+                entering={BounceIn.duration(500)}
+                style={{
+                  fontSize: 24,
+                  fontWeight: 'bold',
+                  fontFamily: 'GenSenRounded2TWB',
+                  color: '#D14343',
+                }}
+              >
+                {combo} Combo
+              </Animated.Text>
+            </View>
+          )}
+        </Animated.View>
+      </MainContainer>
+    </>
   );
 };
 

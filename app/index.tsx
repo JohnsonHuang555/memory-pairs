@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
 
 import BounceAnimation from '@/components/BounceAnimation';
@@ -96,76 +96,90 @@ export default function HomeScreen() {
               />
             </BounceAnimation>
           </Animated.View>
-          <View
+          <Animated.View
+            entering={FadeIn.delay(500)}
             className="flex-row items-center"
-            style={{ marginBottom: 30, gap: 46 }}
+            style={{ marginBottom: 20, gap: 30 }}
           >
-            <Animated.View entering={FadeIn.delay(500)}>
-              <BounceAnimation onPress={() => setShowShopModal(true)}>
+            <BounceAnimation onPress={() => setShowShopModal(true)}>
+              <View className="rounded-full border" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/shop.png')}
-                  style={{ width: 44, height: 44 }}
+                  style={{ width: 32, height: 32 }}
                 />
-              </BounceAnimation>
-            </Animated.View>
-            <Animated.View entering={FadeIn.delay(500)}>
-              <BounceAnimation onPress={() => setShowAchievementModal(true)}>
+              </View>
+            </BounceAnimation>
+            <BounceAnimation onPress={() => setShowAchievementModal(true)}>
+              <View className="rounded-full border" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/trophy.png')}
-                  style={{ width: 38, height: 38 }}
+                  style={{ width: 32, height: 32 }}
                 />
-              </BounceAnimation>
-            </Animated.View>
-            <Animated.View entering={FadeIn.delay(500)}>
-              <BounceAnimation
-                onPress={() => {
-                  setShowAchievementModal(true);
-                }}
-              >
+              </View>
+            </BounceAnimation>
+            <BounceAnimation
+              onPress={() => {
+                setShowAchievementModal(true);
+              }}
+            >
+              <View className="rounded-full border" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/leaderboard.png')}
-                  style={{ width: 44, height: 44 }}
+                  style={{ width: 32, height: 32 }}
                 />
-              </BounceAnimation>
-            </Animated.View>
-          </View>
-          <View className="flex-row items-center" style={{ gap: 46 }}>
-            <Animated.View entering={FadeIn.delay(500)}>
-              <BounceAnimation onPress={() => {}}>
+              </View>
+            </BounceAnimation>
+          </Animated.View>
+          <Animated.View
+            entering={FadeIn.delay(500)}
+            className="flex-row items-center"
+            style={{ gap: 30 }}
+          >
+            <BounceAnimation onPress={() => {}}>
+              <View className="rounded-full border" style={styles.actions}>
                 <Image
-                  source={require('@/assets/images/icons/info-circle.png')}
-                  style={{ width: 44, height: 44 }}
+                  source={require('@/assets/images/icons/info.png')}
+                  style={{ width: 32, height: 32 }}
                 />
-              </BounceAnimation>
-            </Animated.View>
-            <Animated.View entering={FadeIn.delay(500)}>
-              <BounceAnimation
-                onPress={() => {
-                  setShowGameRulesModal(true);
-                }}
-              >
+              </View>
+            </BounceAnimation>
+            <BounceAnimation
+              onPress={() => {
+                setShowGameRulesModal(true);
+              }}
+            >
+              <View className="rounded-full border" style={styles.actions}>
                 <Image
-                  source={require('@/assets/images/icons/question-circle.png')}
-                  style={{ width: 44, height: 44 }}
+                  source={require('@/assets/images/icons/question-1.png')}
+                  style={{ width: 32, height: 32 }}
                 />
-              </BounceAnimation>
-            </Animated.View>
-            <Animated.View entering={FadeIn.delay(500)}>
-              <BounceAnimation
-                onPress={() => {
-                  // AsyncStorage.clear();
-                  setShowSettingsModal(true);
-                }}
-              >
+              </View>
+            </BounceAnimation>
+            <BounceAnimation
+              onPress={() => {
+                // AsyncStorage.clear();
+                setShowSettingsModal(true);
+              }}
+            >
+              <View className="rounded-full border" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/settings.png')}
-                  style={{ width: 44, height: 44 }}
+                  style={{ width: 32, height: 32 }}
                 />
-              </BounceAnimation>
-            </Animated.View>
-          </View>
+              </View>
+            </BounceAnimation>
+          </Animated.View>
         </View>
       </Animated.View>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  actions: {
+    padding: 12,
+    borderColor: '#834B4B',
+    backgroundColor: '#FFFCF0',
+    borderWidth: 3,
+  },
+});

@@ -1,17 +1,22 @@
-import BounceAnimation from "@/components/BounceAnimation";
-import useGameStore from "@/stores/GameStore";
-import { useRouter } from "expo-router";
 import { StyleSheet, View } from 'react-native';
+
+import BounceAnimation from '@/components/BounceAnimation';
+import useGameStore from '@/stores/GameStore';
+import useLevelStore from '@/stores/LevelStore';
+
 import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
 
 const GoLevelsButton = () => {
   const { resetGame } = useGameStore();
   const { push } = useRouter();
+  const { setPlayLevel } = useLevelStore();
 
   return (
     <BounceAnimation
       onPress={() => {
         resetGame();
+        setPlayLevel(undefined);
         push('/levels');
       }}
     >

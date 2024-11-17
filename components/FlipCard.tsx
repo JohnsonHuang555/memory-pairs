@@ -20,6 +20,7 @@ type FlipCardProps = {
   type: LevelType;
   theme: LevelTheme;
   disabled: boolean;
+  columns: number;
   itemViewFirst: boolean; // 道具先看幾秒
   itemViewFirstValue?: number; // 道具先看幾秒
   itemAutoPairs: boolean; // 道具自動配對
@@ -27,11 +28,24 @@ type FlipCardProps = {
   updateCard: (id: number) => void;
 };
 
+// 問號的大小
+const QuestionImageWidth: { [key: string]: number } = {
+  3: 70,
+  4: 50,
+};
+
+// 牌圖片的大小
+const CardImageWidth: { [key: string]: number } = {
+  3: 80,
+  4: 60,
+};
+
 const FlipCard = ({
   card,
   type,
   theme,
   disabled,
+  columns,
   itemViewFirst,
   itemViewFirstValue,
   itemAutoPairs,
@@ -210,8 +224,8 @@ const FlipCard = ({
           <Image
             source={card.content}
             style={{
-              width: 60,
-              height: 60,
+              width: CardImageWidth[columns],
+              height: CardImageWidth[columns],
             }}
           />
         );
@@ -239,7 +253,10 @@ const FlipCard = ({
         <Animated.View style={[styles.card, frontAnimatedStyle]}>
           <Image
             source={require('@/assets/images/icons/card-question.png')}
-            style={{ width: 50, height: 50 }}
+            style={{
+              width: QuestionImageWidth[columns],
+              height: QuestionImageWidth[columns],
+            }}
           />
         </Animated.View>
 

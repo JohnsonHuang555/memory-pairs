@@ -21,7 +21,7 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
     <BaseModal
       title="失敗"
       show={show}
-      width={80}
+      width={70}
       onClose={onClose}
       disabledBackdropPress
     >

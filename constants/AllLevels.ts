@@ -33,6 +33,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 20,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 2,
@@ -46,6 +47,8 @@ export const allLevels = [
       '#FFE733',
       '#33FF57',
       '#FF3380',
+      '#dddd',
+      '#123',
     ],
     timer: 60,
     star1Score: 200,
@@ -54,6 +57,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 20,
     star3Coins: 50,
+    columns: 4,
   },
   {
     id: 3,
@@ -75,6 +79,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 4,
@@ -96,6 +101,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 5,
@@ -117,6 +123,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 6,
@@ -138,6 +145,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 7,
@@ -159,6 +167,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 8,
@@ -180,6 +189,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 9,
@@ -201,6 +211,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 10,
@@ -215,6 +226,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 11,
@@ -236,6 +248,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 12,
@@ -257,6 +270,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 13,
@@ -278,6 +292,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 14,
@@ -299,6 +314,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 15,
@@ -318,6 +334,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 16,
@@ -339,6 +356,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 17,
@@ -360,6 +378,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 18,
@@ -379,6 +398,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 19,
@@ -400,6 +420,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 20,
@@ -421,6 +442,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 21,
@@ -444,6 +466,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 22,
@@ -467,6 +490,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 23,
@@ -490,6 +514,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 24,
@@ -513,6 +538,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 25,
@@ -536,6 +562,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 26,
@@ -550,6 +577,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 27,
@@ -573,6 +601,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 28,
@@ -596,6 +625,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 29,
@@ -619,6 +649,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 30,
@@ -642,6 +673,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 31,
@@ -665,6 +697,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 32,
@@ -688,6 +721,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 33,
@@ -711,6 +745,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 34,
@@ -734,6 +769,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 35,
@@ -757,6 +793,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 36,
@@ -780,6 +817,7 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
   {
     id: 37,
@@ -799,5 +837,6 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
+    columns: 3,
   },
 ];

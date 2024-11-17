@@ -32,7 +32,7 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
   };
 
   return (
-    <BaseModal title="暫停" show={show} width={75} disabledBackdropPress>
+    <BaseModal title="暫停" show={show} width={65} disabledBackdropPress>
       <View
         className="mb-4 flex-row justify-between"
         style={{ marginTop: 12, width: '100%' }}

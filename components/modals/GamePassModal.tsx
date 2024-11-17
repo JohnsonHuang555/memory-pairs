@@ -38,7 +38,7 @@ const GamePassModal = ({ isLastLevel, show, onClose }: GamePassModalProps) => {
     <BaseModal
       title="過關"
       show={show}
-      width={80}
+      width={70}
       onClose={onClose}
       disabledBackdropPress
     >

@@ -14,6 +14,7 @@ export type Level = {
   star1Coins: number; // 星星獎勵
   star2Coins: number;
   star3Coins: number;
+  columns: number; // 一排幾列
 };
 
 export enum LevelTheme {

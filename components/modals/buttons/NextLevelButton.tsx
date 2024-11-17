@@ -18,10 +18,12 @@ const NextLevelButton = () => {
     <BounceAnimation
       onPress={() => {
         if (!levelInfo) return;
-        push('/levels');
-        resetGame();
+        setTimeout(() => {
+          setShowLevelModal(true);
+        }, 500);
         setPlayLevel(levelInfo.id + 1);
-        setShowLevelModal(true);
+        resetGame();
+        push('/levels');
       }}
     >
       <View className="rounded-full border" style={styles.actions}>
