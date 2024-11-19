@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import Animated, { FadeIn } from 'react-native-reanimated';
+import Animated, { BounceIn, FadeIn } from 'react-native-reanimated';
 
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
@@ -93,10 +93,10 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
         className="flex-row justify-between"
         style={{ width: '60%', marginBottom: 8 }}
       >
-        <Animated.View entering={FadeIn.delay(1100)}>
+        <Animated.View entering={BounceIn.delay(1100)}>
           <GoLevelsButton />
         </Animated.View>
-        <Animated.View entering={FadeIn.delay(1300)}>
+        <Animated.View entering={BounceIn.delay(1300)}>
           <ReplayButton />
         </Animated.View>
       </View>

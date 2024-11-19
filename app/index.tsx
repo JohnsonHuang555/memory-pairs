@@ -83,15 +83,17 @@ export default function HomeScreen() {
           >
             <BounceAnimation
               scaleValue={0.9}
-              onPress={() => router.push('/levels')}
-              className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
+              onPress={() => {
+                router.push('/levels');
+              }}
+              className="h-[120px] w-[120px] items-center justify-center rounded-full bg-[#E3803E]"
             >
               <Image
                 source={require('@/assets/images/icons/play.png')}
                 style={{
-                  width: 80,
-                  height: 80,
-                  marginLeft: 12,
+                  width: 90,
+                  height: 90,
+                  marginLeft: 15,
                 }}
               />
             </BounceAnimation>
@@ -102,7 +104,7 @@ export default function HomeScreen() {
             style={{ marginBottom: 20, gap: 30 }}
           >
             <BounceAnimation onPress={() => setShowShopModal(true)}>
-              <View className="rounded-full border" style={styles.actions}>
+              <View className="rounded-full" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/shop.png')}
                   style={{ width: 32, height: 32 }}
@@ -110,10 +112,10 @@ export default function HomeScreen() {
               </View>
             </BounceAnimation>
             <BounceAnimation onPress={() => setShowAchievementModal(true)}>
-              <View className="rounded-full border" style={styles.actions}>
+              <View className="rounded-full" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/trophy.png')}
-                  style={{ width: 32, height: 32 }}
+                  style={{ width: 28, height: 28 }}
                 />
               </View>
             </BounceAnimation>
@@ -122,10 +124,10 @@ export default function HomeScreen() {
                 setShowAchievementModal(true);
               }}
             >
-              <View className="rounded-full border" style={styles.actions}>
+              <View className="rounded-full" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/leaderboard.png')}
-                  style={{ width: 32, height: 32 }}
+                  style={{ width: 34, height: 34 }}
                 />
               </View>
             </BounceAnimation>
@@ -136,10 +138,10 @@ export default function HomeScreen() {
             style={{ gap: 30 }}
           >
             <BounceAnimation onPress={() => {}}>
-              <View className="rounded-full border" style={styles.actions}>
+              <View className="rounded-full" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/info.png')}
-                  style={{ width: 32, height: 32 }}
+                  style={{ width: 28, height: 28 }}
                 />
               </View>
             </BounceAnimation>
@@ -148,10 +150,10 @@ export default function HomeScreen() {
                 setShowGameRulesModal(true);
               }}
             >
-              <View className="rounded-full border" style={styles.actions}>
+              <View className="rounded-full" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/question-1.png')}
-                  style={{ width: 32, height: 32 }}
+                  style={{ width: 28, height: 28 }}
                 />
               </View>
             </BounceAnimation>
@@ -161,10 +163,10 @@ export default function HomeScreen() {
                 setShowSettingsModal(true);
               }}
             >
-              <View className="rounded-full border" style={styles.actions}>
+              <View className="rounded-full" style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/settings.png')}
-                  style={{ width: 32, height: 32 }}
+                  style={{ width: 36, height: 36 }}
                 />
               </View>
             </BounceAnimation>
@@ -177,9 +179,12 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   actions: {
-    padding: 12,
     borderColor: '#834B4B',
     backgroundColor: '#FFFCF0',
-    borderWidth: 3,
+    borderWidth: 2,
+    width: 60,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

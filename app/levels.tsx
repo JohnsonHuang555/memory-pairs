@@ -79,15 +79,24 @@ export default function LevelsPage() {
           );
         }
       });
+
+      // 難的關卡要替換成驚嘆號圖案
+      const isHardLevel = level.id % 10 === 0;
+
       return (
-        <>
+        <View className="flex-1 items-center justify-between">
           <CoolText
             text={level.id}
-            className="my-2 text-[28px] text-white"
-            fontWeight="medium"
+            className="text-white"
+            fontWeight={isHardLevel ? 'bold' : 'regular'}
+            style={
+              isHardLevel
+                ? { fontSize: 32, marginTop: 4 }
+                : { fontSize: 30,marginTop: 6 }
+            }
           />
           <View className="flex-row">{stars}</View>
-        </>
+        </View>
       );
     }
   };
@@ -186,18 +195,20 @@ export default function LevelsPage() {
               />
             )}
           </View>
-         {levels.length > startIdx * currentPage  && <CoolButton
-            prefix={
-              <Image
-                source={require('@/assets/images/icons/arrow-right-2.png')}
-                style={{ width: 24, height: 24 }}
-              />
-            }
-            height={50}
-            width={50}
-            backgroundColor="#919191"
-            onClick={() => updateCurrentPage(1)}
-          />}
+          {levels.length > startIdx * currentPage && (
+            <CoolButton
+              prefix={
+                <Image
+                  source={require('@/assets/images/icons/arrow-right-2.png')}
+                  style={{ width: 24, height: 24 }}
+                />
+              }
+              height={50}
+              width={50}
+              backgroundColor="#919191"
+              onClick={() => updateCurrentPage(1)}
+            />
+          )}
         </View>
       </MainContainer>
     </>

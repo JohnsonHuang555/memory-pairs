@@ -10,7 +10,7 @@ type BounceAnimationProps = {
   className?: string;
   children: ReactNode;
   scaleValue?: number;
-  onPress?: () => void;
+  onPress: () => void;
 };
 
 const BounceAnimation = ({
@@ -48,7 +48,11 @@ const BounceAnimation = ({
   return (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={onPress}
+      onPress={() => {
+        setTimeout(() => {
+          onPress();
+        }, 200);
+      }}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
     >

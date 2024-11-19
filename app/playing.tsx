@@ -36,13 +36,17 @@ const TIME = 100;
 const EASING = Easing.elastic(1.5);
 
 const ColumnWidth: { [key: string]: string } = {
+  2: '46%',
   3: '31%',
   4: '23%',
+  5: '18%',
 };
 
 const ColumnMarginBottom: { [key: string]: number } = {
+  2: 20,
   3: 16,
   4: 12,
+  5: 10,
 };
 
 const PlayingPage = () => {

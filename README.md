@@ -50,6 +50,7 @@ Join our community of developers creating universal apps.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 
 ## Reference
+https://www.svgrepo.com/svg/446626/question
 https://www.svgrepo.com/collection/animal-flat-vectors/
 https://www.svgrepo.com/collection/bright-fruits-and-vegetables/
 https://www.svgrepo.com/collection/sideview-emoji-vectors/

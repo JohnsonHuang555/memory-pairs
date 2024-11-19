@@ -30,14 +30,18 @@ type FlipCardProps = {
 
 // 問號的大小
 const QuestionImageWidth: { [key: string]: number } = {
-  3: 70,
+  2: 110,
+  3: 80,
   4: 50,
+  5: 40,
 };
 
 // 牌圖片的大小
 const CardImageWidth: { [key: string]: number } = {
+  2: 110,
   3: 80,
   4: 60,
+  5: 45,
 };
 
 const FlipCard = ({

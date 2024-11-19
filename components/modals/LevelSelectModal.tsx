@@ -154,7 +154,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
         </View>
         <View className="flex-row items-center justify-between">
           <CoolText
-            text="配對數"
+            text="玩法"
             fontWeight="medium"
             style={{ fontSize: 18, color: '#717171' }}
           />
