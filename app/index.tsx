@@ -159,7 +159,7 @@ export default function HomeScreen() {
             </BounceAnimation>
             <BounceAnimation
               onPress={() => {
-                // AsyncStorage.clear();
+                AsyncStorage.clear();
                 setShowSettingsModal(true);
               }}
             >

@@ -70,7 +70,7 @@ const FlipCard = ({
       rotation.value = withSpring(
         180,
         {
-          damping: 20, // 增大阻尼，减少反弹
+          damping: 100, // 增大阻尼，减少反弹
           stiffness: 200, // 增大刚度，加快动画响应
           mass: 1, // 设置适中的质量
           overshootClamping: true, // 禁止超过目标值
@@ -89,7 +89,7 @@ const FlipCard = ({
     if (prevIsFlipped.current === true && card.isFlipped === false) {
       // 觸發動畫，當 isFlipped 從 true 變為 false 時
       rotation.value = withSpring(0, {
-        damping: 20, // 增大阻尼，减少反弹
+        damping: 100, // 增大阻尼，减少反弹
         stiffness: 200, // 增大刚度，加快动画响应
         mass: 1, // 设置适中的质量
         overshootClamping: true, // 禁止超过目标值
@@ -230,6 +230,7 @@ const FlipCard = ({
             style={{
               width: CardImageWidth[columns],
               height: CardImageWidth[columns],
+              borderRadius: 8,
             }}
           />
         );

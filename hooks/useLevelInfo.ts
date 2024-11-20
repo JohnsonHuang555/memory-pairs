@@ -39,6 +39,7 @@ export const gameTheme: {[key: string]: string } = {
   [LevelTheme.Dice]: '骰子',
   [LevelTheme.Jersey]: '球衣',
   [LevelTheme.WaterSport]: '水上活動',
+  [LevelTheme.Ancient]: '古人',
 }
 
 export const gameMatchCount: {[key: string]: string } = {

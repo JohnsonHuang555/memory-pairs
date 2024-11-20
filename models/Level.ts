@@ -55,4 +55,5 @@ export enum LevelTheme {
   Dice = 'dice',
   Jersey = 'jersey',
   WaterSport = 'waterSport',
+  Ancient = 'ancient',
 }
