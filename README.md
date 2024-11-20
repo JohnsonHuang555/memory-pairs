@@ -82,3 +82,7 @@ https://www.svgrepo.com/collection/beer-festival-vectors/
 https://www.svgrepo.com/collection/food-game-art/
 https://www.svgrepo.com/collection/colorful-party-favors-vectors/
 https://www.svgrepo.com/collection/casino-gambling-2/
+https://www.svgrepo.com/collection/football-shirts-vectors/
+https://www.svgrepo.com/collection/type-of-grasses-vectors/
+https://www.svgrepo.com/collection/cute-ice-cream-vectors/
+https://www.svgrepo.com/collection/water-sports-flat-icons/
