@@ -49,12 +49,12 @@ export default function HomeScreen() {
       <Animated.View className="items-center" entering={FadeIn.delay(300)}>
         <View
           className="flex-row items-start justify-between"
-          style={{ width: '80%', marginBottom: 30 }}
+          style={{ width: '80%', marginBottom: 40 }}
         >
           <View className="flex-row">
             <Image
               source={require('@/assets/images/icons/coin.png')}
-              style={{ width: 32, height: 32, marginRight: 4 }}
+              style={{ width: 36, height: 36, marginRight: 8 }}
             />
             <CoolText
               text={coins}
@@ -79,73 +79,69 @@ export default function HomeScreen() {
           style={{ width: 260, height: 100, marginBottom: 60 }}
           contentFit="contain"
         />
-        <View className="items-center">
+        <View style={{ marginBottom: 70 }} className="items-center">
           <CoolText
             text={currentLevelId}
             className="mb-4 text-[65px] shadow-sm"
             fontWeight="regular"
           />
-          <CoolText
-            text="Now Level"
-            className="text-2xl"
-            style={{ marginBottom: 60 }}
-          />
-          <Animated.View
-            entering={ZoomIn.delay(200)}
-            style={{ marginBottom: 60 }}
-          >
-            <BounceAnimation
-              scaleValue={0.9}
-              onPress={() => {
-                router.push('/levels');
-              }}
-              className="h-[120px] w-[120px] items-center justify-center rounded-full bg-[#E3803E]"
-            >
-              <Image
-                source={require('@/assets/images/icons/play.png')}
-                style={{
-                  width: 90,
-                  height: 90,
-                  marginLeft: 15,
-                }}
-              />
-            </BounceAnimation>
-          </Animated.View>
-          <Animated.View
-            entering={FadeIn.delay(500)}
-            className="flex-row items-center"
-            style={{ marginBottom: 20, gap: 24 }}
-          >
-            <BounceAnimation onPress={() => setShowShopModal(true)}>
-              <View style={styles.actions}>
-                <Image
-                  source={require('@/assets/images/icons/shop.png')}
-                  style={{ width: 40, height: 40 }}
-                />
-              </View>
-            </BounceAnimation>
-            <BounceAnimation onPress={() => setShowAchievementModal(true)}>
-              <View style={styles.actions}>
-                <Image
-                  source={require('@/assets/images/icons/trophy.png')}
-                  style={{ width: 36, height: 36 }}
-                />
-              </View>
-            </BounceAnimation>
-            <BounceAnimation
-              onPress={() => {
-                setShowAchievementModal(true);
-              }}
-            >
-              <View style={styles.actions}>
-                <Image
-                  source={require('@/assets/images/icons/leaderboard.png')}
-                  style={{ width: 40, height: 40 }}
-                />
-              </View>
-            </BounceAnimation>
-          </Animated.View>
+          <CoolText text="Now Level" className="text-2xl" />
         </View>
+        <Animated.View
+          entering={ZoomIn.delay(200)}
+          style={{ marginBottom: 60 }}
+        >
+          <BounceAnimation
+            scaleValue={0.9}
+            onPress={() => {
+              router.push('/levels');
+            }}
+            className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
+          >
+            <Image
+              source={require('@/assets/images/icons/play.png')}
+              style={{
+                width: 80,
+                height: 80,
+                marginLeft: 15,
+              }}
+            />
+          </BounceAnimation>
+        </Animated.View>
+        <Animated.View
+          entering={FadeIn.delay(500)}
+          className="flex-row items-center"
+          style={{ marginBottom: 20, gap: 24 }}
+        >
+          <BounceAnimation onPress={() => setShowShopModal(true)}>
+            <View style={styles.actions}>
+              <Image
+                source={require('@/assets/images/icons/shop.png')}
+                style={{ width: 40, height: 40 }}
+              />
+            </View>
+          </BounceAnimation>
+          <BounceAnimation onPress={() => setShowAchievementModal(true)}>
+            <View style={styles.actions}>
+              <Image
+                source={require('@/assets/images/icons/trophy.png')}
+                style={{ width: 36, height: 36 }}
+              />
+            </View>
+          </BounceAnimation>
+          <BounceAnimation
+            onPress={() => {
+              setShowAchievementModal(true);
+            }}
+          >
+            <View style={styles.actions}>
+              <Image
+                source={require('@/assets/images/icons/leaderboard.png')}
+                style={{ width: 40, height: 40 }}
+              />
+            </View>
+          </BounceAnimation>
+        </Animated.View>
       </Animated.View>
     </>
   );

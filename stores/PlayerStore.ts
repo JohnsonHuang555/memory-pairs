@@ -67,7 +67,7 @@ const storage: StateStorage = {
   },
 };
 
-export const usePlayerStore = create<PlayerState>()(
+const usePlayerStore = create<PlayerState>()(
   persist(
     (set, get) => ({
       currentLevelId: 1,

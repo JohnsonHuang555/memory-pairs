@@ -37,14 +37,6 @@ const QuestionImageWidth: { [key: string]: number } = {
   5: 40,
 };
 
-// 牌圖片的大小
-const CardImageWidth: { [key: string]: number } = {
-  2: 110,
-  3: 80,
-  4: 60,
-  5: 45,
-};
-
 const FlipCard = ({
   card,
   type,
@@ -89,12 +81,15 @@ const FlipCard = ({
     // 判斷是否從 true 變成 false
     if (prevIsFlipped.current === true && card.isFlipped === false) {
       // 觸發動畫，當 isFlipped 從 true 變為 false 時
-      rotation.value = withDelay(300, withSpring(0, {
-        damping: 20, // 增大阻尼，减少反弹
-        stiffness: 200, // 增大刚度，加快动画响应
-        mass: 1, // 设置适中的质量
-        overshootClamping: true, // 禁止超过目标值
-      }));
+      rotation.value = withDelay(
+        300,
+        withSpring(0, {
+          damping: 20, // 增大阻尼，减少反弹
+          stiffness: 200, // 增大刚度，加快动画响应
+          mass: 1, // 设置适中的质量
+          overshootClamping: true, // 禁止超过目标值
+        }),
+      );
     }
 
     // 更新前一個值
@@ -183,7 +178,7 @@ const FlipCard = ({
     return {
       transform: [
         { rotateY: `${interpolate(rotation.value, [0, 180], [180, 360])}deg` },
-        { scale: scale.value }, // 點擊時放大
+        { scale: scale.value },
       ],
       opacity: interpolate(rotation.value, [0, 90, 180], [0, 0, 1]),
     };
@@ -229,8 +224,8 @@ const FlipCard = ({
           <Image
             source={card.content}
             style={{
-              width: CardImageWidth[columns],
-              height: CardImageWidth[columns],
+              width: '100%',
+              height: '100%',
               borderRadius: 8,
             }}
           />

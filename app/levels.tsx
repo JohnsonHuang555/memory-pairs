@@ -115,7 +115,7 @@ export default function LevelsPage() {
           <View className="flex-row items-center">
             <Image
               source={require('@/assets/images/icons/coin.png')}
-              style={{ width: 26, height: 26, marginRight: 4 }}
+              style={{ width: 28, height: 28, marginRight: 6 }}
             />
             <CoolText
               text={coins}

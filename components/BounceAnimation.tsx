@@ -51,7 +51,7 @@ const BounceAnimation = ({
       onPress={() => {
         setTimeout(() => {
           onPress();
-        }, 200);
+        }, 100);
       }}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}

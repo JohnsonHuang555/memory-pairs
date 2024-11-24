@@ -55,7 +55,7 @@ const PlayingPage = () => {
   const { updateLevel, levels } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
-  const [showPauseGameModal, setPauseGameModal] = useState(false);
+  const [showPauseGameModal, setShowPauseGameModal] = useState(false);
   const [showUseItemsModal, setUseItemsModal] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState(levelInfo?.timer || 0);
@@ -284,7 +284,7 @@ const PlayingPage = () => {
           if (levelInfo.timer !== timeLeft) {
             startTimer();
           }
-          setPauseGameModal(false);
+          setShowPauseGameModal(false);
         }}
       />
       <MainContainer
@@ -294,7 +294,7 @@ const PlayingPage = () => {
             onPress={() => {
               if (isCompleteGame) return;
               stopTimer();
-              setPauseGameModal(true);
+              setShowPauseGameModal(true);
             }}
           >
             <Image
@@ -351,9 +351,7 @@ const PlayingPage = () => {
             </View>
           </View>
           {/* 牌組 */}
-          <Animated.View
-            entering={FadeIn}
-            exiting={FadeOut}
+          <View
             className="flex-row flex-wrap justify-between"
             style={{ marginBottom: 2 }}
           >
@@ -380,7 +378,7 @@ const PlayingPage = () => {
                 />
               </View>
             ))}
-          </Animated.View>
+          </View>
           {/* combo */}
           {combo > 0 && (
             <View className="items-center">
