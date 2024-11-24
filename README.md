@@ -52,25 +52,6 @@ Join our community of developers creating universal apps.
 ## Reference
 Vectors and icons by <a href="https://github.com/ni/nimble?ref=svgrepo.com" target="_blank">Nimble Design</a> in MIT License via <a href="https://www.svgrepo.com/" target="_blank">SVG Repo</a>
 
-CC BY
-https://www.svgrepo.com/collection/animal-flat-vectors/
-https://www.svgrepo.com/collection/envelope-bordered-vectors/
-https://www.svgrepo.com/collection/tree-green-filled-vectors/
-https://www.svgrepo.com/collection/christmas-tiny-icons/
-https://www.svgrepo.com/collection/sport-balls-vectors/
-https://www.svgrepo.com/collection/battery-flat-vectors/
-https://www.svgrepo.com/collection/planets-flat-vectors/
-https://www.svgrepo.com/collection/cactus-flat-icons/
-https://www.svgrepo.com/collection/file-type-doctype-vectors/
-https://www.svgrepo.com/collection/circular-avatar-vectors/
-https://www.svgrepo.com/collection/scary-halloween-flat-icons/
-https://www.svgrepo.com/collection/maps-and-navigation-flat-icons/
-https://www.svgrepo.com/collection/hand-washing-vectors/
-https://www.svgrepo.com/collection/fashion-and-clothes-vectors/
-https://www.svgrepo.com/collection/beer-festival-vectors/
-https://www.svgrepo.com/collection/colorful-party-favors-vectors/
-https://www.svgrepo.com/collection/type-of-grasses-vectors/
-
 CC0
 https://www.svgrepo.com/collection/sideview-emoji-vectors/
 https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
@@ -90,3 +71,5 @@ https://www.svgrepo.com/collection/casino-gambling-2/
 https://www.svgrepo.com/collection/football-shirts-vectors/
 https://www.svgrepo.com/collection/cute-ice-cream-vectors/
 https://www.svgrepo.com/collection/water-sports-flat-icons/
+
+https://iconstore.co/icons/easter-day

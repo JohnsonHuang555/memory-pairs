@@ -48,18 +48,31 @@ export default function HomeScreen() {
       />
       <Animated.View className="items-center" entering={FadeIn.delay(300)}>
         <View
-          className="flex-row justify-end"
+          className="flex-row items-start justify-between"
           style={{ width: '80%', marginBottom: 30 }}
         >
-          <Image
-            source={require('@/assets/images/icons/coin.png')}
-            style={{ width: 32, height: 32, marginRight: 4 }}
-          />
-          <CoolText
-            text={coins}
-            className="text-3xl text-[#834B4B]"
-            fontWeight="medium"
-          />
+          <View className="flex-row">
+            <Image
+              source={require('@/assets/images/icons/coin.png')}
+              style={{ width: 32, height: 32, marginRight: 4 }}
+            />
+            <CoolText
+              text={coins}
+              className="text-3xl text-[#834B4B]"
+              fontWeight="medium"
+            />
+          </View>
+          <BounceAnimation
+            onPress={() => {
+              AsyncStorage.clear();
+              setShowSettingsModal(true);
+            }}
+          >
+            <Image
+              source={require('@/assets/images/icons/settings.png')}
+              style={{ width: 32, height: 32 }}
+            />
+          </BounceAnimation>
         </View>
         <Image
           source={require('@/assets/images/logo.png')}
@@ -101,21 +114,21 @@ export default function HomeScreen() {
           <Animated.View
             entering={FadeIn.delay(500)}
             className="flex-row items-center"
-            style={{ marginBottom: 20, gap: 30 }}
+            style={{ marginBottom: 20, gap: 24 }}
           >
             <BounceAnimation onPress={() => setShowShopModal(true)}>
-              <View className="rounded-full" style={styles.actions}>
+              <View style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/shop.png')}
-                  style={{ width: 32, height: 32 }}
+                  style={{ width: 40, height: 40 }}
                 />
               </View>
             </BounceAnimation>
             <BounceAnimation onPress={() => setShowAchievementModal(true)}>
-              <View className="rounded-full" style={styles.actions}>
+              <View style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/trophy.png')}
-                  style={{ width: 28, height: 28 }}
+                  style={{ width: 36, height: 36 }}
                 />
               </View>
             </BounceAnimation>
@@ -124,49 +137,10 @@ export default function HomeScreen() {
                 setShowAchievementModal(true);
               }}
             >
-              <View className="rounded-full" style={styles.actions}>
+              <View style={styles.actions}>
                 <Image
                   source={require('@/assets/images/icons/leaderboard.png')}
-                  style={{ width: 34, height: 34 }}
-                />
-              </View>
-            </BounceAnimation>
-          </Animated.View>
-          <Animated.View
-            entering={FadeIn.delay(500)}
-            className="flex-row items-center"
-            style={{ gap: 30 }}
-          >
-            <BounceAnimation onPress={() => {}}>
-              <View className="rounded-full" style={styles.actions}>
-                <Image
-                  source={require('@/assets/images/icons/info.png')}
-                  style={{ width: 28, height: 28 }}
-                />
-              </View>
-            </BounceAnimation>
-            <BounceAnimation
-              onPress={() => {
-                setShowGameRulesModal(true);
-              }}
-            >
-              <View className="rounded-full" style={styles.actions}>
-                <Image
-                  source={require('@/assets/images/icons/question-1.png')}
-                  style={{ width: 28, height: 28 }}
-                />
-              </View>
-            </BounceAnimation>
-            <BounceAnimation
-              onPress={() => {
-                AsyncStorage.clear();
-                setShowSettingsModal(true);
-              }}
-            >
-              <View className="rounded-full" style={styles.actions}>
-                <Image
-                  source={require('@/assets/images/icons/settings.png')}
-                  style={{ width: 36, height: 36 }}
+                  style={{ width: 40, height: 40 }}
                 />
               </View>
             </BounceAnimation>
@@ -179,9 +153,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   actions: {
-    borderColor: '#834B4B',
-    backgroundColor: '#FFFCF0',
-    borderWidth: 2,
     width: 60,
     height: 60,
     alignItems: 'center',

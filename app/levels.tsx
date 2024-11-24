@@ -101,8 +101,6 @@ export default function LevelsPage() {
     }
   };
 
-  console.log(startIdx, currentPage)
-
   return (
     <>
       <LevelSelectModal

@@ -355,7 +355,7 @@ const PlayingPage = () => {
             entering={FadeIn}
             exiting={FadeOut}
             className="flex-row flex-wrap justify-between"
-            style={{ marginBottom: 4 }}
+            style={{ marginBottom: 2 }}
           >
             {cards.map(card => (
               <View
