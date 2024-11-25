@@ -1,5 +1,4 @@
 import { FlatList, StyleSheet, View } from 'react-native';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
 import CoolButton from '../CoolButton';

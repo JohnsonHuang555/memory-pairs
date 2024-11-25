@@ -20,6 +20,8 @@ type PlayerAchievement = {
 };
 
 type PlayerState = {
+  id: string;
+  name: string;
   currentLevelId: number;
   starsOfLevel: StarsOfLevel[];
   coins: number;
@@ -47,6 +49,7 @@ type PlayerState = {
   receiveAchievementRewards: (id: number, rewards: number) => void;
   setIsMusicOn: () => void;
   setIsSoundOn: () => void;
+  updatePlayerInfo: (name: string, id?: string) => void;
 };
 
 const storage: StateStorage = {
@@ -70,6 +73,8 @@ const storage: StateStorage = {
 const usePlayerStore = create<PlayerState>()(
   persist(
     (set, get) => ({
+      id: '',
+      name: '',
       currentLevelId: 1,
       starsOfLevel: [],
       coins: 0,
@@ -239,6 +244,7 @@ const usePlayerStore = create<PlayerState>()(
       },
       setIsMusicOn: () => set(state => ({ isMusicOn: !state.isMusicOn })),
       setIsSoundOn: () => set(state => ({ isSoundOn: !state.isSoundOn })),
+      updatePlayerInfo: (name: string, id?: string) => set(() => ({ name, id })),
     }),
     {
       name: 'player-storage',

@@ -6,23 +6,27 @@ import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 import AchievementModal from '@/components/modals/AchievementModal';
 import GameRulesModal from '@/components/modals/GameRulesModal';
+import LeaderboardModal from '@/components/modals/LeaderboardModal';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
+import WelcomeModal from '@/components/modals/WelcomeModal';
 import useLevelStore, { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Image } from 'expo-image';
-import { router, useRouter } from 'expo-router';
+import { router } from 'expo-router';
 
 export default function HomeScreen() {
-  const { coins, currentLevelId } = usePlayerStore();
+  const { coins, currentLevelId, name } = usePlayerStore();
   const { setDefaultCurrentPage } = useLevelStore();
+
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [showShopModal, setShowShopModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showGameRulesModal, setShowGameRulesModal] = useState(false);
   const [showAchievementModal, setShowAchievementModal] = useState(false);
-  const { push } = useRouter();
+  const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
 
   useEffect(() => {
     if (currentLevelId) {
@@ -30,6 +34,12 @@ export default function HomeScreen() {
       setDefaultCurrentPage(page);
     }
   }, [currentLevelId]);
+
+  useEffect(() => {
+    if (!name) {
+      setShowWelcomeModal(true);
+    }
+  }, [name]);
 
   return (
     <>
@@ -45,6 +55,14 @@ export default function HomeScreen() {
       <AchievementModal
         show={showAchievementModal}
         onClose={() => setShowAchievementModal(false)}
+      />
+      <LeaderboardModal
+        show={showLeaderboardModal}
+        onClose={() => setShowLeaderboardModal(false)}
+      />
+      <WelcomeModal
+        show={showWelcomeModal}
+        onClose={() => setShowWelcomeModal(false)}
       />
       <Animated.View className="items-center" entering={FadeIn.delay(300)}>
         <View
@@ -64,7 +82,7 @@ export default function HomeScreen() {
           </View>
           <BounceAnimation
             onPress={() => {
-              AsyncStorage.clear();
+              // AsyncStorage.clear();
               setShowSettingsModal(true);
             }}
           >
@@ -131,7 +149,7 @@ export default function HomeScreen() {
           </BounceAnimation>
           <BounceAnimation
             onPress={() => {
-              setShowAchievementModal(true);
+              setShowLeaderboardModal(true);
             }}
           >
             <View style={styles.actions}>
