@@ -15,10 +15,17 @@ export enum MatchCount {
 export const allLevels = [
   {
     id: 1,
-    theme: LevelTheme.ChineseWord,
-    type: LevelType.String,
+    theme: LevelTheme.Grade,
+    type: LevelType.ImageUrl,
     matchCount: 2,
-    questions: ['幕', '墓', '募', '暮', '寞', '冪'],
+    questions: [
+      require('@/assets/images/questions/grades/grade-1.svg'),
+      require('@/assets/images/questions/grades/grade-2.svg'),
+      require('@/assets/images/questions/grades/grade-3.svg'),
+      require('@/assets/images/questions/grades/grade-4.svg'),
+      require('@/assets/images/questions/grades/grade-5.svg'),
+      require('@/assets/images/questions/grades/grade-6.svg'),
+    ],
     timer: 60,
     star1Score: 200,
     star2Score: 350,
@@ -26,6 +33,6 @@ export const allLevels = [
     star1Coins: 10,
     star2Coins: 30,
     star3Coins: 50,
-    columns: 4,
+    columns: 3,
   },
 ];

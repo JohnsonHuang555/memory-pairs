@@ -223,9 +223,10 @@ const FlipCard = ({
         return (
           <Image
             source={card.content}
+            contentFit="contain"
             style={{
-              width: '100%',
-              height: '100%',
+              width: '87%',
+              height: '87%',
               borderRadius: 8,
             }}
           />
