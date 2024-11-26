@@ -302,9 +302,4 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderWidth: 3,
   },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#000',
-  },
 });

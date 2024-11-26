@@ -5,7 +5,7 @@ import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import usePlayerStore from '@/stores/PlayerStore';
-import { savePlayerData } from '@/utils/firebase/leaderboard';
+import { createPlayer } from '@/utils/firebase/leaderboard';
 
 type WelcomeModalProps = {
   show: boolean;
@@ -21,7 +21,7 @@ const WelcomeModal = ({ show, onClose }: WelcomeModalProps) => {
   };
 
   const handleSubmit = async () => {
-    const id = await savePlayerData(playerName, 0);
+    const id = await createPlayer(playerName);
     if (id) {
       updatePlayerInfo(playerName, id);
       onClose();
@@ -69,17 +69,23 @@ const WelcomeModal = ({ show, onClose }: WelcomeModalProps) => {
             style={{
               height: 40,
               width: 250,
-              borderColor: 'gray',
+              borderColor: '#834B4B',
               borderRadius: 8,
               borderWidth: 1,
               paddingHorizontal: 12,
               marginTop: 12,
+              marginBottom: 12,
               fontSize: 18,
             }}
             maxLength={10}
             onChangeText={handleInputChange}
             value={playerName}
             placeholder="請輸入玩家名稱"
+          />
+          <CoolText
+            text="玩家名稱決定後將無法修改"
+            style={{ fontSize: 14, color: '#D14343' }}
+            fontWeight="medium"
           />
         </View>
         <CoolButton

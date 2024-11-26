@@ -87,12 +87,6 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
 export default PauseGameModal;
 
 const styles = StyleSheet.create({
-  actions: {
-    padding: 12,
-    borderColor: '#834B4B',
-    backgroundColor: '#FFFCF0',
-    borderWidth: 3,
-  },
   title: {
     fontSize: 24,
   },

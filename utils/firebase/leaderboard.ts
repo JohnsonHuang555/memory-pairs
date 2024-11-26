@@ -4,19 +4,21 @@ import { Leaderboard } from '@/models/Leaderboard';
 import {
   addDoc,
   collection,
+  doc,
   getDocs,
   limit,
   orderBy,
   query,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { startAfter } from 'firebase/firestore';
 
-// 添加數據
-export const savePlayerData = async (name: string, score: number) => {
+// 新增玩家資料
+export const createPlayer = async (name: string) => {
   try {
     const docRef = await addDoc(collection(db, 'players'), {
-      score,
+      score: 0,
       name,
       timestamp: Date.now(),
     });
@@ -27,11 +29,27 @@ export const savePlayerData = async (name: string, score: number) => {
   }
 };
 
+// 更新玩家資料
+export const updatePlayer = async (id: string, totalScore: number) => {
+  try {
+    const docRef = doc(db, 'players', id);
+    await updateDoc(docRef, {
+      score: totalScore,
+      timestamp: Date.now(),
+    });
+    console.log('Score saved successfully!', docRef.id);
+  } catch (error) {
+    console.error('Error adding document:', error);
+  }
+};
+
 // 獲取數據
 export const fetchFirstPage = async () => {
   try {
     const leaderboardQuery = query(
       collection(db, 'players'),
+      where('score', '>', 0),
+      where('score', '!=', null), // 過濾掉未設置 score 的文件
       orderBy('score', 'desc'),
       limit(10), // 僅獲取前 10 名
     );
@@ -59,6 +77,8 @@ export const fetchFirstPage = async () => {
 export const fetchNextPage = async (lastDoc: any) => {
   const leaderboardQuery = query(
     collection(db, 'players'),
+    where('score', '>', 0),
+    where('score', '!=', null), // 過濾掉未設置 score 的文件
     orderBy('score', 'desc'),
     startAfter(lastDoc), // 上一頁的最後一條數據
     limit(10),

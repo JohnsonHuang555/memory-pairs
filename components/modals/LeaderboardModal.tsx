@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -16,12 +16,22 @@ import {
   fetchFirstPage,
   fetchNextPage,
   fetchRankByScore,
+  updatePlayer,
 } from '@/utils/firebase/leaderboard';
 
 type LeaderboardModalProps = {
   show: boolean;
   onClose: () => void;
 };
+
+const rankImages: { [key: string]: any } = {
+  1: require('@/assets/images/icons/crown.png'),
+  2: require('@/assets/images/icons/sliver-crown.png'),
+  3: require('@/assets/images/icons/brown-crown.png'),
+};
+
+let rank = 1;
+let previousScore: number | null = null;
 
 const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
   const [leaderboard, setLeaderboard] = useState<Leaderboard[]>([]);
@@ -43,18 +53,20 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
   useEffect(() => {
     const getLeaderboard = async () => {
       setLoading(true);
+      // 更新成績
+      await updatePlayer(id, totalScore);
+      // 取得當前排名
+      const myRank = await fetchRankByScore(totalScore);
+      setMyRank(myRank);
+
+      // 取得排行榜
       const res = await fetchFirstPage();
       setLeaderboard(res?.data || []);
       setLastDoc(res?.lastDoc);
       setLoading(false);
     };
-    const getRankByScore = async () => {
-      const res = await fetchRankByScore(999);
-      setMyRank(res);
-    };
     if (show) {
       getLeaderboard();
-      getRankByScore();
     }
   }, [show, totalScore]);
 
@@ -81,69 +93,17 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
     item: Leaderboard;
     index: number;
   }) => {
-    switch (index) {
-      case 0:
-        return (
-          <View
-            style={[
-              styles.item,
-              { borderColor: id === item.id ? '#D14343' : '#C08A76' },
-            ]}
-          >
-            <Image
-              source={require('@/assets/images/icons/crown.png')}
-              style={{ width: 24, height: 24 }}
-            />
-            <CoolText
-              style={[
-                styles.name,
-                { color: id === item.id ? '#D14343' : '#834B4B' },
-              ]}
-              text={item.name}
-              fontWeight={id === item.id ? 'bold' : 'medium'}
-            />
-            <CoolText
-              style={[
-                styles.score,
-                { color: id === item.id ? '#D14343' : '#834B4B' },
-              ]}
-              text={item.score}
-              fontWeight="bold"
-            />
-          </View>
-        );
+    if (item.score !== previousScore) {
+      rank = index + 1;
+    }
+
+    let dom: ReactNode = null;
+
+    switch (rank) {
       case 1:
-        return (
-          <View
-            style={[
-              styles.item,
-              { borderColor: id === item.id ? '#D14343' : '#C08A76' },
-            ]}
-          >
-            <Image
-              source={require('@/assets/images/icons/sliver-crown.png')}
-              style={{ width: 24, height: 24 }}
-            />
-            <CoolText
-              style={[
-                styles.name,
-                { color: id === item.id ? '#D14343' : '#834B4B' },
-              ]}
-              text={item.name}
-              fontWeight={id === item.id ? 'bold' : 'medium'}
-            />
-            <CoolText
-              style={[
-                styles.score,
-                { color: id === item.id ? '#D14343' : '#834B4B' },
-              ]}
-              text={item.score}
-              fontWeight="bold"
-            />
-          </View>
-        );
       case 2:
-        return (
+      case 3:
+        dom = (
           <View
             style={[
               styles.item,
@@ -151,7 +111,7 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
             ]}
           >
             <Image
-              source={require('@/assets/images/icons/brown-crown.png')}
+              source={rankImages[rank]}
               style={{ width: 24, height: 24 }}
             />
             <CoolText
@@ -172,8 +132,9 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
             />
           </View>
         );
+        break;
       default:
-        return (
+        dom = (
           <View
             style={[
               styles.item,
@@ -186,7 +147,7 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
                   styles.rank,
                   { color: id === item.id ? '#D14343' : '#834B4B' },
                 ]}
-                text={index + 1}
+                text={rank}
                 fontWeight={id === item.id ? 'bold' : 'medium'}
               />
             </View>
@@ -208,7 +169,12 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
             />
           </View>
         );
+        break;
     }
+
+    previousScore = item.score;
+
+    return dom;
   };
 
   return (
@@ -234,27 +200,36 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
           ListFooterComponent={loading ? <ActivityIndicator /> : undefined} // 加載中顯示指示器
         />
       </View>
-      <Animated.View
-        entering={FadeIn.delay(100)}
-        className="flex-row items-center"
-        style={{ marginTop: 4, padding: 14, gap: 16 }}
-      >
-        <View className="items-center" style={{ width: 24 }}>
+      {totalScore > 0 && (
+        <Animated.View
+          entering={FadeIn.delay(100)}
+          className="flex-row items-center"
+          style={{ marginTop: 4, padding: 14, gap: 16 }}
+        >
+          <View className="items-center" style={{ width: 24 }}>
+            {myRank && myRank < 4 ? (
+              <Image
+                source={rankImages[myRank]}
+                style={{ width: 24, height: 24 }}
+              />
+            ) : (
+              <CoolText
+                style={[styles.rank, { fontSize: 20 }]}
+                className="text-[#834B4B]"
+                text={myRank || 0}
+                fontWeight="bold"
+              />
+            )}
+          </View>
           <CoolText
-            style={[styles.rank, { fontSize: 20 }]}
+            style={styles.name}
+            text="我的分數"
             className="text-[#834B4B]"
-            text={myRank || 0}
-            fontWeight="bold"
+            fontWeight="medium"
           />
-        </View>
-        <CoolText
-          style={styles.name}
-          text="我的分數"
-          className="text-[#834B4B]"
-          fontWeight="medium"
-        />
-        <CoolText style={styles.score} text={totalScore} fontWeight="bold" />
-      </Animated.View>
+          <CoolText style={styles.score} text={totalScore} fontWeight="bold" />
+        </Animated.View>
+      )}
     </BaseModal>
   );
 };
