@@ -71,5 +71,5 @@ https://www.svgrepo.com/collection/casino-gambling-2/
 https://www.svgrepo.com/collection/football-shirts-vectors/
 https://www.svgrepo.com/collection/cute-ice-cream-vectors/
 https://www.svgrepo.com/collection/water-sports-flat-icons/
-
 https://iconstore.co/icons/easter-day
+https://www.svgrepo.com/collection/travel-theme-candy-vectors/

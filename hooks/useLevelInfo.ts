@@ -52,6 +52,8 @@ export const gameMatchCount: {[key: string]: string } = {
   3: '三個一組',
   4: '四個一組',
   5: '五個一組',
+  6: '六個一組',
+  7: '七個一組',
 }
 
 const useLevelInfo = () => {
