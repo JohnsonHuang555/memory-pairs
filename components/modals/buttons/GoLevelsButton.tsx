@@ -20,7 +20,7 @@ const GoLevelsButton = () => {
         push('/levels');
       }}
     >
-      <View className="rounded-full border" style={styles.actions}>
+      <View className="rounded-full" style={styles.actions}>
         <Image
           source={require('@/assets/images/icons/levels.png')}
           style={{ width: 30, height: 30 }}

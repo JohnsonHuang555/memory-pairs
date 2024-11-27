@@ -12,7 +12,7 @@ const GamePlayButton = ({ onResume }: GamePlayButtonProps) => {
   return (
     <BounceAnimation onPress={onResume}>
       <View
-        className="items-center justify-center rounded-full border"
+        className="items-center justify-center rounded-full"
         style={[styles.actions, { width: 60, height: 60 }]}
       >
         <Image

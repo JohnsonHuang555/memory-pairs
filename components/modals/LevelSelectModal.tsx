@@ -228,8 +228,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
                   ) : (
                     <CoolText
                       text={item.quantity}
-                      className="text-white"
-                      style={{ fontSize: 16 }}
+                      style={{ fontSize: 16, color: '#FFF' }}
                     />
                   )}
                 </View>

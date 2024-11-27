@@ -32,11 +32,13 @@ export default function LevelsPage() {
 
   const totalStars = useMemo(
     () =>
-      starsOfLevel.reduce((acc, current) => {
-        acc += current.stars;
-        return acc;
-      }, 0),
-    [],
+      starsOfLevel
+        .filter(s => s.id > startIdx && s.id <= 20 * currentPage)
+        .reduce((acc, current) => {
+          acc += current.stars;
+          return acc;
+        }, 0),
+    [currentPage, startIdx],
   );
 
   const toggleModal = () => {
@@ -80,22 +82,23 @@ export default function LevelsPage() {
         }
       });
 
-      // 難的關卡要替換成驚嘆號圖案
+      // 難的關卡要替換成特殊 ui
       const isHardLevel = level.id % 10 === 0;
 
       return (
         <View className="flex-1 items-center justify-between">
           <CoolText
             text={level.id}
-            className="text-white"
-            fontWeight={isHardLevel ? 'bold' : 'regular'}
+            fontWeight={isHardLevel ? 'bold' : 'medium'}
             style={
               isHardLevel
-                ? { fontSize: 32, marginTop: 4 }
-                : { fontSize: 30,marginTop: 6 }
+                ? { fontSize: 32, marginTop: 4, color: '#FFEBC8' }
+                : { fontSize: 30, marginTop: 6, color: '#FFF' }
             }
           />
-          <View className="flex-row">{stars}</View>
+          <View className="flex-row" style={{ marginBottom: 2 }}>
+            {stars}
+          </View>
         </View>
       );
     }
@@ -129,7 +132,7 @@ export default function LevelsPage() {
               style={{ width: 26, height: 26, marginRight: 4 }}
             />
             <CoolText
-              text={`${totalStars} / ${levels.length * 3}`}
+              text={`${totalStars} / 60`}
               className="text-2xl text-[#834B4B]"
               fontWeight="medium"
             />

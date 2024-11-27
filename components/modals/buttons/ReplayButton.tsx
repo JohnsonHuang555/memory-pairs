@@ -22,7 +22,7 @@ const ReplayButton = () => {
         push('/levels');
       }}
     >
-      <View className="rounded-full border" style={styles.actions}>
+      <View className="rounded-full" style={styles.actions}>
         <Image
           source={require('@/assets/images/icons/replay.png')}
           style={{ width: 30, height: 30 }}

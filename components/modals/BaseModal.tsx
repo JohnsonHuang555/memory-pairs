@@ -119,9 +119,8 @@ const BaseModal = ({
         >
           <CoolText
             text={title}
-            className="text-white"
             fontWeight="medium"
-            style={{ fontSize: 22, marginTop: 2 }}
+            style={{ fontSize: 22, marginTop: 2, color: '#FFF' }}
           />
         </View>
         {children}

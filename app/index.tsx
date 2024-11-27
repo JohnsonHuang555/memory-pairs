@@ -6,6 +6,7 @@ import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 import AchievementModal from '@/components/modals/AchievementModal';
 import GameRulesModal from '@/components/modals/GameRulesModal';
+import InfoModal from '@/components/modals/InfoModal';
 import LeaderboardModal from '@/components/modals/LeaderboardModal';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
@@ -27,6 +28,7 @@ export default function HomeScreen() {
   const [showGameRulesModal, setShowGameRulesModal] = useState(false);
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
 
   useEffect(() => {
     if (currentLevelId) {
@@ -64,6 +66,7 @@ export default function HomeScreen() {
         show={showWelcomeModal}
         onClose={() => setShowWelcomeModal(false)}
       />
+      <InfoModal show={showInfoModal} onClose={() => setShowInfoModal(false)} />
       <Animated.View className="items-center" entering={FadeIn.delay(300)}>
         <View
           className="flex-row items-start justify-between"
@@ -82,12 +85,11 @@ export default function HomeScreen() {
           </View>
           <BounceAnimation
             onPress={() => {
-              AsyncStorage.clear();
-              // setShowSettingsModal(true);
+              setShowInfoModal(true);
             }}
           >
             <Image
-              source={require('@/assets/images/icons/settings.png')}
+              source={require('@/assets/images/icons/info-circle.png')}
               style={{ width: 32, height: 32 }}
             />
           </BounceAnimation>
@@ -129,7 +131,7 @@ export default function HomeScreen() {
         <Animated.View
           entering={FadeIn.delay(500)}
           className="flex-row items-center"
-          style={{ marginBottom: 20, gap: 24 }}
+          style={{ marginBottom: 20, gap: 16 }}
         >
           <BounceAnimation onPress={() => setShowShopModal(true)}>
             <View style={styles.actions}>
@@ -155,6 +157,19 @@ export default function HomeScreen() {
             <View style={styles.actions}>
               <Image
                 source={require('@/assets/images/icons/leaderboard.png')}
+                style={{ width: 40, height: 40 }}
+              />
+            </View>
+          </BounceAnimation>
+          <BounceAnimation
+            onPress={() => {
+              // AsyncStorage.clear();
+              setShowSettingsModal(true);
+            }}
+          >
+            <View style={styles.actions}>
+              <Image
+                source={require('@/assets/images/icons/settings.png')}
                 style={{ width: 40, height: 40 }}
               />
             </View>

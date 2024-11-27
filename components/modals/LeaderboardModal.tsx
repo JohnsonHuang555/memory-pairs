@@ -35,7 +35,7 @@ let previousScore: number | null = null;
 
 const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
   const [leaderboard, setLeaderboard] = useState<Leaderboard[]>([]);
-  const { starsOfLevel, id } = usePlayerStore();
+  const { starsOfLevel, id, name } = usePlayerStore();
   const [myRank, setMyRank] = useState<number>();
   const [lastDoc, setLastDoc] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -223,7 +223,7 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
           </View>
           <CoolText
             style={styles.name}
-            text="我的分數"
+            text={name}
             className="text-[#834B4B]"
             fontWeight="medium"
           />

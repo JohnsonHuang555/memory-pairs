@@ -131,15 +131,13 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
                 <View style={styles.item}>
                   <CoolText
                     text={quantity || 0}
-                    className="text-white"
-                    style={{ fontSize: 16 }}
+                    style={{ fontSize: 16, color: '#FFF' }}
                   />
                 </View>
                 <View style={styles.level}>
                   <CoolText
                     text={level === maxLevel ? 'Max' : `Lv. ${level || 1}`}
-                    className="text-white"
-                    style={{ fontSize: 14 }}
+                    style={{ fontSize: 14, color: '#FFF' }}
                   />
                 </View>
                 {getItemIcon(item.type)}

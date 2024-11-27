@@ -1,16 +1,17 @@
 import { StyleSheet, View } from 'react-native';
 
 import BounceAnimation from '@/components/BounceAnimation';
+import useLevelInfo from '@/hooks/useLevelInfo';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import useLevelInfo from '@/hooks/useLevelInfo';
 
 const NextLevelButton = () => {
   const { resetGame } = useGameStore();
-  const { setShowLevelModal, setPlayLevel } = useLevelStore();
+  const { setShowLevelModal, setPlayLevel, updateCurrentPage } =
+    useLevelStore();
   const { levelInfo } = useLevelInfo();
   const { push } = useRouter();
 
@@ -22,11 +23,12 @@ const NextLevelButton = () => {
           setShowLevelModal(true);
         }, 500);
         setPlayLevel(levelInfo.id + 1);
+        updateCurrentPage(1);
         resetGame();
         push('/levels');
       }}
     >
-      <View className="rounded-full border" style={styles.actions}>
+      <View className="rounded-full" style={styles.actions}>
         <Image
           source={require('@/assets/images/icons/next-level.png')}
           style={{ width: 30, height: 30, right: -2 }}

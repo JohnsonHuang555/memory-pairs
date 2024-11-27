@@ -237,7 +237,7 @@ const FlipCard = ({
           <CoolText
             text={card.content}
             fontWeight="medium"
-            style={{ fontSize: 36 }}
+            style={{ fontSize: columns === 3 ? 52 : 36 }}
           />
         );
     }

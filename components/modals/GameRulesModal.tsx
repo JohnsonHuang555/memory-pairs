@@ -3,12 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 
-type GameRulesProps = {
+type GameRulesModalProps = {
   show: boolean;
   onClose: () => void;
 };
 
-const GameRulesModal = ({ show, onClose }: GameRulesProps) => {
+const GameRulesModal = ({ show, onClose }: GameRulesModalProps) => {
   return (
     <BaseModal title="遊戲規則" show={show} width={85} onClose={onClose}>
       <View

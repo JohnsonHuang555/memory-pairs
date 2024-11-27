@@ -31,7 +31,6 @@ export enum LevelTheme {
   ZodiacWestern = 'zodiacWestern',
   Entertainments = 'entertainments',
   ChineseEra = 'chineseEra',
-  Tree = 'tree',
   Weather = 'weather',
   Coin = 'coin',
   CarSign = 'carSign',
@@ -62,4 +61,5 @@ export enum LevelTheme {
   Refresh = 'refresh',
   EcologyGreen = 'ecologyGreen',
   Gesture = 'gesture',
+  Bell = 'bell',
 }
