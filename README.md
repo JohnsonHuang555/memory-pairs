@@ -50,9 +50,12 @@ Join our community of developers creating universal apps.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 
 ## Reference
-Vectors and icons by <a href="https://github.com/ni/nimble?ref=svgrepo.com" target="_blank">Nimble Design</a> in MIT License via <a href="https://www.svgrepo.com/" target="_blank">SVG Repo</a>
 
-CC0
+### CC0
+#### icons
+https://www.svgrepo.com/svg/212456/coin-money
+
+#### questions
 https://www.svgrepo.com/collection/sideview-emoji-vectors/
 https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
 https://www.svgrepo.com/collection/bright-fruits-and-vegetables/
@@ -73,3 +76,33 @@ https://www.svgrepo.com/collection/cute-ice-cream-vectors/
 https://www.svgrepo.com/collection/water-sports-flat-icons/
 https://iconstore.co/icons/easter-day
 https://www.svgrepo.com/collection/travel-theme-candy-vectors/
+https://www.svgrepo.com/collection/tree-variations-flat-icons/
+
+### CC BY
+#### icons
+https://www.svgrepo.com/svg/422585/coin-color-currency
+
+#### background
+https://www.freepik.com/free-vector/abstract-simple-background_14924525.htm#fromView=search&page=4&position=14&uuid=96273b1a-778c-440a-a980-e3c009c716c1
+
+#### questions
+https://commons.wikimedia.org/wiki/File:Half_Portraits_of_the_Great_Sage_and_Virtuous_Men_of_Old_-_Confucius.jpg
+https://www.svgrepo.com/collection/solar-bold-duotone-icons/
+https://www.svgrepo.com/collection/type-of-grasses-vectors/
+https://www.svgrepo.com/collection/animal-outlined-sepia-icons/
+https://www.svgrepo.com/collection/capitaine-cursor-vectors/
+https://www.svgrepo.com/collection/envelope-bordered-vectors/
+https://www.svgrepo.com/collection/sport-balls-vectors/
+https://www.svgrepo.com/collection/sweets-vectors/
+https://www.svgrepo.com/collection/planets-flat-vectors/
+https://www.svgrepo.com/collection/breakfast-vectors/
+https://www.svgrepo.com/collection/hand-washing-vectors/
+https://www.svgrepo.com/collection/construction-vectors/
+https://www.svgrepo.com/collection/cactus-flat-icons/
+https://www.svgrepo.com/collection/japan-flat-vectors/
+https://www.svgrepo.com/collection/circular-avatar-vectors/
+https://www.svgrepo.com/collection/beer-festival-vectors/
+https://www.svgrepo.com/collection/medals-filled-vectors/
+https://www.svgrepo.com/collection/file-type-doctype-vectors/
+https://www.svgrepo.com/collection/colorful-party-favors-vectors/
+https://www.svgrepo.com/collection/furniture-soft-color-vectors/

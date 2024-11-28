@@ -45,7 +45,7 @@ const WelcomeModal = ({ show, onClose }: WelcomeModalProps) => {
           />
         </View>
         <CoolText
-          text="記憶極限是一款挑戰玩家記憶能力的翻牌遊戲。"
+          text="記憶極限是一款挑戰玩家<眼力>與<記憶能力>的翻牌遊戲。"
           style={[styles.content, { marginBottom: 12 }]}
         />
         <CoolText
