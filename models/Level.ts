@@ -105,4 +105,6 @@ export enum LevelTheme {
   Clothe = 85,
   WinterBuilding = 86,
   MobileGesture = 87,
+  Travel = 88,
+  Autumn = 89,
 }

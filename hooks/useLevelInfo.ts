@@ -88,6 +88,8 @@ export const gameTheme: { [key: string]: string } = {
   [LevelTheme.Clothe]: '衣服',
   [LevelTheme.WinterBuilding]: '冬季建築',
   [LevelTheme.MobileGesture]: '滑動手勢',
+  [LevelTheme.Travel]: '旅遊活動',
+  [LevelTheme.Autumn]: '秋天',
 };
 
 export const gameMatchCount: { [key: string]: string } = {
