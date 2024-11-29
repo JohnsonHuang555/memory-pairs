@@ -22,7 +22,7 @@ import GameOverModal from '@/components/modals/GameOverModal';
 import GamePassModal from '@/components/modals/GamePassModal';
 import PauseGameModal from '@/components/modals/PauseGameModal';
 import UseItemModal from '@/components/modals/UseItemsModal';
-import useLevelInfo from '@/hooks/useLevelInfo';
+import useLevelInfo, { gameMatchCount } from '@/hooks/useLevelInfo';
 import { Card } from '@/models/Card';
 import { ItemType } from '@/models/Item';
 import useGameStore from '@/stores/GameStore';
@@ -395,6 +395,21 @@ const PlayingPage = () => {
               </Animated.Text>
             </View>
           )}
+        </Animated.View>
+        <Animated.View
+          entering={FadeIn.delay(300)}
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            alignItems: 'center',
+          }}
+        >
+          <CoolText
+            text={`提示：${gameMatchCount[levelInfo.matchCount]}`}
+            style={{ fontSize: 20, color: '#834B4B' }}
+            fontWeight="bold"
+          />
         </Animated.View>
       </MainContainer>
     </>

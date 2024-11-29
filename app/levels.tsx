@@ -191,7 +191,7 @@ export default function LevelsPage() {
               />
             )}
           </View>
-          {levels.length > startIdx * currentPage && (
+          {levels.length > 20 * currentPage && (
             <CoolButton
               prefix={
                 <Image

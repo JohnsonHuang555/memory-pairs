@@ -23,7 +23,9 @@ const NextLevelButton = () => {
           setShowLevelModal(true);
         }, 500);
         setPlayLevel(levelInfo.id + 1);
-        updateCurrentPage(1);
+        if (levelInfo.id % 20 === 0) {
+          updateCurrentPage(1);
+        }
         resetGame();
         push('/levels');
       }}

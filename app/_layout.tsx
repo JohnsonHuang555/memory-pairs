@@ -14,7 +14,28 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [assets] = useAssets([require('@/assets/images/background.png')]);
+  const [assets] = useAssets([
+    require('@/assets/images/background.png'),
+    require('@/assets/images/questions/fruit/fruit-1.png'),
+    require('@/assets/images/questions/fruit/fruit-2.png'),
+    require('@/assets/images/questions/fruit/fruit-3.png'),
+    require('@/assets/images/questions/fruit/fruit-4.png'),
+    require('@/assets/images/questions/fruit/fruit-5.png'),
+    require('@/assets/images/questions/fruit/fruit-6.png'),
+    require('@/assets/images/questions/emoji/emoji-1.png'),
+    require('@/assets/images/questions/emoji/emoji-2.png'),
+    require('@/assets/images/questions/emoji/emoji-3.png'),
+    require('@/assets/images/questions/emoji/emoji-4.png'),
+    require('@/assets/images/questions/emoji/emoji-5.png'),
+    require('@/assets/images/questions/emoji/emoji-6.png'),
+    require('@/assets/images/questions/car-sign/car-sign-1.png'),
+    require('@/assets/images/questions/car-sign/car-sign-2.png'),
+    require('@/assets/images/questions/car-sign/car-sign-3.png'),
+    require('@/assets/images/questions/car-sign/car-sign-4.png'),
+    require('@/assets/images/questions/car-sign/car-sign-5.png'),
+    require('@/assets/images/questions/car-sign/car-sign-6.png'),
+    
+  ]);
 
   const [loaded] = useFonts({
     GenSenRounded2TWB: require('../assets/fonts/GenSenRounded2TW-B.otf'), // 粗體
