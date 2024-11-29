@@ -1,7 +1,7 @@
 import { LevelTheme } from '@/models/Level';
 import useLevelStore from '@/stores/LevelStore';
 
-export const gameTheme: {[key: string]: string } = {
+export const gameTheme: { [key: string]: string } = {
   [LevelTheme.ChineseWord]: '中文字',
   [LevelTheme.Color]: '顏色',
   [LevelTheme.Fruit]: '水果',
@@ -63,16 +63,41 @@ export const gameTheme: {[key: string]: string } = {
   [LevelTheme.Party]: '派對',
   [LevelTheme.SitFurniture]: '傢俱座椅',
   [LevelTheme.DeskFurniture]: '傢俱桌子',
-}
+  [LevelTheme.PTable]: '元素週期表',
+  [LevelTheme.Clock]: '時鐘',
+  [LevelTheme.MathSymbol]: '數學符號',
+  [LevelTheme.ProhibitNoticeBoard]: '禁止告示牌',
+  [LevelTheme.CautionNoticeBoard]: '警告告示牌',
+  [LevelTheme.AlignWay]: '對齊方式',
+  [LevelTheme.SortWay]: '排序方式',
+  [LevelTheme.Moon]: '月亮',
+  [LevelTheme.Sound]: '音效設定',
+  [LevelTheme.Coffee]: '咖啡豆',
+  [LevelTheme.Space]: '太空',
+  [LevelTheme.Sun]: '太陽',
+  [LevelTheme.Food]: '食物',
+  [LevelTheme.OrigamiObject]: '摺紙物品',
+  [LevelTheme.OrigamiAnimal]: '摺紙動物',
+  [LevelTheme.Device]: '3C用品',
+  [LevelTheme.Folder]: '資料夾',
+  [LevelTheme.SmartWatch]: '智慧手錶',
+  [LevelTheme.CityBuilding]: '城市建築',
+  [LevelTheme.Stickman]: '火柴人',
+  [LevelTheme.HeartLove]: '滿滿的愛心',
+  [LevelTheme.Chart]: '圖表',
+  [LevelTheme.Clothe]: '衣服',
+  [LevelTheme.WinterBuilding]: '冬季建築',
+  [LevelTheme.MobileGesture]: '滑動手勢',
+};
 
-export const gameMatchCount: {[key: string]: string } = {
+export const gameMatchCount: { [key: string]: string } = {
   2: '兩個一組',
   3: '三個一組',
   4: '四個一組',
   5: '五個一組',
   6: '六個一組',
   7: '七個一組',
-}
+};
 
 const useLevelInfo = () => {
   const { levels, selectedLevelId } = useLevelStore();

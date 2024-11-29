@@ -82,19 +82,12 @@ export default function LevelsPage() {
         }
       });
 
-      // 難的關卡要替換成特殊 ui
-      const isHardLevel = level.id % 10 === 0;
-
       return (
         <View className="flex-1 items-center justify-between">
           <CoolText
             text={level.id}
-            fontWeight={isHardLevel ? 'bold' : 'medium'}
-            style={
-              isHardLevel
-                ? { fontSize: 32, marginTop: 4, color: '#FFEBC8' }
-                : { fontSize: 30, marginTop: 6, color: '#FFF' }
-            }
+            fontWeight="medium"
+            style={{ fontSize: 30, marginTop: 6, color: '#FFF' }}
           />
           <View className="flex-row" style={{ marginBottom: 2 }}>
             {stars}
