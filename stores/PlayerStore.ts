@@ -1,11 +1,16 @@
 import { allAchievements } from '@/constants/AllAchievements';
 import { allItems } from '@/constants/AllItems';
 import { ItemType, PlayerItem } from '@/models/Item';
-import { Level } from '@/models/Level';
+import { Level, LevelTheme } from '@/models/Level';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { create } from 'zustand';
 import { StateStorage, createJSONStorage, persist } from 'zustand/middleware';
+
+type ThemeLevelInfo = {
+  themeType: LevelTheme;
+  currentLevelId: number;
+};
 
 type StarsOfLevel = {
   id: number;
@@ -20,8 +25,9 @@ type PlayerAchievement = {
 };
 
 type PlayerState = {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
+  themeLevelInfo: ThemeLevelInfo[];
   currentLevelId: number;
   starsOfLevel: StarsOfLevel[];
   coins: number;
@@ -73,9 +79,11 @@ const storage: StateStorage = {
 const usePlayerStore = create<PlayerState>()(
   persist(
     (set, get) => ({
-      id: '',
-      name: '',
       currentLevelId: 1,
+      themeLevelInfo: [
+        { themeType: LevelTheme.Animal, currentLevelId: 1 },
+        { themeType: LevelTheme.Color, currentLevelId: 1 },
+      ],
       starsOfLevel: [],
       coins: 0,
       items: allItems.map(item => ({
@@ -244,7 +252,8 @@ const usePlayerStore = create<PlayerState>()(
       },
       setIsMusicOn: () => set(state => ({ isMusicOn: !state.isMusicOn })),
       setIsSoundOn: () => set(state => ({ isSoundOn: !state.isSoundOn })),
-      updatePlayerInfo: (name: string, id?: string) => set(() => ({ name, id })),
+      updatePlayerInfo: (name: string, id?: string) =>
+        set(() => ({ name, id })),
     }),
     {
       name: 'player-storage',

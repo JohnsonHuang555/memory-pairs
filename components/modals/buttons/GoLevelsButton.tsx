@@ -5,11 +5,12 @@ import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 const GoLevelsButton = () => {
+  const { theme } = useLocalSearchParams();
   const { resetGame } = useGameStore();
-  const { push } = useRouter();
+  const { replace } = useRouter();
   const { setPlayLevel } = useLevelStore();
 
   return (
@@ -17,7 +18,7 @@ const GoLevelsButton = () => {
       onPress={() => {
         resetGame();
         setPlayLevel(undefined);
-        push('/levels');
+        replace(`/levels/${theme}`);
       }}
     >
       <View className="rounded-full" style={styles.actions}>

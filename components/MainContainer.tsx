@@ -23,7 +23,7 @@ const MainContainer = ({
   title,
   leftChildren,
 }: MainContainerProps) => {
-  const { push } = useRouter();
+  const { back } = useRouter();
   const [showGameRuleModal, setGameRuleModal] = useState(false);
 
   return (
@@ -36,7 +36,7 @@ const MainContainer = ({
         <View style={{ width: 40 }}>
           {leftChildren}
           {showLeftIcon && (
-            <BounceAnimation onPress={() => push('/')}>
+            <BounceAnimation onPress={back}>
               <Image
                 source={require('@/assets/images/icons/left-arrow.png')}
                 style={{ width: 40, height: 40 }}
@@ -46,8 +46,8 @@ const MainContainer = ({
         </View>
         <CoolText
           text={title}
-          className="text-3xl text-[#834B4B]"
-          fontWeight="bold"
+          className="text-[#834B4B]"
+          fontWeight="medium"
           style={{ fontSize: 24 }}
         />
         <View style={{ width: 40, alignItems: 'flex-end' }}>

@@ -11,11 +11,16 @@ import useLevelStore, { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
+import { useLocalSearchParams } from 'expo-router/build/hooks';
+import { useThemeInfo } from '@/hooks/useThemeInfo';
+import { gameTheme } from '@/hooks/useLevelInfo';
 
-export default function LevelsPage() {
-  const { currentLevelId, coins, starsOfLevel } = usePlayerStore();
+export default function LevelScreen() {
+  const { theme } = useLocalSearchParams();
+  const { coins, starsOfLevel } = usePlayerStore();
+  const { levels, currentLevelId } = useThemeInfo(Number(theme));
+
   const {
-    levels,
     currentPage,
     setPlayLevel,
     showLevelModal,
@@ -23,7 +28,7 @@ export default function LevelsPage() {
     updateCurrentPage,
   } = useLevelStore();
 
-  // 根據 currentPage 計算對應的關卡
+  // // 根據 currentPage 計算對應的關卡
   const startIdx = (currentPage - 1) * itemsPerPage;
   const currentLevels = useMemo(
     () => levels.slice(startIdx, startIdx + itemsPerPage),
@@ -106,7 +111,7 @@ export default function LevelsPage() {
           setShowLevelModal(false);
         }}
       />
-      <MainContainer title="關卡" showLeftIcon showQuestionIcon>
+      <MainContainer title={gameTheme[theme as string]} showLeftIcon showQuestionIcon>
         <View className="mb-6 flex-row items-center justify-between">
           <View className="flex-row items-center">
             <Image
@@ -125,7 +130,7 @@ export default function LevelsPage() {
               style={{ width: 26, height: 26, marginRight: 4 }}
             />
             <CoolText
-              text={`${totalStars} / 60`}
+              text={10}
               className="text-2xl text-[#834B4B]"
               fontWeight="medium"
             />

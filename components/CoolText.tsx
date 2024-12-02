@@ -1,10 +1,10 @@
-import { Text } from 'react-native';
+import { StyleProp, Text, TextStyle } from 'react-native';
 
 type CoolButtonProps = {
   text: string | number;
   className?: string;
   fontWeight?: 'bold' | 'thin' | 'light' | 'medium' | 'regular';
-  style?: any;
+  style?: StyleProp<TextStyle>;
 };
 
 const fontWeightObj = {

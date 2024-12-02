@@ -6,7 +6,7 @@ export type Level = {
   type: LevelType;
   matchCount: number; // 幾個一組 ex. 2
   questions: string[]; // 題目組
-  stars: number;
+  stars?: number;
   timer: number;
   star1Score: number; // 星星門檻
   star2Score: number;

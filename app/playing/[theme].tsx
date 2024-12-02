@@ -49,7 +49,7 @@ const ColumnMarginBottom: { [key: string]: number } = {
   5: 10,
 };
 
-const PlayingPage = () => {
+const PlayingScreen = () => {
   const { levelInfo } = useLevelInfo();
   const { updateCurrentLevelId, setStarsOfLevel } = usePlayerStore();
   const { updateLevel, levels } = useLevelStore();
@@ -69,7 +69,7 @@ const PlayingPage = () => {
   const currentAllStars = useMemo(
     () =>
       levels.reduce((acc, current) => {
-        acc += current.stars;
+        acc += current.stars || 0;
         return acc;
       }, 0),
     [],
@@ -416,4 +416,4 @@ const PlayingPage = () => {
   );
 };
 
-export default PlayingPage;
+export default PlayingScreen;

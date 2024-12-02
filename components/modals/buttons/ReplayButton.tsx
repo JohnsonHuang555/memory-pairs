@@ -5,12 +5,13 @@ import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 const ReplayButton = () => {
+  const { theme } = useLocalSearchParams();
   const { resetGame } = useGameStore();
   const { setShowLevelModal } = useLevelStore();
-  const { push } = useRouter();
+  const { replace } = useRouter();
 
   return (
     <BounceAnimation
@@ -19,7 +20,7 @@ const ReplayButton = () => {
           setShowLevelModal(true);
         }, 500);
         resetGame();
-        push('/levels');
+        replace(`/levels/${theme}`);
       }}
     >
       <View className="rounded-full" style={styles.actions}>

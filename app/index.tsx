@@ -114,7 +114,7 @@ export default function HomeScreen() {
           <BounceAnimation
             scaleValue={0.9}
             onPress={() => {
-              router.push('/levels');
+              router.push('/themes');
             }}
             className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
           >
@@ -163,6 +163,7 @@ export default function HomeScreen() {
           </BounceAnimation>
           <BounceAnimation
             onPress={() => {
+              // AsyncStorage.clear();
               setShowSettingsModal(true);
             }}
           >

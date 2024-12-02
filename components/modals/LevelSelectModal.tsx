@@ -11,7 +11,7 @@ import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 type LevelSelectModalProps = {
   show: boolean;
@@ -19,6 +19,7 @@ type LevelSelectModalProps = {
 };
 
 const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
+  const { theme } = useLocalSearchParams();
   const { replace } = useRouter();
   const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
@@ -175,7 +176,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
           );
           return (
             <TouchableOpacity
-            activeOpacity={0.8}
+              activeOpacity={0.8}
               key={item.type}
               onPress={() => {
                 if (item.quantity > 0) {
@@ -255,7 +256,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
             setShowLevelModal(false);
             setUseItems(selectedItems);
             setTimeout(() => {
-              replace('/playing');
+              replace(`/playing/${theme}`);
             }, 100);
           }}
         />

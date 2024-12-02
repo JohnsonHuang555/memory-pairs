@@ -50,7 +50,7 @@ const InfoModal = ({ show, onClose }: InfoModalProps) => {
         <View className="mb-4">
           <View className="items-center">
             <CoolText
-              text="-- 參考來源 --"
+              text="-- 版權與授權 --"
               style={{ fontSize: 20, color: '#834B4B', marginBottom: 12 }}
               fontWeight="bold"
             />
