@@ -110,8 +110,8 @@ export default function LevelsPage() {
         <View className="mb-6 flex-row items-center justify-between">
           <View className="flex-row items-center">
             <Image
-              source={require('@/assets/images/icons/coin.png')}
-              style={{ width: 28, height: 28, marginRight: 6 }}
+              source={require('@/assets/images/icons/coin-2.png')}
+              style={{ width: 26, height: 26, marginRight: 6 }}
             />
             <CoolText
               text={coins}

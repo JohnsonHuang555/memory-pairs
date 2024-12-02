@@ -23,7 +23,6 @@
 - https://www.svgrepo.com/collection/football-shirts-vectors/
 - https://www.svgrepo.com/collection/cute-ice-cream-vectors/
 - https://www.svgrepo.com/collection/water-sports-flat-icons/
-- https://iconstore.co/icons/easter-day
 - https://www.svgrepo.com/collection/travel-theme-candy-vectors/
 - https://www.svgrepo.com/collection/tree-variations-flat-icons/
 - https://www.svgrepo.com/collection/public-information-symbols-vectors/

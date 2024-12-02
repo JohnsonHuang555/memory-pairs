@@ -108,8 +108,8 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
         <CoolText text="道具" style={styles.text} fontWeight="medium" />
         <View className="flex-row items-center">
           <Image
-            source={require('@/assets/images/icons/coin.png')}
-            style={{ width: 28, height: 28, marginRight: 4 }}
+            source={require('@/assets/images/icons/coin-2.png')}
+            style={{ width: 24, height: 24, marginRight: 4 }}
           />
           <CoolText text={coins} style={styles.text} fontWeight="medium" />
         </View>

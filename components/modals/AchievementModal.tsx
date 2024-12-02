@@ -45,8 +45,8 @@ const AchievementModal = ({ show, onClose }: AchievementModalProps) => {
         style={{ flex: 1, marginLeft: 4, marginRight: 4 }}
       >
         <Image
-          source={require('@/assets/images/icons/coin.png')}
-          style={{ width: 26, height: 26, marginRight: 2 }}
+          source={require('@/assets/images/icons/coin-2.png')}
+          style={{ width: 22, height: 22, marginRight: 4 }}
         />
         <CoolText
           text={rewards}

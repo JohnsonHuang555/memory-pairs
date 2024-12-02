@@ -24,7 +24,6 @@ export const gameTheme: { [key: string]: string } = {
   [LevelTheme.Jersey]: '球衣',
   [LevelTheme.WaterSport]: '水上活動',
   [LevelTheme.Ancient]: '古人',
-  [LevelTheme.EasterDay]: '復活節',
   [LevelTheme.BreakFast]: '早餐',
   [LevelTheme.Ball]: '球類',
   [LevelTheme.Chess]: '西洋棋',
@@ -34,8 +33,7 @@ export const gameTheme: { [key: string]: string } = {
   [LevelTheme.Monster]: '怪獸',
   [LevelTheme.AlphabetBraille]: '點字字母表',
   [LevelTheme.Flower]: '花',
-  [LevelTheme.Lock]: '鎖頭',
-  [LevelTheme.Vehicles]: '交通工具2',
+  // [LevelTheme.Lock]: '鎖頭',
   [LevelTheme.File]: '檔案格式',
   [LevelTheme.Battery]: '電池電量',
   [LevelTheme.Border]: '設定邊界',
@@ -63,7 +61,6 @@ export const gameTheme: { [key: string]: string } = {
   [LevelTheme.Party]: '派對',
   [LevelTheme.SitFurniture]: '傢俱座椅',
   [LevelTheme.DeskFurniture]: '傢俱桌子',
-  [LevelTheme.PTable]: '元素週期表',
   [LevelTheme.Clock]: '時鐘',
   [LevelTheme.MathSymbol]: '數學符號',
   [LevelTheme.ProhibitNoticeBoard]: '禁止告示牌',
@@ -90,6 +87,7 @@ export const gameTheme: { [key: string]: string } = {
   [LevelTheme.MobileGesture]: '滑動手勢',
   [LevelTheme.Travel]: '旅遊活動',
   [LevelTheme.Autumn]: '秋天',
+  [LevelTheme.Bell]: '鈴鐺',
 };
 
 export const gameMatchCount: { [key: string]: string } = {

@@ -400,7 +400,7 @@ const PlayingPage = () => {
           entering={FadeIn.delay(300)}
           style={{
             position: 'absolute',
-            bottom: 0,
+            bottom: -20,
             width: '100%',
             alignItems: 'center',
           }}

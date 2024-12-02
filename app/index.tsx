@@ -74,8 +74,8 @@ export default function HomeScreen() {
         >
           <View className="flex-row">
             <Image
-              source={require('@/assets/images/icons/coin.png')}
-              style={{ width: 36, height: 36, marginRight: 8 }}
+              source={require('@/assets/images/icons/coin-2.png')}
+              style={{ width: 30, height: 30, marginRight: 8 }}
             />
             <CoolText
               text={coins}

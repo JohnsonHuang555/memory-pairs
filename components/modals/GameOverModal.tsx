@@ -78,8 +78,8 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
           />
           <View className="flex-row items-center">
             <Image
-              source={require('@/assets/images/icons/coin.png')}
-              style={{ width: 24, height: 24, marginRight: 4 }}
+              source={require('@/assets/images/icons/coin-2.png')}
+              style={{ width: 20, height: 20, marginRight: 8 }}
             />
             <CoolText
               text={0}
