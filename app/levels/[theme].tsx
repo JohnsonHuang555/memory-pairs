@@ -6,24 +6,24 @@ import CoolButton from '@/components/CoolButton';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
+import { gameTheme } from '@/hooks/useLevelInfo';
+import { useThemeInfo } from '@/hooks/useThemeInfo';
 import { Level } from '@/models/Level';
 import useLevelStore, { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
 import { useLocalSearchParams } from 'expo-router/build/hooks';
-import { useThemeInfo } from '@/hooks/useThemeInfo';
-import { gameTheme } from '@/hooks/useLevelInfo';
 
 export default function LevelScreen() {
   const { theme } = useLocalSearchParams();
-  const { coins, starsOfLevel } = usePlayerStore();
-  const { levels, currentLevelId } = useThemeInfo(Number(theme));
+  const { coins } = usePlayerStore();
+  const { levels, currentLevelId, starsOfLevel } = useThemeInfo(Number(theme));
 
   const {
     currentPage,
-    setPlayLevel,
     showLevelModal,
+    setPlayLevel,
     setShowLevelModal,
     updateCurrentPage,
   } = useLevelStore();
@@ -35,14 +35,23 @@ export default function LevelScreen() {
     [startIdx],
   );
 
+  // const totalStars = useMemo(
+  //   () =>
+  //     starsOfLevel
+  //       .filter(s => s.id > startIdx && s.id <= 20 * currentPage)
+  //       .reduce((acc, current) => {
+  //         acc += current.stars;
+  //         return acc;
+  //       }, 0),
+  //   [currentPage, startIdx],
+  // );
+
   const totalStars = useMemo(
     () =>
-      starsOfLevel
-        .filter(s => s.id > startIdx && s.id <= 20 * currentPage)
-        .reduce((acc, current) => {
-          acc += current.stars;
-          return acc;
-        }, 0),
+      starsOfLevel.reduce((acc, current) => {
+        acc += current.stars;
+        return acc;
+      }, 0),
     [currentPage, startIdx],
   );
 
@@ -111,8 +120,15 @@ export default function LevelScreen() {
           setShowLevelModal(false);
         }}
       />
-      <MainContainer title={gameTheme[theme as string]} showLeftIcon showQuestionIcon>
-        <View className="mb-6 flex-row items-center justify-between">
+      <MainContainer
+        title={gameTheme[theme as string]}
+        showLeftIcon
+        showQuestionIcon
+      >
+        <View
+          className="mb-6 flex-row items-center justify-end"
+          style={{ gap: 16 }}
+        >
           <View className="flex-row items-center">
             <Image
               source={require('@/assets/images/icons/coin-2.png')}
@@ -130,7 +146,7 @@ export default function LevelScreen() {
               style={{ width: 26, height: 26, marginRight: 4 }}
             />
             <CoolText
-              text={10}
+              text={totalStars}
               className="text-2xl text-[#834B4B]"
               fontWeight="medium"
             />

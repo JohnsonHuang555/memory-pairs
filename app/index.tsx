@@ -19,7 +19,7 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 
 export default function HomeScreen() {
-  const { coins, currentLevelId, name } = usePlayerStore();
+  const { coins, name } = usePlayerStore();
   const { setDefaultCurrentPage } = useLevelStore();
 
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
@@ -30,12 +30,12 @@ export default function HomeScreen() {
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
-  useEffect(() => {
-    if (currentLevelId) {
-      const page = Math.ceil(currentLevelId / itemsPerPage);
-      setDefaultCurrentPage(page);
-    }
-  }, [currentLevelId]);
+  // useEffect(() => {
+  //   if (currentLevelId) {
+  //     const page = Math.ceil(currentLevelId / itemsPerPage);
+  //     setDefaultCurrentPage(page);
+  //   }
+  // }, [currentLevelId]);
 
   useEffect(() => {
     if (!name) {
@@ -70,7 +70,7 @@ export default function HomeScreen() {
       <Animated.View className="items-center" entering={FadeIn.delay(300)}>
         <View
           className="flex-row items-start justify-between"
-          style={{ width: '80%', marginBottom: 40 }}
+          style={{ width: '80%', position: 'fixed', top: -60 }}
         >
           <View className="flex-row">
             <Image
@@ -96,33 +96,25 @@ export default function HomeScreen() {
         </View>
         <Image
           source={require('@/assets/images/logo.png')}
-          style={{ width: 260, height: 100, marginBottom: 60 }}
+          style={{ width: 280, height: 70, marginBottom: 160 }}
           contentFit="contain"
         />
-        <View style={{ marginBottom: 70 }} className="items-center">
-          <CoolText
-            text={currentLevelId}
-            className="mb-4 text-[65px] shadow-sm"
-            fontWeight="regular"
-          />
-          <CoolText text="Now Level" className="text-2xl" />
-        </View>
         <Animated.View
           entering={ZoomIn.delay(200)}
-          style={{ marginBottom: 60 }}
+          style={{ marginBottom: 120 }}
         >
           <BounceAnimation
             scaleValue={0.9}
             onPress={() => {
               router.push('/themes');
             }}
-            className="h-[110px] w-[110px] items-center justify-center rounded-full bg-[#E3803E]"
+            className="h-[120px] w-[120px] items-center justify-center rounded-full bg-[#E3803E]"
           >
             <Image
               source={require('@/assets/images/icons/play.png')}
               style={{
-                width: 80,
-                height: 80,
+                width: 90,
+                height: 90,
                 marginLeft: 15,
               }}
             />
@@ -131,7 +123,7 @@ export default function HomeScreen() {
         <Animated.View
           entering={FadeIn.delay(500)}
           className="flex-row items-center"
-          style={{ marginBottom: 20, gap: 16 }}
+          style={{ gap: 16 }}
         >
           <BounceAnimation onPress={() => setShowShopModal(true)}>
             <View style={styles.actions}>
@@ -145,7 +137,7 @@ export default function HomeScreen() {
             <View style={styles.actions}>
               <Image
                 source={require('@/assets/images/icons/trophy.png')}
-                style={{ width: 36, height: 36 }}
+                style={{ width: 34, height: 34 }}
               />
             </View>
           </BounceAnimation>
@@ -157,7 +149,7 @@ export default function HomeScreen() {
             <View style={styles.actions}>
               <Image
                 source={require('@/assets/images/icons/leaderboard.png')}
-                style={{ width: 40, height: 40 }}
+                style={{ width: 46, height: 46 }}
               />
             </View>
           </BounceAnimation>
@@ -170,7 +162,7 @@ export default function HomeScreen() {
             <View style={styles.actions}>
               <Image
                 source={require('@/assets/images/icons/settings.png')}
-                style={{ width: 40, height: 40 }}
+                style={{ width: 38, height: 38 }}
               />
             </View>
           </BounceAnimation>

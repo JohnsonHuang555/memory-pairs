@@ -1,4 +1,7 @@
-import { LevelType } from '@/constants/AllLevels';
+export enum LevelType {
+  String = 'string',
+  ImageUrl = 'imageUrl',
+}
 
 export type Level = {
   id: number; // 關卡編號

@@ -11,9 +11,8 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import CoolText from './CoolText';
-import { LevelType } from '@/constants/AllLevels';
 import { Card } from '@/models/Card';
-import { LevelTheme } from '@/models/Level';
+import { LevelTheme, LevelType } from '@/models/Level';
 
 import { Image } from 'expo-image';
 

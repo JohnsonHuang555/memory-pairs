@@ -30,6 +30,7 @@ import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
+import { useLocalSearchParams } from 'expo-router';
 
 const ANGLE = 10;
 const TIME = 100;
@@ -50,8 +51,10 @@ const ColumnMarginBottom: { [key: string]: number } = {
 };
 
 const PlayingScreen = () => {
+  const { theme } = useLocalSearchParams();
+
   const { levelInfo } = useLevelInfo();
-  const { updateCurrentLevelId, setStarsOfLevel } = usePlayerStore();
+  const { passGame } = usePlayerStore();
   const { updateLevel, levels } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
@@ -157,15 +160,6 @@ const PlayingScreen = () => {
         // 更新成績
         runOnJS(updateLevel)(levelInfo.id, stars);
 
-        // 寫入手機
-        runOnJS(updateCurrentLevelId)(
-          levelInfo,
-          stars + currentAllStars,
-          maxCombo,
-          score,
-          levels.length,
-        );
-
         let coins = 0;
         if (stars === 1) {
           coins = levelInfo.star1Coins;
@@ -174,7 +168,17 @@ const PlayingScreen = () => {
         } else {
           coins = levelInfo.star3Coins;
         }
-        runOnJS(setStarsOfLevel)(levelInfo.id, stars, coins, score);
+
+        // 寫入手機
+        runOnJS(passGame)({
+          themeType: Number(theme),
+          levelInfo,
+          maxCombo,
+          score,
+          lastLevelId: levels.length,
+          stars,
+          coins,
+        });
       }
     });
   }, [score, stars]);

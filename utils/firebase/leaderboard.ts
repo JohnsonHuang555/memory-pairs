@@ -22,7 +22,7 @@ export const createPlayer = async (name: string) => {
       name,
       timestamp: Date.now(),
     });
-    console.log('Score saved successfully!', docRef.id);
+    console.log('create player successfully!', docRef.id);
     return docRef.id;
   } catch (error) {
     console.error('Error adding document:', error);
@@ -37,7 +37,7 @@ export const updatePlayer = async (id: string, totalScore: number) => {
       score: totalScore,
       timestamp: Date.now(),
     });
-    console.log('Score saved successfully!', docRef.id);
+    console.log('update player successfully!', docRef.id);
   } catch (error) {
     console.error('Error adding document:', error);
   }

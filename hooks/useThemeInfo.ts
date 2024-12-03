@@ -3,19 +3,18 @@ import { LevelTheme } from '@/models/Level';
 import usePlayerStore from '@/stores/PlayerStore';
 
 export const useThemeInfo = (theme: LevelTheme) => {
-  const { themeLevelInfo } = usePlayerStore();
+  const { themeList } = usePlayerStore();
 
-  const playerLevelInfo = themeLevelInfo.find(
+  const playerLevelInfo = themeList.find(
     playerData => playerData.themeType === theme,
   );
 
+  // 取得主題關卡列表
   const levels = allLevels.filter(level => level.theme === theme);
-  const currentLevelId = levels.find(
-    level => level.id === playerLevelInfo?.currentLevelId,
-  )?.id || 1;
 
   return {
     levels,
-    currentLevelId,
+    currentLevelId: playerLevelInfo?.currentLevelId || 1,
+    starsOfLevel: playerLevelInfo?.starsOfLevel || []
   };
 };

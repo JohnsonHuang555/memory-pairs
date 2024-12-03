@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import CoolText from '@/components/CoolText';
@@ -12,16 +12,21 @@ import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 
 export default function ThemesScreen() {
-  const { coins, starsOfLevel } = usePlayerStore();
+  const { coins, themeList } = usePlayerStore();
   const { currentPage, themes } = useThemeStore();
   const { push } = useRouter();
 
   const totalStars = useMemo(
     () =>
-      starsOfLevel.reduce((acc, current) => {
-        acc += current.stars;
-        return acc;
-      }, 0),
+      themeList
+        .map(t => t.starsOfLevel)
+        .reduce((acc, current) => {
+          acc += current.reduce((a, c) => {
+            a += c.stars;
+            return a;
+          }, 0);
+          return acc;
+        }, 0),
     [],
   );
 
@@ -83,7 +88,7 @@ export default function ThemesScreen() {
               ]}
             >
               <TouchableOpacity
-                activeOpacity={true ? 1 : 0.7}
+                activeOpacity={true ? 0.7 : 1}
                 onPress={() => {
                   // if (!true) {
                   push(`/levels/${theme.type}`);
@@ -166,12 +171,3 @@ export default function ThemesScreen() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  actions: {
-    width: 60,
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

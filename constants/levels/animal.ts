@@ -1,0 +1,47 @@
+import { LevelTheme, LevelType } from '@/models/Level';
+
+export const animalThemeLevels = [
+  {
+    id: 1,
+    theme: LevelTheme.Animal,
+    type: LevelType.ImageUrl,
+    matchCount: 2,
+    questions: [
+      require('@/assets/images/questions/animal/animal-1.svg'),
+      require('@/assets/images/questions/animal/animal-2.svg'),
+      require('@/assets/images/questions/animal/animal-3.svg'),
+      require('@/assets/images/questions/animal/animal-4.svg'),
+      require('@/assets/images/questions/animal/animal-5.svg'),
+      require('@/assets/images/questions/animal/animal-6.svg'),
+    ],
+    timer: 40,
+    star1Score: 180,
+    star2Score: 270,
+    star3Score: 360,
+    star1Coins: 10,
+    star2Coins: 30,
+    star3Coins: 50,
+    columns: 3,
+  },
+  {
+    id: 2,
+    theme: LevelTheme.Animal,
+    matchCount: 2,
+    questions: [
+      require('@/assets/images/questions/animal/animal-1.svg'),
+      require('@/assets/images/questions/animal/animal-2.svg'),
+      require('@/assets/images/questions/animal/animal-3.svg'),
+      require('@/assets/images/questions/animal/animal-4.svg'),
+      require('@/assets/images/questions/animal/animal-5.svg'),
+      require('@/assets/images/questions/animal/animal-6.svg'),
+    ],
+    timer: 40,
+    star1Score: 180,
+    star2Score: 270,
+    star3Score: 360,
+    star1Coins: 10,
+    star2Coins: 30,
+    star3Coins: 50,
+    columns: 3,
+  },
+];

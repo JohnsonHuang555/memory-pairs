@@ -10,6 +10,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
+import { useThemeInfo } from '@/hooks/useThemeInfo';
 import { Leaderboard } from '@/models/Leaderboard';
 import usePlayerStore from '@/stores/PlayerStore';
 import {
@@ -18,6 +19,8 @@ import {
   fetchRankByScore,
   updatePlayer,
 } from '@/utils/firebase/leaderboard';
+
+import { useLocalSearchParams } from 'expo-router';
 
 type LeaderboardModalProps = {
   show: boolean;
@@ -34,8 +37,12 @@ let rank = 1;
 let previousScore: number | null = null;
 
 const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
+  const { theme } = useLocalSearchParams();
   const [leaderboard, setLeaderboard] = useState<Leaderboard[]>([]);
-  const { starsOfLevel, id, name } = usePlayerStore();
+  const { id, name } = usePlayerStore();
+
+  const { starsOfLevel } = useThemeInfo(Number(theme));
+
   const [myRank, setMyRank] = useState<number>();
   const [lastDoc, setLastDoc] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -52,6 +59,8 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
 
   useEffect(() => {
     const getLeaderboard = async () => {
+      if (!id) return;
+
       setLoading(true);
       // 更新成績
       await updatePlayer(id, totalScore);
@@ -223,7 +232,7 @@ const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
           </View>
           <CoolText
             style={styles.name}
-            text={name}
+            text={name || ''}
             className="text-[#834B4B]"
             fontWeight="medium"
           />

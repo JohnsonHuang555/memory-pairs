@@ -5,6 +5,7 @@ import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import useLevelInfo, { gameMatchCount, gameTheme } from '@/hooks/useLevelInfo';
+import { useThemeInfo } from '@/hooks/useThemeInfo';
 import { ItemType, UseItem } from '@/models/Item';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
@@ -23,8 +24,10 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { replace } = useRouter();
   const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
-  const { items, updatePlayerItem, starsOfLevel } = usePlayerStore();
+  const { items, updatePlayerItem } = usePlayerStore();
   const { setUseItems } = useGameStore();
+
+  const { starsOfLevel } = useThemeInfo(Number(theme));
 
   const [selectedItems, setSelectedItems] = useState<UseItem[]>([]);
   if (!levelInfo) return null;
