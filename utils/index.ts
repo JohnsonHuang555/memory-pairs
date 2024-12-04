@@ -6,19 +6,21 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getOrdinalSuffix = (rank: number) => {
+  if (rank <= 0) return '';
+
   if (rank >= 11 && rank <= 13) {
-    return `${rank}th`;
+    return 'th';
   }
 
   switch (rank % 10) {
     case 1:
-      return `${rank}st`;
+      return 'st';
     case 2:
-      return `${rank}nd`;
+      return 'nd';
     case 3:
-      return `${rank}rd`;
+      return 'rd';
     default:
-      return `${rank}th`;
+      return 'th';
   }
 };
 

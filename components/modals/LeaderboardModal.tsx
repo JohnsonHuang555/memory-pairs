@@ -10,7 +10,6 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
-import { useThemeInfo } from '@/hooks/useThemeInfo';
 import { Leaderboard } from '@/models/Leaderboard';
 import usePlayerStore from '@/stores/PlayerStore';
 import {
@@ -23,6 +22,7 @@ import {
 import { useLocalSearchParams } from 'expo-router';
 
 type LeaderboardModalProps = {
+  totalScore: number;
   show: boolean;
   onClose: () => void;
 };
@@ -36,26 +36,15 @@ const rankImages: { [key: string]: any } = {
 let rank = 1;
 let previousScore: number | null = null;
 
-const LeaderboardModal = ({ show, onClose }: LeaderboardModalProps) => {
+const LeaderboardModal = ({ totalScore, show, onClose }: LeaderboardModalProps) => {
   const { theme } = useLocalSearchParams();
   const [leaderboard, setLeaderboard] = useState<Leaderboard[]>([]);
   const { id, name } = usePlayerStore();
-
-  const { starsOfLevel } = useThemeInfo(Number(theme));
 
   const [myRank, setMyRank] = useState<number>();
   const [lastDoc, setLastDoc] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
-  const totalScore = useMemo(
-    () =>
-      starsOfLevel.reduce((acc, current) => {
-        acc += current.score;
-        return acc;
-      }, 0),
-    [starsOfLevel.length],
-  );
 
   useEffect(() => {
     const getLeaderboard = async () => {

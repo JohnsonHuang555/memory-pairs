@@ -109,7 +109,7 @@ const ShopModal = ({ show, onClose }: ShopModalProps) => {
         <View className="flex-row items-center">
           <Image
             source={require('@/assets/images/icons/coin-2.png')}
-            style={{ width: 24, height: 24, marginRight: 4 }}
+            style={{ width: 24, height: 24, marginRight: 6 }}
           />
           <CoolText text={coins} style={styles.text} fontWeight="medium" />
         </View>
@@ -261,7 +261,7 @@ export default ShopModal;
 const styles = StyleSheet.create({
   text: {
     color: '#834B4B',
-    fontSize: 24,
+    fontSize: 22,
   },
   itemsContainer: {
     borderColor: '#C08A76',

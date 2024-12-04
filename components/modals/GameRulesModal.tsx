@@ -32,7 +32,6 @@ const GameRulesModal = ({ show, onClose }: GameRulesModalProps) => {
             style={styles.rule}
           />
           <CoolText text="- 過關即可開啟下一個關卡" style={styles.rule} />
-          <CoolText text="- 每過十個關卡，難度將會提升" style={styles.rule} />
         </View>
         <View className="mb-4">
           <View className="items-center">
@@ -58,9 +57,9 @@ const GameRulesModal = ({ show, onClose }: GameRulesModalProps) => {
               fontWeight="bold"
             />
           </View>
-          <CoolText text="- 加時 - 增加關卡剩餘時間" style={styles.rule} />
-          <CoolText text="- 提前查看 - 關卡開始前觀看牌底" style={styles.rule} />
-          <CoolText text="- 隨機配對 - 關卡開始後自動完成配對" style={styles.rule} />
+          <CoolText text="- 加時 > 增加關卡剩餘時間" style={styles.rule} />
+          <CoolText text="- 提前查看 > 關卡開始前觀看牌底" style={styles.rule} />
+          <CoolText text="- 隨機配對 > 關卡開始後自動完成配對" style={styles.rule} />
         </View>
       </View>
     </BaseModal>

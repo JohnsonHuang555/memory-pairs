@@ -1,4 +1,7 @@
+import { Level } from '@/models/Level';
 import { animalThemeLevels } from './levels/animal';
+import { colorThemeLevels } from './levels/color';
+import { avatarThemeLevels } from './levels/avatar';
 
 export enum MatchCount {
   Two = 2,
@@ -9,8 +12,10 @@ export enum MatchCount {
   Seven = 7,
 }
 
-export const allLevels = [
+export const allLevels: Level[] = [
   ...animalThemeLevels,
+  ...colorThemeLevels,
+  ...avatarThemeLevels,
   // {
   //   id: 2,
   //   theme: LevelTheme.Food,

@@ -4,6 +4,8 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
+import { allLevels } from '@/constants/AllLevels';
+import { LevelTheme } from '@/models/Level';
 import { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 import useThemeStore from '@/stores/ThemeStore';
@@ -36,6 +38,27 @@ export default function ThemesScreen() {
     () => themes.slice(startIdx, startIdx + itemsPerPage),
     [startIdx],
   );
+
+  const getStarsCount = (themeType: LevelTheme) => {
+    // 關卡星星總數
+    const total =
+      allLevels.filter(level => level.theme === themeType).length * 3;
+    // 關卡玩家獲得星星總數
+    const playerStars = themeList
+      .filter(theme => theme.themeType === themeType)
+      .reduce((acc, current) => {
+        acc += current.starsOfLevel.reduce((a, c) => {
+          a += c.stars;
+          return a;
+        }, 0);
+        return acc;
+      }, 0);
+
+    return {
+      total,
+      playerStars,
+    };
+  };
 
   return (
     <>
@@ -73,7 +96,7 @@ export default function ThemesScreen() {
               key={theme.id}
               entering={FadeIn.delay(100)}
               exiting={FadeOut.duration(100)}
-              className="mb-5 aspect-square w-[30%] rounded-xl p-2"
+              className="mb-5 aspect-square w-[30%] rounded-xl"
               style={[
                 { backgroundColor: '#FFF' },
                 {
@@ -82,21 +105,19 @@ export default function ThemesScreen() {
                     height: 4,
                   },
                   shadowOpacity: 0.2,
-                  borderWidth: 1,
-                  borderColor: '#ebebeb',
                 },
               ]}
             >
               <TouchableOpacity
-                activeOpacity={true ? 0.7 : 1}
+                activeOpacity={totalStars >= theme.unlockStars ? 0.7 : 1}
                 onPress={() => {
-                  // if (!true) {
-                  push(`/levels/${theme.type}`);
-                  // }
+                  if (totalStars >= theme.unlockStars) {
+                    push(`/levels/${theme.type}`);
+                  }
                 }}
               >
                 <View
-                  className="items-center justify-center"
+                  className="items-center justify-center p-2"
                   style={{ width: '100%', height: '100%' }}
                 >
                   <Image
@@ -115,20 +136,35 @@ export default function ThemesScreen() {
                   />
                 </View>
               </TouchableOpacity>
+              {totalStars < theme.unlockStars && (
+                <View
+                  style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: 10,
+                    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+                  }}
+                />
+              )}
               <View
                 style={{
                   position: 'absolute',
-                  top: 6,
+                  top: 8,
                   left: 0,
                   paddingVertical: 4,
                   paddingHorizontal: 4,
                   borderBottomRightRadius: 4,
                   borderTopRightRadius: 4,
-                  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
                 }}
               >
                 <CoolText
-                  text={`100/100`}
+                  text={
+                    totalStars >= theme.unlockStars
+                      ? `${getStarsCount(theme.type).playerStars} / ${getStarsCount(theme.type).total}`
+                      : `需達 ${theme.unlockStars} 星`
+                  }
                   style={{ color: '#FFF', fontSize: 16 }}
                 />
               </View>

@@ -24,6 +24,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { replace } = useRouter();
   const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
+
   const { items, updatePlayerItem } = usePlayerStore();
   const { setUseItems } = useGameStore();
 
@@ -151,7 +152,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
             style={{ fontSize: 18, color: '#717171' }}
           />
           <CoolText
-            text={gameTheme[levelInfo.theme]}
+            text={gameTheme[theme as string]}
             fontWeight="medium"
             style={{ fontSize: 20, color: '#834B4B' }}
           />

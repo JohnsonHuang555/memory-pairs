@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
 
@@ -11,16 +11,17 @@ import LeaderboardModal from '@/components/modals/LeaderboardModal';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
 import WelcomeModal from '@/components/modals/WelcomeModal';
-import useLevelStore, { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
+import { getOrdinalSuffix } from '@/utils';
+import { fetchRankByScore } from '@/utils/firebase/leaderboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 
 export default function HomeScreen() {
-  const { coins, name } = usePlayerStore();
-  const { setDefaultCurrentPage } = useLevelStore();
+  const { coins, name, themeList } = usePlayerStore();
+  const [myRank, setMyRank] = useState<number>();
 
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [showShopModal, setShowShopModal] = useState(false);
@@ -30,18 +31,36 @@ export default function HomeScreen() {
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
-  // useEffect(() => {
-  //   if (currentLevelId) {
-  //     const page = Math.ceil(currentLevelId / itemsPerPage);
-  //     setDefaultCurrentPage(page);
-  //   }
-  // }, [currentLevelId]);
+  const totalScore = useMemo(
+    () =>
+      themeList
+        .map(t => t.starsOfLevel)
+        .reduce((acc, current) => {
+          acc += current.reduce((a, c) => {
+            a += c.score;
+            return a;
+          }, 0);
+          return acc;
+        }, 0),
+    [],
+  );
 
   useEffect(() => {
     if (!name) {
       setShowWelcomeModal(true);
     }
   }, [name]);
+
+  useEffect(() => {
+    const getMyRank = async () => {
+      // 取得當前排名
+      const myRank = await fetchRankByScore(totalScore);
+      setMyRank(myRank);
+    };
+    if (totalScore > 0) {
+      getMyRank();
+    }
+  }, [totalScore]);
 
   return (
     <>
@@ -59,6 +78,7 @@ export default function HomeScreen() {
         onClose={() => setShowAchievementModal(false)}
       />
       <LeaderboardModal
+        totalScore={totalScore}
         show={showLeaderboardModal}
         onClose={() => setShowLeaderboardModal(false)}
       />
@@ -70,12 +90,22 @@ export default function HomeScreen() {
       <Animated.View className="items-center" entering={FadeIn.delay(300)}>
         <View
           className="flex-row items-start justify-between"
-          style={{ width: '80%', position: 'fixed', top: -60 }}
+          style={{ width: '80%', position: 'fixed', top: -40 }}
         >
-          <View className="flex-row">
+          <BounceAnimation
+            onPress={() => {
+              setShowInfoModal(true);
+            }}
+          >
+            <Image
+              source={require('@/assets/images/icons/question.png')}
+              style={{ width: 32, height: 32 }}
+            />
+          </BounceAnimation>
+          <View className="flex-row items-center">
             <Image
               source={require('@/assets/images/icons/coin-2.png')}
-              style={{ width: 30, height: 30, marginRight: 8 }}
+              style={{ width: 28, height: 28, marginRight: 8 }}
             />
             <CoolText
               text={coins}
@@ -83,25 +113,36 @@ export default function HomeScreen() {
               fontWeight="medium"
             />
           </View>
-          <BounceAnimation
-            onPress={() => {
-              setShowInfoModal(true);
-            }}
-          >
-            <Image
-              source={require('@/assets/images/icons/info-circle.png')}
-              style={{ width: 32, height: 32 }}
-            />
-          </BounceAnimation>
         </View>
         <Image
           source={require('@/assets/images/logo.png')}
-          style={{ width: 280, height: 70, marginBottom: 160 }}
+          style={{
+            width: 280,
+            height: 70,
+            marginBottom: 80,
+          }}
           contentFit="contain"
         />
+        <View style={{ marginBottom: 70 }} className="items-center">
+          <CoolText text="排名" style={{ marginBottom: 16, fontSize: 20 }} />
+          <View className="mb-4 flex-row items-end">
+            <CoolText
+              text={myRank || '---'}
+              className="shadow-sm"
+              fontWeight="regular"
+              style={{ fontSize: 65 }}
+            />
+            <CoolText
+              text={getOrdinalSuffix(myRank || 0)}
+              className="shadow-sm"
+              fontWeight="regular"
+              style={{ fontSize: 24, marginBottom: 5 }}
+            />
+          </View>
+        </View>
         <Animated.View
           entering={ZoomIn.delay(200)}
-          style={{ marginBottom: 120 }}
+          style={{ marginBottom: 80 }}
         >
           <BounceAnimation
             scaleValue={0.9}
@@ -116,6 +157,9 @@ export default function HomeScreen() {
                 width: 90,
                 height: 90,
                 marginLeft: 15,
+                shadowOffset: { height: 4, width: 0 },
+                shadowOpacity: 0.5,
+                shadowColor: '#FFF',
               }}
             />
           </BounceAnimation>

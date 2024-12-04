@@ -43,21 +43,6 @@ type PlayerState = {
     stars: number;
     coins: number;
   }) => void;
-  // updateCurrentLevelId: (
-  //   theme: LevelTheme,
-  //   levelInfo: Level,
-  //   totalStars: number,
-  //   maxCombo: number,
-  //   score: number,
-  //   lastLevelId: number,
-  // ) => void;
-  // setStarsOfLevel: (
-  //   theme: LevelTheme,
-  //   id: number,
-  //   stars: number,
-  //   coins: number,
-  //   score: number,
-  // ) => void;
   updatePlayerItem: (
     type: ItemType,
     action: 'purchase' | 'upgrade' | 'use',
@@ -254,50 +239,6 @@ const usePlayerStore = create<PlayerState>()(
       //   //       : state.currentLevelId,
       //   //   playerAchievements: newAchievements,
       //   // }));
-      // },
-      // setStarsOfLevel: (
-      //   themeType: LevelTheme,
-      //   id: number,
-      //   stars: number,
-      //   coins: number,
-      //   score: number,
-      // ) => {
-      //   const themeList = get().themeList.find(
-      //     t => t.themeType === themeType && t.currentLevelId === id,
-      //   );
-
-      //   if (!themeList) return;
-
-      //   const { starsOfLevel } = themeList;
-
-      //   const isAlreadyHasStars = starsOfLevel.find(s => s.id === id);
-      //   if (isAlreadyHasStars) {
-      //     const newStarsOfLevel = starsOfLevel.map(level => {
-      //       if (level.id === id) {
-      //         return {
-      //           ...level,
-      //           stars:
-      //             isAlreadyHasStars.stars < stars
-      //               ? stars
-      //               : isAlreadyHasStars.stars,
-      //           score:
-      //             (isAlreadyHasStars.score || 0) < score
-      //               ? score
-      //               : isAlreadyHasStars.score,
-      //         };
-      //       }
-      //       return level;
-      //     });
-      //     set(state => ({
-      //       starsOfLevel: newStarsOfLevel,
-      //       coins: state.coins + coins,
-      //     }));
-      //   } else {
-      //     set(state => ({
-      //       starsOfLevel: [...state.starsOfLevel, { id, stars, score }],
-      //       coins: state.coins + coins,
-      //     }));
-      //   }
       // },
       updatePlayerItem: (
         type: ItemType,

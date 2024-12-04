@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
@@ -26,14 +26,22 @@ export default function LevelScreen() {
     setPlayLevel,
     setShowLevelModal,
     updateCurrentPage,
+    setDefaultCurrentPage,
   } = useLevelStore();
 
-  // // 根據 currentPage 計算對應的關卡
+  // 根據 currentPage 計算對應的關卡
   const startIdx = (currentPage - 1) * itemsPerPage;
   const currentLevels = useMemo(
     () => levels.slice(startIdx, startIdx + itemsPerPage),
     [startIdx],
   );
+
+  useEffect(() => {
+    if (currentLevelId) {
+      const page = Math.ceil(currentLevelId / itemsPerPage);
+      setDefaultCurrentPage(page);
+    }
+  }, [currentLevelId]);
 
   // const totalStars = useMemo(
   //   () =>
@@ -125,34 +133,38 @@ export default function LevelScreen() {
         showLeftIcon
         showQuestionIcon
       >
-        <View
-          className="mb-6 flex-row items-center justify-end"
-          style={{ gap: 16 }}
-        >
-          <View className="flex-row items-center">
-            <Image
-              source={require('@/assets/images/icons/coin-2.png')}
-              style={{ width: 26, height: 26, marginRight: 6 }}
-            />
-            <CoolText
-              text={coins}
-              className="text-2xl text-[#834B4B]"
-              fontWeight="medium"
-            />
-          </View>
-          <View className="flex-row items-center">
-            <Image
-              source={require('@/assets/images/icons/yellow-star.png')}
-              style={{ width: 26, height: 26, marginRight: 4 }}
-            />
-            <CoolText
-              text={totalStars}
-              className="text-2xl text-[#834B4B]"
-              fontWeight="medium"
-            />
+        <View className="mb-6 flex-row items-center justify-between">
+          <CoolText
+            text={`關卡 ${startIdx + 1} - ${currentPage * 20}`}
+            fontWeight="medium"
+            style={{ fontSize: 20, color: '#834B4B' }}
+          />
+          <View style={{ gap: 16 }} className="flex-row justify-end">
+            <View className="flex-row items-center">
+              <Image
+                source={require('@/assets/images/icons/coin-2.png')}
+                style={{ width: 24, height: 24, marginRight: 6 }}
+              />
+              <CoolText
+                text={coins}
+                className="text-2xl text-[#834B4B]"
+                fontWeight="medium"
+              />
+            </View>
+            <View className="flex-row items-center">
+              <Image
+                source={require('@/assets/images/icons/yellow-star.png')}
+                style={{ width: 26, height: 26, marginRight: 4 }}
+              />
+              <CoolText
+                text={totalStars}
+                className="text-2xl text-[#834B4B]"
+                fontWeight="medium"
+              />
+            </View>
           </View>
         </View>
-        <View className="mb-4 flex-row flex-wrap justify-between">
+        <View className="mb-4 flex-1 flex-row flex-wrap justify-between">
           {currentLevels.map(level => (
             <Animated.View
               key={level.id}
@@ -195,7 +207,7 @@ export default function LevelScreen() {
             </Animated.View>
           ))}
         </View>
-        <View className="flex-row justify-between">
+        <View className="flex-row justify-between" style={{ marginBottom: 40 }}>
           <View>
             {currentPage > 1 && (
               <CoolButton

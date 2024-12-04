@@ -1,6 +1,8 @@
 import { LevelTheme } from '@/models/Level';
 import useLevelStore from '@/stores/LevelStore';
 
+import { useLocalSearchParams } from 'expo-router';
+
 export const gameTheme: { [key: string]: string } = {
   [LevelTheme.ChineseWord]: '中文字',
   [LevelTheme.Color]: '顏色',
@@ -100,9 +102,12 @@ export const gameMatchCount: { [key: string]: string } = {
 };
 
 const useLevelInfo = () => {
+  const { theme } = useLocalSearchParams();
   const { levels, selectedLevelId } = useLevelStore();
 
-  const levelInfo = levels.find(level => level.id === selectedLevelId);
+  const levelInfo = levels
+    .filter(l => l.theme === Number(theme))
+    .find(level => level.id === selectedLevelId);
 
   return {
     levelInfo,

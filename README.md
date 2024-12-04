@@ -5,6 +5,9 @@
 - https://www.svgrepo.com/svg/212456/coin-money
 
 #### questions
+- https://www.svgrepo.com/collection/animals-25/
+- https://www.svgrepo.com/collection/inclusive-avatar-portrait-vectors
+
 - https://www.svgrepo.com/collection/sideview-emoji-vectors/
 - https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
 - https://www.svgrepo.com/collection/bright-fruits-and-vegetables/

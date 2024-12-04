@@ -216,7 +216,7 @@ const FlipCard = React.memo(
               width: '100%',
               height: '100%',
               backgroundColor: card.content,
-              borderRadius: 12,
+              borderRadius: 8,
             }}
           />
         );
