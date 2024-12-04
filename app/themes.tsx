@@ -131,6 +131,9 @@ export default function ThemesScreen() {
                       marginTop: 10,
                       marginBottom: 8,
                       borderRadius: 10,
+                      // borderWidth: 1
+                      // borderWidth: theme.type === LevelTheme.Ancient ? 2 : 0,
+                      // borderColor: '#121212',
                     }}
                   />
                   <CoolText

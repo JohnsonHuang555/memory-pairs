@@ -17,7 +17,7 @@ export const allThemes = [
   },
   {
     id: 3,
-    title: '頭像',
+    title: '人物',
     type: LevelTheme.Avatar,
     image: require('@/assets/images/questions/avatar/avatar-1.svg'),
     unlockStars: 0,

@@ -48,6 +48,8 @@
 
 #### questions
 - https://commons.wikimedia.org/wiki/File:Half_Portraits_of_the_Great_Sage_and_Virtuous_Men_of_Old_-_Confucius.jpg
+- https://www.svgrepo.com/collection/winter-avatar-vectors/
+
 - https://www.svgrepo.com/collection/solar-bold-duotone-icons/
 - https://www.svgrepo.com/collection/type-of-grasses-vectors/
 - https://www.svgrepo.com/collection/animal-outlined-sepia-icons/
