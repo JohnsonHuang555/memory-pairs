@@ -119,11 +119,11 @@ export default function HomeScreen() {
           style={{
             width: 280,
             height: 70,
-            marginBottom: 80,
+            marginBottom: 70,
           }}
           contentFit="contain"
         />
-        <View style={{ marginBottom: 70 }} className="items-center">
+        <View style={{ marginBottom: 50 }} className="items-center">
           <CoolText text="排名" style={{ marginBottom: 16, fontSize: 20 }} />
           <View className="mb-4 flex-row items-end">
             <CoolText
@@ -142,7 +142,7 @@ export default function HomeScreen() {
         </View>
         <Animated.View
           entering={ZoomIn.delay(200)}
-          style={{ marginBottom: 80 }}
+          style={{ marginBottom: 70 }}
         >
           <BounceAnimation
             scaleValue={0.9}

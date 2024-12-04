@@ -69,14 +69,14 @@ const PlayingScreen = () => {
   // 使用先看牌的道具
   const [itemViewFirst, setItemViewFirst] = useState(false);
 
-  const currentAllStars = useMemo(
-    () =>
-      levels.reduce((acc, current) => {
-        acc += current.stars || 0;
-        return acc;
-      }, 0),
-    [],
-  );
+  // const currentAllStars = useMemo(
+  //   () =>
+  //     levels.reduce((acc, current) => {
+  //       acc += current.stars || 0;
+  //       return acc;
+  //     }, 0),
+  //   [],
+  // );
 
   const {
     generateCards,

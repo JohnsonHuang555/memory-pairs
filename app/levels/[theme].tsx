@@ -135,7 +135,7 @@ export default function LevelScreen() {
       >
         <View className="mb-6 flex-row items-center justify-between">
           <CoolText
-            text={`關卡 ${startIdx + 1} - ${currentPage * 20}`}
+            text={`關卡 ${startIdx + 1} - ${levels.length > currentPage * 20 ? currentPage * 20 : levels.length}`}
             fontWeight="medium"
             style={{ fontSize: 20, color: '#834B4B' }}
           />

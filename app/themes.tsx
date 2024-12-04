@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
@@ -39,26 +39,29 @@ export default function ThemesScreen() {
     [startIdx],
   );
 
-  const getStarsCount = (themeType: LevelTheme) => {
-    // 關卡星星總數
-    const total =
-      allLevels.filter(level => level.theme === themeType).length * 3;
-    // 關卡玩家獲得星星總數
-    const playerStars = themeList
-      .filter(theme => theme.themeType === themeType)
-      .reduce((acc, current) => {
-        acc += current.starsOfLevel.reduce((a, c) => {
-          a += c.stars;
-          return a;
+  const getStarsCount = useCallback(
+    (themeType: LevelTheme) => {
+      // 關卡星星總數
+      const total =
+        allLevels.filter(level => level.theme === themeType).length * 3;
+      // 關卡玩家獲得星星總數
+      const playerStars = themeList
+        .filter(theme => theme.themeType === themeType)
+        .reduce((acc, current) => {
+          acc += current.starsOfLevel.reduce((a, c) => {
+            a += c.stars;
+            return a;
+          }, 0);
+          return acc;
         }, 0);
-        return acc;
-      }, 0);
 
-    return {
-      total,
-      playerStars,
-    };
-  };
+      return {
+        total,
+        playerStars,
+      };
+    },
+    [allLevels, themeList],
+  );
 
   return (
     <>
@@ -127,6 +130,7 @@ export default function ThemesScreen() {
                       height: '70%',
                       marginTop: 10,
                       marginBottom: 8,
+                      borderRadius: 10,
                     }}
                   />
                   <CoolText
@@ -156,7 +160,7 @@ export default function ThemesScreen() {
                   paddingHorizontal: 4,
                   borderBottomRightRadius: 4,
                   borderTopRightRadius: 4,
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.53)',
                 }}
               >
                 <CoolText

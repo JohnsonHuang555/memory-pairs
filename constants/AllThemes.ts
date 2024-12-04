@@ -22,10 +22,11 @@ export const allThemes = [
     image: require('@/assets/images/questions/avatar/avatar-1.svg'),
     unlockStars: 0,
   },
-  // {
-  //   id: 4,
-  //   title: '十二星座',
-  //   type: LevelTheme.ZodiacWestern,
-  //   image: require('@/assets/images/questions/zodiac-western/zodiac-western-1.svg'),
-  // },
+  {
+    id: 4,
+    title: '古人',
+    type: LevelTheme.Ancient,
+    image: require('@/assets/images/questions/ancient/ancient-1.jpg'),
+    unlockStars: 0,
+  },
 ];
