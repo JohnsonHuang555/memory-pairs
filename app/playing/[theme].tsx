@@ -341,10 +341,12 @@ const PlayingScreen = () => {
                   style={{ width: 28, height: 28 }}
                 />
               </Animated.View>
-              <View className="items-end" style={{ width: 35 }}>
+              <View
+                className="items-end"
+                style={{ width: timeLeft >= 100 ? 55 : 40 }}
+              >
                 <CoolText
                   text={timeLeft}
-                  className="ml-2"
                   style={{
                     fontSize: 24,
                     color: timeLeft <= 10 ? '#D14343' : '#834B4B',
@@ -357,7 +359,7 @@ const PlayingScreen = () => {
           {/* 牌組 */}
           <View
             className="flex-row flex-wrap justify-between"
-            style={{ marginBottom: 2 }}
+            style={{ marginBottom: 6 }}
           >
             {cards.map(card => (
               <View
@@ -383,13 +385,22 @@ const PlayingScreen = () => {
               </View>
             ))}
           </View>
+        </Animated.View>
+        <View className="flex-row items-center justify-between">
+          <Animated.View entering={FadeIn.delay(300)}>
+            <CoolText
+              text={`提示：${gameMatchCount[levelInfo.matchCount]}`}
+              style={{ fontSize: 20, color: '#834B4B' }}
+              fontWeight="bold"
+            />
+          </Animated.View>
           {/* combo */}
           {combo > 0 && (
             <View className="items-center">
               <Animated.Text
                 entering={BounceIn.duration(500)}
                 style={{
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: 'bold',
                   fontFamily: 'GenSenRounded2TWB',
                   color: '#D14343',
@@ -399,22 +410,7 @@ const PlayingScreen = () => {
               </Animated.Text>
             </View>
           )}
-        </Animated.View>
-        <Animated.View
-          entering={FadeIn.delay(300)}
-          style={{
-            position: 'absolute',
-            bottom: -20,
-            width: '100%',
-            alignItems: 'center',
-          }}
-        >
-          <CoolText
-            text={`提示：${gameMatchCount[levelInfo.matchCount]}`}
-            style={{ fontSize: 20, color: '#834B4B' }}
-            fontWeight="bold"
-          />
-        </Animated.View>
+        </View>
       </MainContainer>
     </>
   );

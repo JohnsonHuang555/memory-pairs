@@ -37,7 +37,7 @@ export default function RootLayout() {
 
   return (
     <>
-      <View className="flex-1" style={{ backgroundColor: '#fff' }}>
+      <View style={{ backgroundColor: '#fff', flex: 1 }}>
         <ImageBackground
           source={require('@/assets/images/background.png')}
           resizeMode="cover"

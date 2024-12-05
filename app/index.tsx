@@ -90,7 +90,7 @@ export default function HomeScreen() {
       <Animated.View className="items-center" entering={FadeIn.delay(300)}>
         <View
           className="flex-row items-start justify-between"
-          style={{ width: '80%', position: 'fixed', top: -40 }}
+          style={{ width: '80%', position: 'fixed', top: -50 }}
         >
           <BounceAnimation
             onPress={() => {
@@ -119,11 +119,11 @@ export default function HomeScreen() {
           style={{
             width: 280,
             height: 70,
-            marginBottom: 70,
+            marginBottom: 110,
           }}
           contentFit="contain"
         />
-        <View style={{ marginBottom: 50 }} className="items-center">
+        <View style={{ marginBottom: 80 }} className="items-center">
           <CoolText text="排名" style={{ marginBottom: 16, fontSize: 20 }} />
           <View className="mb-4 flex-row items-end">
             <CoolText
@@ -142,7 +142,7 @@ export default function HomeScreen() {
         </View>
         <Animated.View
           entering={ZoomIn.delay(200)}
-          style={{ marginBottom: 70 }}
+          style={{ marginBottom: 20 }}
         >
           <BounceAnimation
             scaleValue={0.9}
@@ -154,8 +154,8 @@ export default function HomeScreen() {
             <Image
               source={require('@/assets/images/icons/play.png')}
               style={{
-                width: 90,
-                height: 90,
+                width: 100,
+                height: 100,
                 marginLeft: 15,
                 shadowOffset: { height: 4, width: 0 },
                 shadowOpacity: 0.5,
@@ -164,7 +164,7 @@ export default function HomeScreen() {
             />
           </BounceAnimation>
         </Animated.View>
-        <Animated.View
+        {/* <Animated.View
           entering={FadeIn.delay(500)}
           className="flex-row items-center"
           style={{ gap: 16 }}
@@ -210,7 +210,7 @@ export default function HomeScreen() {
               />
             </View>
           </BounceAnimation>
-        </Animated.View>
+        </Animated.View> */}
       </Animated.View>
     </>
   );
