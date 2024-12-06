@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { LevelTheme } from '@/models/Level';
 import useLevelStore from '@/stores/LevelStore';
 
@@ -21,7 +23,7 @@ export const gameTheme: { [key: string]: string } = {
   [LevelTheme.Coin]: '錢幣',
   [LevelTheme.CarSign]: '汽車信號',
   [LevelTheme.CowboyHat]: '牛仔帽',
-  [LevelTheme.Sushi]: '握壽司',
+  [LevelTheme.Sushi]: '壽司',
   [LevelTheme.Dice]: '骰子',
   [LevelTheme.Jersey]: '球衣',
   [LevelTheme.WaterSport]: '水上活動',
@@ -105,9 +107,210 @@ const useLevelInfo = () => {
   const { theme } = useLocalSearchParams();
   const { levels, selectedLevelId } = useLevelStore();
 
-  const levelInfo = levels
-    .filter(l => l.theme === Number(theme))
-    .find(level => level.id === selectedLevelId);
+  const levelInfo = useMemo(
+    () =>
+      levels
+        .filter(l => l.theme === Number(theme))
+        .map(l => {
+          if (l.matchCount === 2 && l.questions.length === 6) {
+            return {
+              ...l,
+              timer: 40,
+              star1Score: 180,
+              star2Score: 270,
+              star3Score: 360,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 3,
+            };
+          } else if (l.matchCount === 2 && l.questions.length === 8) {
+            return {
+              ...l,
+              timer: 60,
+              star1Score: 240,
+              star2Score: 360,
+              star3Score: 480,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 4,
+            };
+          } else if (l.matchCount === 2 && l.questions.length === 10) {
+            return {
+              ...l,
+              timer: 70,
+              star1Score: 300,
+              star2Score: 450,
+              star3Score: 600,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 4,
+            };
+          } else if (l.matchCount === 2 && l.questions.length === 12) {
+            return {
+              ...l,
+              timer: 80,
+              star1Score: 360,
+              star2Score: 540,
+              star3Score: 720,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 4,
+            };
+          } else if (l.matchCount === 2 && l.questions.length === 15) {
+            return {
+              ...l,
+              timer: 100,
+              star1Score: 450,
+              star2Score: 675,
+              star3Score: 900,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 5,
+            };
+          } else if (l.matchCount === 3 && l.questions.length === 4) {
+            return {
+              ...l,
+              timer: 30,
+              star1Score: 120,
+              star2Score: 180,
+              star3Score: 240,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 3,
+            };
+          } else if (l.matchCount === 3 && l.questions.length === 8) {
+            return {
+              ...l,
+              timer: 70,
+              star1Score: 240,
+              star2Score: 360,
+              star3Score: 480,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 4,
+            };
+          } else if (l.matchCount === 3 && l.questions.length === 10) {
+            return {
+              ...l,
+              timer: 80,
+              star1Score: 300,
+              star2Score: 450,
+              star3Score: 600,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 5,
+            };
+          } else if (l.matchCount === 4 && l.questions.length === 3) {
+            return {
+              ...l,
+              timer: 30,
+              star1Score: 90,
+              star2Score: 135,
+              star3Score: 180,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 3,
+            };
+          } else if (l.matchCount === 4 && l.questions.length === 4) {
+            return {
+              ...l,
+              timer: 40,
+              star1Score: 120,
+              star2Score: 180,
+              star3Score: 240,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 4,
+            };
+          } else if (l.matchCount === 4 && l.questions.length === 5) {
+            return {
+              ...l,
+              timer: 50,
+              star1Score: 150,
+              star2Score: 225,
+              star3Score: 300,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 4,
+            };
+          } else if (l.matchCount === 4 && l.questions.length === 6) {
+            return {
+              ...l,
+              timer: 70,
+              star1Score: 180,
+              star2Score: 270,
+              star3Score: 360,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 4,
+            };
+          } else if (l.matchCount === 5 && l.questions.length === 4) {
+            return {
+              ...l,
+              timer: 50,
+              star1Score: 120,
+              star2Score: 180,
+              star3Score: 240,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 4,
+            };
+          } else if (l.matchCount === 5 && l.questions.length === 5) {
+            return {
+              ...l,
+              timer: 60,
+              star1Score: 150,
+              star2Score: 225,
+              star3Score: 300,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 5,
+            };
+          } else if (l.matchCount === 5 && l.questions.length === 6) {
+            return {
+              ...l,
+              timer: 80,
+              star1Score: 180,
+              star2Score: 270,
+              star3Score: 360,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 5,
+            };
+          } else if (l.matchCount === 5 && l.questions.length === 7) {
+            return {
+              ...l,
+              timer: 100,
+              star1Score: 210,
+              star2Score: 315,
+              star3Score: 420,
+              star1Coins: 10,
+              star2Coins: 30,
+              star3Coins: 50,
+              columns: 5,
+            };
+          } else {
+            return l;
+          }
+        })
+        .find(level => level.id === selectedLevelId),
+    [levels, theme, selectedLevelId],
+  );
 
   return {
     levelInfo,

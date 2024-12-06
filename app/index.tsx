@@ -4,16 +4,15 @@ import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
-import AchievementModal from '@/components/modals/AchievementModal';
 import GameRulesModal from '@/components/modals/GameRulesModal';
 import InfoModal from '@/components/modals/InfoModal';
-import LeaderboardModal from '@/components/modals/LeaderboardModal';
 import SettingsModal from '@/components/modals/SettingsModal';
 import ShopModal from '@/components/modals/ShopModal';
 import WelcomeModal from '@/components/modals/WelcomeModal';
 import usePlayerStore from '@/stores/PlayerStore';
 import { getOrdinalSuffix } from '@/utils';
 import { fetchRankByScore } from '@/utils/firebase/leaderboard';
+import { FontAwesome6, Octicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Image } from 'expo-image';
@@ -27,8 +26,6 @@ export default function HomeScreen() {
   const [showShopModal, setShowShopModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showGameRulesModal, setShowGameRulesModal] = useState(false);
-  const [showAchievementModal, setShowAchievementModal] = useState(false);
-  const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
   const totalScore = useMemo(
@@ -64,23 +61,9 @@ export default function HomeScreen() {
 
   return (
     <>
-      <ShopModal show={showShopModal} onClose={() => setShowShopModal(false)} />
-      <SettingsModal
-        show={showSettingsModal}
-        onClose={() => setShowSettingsModal(false)}
-      />
       <GameRulesModal
         show={showGameRulesModal}
         onClose={() => setShowGameRulesModal(false)}
-      />
-      <AchievementModal
-        show={showAchievementModal}
-        onClose={() => setShowAchievementModal(false)}
-      />
-      <LeaderboardModal
-        totalScore={totalScore}
-        show={showLeaderboardModal}
-        onClose={() => setShowLeaderboardModal(false)}
       />
       <WelcomeModal
         show={showWelcomeModal}
@@ -97,10 +80,7 @@ export default function HomeScreen() {
               setShowInfoModal(true);
             }}
           >
-            <Image
-              source={require('@/assets/images/icons/question.png')}
-              style={{ width: 32, height: 32 }}
-            />
+            <Octicons name="question" size={30} color="#834B4B" />
           </BounceAnimation>
           <View className="flex-row items-center">
             <Image

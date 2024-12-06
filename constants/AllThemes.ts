@@ -27,6 +27,20 @@ export const allThemes = [
     title: '古人',
     type: LevelTheme.Ancient,
     image: require('@/assets/images/questions/ancient/ancient-1.jpg'),
-    unlockStars: 0,
+    unlockStars: 60,
   },
+  {
+    id: 5,
+    title: '表情',
+    type: LevelTheme.Emoji,
+    image: require('@/assets/images/questions/emoji/emoji-34.svg'),
+    unlockStars: 60,
+  },
+  // {
+  //   id: 6,
+  //   title: '壽司',
+  //   type: LevelTheme.Sushi,
+  //   image: require('@/assets/images/questions/sushi/sushi-1.svg'),
+  //   unlockStars: 60,
+  // },
 ];

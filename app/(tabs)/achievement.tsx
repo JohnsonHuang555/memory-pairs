@@ -1,6 +1,7 @@
-import { useCallback } from 'react';
-import { Dimensions, View } from 'react-native';
+import { useCallback, useState } from 'react';
+import { ActivityIndicator, Dimensions, View } from 'react-native';
 import { FlatList, StyleSheet } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
 import CoolButton from '@/components/CoolButton';
@@ -15,15 +16,16 @@ import { useFocusEffect } from 'expo-router';
 
 const AchievementScreen = () => {
   const { playerAchievements, receiveAchievementRewards } = usePlayerStore();
+  const [isLoading, setLoading] = useState(true);
 
   useFocusEffect(
     useCallback(() => {
-      // Fetch data or perform actions when the screen is focused
-      console.log('Fetching data...');
-
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
       // Return a cleanup function if necessary
       return () => {
-        console.log('Screen unfocused, cleanup if needed');
+        setLoading(true);
       };
     }, []),
   );
@@ -88,24 +90,36 @@ const AchievementScreen = () => {
 
   return (
     <MainContainer title="成就" showLeftIcon showQuestionIcon>
-      <View style={{ height: Dimensions.get('window').height - 240 }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={allAchievements.map(achievement => {
-            const playerAchievement = playerAchievements.find(
-              p => p.id === achievement.id,
-            );
+      {!isLoading ? (
+        <Animated.View
+          entering={FadeIn}
+          exiting={FadeOut}
+          style={{ height: Dimensions.get('window').height - 240 }}
+        >
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={allAchievements.map(achievement => {
+              const playerAchievement = playerAchievements.find(
+                p => p.id === achievement.id,
+              );
 
-            return {
-              ...achievement,
-              completed: playerAchievement?.completed || false,
-              received: playerAchievement?.received || false,
-            };
-          })}
-          keyExtractor={item => String(item.id)}
-          renderItem={v => renderItem(v.item)}
-        />
-      </View>
+              return {
+                ...achievement,
+                completed: playerAchievement?.completed || false,
+                received: playerAchievement?.received || false,
+              };
+            })}
+            keyExtractor={item => String(item.id)}
+            renderItem={v => renderItem(v.item)}
+          />
+        </Animated.View>
+      ) : (
+        <View
+          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+        >
+          <ActivityIndicator size="large" />
+        </View>
+      )}
     </MainContainer>
   );
 };

@@ -8,7 +8,6 @@ import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
 import { gameTheme } from '@/hooks/useLevelInfo';
 import { useThemeInfo } from '@/hooks/useThemeInfo';
-import { Level } from '@/models/Level';
 import useLevelStore, { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
@@ -63,10 +62,6 @@ export default function LevelScreen() {
     [currentPage, startIdx],
   );
 
-  const toggleModal = () => {
-    setShowLevelModal(!showLevelModal);
-  };
-
   const checkIsLock = useCallback((levelId: number) => {
     if (levelId <= currentLevelId) {
       return false;
@@ -74,8 +69,8 @@ export default function LevelScreen() {
     return true;
   }, []);
 
-  const renderStars = (level: Level) => {
-    if (checkIsLock(level.id)) {
+  const renderStars = (levelId: number) => {
+    if (checkIsLock(levelId)) {
       return (
         <Image
           source={require('@/assets/images/icons/lock.png')}
@@ -83,7 +78,7 @@ export default function LevelScreen() {
         />
       );
     } else {
-      const playerLevel = starsOfLevel.find(l => l.id === level.id);
+      const playerLevel = starsOfLevel.find(l => l.id === levelId);
       const stars = Array.from({ length: 3 }, (_, i) => i + 1).map(s => {
         if (playerLevel && s <= playerLevel.stars) {
           return (
@@ -107,7 +102,7 @@ export default function LevelScreen() {
       return (
         <View className="flex-1 items-center justify-between">
           <CoolText
-            text={level.id}
+            text={levelId}
             fontWeight="medium"
             style={{ fontSize: 30, marginTop: 6, color: '#FFF' }}
           />
@@ -121,18 +116,18 @@ export default function LevelScreen() {
 
   return (
     <>
-      <LevelSelectModal
-        show={showLevelModal}
-        onClose={() => {
-          setPlayLevel(undefined);
-          setShowLevelModal(false);
-        }}
-      />
       <MainContainer
         title={gameTheme[theme as string]}
         showLeftIcon
         showQuestionIcon
       >
+        <LevelSelectModal
+          show={showLevelModal}
+          onClose={() => {
+            setPlayLevel(undefined);
+            setShowLevelModal(false);
+          }}
+        />
         <View className="mb-6 flex-row items-center justify-between">
           <CoolText
             text={`關卡 ${startIdx + 1} - ${levels.length > currentPage * 20 ? currentPage * 20 : levels.length}`}
@@ -193,7 +188,7 @@ export default function LevelScreen() {
                 onPress={() => {
                   if (!checkIsLock(level.id)) {
                     setPlayLevel(level.id);
-                    toggleModal();
+                    setShowLevelModal(true);
                   }
                 }}
               >
@@ -201,7 +196,7 @@ export default function LevelScreen() {
                   className="items-center justify-center"
                   style={{ width: '100%', height: '100%' }}
                 >
-                  {renderStars(level)}
+                  {renderStars(level.id)}
                 </View>
               </TouchableOpacity>
             </Animated.View>

@@ -1,5 +1,5 @@
-import { useCallback, useMemo } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { useCallback, useMemo, useState } from 'react';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import CoolText from '@/components/CoolText';
@@ -11,12 +11,25 @@ import usePlayerStore from '@/stores/PlayerStore';
 import useThemeStore from '@/stores/ThemeStore';
 
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 
 export default function ThemesScreen() {
   const { coins, themeList } = usePlayerStore();
   const { currentPage, themes } = useThemeStore();
+  const [isLoading, setLoading] = useState(true);
   const { push } = useRouter();
+
+  useFocusEffect(
+    useCallback(() => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
+      // Return a cleanup function if necessary
+      return () => {
+        setLoading(true);
+      };
+    }, []),
+  );
 
   const totalStars = useMemo(
     () =>
@@ -65,116 +78,120 @@ export default function ThemesScreen() {
 
   return (
     <MainContainer title="主題" showLeftIcon showQuestionIcon>
-      <View
-        className="mb-6 flex-row items-center justify-end"
-        style={{ gap: 16 }}
-      >
-        <View className="flex-row items-center">
-          <Image
-            source={require('@/assets/images/icons/coin-2.png')}
-            style={{ width: 24, height: 24, marginRight: 6 }}
-          />
-          <CoolText
-            text={coins}
-            className="text-2xl text-[#834B4B]"
-            fontWeight="medium"
-          />
-        </View>
-        <View className="flex-row items-center">
-          <Image
-            source={require('@/assets/images/icons/yellow-star.png')}
-            style={{ width: 26, height: 26, marginRight: 4 }}
-          />
-          <CoolText
-            text={totalStars}
-            className="text-2xl text-[#834B4B]"
-            fontWeight="medium"
-          />
-        </View>
-      </View>
-      <View className="mb-4 flex-row flex-wrap justify-between">
-        {currentThemes.map(theme => (
-          <Animated.View
-            key={theme.id}
-            entering={FadeIn.delay(100)}
-            exiting={FadeOut.duration(100)}
-            className="mb-5 aspect-square w-[30%] rounded-xl"
-            style={[
-              { backgroundColor: '#FFF' },
-              {
-                shadowOffset: {
-                  width: 0,
-                  height: 4,
-                },
-                shadowOpacity: 0.2,
-              },
-            ]}
+      {!isLoading ? (
+        <Animated.View entering={FadeIn} exiting={FadeOut}>
+          <View
+            className="mb-6 flex-row items-center justify-end"
+            style={{ gap: 16 }}
           >
-            <TouchableOpacity
-              activeOpacity={totalStars >= theme.unlockStars ? 0.7 : 1}
-              onPress={() => {
-                if (totalStars >= theme.unlockStars) {
-                  push(`/levels/${theme.type}`);
-                }
-              }}
-            >
-              <View
-                className="items-center justify-center p-2"
-                style={{ width: '100%', height: '100%' }}
-              >
-                <Image
-                  source={theme.image}
-                  style={{
-                    width: '70%',
-                    height: '70%',
-                    marginTop: 10,
-                    marginBottom: 8,
-                    borderRadius: 10,
-                  }}
-                />
-                <CoolText
-                  text={theme.title}
-                  fontWeight="medium"
-                  style={{ marginBottom: 10, color: '#834B4B', fontSize: 16 }}
-                />
-              </View>
-            </TouchableOpacity>
-            {totalStars < theme.unlockStars && (
-              <View
-                style={{
-                  position: 'absolute',
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: 10,
-                  backgroundColor: 'rgba(0, 0, 0, 0.35)',
-                }}
+            <View className="flex-row items-center">
+              <Image
+                source={require('@/assets/images/icons/coin-2.png')}
+                style={{ width: 24, height: 24, marginRight: 6 }}
               />
-            )}
-            <View
-              style={{
-                position: 'absolute',
-                top: 8,
-                left: 0,
-                paddingVertical: 4,
-                paddingHorizontal: 4,
-                borderBottomRightRadius: 4,
-                borderTopRightRadius: 4,
-                backgroundColor: 'rgba(0, 0, 0, 0.53)',
-              }}
-            >
               <CoolText
-                text={
-                  totalStars >= theme.unlockStars
-                    ? `${getStarsCount(theme.type).playerStars} / ${getStarsCount(theme.type).total}`
-                    : `需達 ${theme.unlockStars} 星`
-                }
-                style={{ color: '#FFF', fontSize: 16 }}
+                text={coins}
+                className="text-2xl text-[#834B4B]"
+                fontWeight="medium"
               />
             </View>
-          </Animated.View>
-        ))}
-      </View>
-      {/* <View className="flex-row justify-between">
+            <View className="flex-row items-center">
+              <Image
+                source={require('@/assets/images/icons/yellow-star.png')}
+                style={{ width: 26, height: 26, marginRight: 4 }}
+              />
+              <CoolText
+                text={totalStars}
+                className="text-2xl text-[#834B4B]"
+                fontWeight="medium"
+              />
+            </View>
+          </View>
+          <View className="mb-4 flex-row flex-wrap justify-between">
+            {currentThemes.map(theme => (
+              <View
+                key={theme.id}
+                className="mb-5 aspect-square w-[30%] rounded-xl"
+                style={[
+                  { backgroundColor: '#FFF' },
+                  {
+                    shadowOffset: {
+                      width: 0,
+                      height: 4,
+                    },
+                    shadowOpacity: 0.2,
+                  },
+                ]}
+              >
+                <TouchableOpacity
+                  activeOpacity={totalStars >= theme.unlockStars ? 0.7 : 1}
+                  onPress={() => {
+                    if (totalStars >= theme.unlockStars) {
+                      push(`/levels/${theme.type}`);
+                    }
+                  }}
+                >
+                  <View
+                    className="items-center justify-center p-2"
+                    style={{ width: '100%', height: '100%' }}
+                  >
+                    <Image
+                      source={theme.image}
+                      style={{
+                        width: '70%',
+                        height: '70%',
+                        marginTop: 10,
+                        marginBottom: 8,
+                        borderRadius: 10,
+                      }}
+                    />
+                    <CoolText
+                      text={theme.title}
+                      fontWeight="medium"
+                      style={{
+                        marginBottom: 10,
+                        color: '#834B4B',
+                        fontSize: 16,
+                      }}
+                    />
+                  </View>
+                </TouchableOpacity>
+                {totalStars < theme.unlockStars && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: 10,
+                      backgroundColor: 'rgba(0, 0, 0, 0.35)',
+                    }}
+                  />
+                )}
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 8,
+                    left: 0,
+                    paddingVertical: 4,
+                    paddingHorizontal: 4,
+                    borderBottomRightRadius: 4,
+                    borderTopRightRadius: 4,
+                    backgroundColor: 'rgba(0, 0, 0, 0.53)',
+                  }}
+                >
+                  <CoolText
+                    text={
+                      totalStars >= theme.unlockStars
+                        ? `${getStarsCount(theme.type).playerStars} / ${getStarsCount(theme.type).total}`
+                        : `需達 ${theme.unlockStars} 星`
+                    }
+                    style={{ color: '#FFF', fontSize: 16 }}
+                  />
+                </View>
+              </View>
+            ))}
+          </View>
+          {/* <View className="flex-row justify-between">
           <View>
             {currentPage > 1 && (
               <CoolButton
@@ -206,6 +223,14 @@ export default function ThemesScreen() {
             />
           )}
         </View> */}
+        </Animated.View>
+      ) : (
+        <View
+          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+        >
+          <ActivityIndicator size="large" />
+        </View>
+      )}
     </MainContainer>
   );
 }

@@ -4,8 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import BounceAnimation from './BounceAnimation';
 import CoolText from './CoolText';
 import GameRulesModal from './modals/GameRulesModal';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
-import { Image } from 'expo-image';
 import { useRouter, useSegments } from 'expo-router';
 
 type MainContainerProps = {
@@ -47,9 +47,10 @@ const MainContainer = ({
                   }
                 }}
               >
-                <Image
-                  source={require('@/assets/images/icons/left-arrow.png')}
-                  style={{ width: 40, height: 40 }}
+                <MaterialIcons
+                  name="arrow-back-ios-new"
+                  size={30}
+                  color="#834B4B"
                 />
               </BounceAnimation>
             )}
@@ -63,9 +64,10 @@ const MainContainer = ({
           <View style={{ width: 40, alignItems: 'flex-end' }}>
             {showQuestionIcon && (
               <BounceAnimation onPress={() => setGameRuleModal(true)}>
-                <Image
-                  source={require('@/assets/images/icons/question.png')}
-                  style={{ width: 32, height: 32 }}
+                <MaterialCommunityIcons
+                  name="file-document-outline"
+                  size={30}
+                  color="#834B4B"
                 />
               </BounceAnimation>
             )}
