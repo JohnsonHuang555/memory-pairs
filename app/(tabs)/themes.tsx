@@ -87,12 +87,12 @@ export default function ThemesScreen() {
             <View className="flex-row items-center">
               <Image
                 source={require('@/assets/images/icons/coin-2.png')}
-                style={{ width: 24, height: 24, marginRight: 6 }}
+                style={{ width: 22, height: 22, marginRight: 6 }}
               />
               <CoolText
                 text={coins}
-                className="text-2xl text-[#834B4B]"
                 fontWeight="medium"
+                style={{ fontSize: 20, color: '#834B4B' }}
               />
             </View>
             <View className="flex-row items-center">
@@ -102,8 +102,8 @@ export default function ThemesScreen() {
               />
               <CoolText
                 text={totalStars}
-                className="text-2xl text-[#834B4B]"
                 fontWeight="medium"
+                style={{ fontSize: 20, color: '#834B4B' }}
               />
             </View>
           </View>

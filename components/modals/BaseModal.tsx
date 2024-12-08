@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import CoolText from '../CoolText';
+import Toast from 'react-native-toast-message';
 
 const { height } = Dimensions.get('window');
 
@@ -124,6 +125,7 @@ const BaseModal = ({
         </View>
         {children}
       </Animated.View>
+      <Toast />
     </Modal>
   );
 };

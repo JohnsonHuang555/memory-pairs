@@ -169,22 +169,26 @@ const LeaderboardScreen = () => {
                 fontWeight={id === item.id ? 'bold' : 'medium'}
               />
             </View>
-            <CoolText
-              style={[
-                styles.name,
-                { color: id === item.id ? '#D14343' : '#834B4B' },
-              ]}
-              text={item.name}
-              fontWeight="medium"
-            />
-            <CoolText
-              style={[
-                styles.score,
-                { color: id === item.id ? '#D14343' : '#834B4B' },
-              ]}
-              text={item.score}
-              fontWeight="bold"
-            />
+            <View style={{ width: 120 }}>
+              <CoolText
+                style={[
+                  styles.name,
+                  { color: id === item.id ? '#D14343' : '#834B4B' },
+                ]}
+                text={item.name}
+                fontWeight="medium"
+              />
+            </View>
+            <View style={{ flex: 1, alignItems: 'flex-end' }}>
+              <CoolText
+                style={[
+                  styles.score,
+                  { color: id === item.id ? '#D14343' : '#834B4B' },
+                ]}
+                text={item.score}
+                fontWeight="bold"
+              />
+            </View>
           </View>
         );
         break;
@@ -271,7 +275,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7e1d0',
     borderWidth: 2,
     borderColor: '#C08A76',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,

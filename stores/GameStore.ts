@@ -18,6 +18,7 @@ type GameState = {
   stars: number;
   isCompleteGame: boolean;
   useItems: UseItem[];
+  needUpdatePlayerInfo: boolean;
   setStars: (stars: number) => void;
   generateCards: (levelInfo: Level) => void;
   onFlip: (id: number) => void;
@@ -42,6 +43,7 @@ const initState = {
   stars: 0,
   isCompleteGame: false,
   useItems: [],
+  needUpdatePlayerInfo: false
 };
 
 const useGameStore = create<GameState>((set, get) => ({
@@ -781,6 +783,9 @@ const useGameStore = create<GameState>((set, get) => ({
     set(state => ({
       score: state.score + remainedTime * 5,
     }));
+    setTimeout(() => {
+      set(() => ({needUpdatePlayerInfo: true}))
+    }, 1000);
   },
   setUseItems: (useItems: UseItem[]) => {
     set(() => ({ useItems }));

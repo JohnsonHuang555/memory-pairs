@@ -11,10 +11,7 @@ type GameRulesModalProps = {
 const GameRulesModal = ({ show, onClose }: GameRulesModalProps) => {
   return (
     <BaseModal title="遊戲規則" show={show} width={85} onClose={onClose}>
-      <View
-        className="items-center"
-        style={{ marginVertical: 4 }}
-      >
+      <View className="items-center" style={{ marginVertical: 4 }}>
         <View className="mb-4">
           <View className="items-center">
             <CoolText
@@ -33,7 +30,7 @@ const GameRulesModal = ({ show, onClose }: GameRulesModalProps) => {
           />
           <CoolText text="- 過關即可開啟下一個關卡" style={styles.rule} />
         </View>
-        <View className="mb-4">
+        <View>
           <View className="items-center">
             <CoolText
               text="-- 計分 --"
@@ -48,18 +45,6 @@ const GameRulesModal = ({ show, onClose }: GameRulesModalProps) => {
           />
           <CoolText text="- 連續成功配對可觸發 Combo" style={styles.rule} />
           <CoolText text="- 每 Combo 額外獲得 30 分" style={styles.rule} />
-        </View>
-        <View className="justify-start">
-          <View className="items-center">
-            <CoolText
-              text="-- 道具 --"
-              style={{ fontSize: 20, color: '#834B4B', marginBottom: 12 }}
-              fontWeight="bold"
-            />
-          </View>
-          <CoolText text="- 加時 > 增加關卡剩餘時間" style={styles.rule} />
-          <CoolText text="- 提前查看 > 關卡開始前觀看牌底" style={styles.rule} />
-          <CoolText text="- 隨機配對 > 關卡開始後自動完成配對" style={styles.rule} />
         </View>
       </View>
     </BaseModal>

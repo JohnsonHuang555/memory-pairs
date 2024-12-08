@@ -4,15 +4,12 @@ import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
-import GameRulesModal from '@/components/modals/GameRulesModal';
 import InfoModal from '@/components/modals/InfoModal';
-import SettingsModal from '@/components/modals/SettingsModal';
-import ShopModal from '@/components/modals/ShopModal';
 import WelcomeModal from '@/components/modals/WelcomeModal';
 import usePlayerStore from '@/stores/PlayerStore';
 import { getOrdinalSuffix } from '@/utils';
 import { fetchRankByScore } from '@/utils/firebase/leaderboard';
-import { FontAwesome6, Octicons } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Image } from 'expo-image';
@@ -23,9 +20,6 @@ export default function HomeScreen() {
   const [myRank, setMyRank] = useState<number>();
 
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-  const [showShopModal, setShowShopModal] = useState(false);
-  const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [showGameRulesModal, setShowGameRulesModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
   const totalScore = useMemo(
@@ -61,10 +55,6 @@ export default function HomeScreen() {
 
   return (
     <>
-      <GameRulesModal
-        show={showGameRulesModal}
-        onClose={() => setShowGameRulesModal(false)}
-      />
       <WelcomeModal
         show={showWelcomeModal}
         onClose={() => setShowWelcomeModal(false)}
@@ -77,6 +67,7 @@ export default function HomeScreen() {
         >
           <BounceAnimation
             onPress={() => {
+              AsyncStorage.clear()
               setShowInfoModal(true);
             }}
           >

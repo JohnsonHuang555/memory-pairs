@@ -142,8 +142,8 @@ export default function LevelScreen() {
               />
               <CoolText
                 text={coins}
-                className="text-2xl text-[#834B4B]"
                 fontWeight="medium"
+                style={{ fontSize: 24, color: '#834B4B' }}
               />
             </View>
             <View className="flex-row items-center">

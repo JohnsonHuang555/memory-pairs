@@ -24,12 +24,12 @@ const MainLayout = () => {
           options={{ title: '成就', headerShown: false }}
         />
         <Tabs.Screen
-          name="shop"
-          options={{ title: '商店', headerShown: false }}
-        />
-        <Tabs.Screen
           name="leaderboard"
           options={{ title: '排行', headerShown: false }}
+        />
+        <Tabs.Screen
+          name="shop"
+          options={{ title: '商店', headerShown: false }}
         />
         <Tabs.Screen
           name="settings"

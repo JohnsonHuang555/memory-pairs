@@ -88,6 +88,7 @@ const PlayingScreen = () => {
     combo,
     isCompleteGame,
     stars,
+    needUpdatePlayerInfo,
     finalCalculateScore,
     useItems,
     setAutoPairsItemEffect,
@@ -95,7 +96,7 @@ const PlayingScreen = () => {
 
   // 使用 useSharedValue 定義動畫數值
   const scoreAnimatedValue = useSharedValue(0);
-  const remainedTimeAnimatedValue = useSharedValue(0);
+  const remainedTimeAnimatedValue = useSharedValue(timeLeft);
   const timerRotationValue = useSharedValue<number>(0);
 
   if (!levelInfo) return null;
@@ -156,7 +157,7 @@ const PlayingScreen = () => {
   // 驅動動畫，將數值從 0 變到 score
   useEffect(() => {
     scoreAnimatedValue.value = withTiming(score, { duration: 500 }, () => {
-      if (isCompleteGame && remainedTimeAnimatedValue.value === 0) {
+      if (needUpdatePlayerInfo) {
         // 更新成績
         runOnJS(updateLevel)(levelInfo.id, stars);
 
@@ -181,13 +182,12 @@ const PlayingScreen = () => {
         });
       }
     });
-  }, [score]);
+  }, [score, stars, needUpdatePlayerInfo]);
 
   // 遊戲過關
   useEffect(() => {
     if (isCompleteGame) {
       stopTimer();
-      remainedTimeAnimatedValue.value = timeLeft;
 
       const interval = setInterval(() => {
         setTimeLeft(Math.floor(remainedTimeAnimatedValue.value));

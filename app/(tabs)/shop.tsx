@@ -9,7 +9,6 @@ import {
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
-import CoolButton from '@/components/CoolButton';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import PurchaseItemModal from '@/components/modals/PurchaseItemModal';
@@ -23,6 +22,7 @@ import { useFocusEffect } from 'expo-router';
 export type SelectedItem = Omit<PlayerItem, 'quantity'> & {
   name: string;
   description: string;
+  quantity: number;
 };
 
 const ShopScreen = () => {
@@ -147,12 +147,12 @@ const ShopScreen = () => {
             <View className="flex-row items-center">
               <Image
                 source={require('@/assets/images/icons/coin-2.png')}
-                style={{ width: 24, height: 24, marginRight: 6 }}
+                style={{ width: 22, height: 22, marginRight: 6 }}
               />
               <CoolText
                 text={coins}
-                className="text-2xl text-[#834B4B]"
                 fontWeight="medium"
+                style={{ fontSize: 20, color: '#834B4B' }}
               />
             </View>
           </View>
@@ -197,6 +197,7 @@ const ShopScreen = () => {
                           level,
                           name: name || '',
                           description: description || '',
+                          quantity
                         });
                         setShowPurchaseItemModal(true);
                       }}
@@ -214,7 +215,7 @@ const ShopScreen = () => {
                         {getItemIcon(item.type)}
                         <CoolText
                           text={
-                            level === maxLevel ? 'Max' : `Lv. ${level || 1}`
+                            level >= maxLevel ? 'Max' : `Lv. ${level || 1}`
                           }
                           style={{
                             fontSize: 14,
