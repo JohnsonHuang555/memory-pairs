@@ -181,7 +181,7 @@ const PlayingScreen = () => {
         });
       }
     });
-  }, [score, stars]);
+  }, [score]);
 
   // 遊戲過關
   useEffect(() => {

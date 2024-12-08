@@ -7,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import Toast from 'react-native-toast-message';
 
 import CoolText from '../CoolText';
 
@@ -125,7 +124,6 @@ const BaseModal = ({
         </View>
         {children}
       </Animated.View>
-      <Toast />
     </Modal>
   );
 };

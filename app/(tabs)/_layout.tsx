@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import TabBar from '@/components/TabBar';
 
@@ -35,6 +36,7 @@ const MainLayout = () => {
           options={{ title: '設定', headerShown: false }}
         />
       </Tabs>
+      <Toast />
     </View>
   );
 };

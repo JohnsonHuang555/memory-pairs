@@ -199,7 +199,7 @@ const LeaderboardScreen = () => {
     <MainContainer title="排行榜" showLeftIcon showQuestionIcon>
       {!pageLoading ? (
         <Animated.View entering={FadeIn} exiting={FadeOut}>
-          <View style={{ height: Dimensions.get('window').height - 240 }}>
+          <View style={{ height: Dimensions.get('window').height - 230 }}>
             {leaderboard.length ? (
               <FlatList
                 showsVerticalScrollIndicator={false}

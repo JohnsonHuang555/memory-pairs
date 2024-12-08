@@ -30,7 +30,6 @@ const useLevelStore = create<LevelState>((set, get) => ({
     columns: 0,
     timer: 0,
     stars: 0,
-    bestScore: 0,
   })),
   showLevelModal: false,
   setPlayLevel: (id?: number) => {

@@ -94,7 +94,7 @@ const AchievementScreen = () => {
         <Animated.View
           entering={FadeIn}
           exiting={FadeOut}
-          style={{ height: Dimensions.get('window').height - 240 }}
+          style={{ height: Dimensions.get('window').height - 230 }}
         >
           <FlatList
             showsVerticalScrollIndicator={false}
