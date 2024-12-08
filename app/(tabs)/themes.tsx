@@ -6,6 +6,7 @@ import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import { allLevels } from '@/constants/AllLevels';
 import { LevelTheme } from '@/models/Level';
+import { Theme } from '@/models/Theme';
 import { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 import useThemeStore from '@/stores/ThemeStore';
@@ -14,7 +15,7 @@ import { Image } from 'expo-image';
 import { useFocusEffect, useRouter } from 'expo-router';
 
 export default function ThemesScreen() {
-  const { coins, themeList } = usePlayerStore();
+  const { coins, themeList, purchaseThemeIds } = usePlayerStore();
   const { currentPage, themes } = useThemeStore();
   const [isLoading, setLoading] = useState(true);
   const { push } = useRouter();
@@ -76,6 +77,29 @@ export default function ThemesScreen() {
     [allLevels, themeList],
   );
 
+  const getThemeText = (theme: Theme) => {
+    const isAlreadyPurchase = purchaseThemeIds.find(id => id === theme.id);
+    if (theme.price && !isAlreadyPurchase) {
+      return `需 ${theme.price} 金`;
+    }
+    if (theme.unlockStars && totalStars < theme.unlockStars) {
+      return `需達 ${theme.unlockStars} 星`;
+    } else {
+      return `${getStarsCount(theme.type).playerStars} / ${getStarsCount(theme.type).total}`;
+    }
+  };
+
+  const isLock = (theme: Theme) => {
+    const isAlreadyPurchase = purchaseThemeIds.find(id => id === theme.id);
+    if (theme.price && !isAlreadyPurchase) {
+      return true;
+    }
+    if (theme.unlockStars && totalStars < theme.unlockStars) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <MainContainer title="主題" showLeftIcon showQuestionIcon>
       {!isLoading ? (
@@ -124,9 +148,9 @@ export default function ThemesScreen() {
                 ]}
               >
                 <TouchableOpacity
-                  activeOpacity={totalStars >= theme.unlockStars ? 0.7 : 1}
+                  activeOpacity={!isLock(theme) ? 0.7 : 1}
                   onPress={() => {
-                    if (totalStars >= theme.unlockStars) {
+                    if (!isLock(theme)) {
                       push(`/levels/${theme.type}`);
                     }
                   }}
@@ -156,7 +180,7 @@ export default function ThemesScreen() {
                     />
                   </View>
                 </TouchableOpacity>
-                {totalStars < theme.unlockStars && (
+                {isLock(theme) && (
                   <View
                     style={{
                       position: 'absolute',
@@ -180,49 +204,13 @@ export default function ThemesScreen() {
                   }}
                 >
                   <CoolText
-                    text={
-                      totalStars >= theme.unlockStars
-                        ? `${getStarsCount(theme.type).playerStars} / ${getStarsCount(theme.type).total}`
-                        : `需達 ${theme.unlockStars} 星`
-                    }
+                    text={getThemeText(theme)}
                     style={{ color: '#FFF', fontSize: 16 }}
                   />
                 </View>
               </View>
             ))}
           </View>
-          {/* <View className="flex-row justify-between">
-          <View>
-            {currentPage > 1 && (
-              <CoolButton
-                prefix={
-                  <Image
-                    source={require('@/assets/images/icons/arrow-left-2.png')}
-                    style={{ width: 24, height: 24 }}
-                  />
-                }
-                height={50}
-                width={50}
-                backgroundColor="#919191"
-                onClick={() => updateCurrentPage(-1)}
-              />
-            )}
-          </View>
-          {themes.length > 20 * currentPage && (
-            <CoolButton
-              prefix={
-                <Image
-                  source={require('@/assets/images/icons/arrow-right-2.png')}
-                  style={{ width: 24, height: 24 }}
-                />
-              }
-              height={50}
-              width={50}
-              backgroundColor="#919191"
-              onClick={() => updateCurrentPage(1)}
-            />
-          )}
-        </View> */}
         </Animated.View>
       ) : (
         <View

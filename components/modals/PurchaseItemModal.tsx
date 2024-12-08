@@ -1,6 +1,5 @@
-import React from 'react';
+import { useState } from 'react';
 import { View } from 'react-native';
-import Toast from 'react-native-toast-message';
 
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
@@ -25,13 +24,17 @@ const PurchaseItemModal = ({
   onUpgrade,
 }: PurchaseItemModalProps) => {
   const { coins } = usePlayerStore();
+  const [showCoinNotEnoughText, setShowCoinNotEnoughText] = useState(false);
 
   return (
     <BaseModal
       title={selectedItem?.name || ''}
       show={show}
       width={75}
-      onClose={onClose}
+      onClose={() => {
+        setShowCoinNotEnoughText(false);
+        onClose();
+      }}
     >
       <View className="items-center">
         <CoolText
@@ -43,6 +46,13 @@ const PurchaseItemModal = ({
           fontWeight="medium"
           style={{ fontSize: 18, marginBottom: 20, color: '#834B4B' }}
         />
+        {showCoinNotEnoughText && (
+          <CoolText
+            text="金幣不足 !"
+            fontWeight="bold"
+            style={{ fontSize: 16, marginBottom: 20, color: '#D14343' }}
+          />
+        )}
         <View className="flex-row" style={{ gap: 12 }}>
           <CoolButton
             width={110}
@@ -55,11 +65,7 @@ const PurchaseItemModal = ({
             }
             onClick={() => {
               if (selectedItem && coins < selectedItem.upgradeGold) {
-                Toast.show({
-                  type: 'error',
-                  visibilityTime: 1000,
-                  text1: '💰 金幣不足',
-                });
+                setShowCoinNotEnoughText(true);
                 return;
               }
 
@@ -79,15 +85,11 @@ const PurchaseItemModal = ({
             }
             onClick={() => {
               if (selectedItem && coins < selectedItem.purchaseGold) {
-                Toast.show({
-                  type: 'error',
-                  visibilityTime: 1000,
-                  text1: '💰 金幣不足',
-                });
+                setShowCoinNotEnoughText(true);
                 return;
               }
 
-              if (selectedItem && selectedItem.quantity) {
+              if (selectedItem) {
                 onPurchase(selectedItem.type);
               }
             }}

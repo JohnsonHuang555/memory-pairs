@@ -12,8 +12,11 @@ import Toast from 'react-native-toast-message';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import PurchaseItemModal from '@/components/modals/PurchaseItemModal';
+import PurchaseThemeModal from '@/components/modals/PurchaseThemeModal';
 import { allItems } from '@/constants/AllItems';
+import { allThemes } from '@/constants/AllThemes';
 import { ItemType, PlayerItem } from '@/models/Item';
+import { Theme } from '@/models/Theme';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
@@ -26,10 +29,18 @@ export type SelectedItem = Omit<PlayerItem, 'quantity'> & {
 };
 
 const ShopScreen = () => {
-  const [showPurchaseItemModal, setShowPurchaseItemModal] = useState(false);
-  const { coins, items, updatePlayerItem } = usePlayerStore();
+  const {
+    coins,
+    items,
+    updatePlayerItem,
+    purchaseThemeIds,
+    updatePurchaseThemeIds,
+  } = usePlayerStore();
   const [isLoading, setLoading] = useState(false);
+  const [showPurchaseItemModal, setShowPurchaseItemModal] = useState(false);
+  const [showPurchaseThemeModal, setShowPurchaseThemeModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<SelectedItem>();
+  const [selectedTheme, setSelectedTheme] = useState<Theme>();
 
   useFocusEffect(
     useCallback(() => {
@@ -138,6 +149,20 @@ const ShopScreen = () => {
           setShowPurchaseItemModal(false);
         }}
       />
+      <PurchaseThemeModal
+        selectedTheme={selectedTheme}
+        show={showPurchaseThemeModal}
+        onClose={() => setShowPurchaseThemeModal(false)}
+        onPurchase={id => {
+          Toast.show({
+            type: 'success',
+            visibilityTime: 1000,
+            text1: '✅ 購買成功',
+          });
+          updatePurchaseThemeIds(id);
+          setShowPurchaseThemeModal(false);
+        }}
+      />
       {!isLoading ? (
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <View
@@ -161,82 +186,184 @@ const ShopScreen = () => {
               height: Dimensions.get('window').height - 280,
             }}
           >
-            <CoolText
-              text="道具"
-              style={{ fontSize: 20, color: '#834B4B', marginBottom: 20 }}
-            />
-            <View className="flex-row justify-between">
-              {allItems.map(item => {
-                const currentItem = items.find(i => i.type === item.type);
-                if (!currentItem) return null;
+            <View style={{ marginBottom: 20 }}>
+              <CoolText
+                text="道具"
+                style={{ fontSize: 20, color: '#834B4B', marginBottom: 16 }}
+              />
+              <View className="flex-row justify-between">
+                {allItems.map(item => {
+                  const currentItem = items.find(i => i.type === item.type);
+                  if (!currentItem) return null;
 
-                const { quantity, level, maxLevel, name, description } =
-                  getItemInfo(currentItem);
+                  const { quantity, level, maxLevel, name, description } =
+                    getItemInfo(currentItem);
 
-                return (
-                  <View
-                    className="w-[31%] rounded-xl"
-                    key={item.type}
-                    style={[
-                      {
-                        height: 130,
-                        backgroundColor: '#FFF',
-                        shadowOffset: {
-                          width: 0,
-                          height: 4,
+                  return (
+                    <View
+                      className="w-[31%] rounded-xl"
+                      key={item.type}
+                      style={[
+                        {
+                          height: 130,
+                          backgroundColor: '#FFF',
+                          shadowOffset: {
+                            width: 0,
+                            height: 4,
+                          },
+                          shadowOpacity: 0.2,
                         },
-                        shadowOpacity: 0.2,
-                      },
-                    ]}
-                  >
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      onPress={() => {
-                        setSelectedItem({
-                          ...item,
-                          level,
-                          name: name || '',
-                          description: description || '',
-                          quantity
-                        });
-                        setShowPurchaseItemModal(true);
-                      }}
+                      ]}
                     >
-                      <View
-                        className="items-center justify-center p-2"
-                        style={{ width: '100%', height: '100%' }}
+                      <TouchableOpacity
+                        activeOpacity={0.7}
+                        onPress={() => {
+                          setSelectedItem({
+                            ...item,
+                            level,
+                            name: name || '',
+                            description: description || '',
+                            quantity,
+                          });
+                          setShowPurchaseItemModal(true);
+                        }}
                       >
-                        <View style={styles.itemQuantity}>
+                        <View
+                          className="items-center justify-center p-2"
+                          style={{ width: '100%', height: '100%' }}
+                        >
+                          <View style={styles.itemQuantity}>
+                            <CoolText
+                              text={quantity || 0}
+                              style={{ fontSize: 16, color: '#FFF' }}
+                            />
+                          </View>
+                          {getItemIcon(item.type)}
                           <CoolText
-                            text={quantity || 0}
-                            style={{ fontSize: 16, color: '#FFF' }}
+                            text={
+                              level >= maxLevel ? 'Max' : `Lv. ${level || 1}`
+                            }
+                            style={{
+                              fontSize: 14,
+                              marginVertical: 8,
+                              color: '#D14343',
+                            }}
+                            fontWeight="bold"
+                          />
+                          <CoolText
+                            text={name}
+                            fontWeight="medium"
+                            style={{
+                              color: '#834B4B',
+                              fontSize: 16,
+                            }}
                           />
                         </View>
-                        {getItemIcon(item.type)}
-                        <CoolText
-                          text={
-                            level >= maxLevel ? 'Max' : `Lv. ${level || 1}`
-                          }
-                          style={{
-                            fontSize: 14,
-                            marginVertical: 8,
-                            color: '#D14343',
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+            <View style={{ marginBottom: 20 }}>
+              <CoolText
+                text="主題"
+                style={{ fontSize: 20, color: '#834B4B', marginBottom: 16 }}
+              />
+              <View className="flex-row justify-between">
+                {allThemes
+                  .filter(t => t.price)
+                  .map(theme => {
+                    const alreadyPurchase = purchaseThemeIds.find(
+                      id => id === theme.id,
+                    );
+
+                    return (
+                      <View
+                        className="w-[31%] rounded-xl"
+                        key={theme.type}
+                        style={[
+                          {
+                            height: 130,
+                            backgroundColor: '#FFF',
+                            shadowOffset: {
+                              width: 0,
+                              height: 4,
+                            },
+                            shadowOpacity: 0.2,
+                          },
+                        ]}
+                      >
+                        <TouchableOpacity
+                          activeOpacity={alreadyPurchase ? 1 : 0.7}
+                          onPress={() => {
+                            if (alreadyPurchase) return;
+                            setSelectedTheme(theme);
+                            setShowPurchaseThemeModal(true);
                           }}
-                          fontWeight="bold"
-                        />
-                        <CoolText
-                          text={name}
-                          fontWeight="medium"
-                          style={{
-                            color: '#834B4B',
-                            fontSize: 16,
-                          }}
-                        />
+                        >
+                          <View
+                            className="items-center justify-center p-2"
+                            style={{ width: '100%', height: '100%' }}
+                          >
+                            <Image
+                              source={theme.image}
+                              style={{
+                                width: 60,
+                                height: 60,
+                              }}
+                            />
+                            <CoolText
+                              text={`$ ${String(theme.price)}`}
+                              style={{
+                                fontSize: 14,
+                                marginVertical: 8,
+                                color: '#D14343',
+                              }}
+                              fontWeight="bold"
+                            />
+                            <CoolText
+                              text={theme.title}
+                              fontWeight="medium"
+                              style={{
+                                color: '#834B4B',
+                                fontSize: 16,
+                              }}
+                            />
+                          </View>
+                          {alreadyPurchase && (
+                            <View
+                              style={{
+                                position: 'absolute',
+                                width: '100%',
+                                height: '100%',
+                                borderRadius: 10,
+                                backgroundColor: 'rgba(0, 0, 0, 0.35)',
+                              }}
+                            />
+                          )}
+                          <View
+                            style={{
+                              position: 'absolute',
+                              top: 8,
+                              left: 0,
+                              paddingVertical: 4,
+                              paddingHorizontal: 4,
+                              borderBottomRightRadius: 4,
+                              borderTopRightRadius: 4,
+                              backgroundColor: 'rgba(0, 0, 0, 0.53)',
+                            }}
+                          >
+                            <CoolText
+                              text="✅ 已購買"
+                              style={{ color: '#FFF', fontSize: 16 }}
+                            />
+                          </View>
+                        </TouchableOpacity>
                       </View>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
+                    );
+                  })}
+              </View>
             </View>
           </View>
         </Animated.View>

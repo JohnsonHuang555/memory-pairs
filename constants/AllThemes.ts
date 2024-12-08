@@ -6,21 +6,18 @@ export const allThemes = [
     title: '動物',
     type: LevelTheme.Animal,
     image: require('@/assets/images/questions/animal/animal-28.svg'),
-    unlockStars: 0,
   },
   {
     id: 2,
     title: '顏色',
     type: LevelTheme.Color,
     image: require('@/assets/images/themes/color.svg'),
-    unlockStars: 0,
   },
   {
     id: 3,
     title: '人物',
     type: LevelTheme.Avatar,
     image: require('@/assets/images/questions/avatar/avatar-1.svg'),
-    unlockStars: 0,
   },
   {
     id: 4,
@@ -34,7 +31,7 @@ export const allThemes = [
     title: '表情',
     type: LevelTheme.Emoji,
     image: require('@/assets/images/questions/emoji/emoji-34.svg'),
-    unlockStars: 60,
+    price: 100,
   },
   // {
   //   id: 6,

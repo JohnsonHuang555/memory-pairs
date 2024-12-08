@@ -67,7 +67,7 @@ export default function HomeScreen() {
         >
           <BounceAnimation
             onPress={() => {
-              AsyncStorage.clear()
+              AsyncStorage.clear();
               setShowInfoModal(true);
             }}
           >
@@ -90,7 +90,7 @@ export default function HomeScreen() {
           style={{
             width: 280,
             height: 70,
-            marginBottom: 110,
+            marginBottom: 90,
           }}
           contentFit="contain"
         />
@@ -120,7 +120,7 @@ export default function HomeScreen() {
             onPress={() => {
               router.push('/themes');
             }}
-            className="h-[120px] w-[120px] items-center justify-center rounded-full bg-[#E3803E]"
+            className="h-[130px] w-[130px] items-center justify-center rounded-full bg-[#E3803E]"
           >
             <Image
               source={require('@/assets/images/icons/play.png')}

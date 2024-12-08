@@ -5,5 +5,6 @@ export type Theme = {
   title: string;
   type: LevelTheme;
   image: any;
-  unlockStars: number;
+  unlockStars?: number;
+  price?: number;
 };

@@ -31,6 +31,7 @@ type PlayerState = {
   themeList: PlayerThemeInfo[];
   coins: number;
   items: PlayerItem[];
+  purchaseThemeIds: number[];
   playerAchievements: PlayerAchievement[];
   isMusicOn: boolean;
   isSoundOn: boolean;
@@ -47,6 +48,7 @@ type PlayerState = {
     type: ItemType,
     action: 'purchase' | 'upgrade' | 'use',
   ) => void;
+  updatePurchaseThemeIds: (id: number) => void;
   receiveAchievementRewards: (id: number, rewards: number) => void;
   setIsMusicOn: () => void;
   setIsSoundOn: () => void;
@@ -87,6 +89,7 @@ const usePlayerStore = create<PlayerState>()(
         received: false,
         completed: false,
       })),
+      purchaseThemeIds: [],
       isMusicOn: true,
       isSoundOn: true,
       // 過關
@@ -263,6 +266,9 @@ const usePlayerStore = create<PlayerState>()(
           return item;
         });
         set(state => ({ items: newItems, coins: state.coins - price }));
+      },
+      updatePurchaseThemeIds: (id: number) => {
+        set(state => ({ purchaseThemeIds: [...state.purchaseThemeIds, id] }));
       },
       receiveAchievementRewards: (id: number, rewards: number) => {
         const playerAchievements = get().playerAchievements;

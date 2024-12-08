@@ -39,9 +39,13 @@ const SettingsScreen = () => {
   };
 
   return (
-    <MainContainer title="遊戲設定" showLeftIcon showQuestionIcon>
+    <MainContainer title="設定" showLeftIcon showQuestionIcon>
       {!isLoading ? (
-        <>
+        <View>
+          <CoolText
+            text="基本"
+            style={{ fontSize: 20, color: '#834B4B', marginBottom: 6 }}
+          />
           <View
             className="mb-4 flex-row justify-between"
             style={{ marginVertical: 10, width: '100%' }}
@@ -81,7 +85,7 @@ const SettingsScreen = () => {
               style={{ width: 80 }}
             />
           </View>
-        </>
+        </View>
       ) : (
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}

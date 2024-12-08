@@ -125,7 +125,6 @@ const BaseModal = ({
         </View>
         {children}
       </Animated.View>
-      <Toast />
     </Modal>
   );
 };
