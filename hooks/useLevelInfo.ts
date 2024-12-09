@@ -92,6 +92,7 @@ export const gameTheme: { [key: string]: string } = {
   [LevelTheme.Travel]: '旅遊活動',
   [LevelTheme.Autumn]: '秋天',
   [LevelTheme.Bell]: '鈴鐺',
+  [LevelTheme.Furniture]: '傢俱',
 };
 
 export const gameMatchCount: { [key: string]: string } = {

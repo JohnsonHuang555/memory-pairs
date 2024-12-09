@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
+import { View } from 'react-native';
+import Animated, { BounceIn, FadeIn, ZoomIn } from 'react-native-reanimated';
 
 import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
@@ -60,7 +60,7 @@ export default function HomeScreen() {
         onClose={() => setShowWelcomeModal(false)}
       />
       <InfoModal show={showInfoModal} onClose={() => setShowInfoModal(false)} />
-      <Animated.View className="items-center" entering={FadeIn.delay(300)}>
+      <Animated.View className="items-center" entering={FadeIn.delay(200)}>
         <View
           className="flex-row items-start justify-between"
           style={{ width: '80%', position: 'fixed', top: -50 }}
@@ -85,16 +85,22 @@ export default function HomeScreen() {
             />
           </View>
         </View>
-        <Image
-          source={require('@/assets/images/logo.png')}
-          style={{
-            width: 280,
-            height: 70,
-            marginBottom: 90,
-          }}
-          contentFit="contain"
-        />
-        <View style={{ marginBottom: 80 }} className="items-center">
+        <Animated.View entering={ZoomIn.delay(500)}>
+          <Image
+            source={require('@/assets/images/logo.png')}
+            style={{
+              width: 280,
+              height: 70,
+              marginBottom: 90,
+            }}
+            contentFit="contain"
+          />
+        </Animated.View>
+        <Animated.View
+          entering={ZoomIn.delay(800)}
+          style={{ marginBottom: 80 }}
+          className="items-center"
+        >
           <CoolText text="排名" style={{ marginBottom: 16, fontSize: 20 }} />
           <View className="mb-4 flex-row items-end">
             <CoolText
@@ -110,9 +116,9 @@ export default function HomeScreen() {
               style={{ fontSize: 24, marginBottom: 5 }}
             />
           </View>
-        </View>
+        </Animated.View>
         <Animated.View
-          entering={ZoomIn.delay(200)}
+          entering={BounceIn.delay(1100)}
           style={{ marginBottom: 20 }}
         >
           <BounceAnimation
@@ -135,63 +141,7 @@ export default function HomeScreen() {
             />
           </BounceAnimation>
         </Animated.View>
-        {/* <Animated.View
-          entering={FadeIn.delay(500)}
-          className="flex-row items-center"
-          style={{ gap: 16 }}
-        >
-          <BounceAnimation onPress={() => setShowShopModal(true)}>
-            <View style={styles.actions}>
-              <Image
-                source={require('@/assets/images/icons/shop.png')}
-                style={{ width: 40, height: 40 }}
-              />
-            </View>
-          </BounceAnimation>
-          <BounceAnimation onPress={() => setShowAchievementModal(true)}>
-            <View style={styles.actions}>
-              <Image
-                source={require('@/assets/images/icons/trophy.png')}
-                style={{ width: 34, height: 34 }}
-              />
-            </View>
-          </BounceAnimation>
-          <BounceAnimation
-            onPress={() => {
-              setShowLeaderboardModal(true);
-            }}
-          >
-            <View style={styles.actions}>
-              <Image
-                source={require('@/assets/images/icons/leaderboard.png')}
-                style={{ width: 46, height: 46 }}
-              />
-            </View>
-          </BounceAnimation>
-          <BounceAnimation
-            onPress={() => {
-              // AsyncStorage.clear();
-              setShowSettingsModal(true);
-            }}
-          >
-            <View style={styles.actions}>
-              <Image
-                source={require('@/assets/images/icons/settings.png')}
-                style={{ width: 38, height: 38 }}
-              />
-            </View>
-          </BounceAnimation>
-        </Animated.View> */}
       </Animated.View>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  actions: {
-    width: 60,
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

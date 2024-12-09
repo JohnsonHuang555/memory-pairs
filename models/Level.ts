@@ -110,4 +110,5 @@ export enum LevelTheme {
   MobileGesture = 87,
   Travel = 88,
   Autumn = 89,
+  Furniture = 90,
 }

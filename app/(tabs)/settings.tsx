@@ -44,6 +44,7 @@ const SettingsScreen = () => {
         <View>
           <CoolText
             text="基本"
+            fontWeight="medium"
             style={{ fontSize: 20, color: '#834B4B', marginBottom: 6 }}
           />
           <View

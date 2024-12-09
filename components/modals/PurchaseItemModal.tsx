@@ -64,6 +64,7 @@ const PurchaseItemModal = ({
                 : '#E3803E'
             }
             onClick={() => {
+              if (!selectedItem) return;
               if (selectedItem && coins < selectedItem.upgradeGold) {
                 setShowCoinNotEnoughText(true);
                 return;

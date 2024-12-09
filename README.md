@@ -7,12 +7,14 @@
 #### questions
 - https://www.svgrepo.com/collection/animals-25/
 - https://www.svgrepo.com/collection/inclusive-avatar-portrait-vectors
-
+- https://www.svgrepo.com/collection/types-of-leaves-vectors/
 - https://www.svgrepo.com/collection/sideview-emoji-vectors/
+- https://www.svgrepo.com/collection/tree-variations-flat-icons/
+- https://www.svgrepo.com/collection/furniture-soft-color-vectors/
+
 - https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
 - https://www.svgrepo.com/collection/bright-fruits-and-vegetables/
 - https://www.svgrepo.com/collection/gift-packages-flat-icons/
-- https://www.svgrepo.com/collection/types-of-leaves-vectors/
 - https://www.svgrepo.com/collection/music-instruments-flat-icons/
 - https://www.svgrepo.com/collection/transportation-flat-icons/
 - https://www.svgrepo.com/collection/social-activities-bordered-flat-icons/
@@ -27,7 +29,7 @@
 - https://www.svgrepo.com/collection/cute-ice-cream-vectors/
 - https://www.svgrepo.com/collection/water-sports-flat-icons/
 - https://www.svgrepo.com/collection/travel-theme-candy-vectors/
-- https://www.svgrepo.com/collection/tree-variations-flat-icons/
+- 
 - https://www.svgrepo.com/collection/public-information-symbols-vectors/
 - https://www.svgrepo.com/collection/cooking-food-vectors/
 - https://www.svgrepo.com/collection/autumn-and-fall-vectors/

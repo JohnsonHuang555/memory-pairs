@@ -33,11 +33,29 @@ export const allThemes = [
     image: require('@/assets/images/questions/emoji/emoji-34.svg'),
     price: 100,
   },
-  // {
-  //   id: 6,
-  //   title: '壽司',
-  //   type: LevelTheme.Sushi,
-  //   image: require('@/assets/images/questions/sushi/sushi-1.svg'),
-  //   unlockStars: 60,
-  // },
+  {
+    id: 6,
+    title: '葉子',
+    type: LevelTheme.Leaves,
+    image: require('@/assets/images/questions/leave/leave-13.svg'),
+  },
+  {
+    id: 7,
+    title: '樹木',
+    type: LevelTheme.Tree,
+    image: require('@/assets/images/questions/tree/tree-18.svg'),
+    price: 5000,
+  },
+  {
+    id: 8,
+    title: '仙人掌',
+    type: LevelTheme.Cactus,
+    image: require('@/assets/images/questions/cactus/cactus-3.svg'),
+  },
+  {
+    id: 9,
+    title: '傢俱',
+    type: LevelTheme.Furniture,
+    image: require('@/assets/images/questions/furniture/furniture-3.svg'),
+  },
 ];

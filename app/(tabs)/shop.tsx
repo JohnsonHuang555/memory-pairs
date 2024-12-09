@@ -18,6 +18,7 @@ import { allThemes } from '@/constants/AllThemes';
 import { ItemType, PlayerItem } from '@/models/Item';
 import { Theme } from '@/models/Theme';
 import usePlayerStore from '@/stores/PlayerStore';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { Image } from 'expo-image';
 import { useFocusEffect } from 'expo-router';
@@ -127,7 +128,10 @@ const ShopScreen = () => {
       <PurchaseItemModal
         show={showPurchaseItemModal}
         selectedItem={selectedItem}
-        onClose={() => setShowPurchaseItemModal(false)}
+        onClose={() => {
+          setSelectedItem(undefined);
+          setShowPurchaseItemModal(false)
+        }}
         onPurchase={type => {
           Toast.show({
             type: 'success',
@@ -152,7 +156,10 @@ const ShopScreen = () => {
       <PurchaseThemeModal
         selectedTheme={selectedTheme}
         show={showPurchaseThemeModal}
-        onClose={() => setShowPurchaseThemeModal(false)}
+        onClose={() => {
+          setSelectedTheme(undefined);
+          setShowPurchaseThemeModal(false)
+        }}
         onPurchase={id => {
           Toast.show({
             type: 'success',
@@ -160,6 +167,7 @@ const ShopScreen = () => {
             text1: '✅ 購買成功',
           });
           updatePurchaseThemeIds(id);
+          setSelectedTheme(undefined);
           setShowPurchaseThemeModal(false);
         }}
       />
@@ -189,6 +197,7 @@ const ShopScreen = () => {
             <View style={{ marginBottom: 20 }}>
               <CoolText
                 text="道具"
+                fontWeight="medium"
                 style={{ fontSize: 20, color: '#834B4B', marginBottom: 16 }}
               />
               <View className="flex-row justify-between">
@@ -268,6 +277,7 @@ const ShopScreen = () => {
             <View style={{ marginBottom: 20 }}>
               <CoolText
                 text="主題"
+                fontWeight="medium"
                 style={{ fontSize: 20, color: '#834B4B', marginBottom: 16 }}
               />
               <View className="flex-row justify-between">
@@ -316,7 +326,7 @@ const ShopScreen = () => {
                             <CoolText
                               text={`$ ${String(theme.price)}`}
                               style={{
-                                fontSize: 14,
+                                fontSize: 16,
                                 marginVertical: 8,
                                 color: '#D14343',
                               }}
@@ -338,27 +348,27 @@ const ShopScreen = () => {
                                 width: '100%',
                                 height: '100%',
                                 borderRadius: 10,
-                                backgroundColor: 'rgba(0, 0, 0, 0.35)',
+                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                               }}
-                            />
+                            >
+                              <MaterialIcons
+                                name="check-circle"
+                                color="#FFF"
+                                size={30}
+                              />
+                              <CoolText
+                                text="已購買"
+                                fontWeight="medium"
+                                style={{
+                                  color: '#FFF',
+                                  fontSize: 16,
+                                  marginTop: 10,
+                                }}
+                              />
+                            </View>
                           )}
-                          <View
-                            style={{
-                              position: 'absolute',
-                              top: 8,
-                              left: 0,
-                              paddingVertical: 4,
-                              paddingHorizontal: 4,
-                              borderBottomRightRadius: 4,
-                              borderTopRightRadius: 4,
-                              backgroundColor: 'rgba(0, 0, 0, 0.53)',
-                            }}
-                          >
-                            <CoolText
-                              text="✅ 已購買"
-                              style={{ color: '#FFF', fontSize: 16 }}
-                            />
-                          </View>
                         </TouchableOpacity>
                       </View>
                     );
