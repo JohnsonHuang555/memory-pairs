@@ -97,6 +97,8 @@ const AchievementScreen = () => {
           style={{ height: Dimensions.get('window').height - 230 }}
         >
           <FlatList
+            bounces={false}
+            overScrollMode="never"
             showsVerticalScrollIndicator={false}
             data={allAchievements.map(achievement => {
               const playerAchievement = playerAchievements.find(

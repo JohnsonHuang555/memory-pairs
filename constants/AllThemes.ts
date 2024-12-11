@@ -58,4 +58,16 @@ export const allThemes = [
     type: LevelTheme.Furniture,
     image: require('@/assets/images/questions/furniture/furniture-3.svg'),
   },
+  {
+    id: 10,
+    title: '中文字',
+    type: LevelTheme.ChineseWord,
+    image: require('@/assets/images/questions/themes/chinese.svg'),
+  },
+  {
+    id: 11,
+    title: '智慧錶',
+    type: LevelTheme.Clock,
+    image: require('@/assets/images/questions/themes/smart-watch-18.svg'),
+  },
 ];

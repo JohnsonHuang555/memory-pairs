@@ -14,7 +14,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 
 export default function ThemesScreen() {
   const { coins, themeList, purchaseThemeIds } = usePlayerStore();
-  const { currentPage, themes } = useThemeStore();
+  const { themes } = useThemeStore();
   const [isLoading, setLoading] = useState(true);
   const { push } = useRouter();
 
@@ -45,21 +45,19 @@ export default function ThemesScreen() {
   );
 
   const sortedArray = themes.sort((a, b) => {
-    // 规则 1：优先比较是否有 `unlockStars` 或 `price` 属性
     const getPriority = (item: Theme) => {
-      if (!('unlockStars' in item) && !('price' in item)) return 0; // 无 `unlockStars` 和 `price`
-      if ('unlockStars' in item) return 1; // 有 `unlockStars`
-      if ('price' in item) return 2; // 有 `price`
+      if (!('unlockStars' in item) && !('price' in item)) return 0;
+      if ('unlockStars' in item) return 1;
+      if ('price' in item) return 2;
     };
 
     const priorityA = getPriority(a) as any;
     const priorityB = getPriority(b) as any;
 
     if (priorityA !== priorityB) {
-      return priorityA - priorityB; // 按优先级排序
+      return priorityA - priorityB;
     }
 
-    // 规则 2：优先级相同时按 `id` 升序排序
     return a.id - b.id;
   });
 

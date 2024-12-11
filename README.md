@@ -11,6 +11,7 @@
 - https://www.svgrepo.com/collection/sideview-emoji-vectors/
 - https://www.svgrepo.com/collection/tree-variations-flat-icons/
 - https://www.svgrepo.com/collection/furniture-soft-color-vectors/
+- https://www.svgrepo.com/collection/smart-watch-filled-line-icons/
 
 - https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
 - https://www.svgrepo.com/collection/bright-fruits-and-vegetables/

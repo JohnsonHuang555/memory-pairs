@@ -31,7 +31,7 @@ const PurchaseThemeModal = ({
 
   return (
     <BaseModal
-      title="主題"
+      title="購買主題"
       show={show}
       width={75}
       onClose={() => {
@@ -40,15 +40,32 @@ const PurchaseThemeModal = ({
       }}
     >
       <View className="items-center">
-        <CoolText
-          text={`此主題共 ${levelsCount} 關`}
-          style={{ fontSize: 16, marginBottom: 16, color: '#834B4B' }}
-        />
-        <CoolText
-          text={`確定要購買 <${selectedTheme?.title}>主題 ?`}
-          fontWeight="medium"
-          style={{ fontSize: 18, marginBottom: 20, color: '#834B4B' }}
-        />
+        <View className="flex-col" style={{ marginBottom: 20, gap: 16 }}>
+          <View className="flex-row items-center justify-between">
+            <CoolText
+              text="主題"
+              fontWeight="medium"
+              style={{ fontSize: 18, color: '#717171' }}
+            />
+            <CoolText
+              text={selectedTheme?.title || ''}
+              fontWeight="medium"
+              style={{ fontSize: 20, color: '#834B4B' }}
+            />
+          </View>
+          <View className="flex-row items-center justify-between">
+            <CoolText
+              text="關卡數"
+              fontWeight="medium"
+              style={{ fontSize: 18, color: '#717171' }}
+            />
+            <CoolText
+              text={levelsCount}
+              fontWeight="medium"
+              style={{ fontSize: 20, color: '#834B4B' }}
+            />
+          </View>
+        </View>
         {showCoinNotEnoughText && (
           <CoolText
             text="金幣不足 !"
