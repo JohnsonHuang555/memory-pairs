@@ -76,4 +76,16 @@ export const allThemes = [
     type: LevelTheme.Notice,
     image: require('@/assets/images/questions/notice/notice-38.svg'),
   },
+  {
+    id: 13,
+    title: '太空',
+    type: LevelTheme.Notice,
+    image: require('@/assets/images/questions/space/space-3.svg'),
+  },
+  {
+    id: 14,
+    title: '草叢',
+    type: LevelTheme.Grass,
+    image: require('@/assets/images/questions/grass/grass-2.png'),
+  },
 ];

@@ -158,6 +158,7 @@ const PlayingScreen = () => {
   useEffect(() => {
     scoreAnimatedValue.value = withTiming(score, { duration: 500 }, () => {
       if (needUpdatePlayerInfo) {
+        console.log(needUpdatePlayerInfo, levelInfo.id, stars, '?????')
         // 更新成績
         runOnJS(updateLevel)(levelInfo.id, stars);
 

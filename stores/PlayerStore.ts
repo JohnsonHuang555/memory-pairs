@@ -147,7 +147,7 @@ const usePlayerStore = create<PlayerState>()(
               ...state.themeList,
               {
                 themeType,
-                currentLevelId: 1,
+                currentLevelId: 2,
                 starsOfLevel: [
                   {
                     id: levelInfo.id,

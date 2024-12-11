@@ -38,4 +38,5 @@ export enum LevelTheme {
   Clothe = 85,
   Furniture = 90,
   Notice = 91,
+  Space = 92,
 }

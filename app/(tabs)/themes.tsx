@@ -1,5 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
@@ -145,97 +151,99 @@ export default function ThemesScreen() {
               />
             </View>
           </View>
-          <View className="mb-4 flex-row flex-wrap justify-between">
-            {sortedArray.map(theme => (
-              <View
-                key={theme.id}
-                className="mb-5 w-[30%] rounded-xl"
-                style={[
-                  { backgroundColor: '#FFF', height: 110 },
-                  {
-                    shadowOffset: {
-                      width: 0,
-                      height: 4,
+          <ScrollView style={{ height: Dimensions.get('window').height - 280 }}>
+            <View className="mb-4 flex-row flex-wrap justify-between">
+              {sortedArray.map(theme => (
+                <View
+                  key={theme.id}
+                  className="mb-5 w-[30%] rounded-xl"
+                  style={[
+                    { backgroundColor: '#FFF', height: 110 },
+                    {
+                      shadowOffset: {
+                        width: 0,
+                        height: 4,
+                      },
+                      shadowOpacity: 0.2,
                     },
-                    shadowOpacity: 0.2,
-                  },
-                ]}
-              >
-                <TouchableOpacity
-                  activeOpacity={!isLock(theme) ? 0.7 : 1}
-                  onPress={() => {
-                    if (!isLock(theme)) {
-                      push(`/levels/${theme.type}`);
-                    }
-                  }}
+                  ]}
                 >
-                  <View
-                    className="items-center justify-center p-2"
-                    style={{ width: '100%', height: '100%' }}
-                  >
-                    <Image
-                      source={theme.image}
-                      style={{
-                        width: 60,
-                        height: 60,
-                        marginTop: 8,
-                        marginBottom: 8,
-                        borderRadius: 10,
-                      }}
-                    />
-                    <CoolText
-                      text={theme.title}
-                      fontWeight="medium"
-                      style={{
-                        color: '#834B4B',
-                        marginBottom: 6,
-                        fontSize: 16,
-                      }}
-                    />
-                  </View>
-                </TouchableOpacity>
-                {isLock(theme) && (
                   <TouchableOpacity
                     activeOpacity={!isLock(theme) ? 0.7 : 1}
                     onPress={() => {
-                      console.log(isLock(theme), theme.price);
-                      if (isLock(theme) && theme.price) {
-                        Toast.show({
-                          type: 'info',
-                          text1: '請到商店購買此主題',
-                          visibilityTime: 1000,
-                          text1Style: { fontSize: 14 },
-                        });
+                      if (!isLock(theme)) {
+                        push(`/levels/${theme.type}`);
                       }
-                      if (isLock(theme) && theme.unlockStars) {
-                        Toast.show({
-                          type: 'info',
-                          text1: `總星數須達 ${theme.unlockStars}`,
-                          visibilityTime: 1000,
-                          text1Style: { fontSize: 14 },
-                        });
-                      }
-                    }}
-                    style={{
-                      position: 'absolute',
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: 10,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     }}
                   >
-                    {/* <View
-                    > */}
-                    <MaterialIcons name="lock" color="#FFF" size={40} />
-                    {getLockInfo(theme)}
-                    {/* </View> */}
+                    <View
+                      className="items-center justify-center p-2"
+                      style={{ width: '100%', height: '100%' }}
+                    >
+                      <Image
+                        source={theme.image}
+                        style={{
+                          width: 60,
+                          height: 60,
+                          marginTop: 8,
+                          marginBottom: 8,
+                          borderRadius: 10,
+                        }}
+                      />
+                      <CoolText
+                        text={theme.title}
+                        fontWeight="medium"
+                        style={{
+                          color: '#834B4B',
+                          marginBottom: 6,
+                          fontSize: 16,
+                        }}
+                      />
+                    </View>
                   </TouchableOpacity>
-                )}
-              </View>
-            ))}
-          </View>
+                  {isLock(theme) && (
+                    <TouchableOpacity
+                      activeOpacity={!isLock(theme) ? 0.7 : 1}
+                      onPress={() => {
+                        console.log(isLock(theme), theme.price);
+                        if (isLock(theme) && theme.price) {
+                          Toast.show({
+                            type: 'info',
+                            text1: '請到商店購買此主題',
+                            visibilityTime: 2000,
+                            text1Style: { fontSize: 14 },
+                          });
+                        }
+                        if (isLock(theme) && theme.unlockStars) {
+                          Toast.show({
+                            type: 'info',
+                            text1: `總星數須達 ${theme.unlockStars}`,
+                            visibilityTime: 2000,
+                            text1Style: { fontSize: 14 },
+                          });
+                        }
+                      }}
+                      style={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 10,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      }}
+                    >
+                      {/* <View
+                    > */}
+                      <MaterialIcons name="lock" color="#FFF" size={40} />
+                      {getLockInfo(theme)}
+                      {/* </View> */}
+                    </TouchableOpacity>
+                  )}
+                </View>
+              ))}
+            </View>
+          </ScrollView>
         </Animated.View>
       ) : (
         <View

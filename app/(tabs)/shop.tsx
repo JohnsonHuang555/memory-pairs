@@ -135,7 +135,7 @@ const ShopScreen = () => {
         onPurchase={type => {
           Toast.show({
             type: 'success',
-            visibilityTime: 1000,
+            visibilityTime: 2000,
             text1: '✅ 購買成功',
             text1Style: { fontSize: 14 },
           });
@@ -146,7 +146,7 @@ const ShopScreen = () => {
         onUpgrade={type => {
           Toast.show({
             type: 'success',
-            visibilityTime: 1000,
+            visibilityTime: 2000,
             text1: '⬆️ 升級成功',
             text1Style: { fontSize: 14 },
           });
@@ -165,7 +165,7 @@ const ShopScreen = () => {
         onPurchase={id => {
           Toast.show({
             type: 'success',
-            visibilityTime: 1000,
+            visibilityTime: 2000,
             text1: '✅ 購買成功',
             text1Style: { fontSize: 14 },
           });

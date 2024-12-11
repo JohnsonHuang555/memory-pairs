@@ -51,6 +51,7 @@ const useLevelStore = create<LevelState>((set, get) => ({
       return level;
     });
 
+    console.log(newLevels, 'new')
     set(() => ({
       levels: newLevels,
     }));

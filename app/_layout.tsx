@@ -14,7 +14,28 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [assets] = useAssets([require('@/assets/images/background.png')]);
+  const [assets] = useAssets([
+    require('@/assets/images/background.png'),
+    require('@/assets/images/questions/grass/grass-1.png'),
+    require('@/assets/images/questions/grass/grass-2.png'),
+    require('@/assets/images/questions/grass/grass-3.png'),
+    require('@/assets/images/questions/grass/grass-4.png'),
+    require('@/assets/images/questions/grass/grass-5.png'),
+    require('@/assets/images/questions/grass/grass-6.png'),
+    require('@/assets/images/questions/grass/grass-7.png'),
+    require('@/assets/images/questions/grass/grass-8.png'),
+    require('@/assets/images/questions/grass/grass-9.png'),
+    require('@/assets/images/questions/grass/grass-10.png'),
+    require('@/assets/images/questions/grass/grass-11.png'),
+    require('@/assets/images/questions/grass/grass-12.png'),
+    require('@/assets/images/questions/grass/grass-13.png'),
+    require('@/assets/images/questions/grass/grass-14.png'),
+    require('@/assets/images/questions/grass/grass-15.png'),
+    require('@/assets/images/questions/grass/grass-16.png'),
+    require('@/assets/images/questions/grass/grass-17.png'),
+    require('@/assets/images/questions/grass/grass-18.png'),
+    require('@/assets/images/questions/grass/grass-19.png'),
+  ]);
 
   const [loaded] = useFonts({
     GenSenRounded2TWB: require('../assets/fonts/GenSenRounded2TW-B.otf'), // 粗體
