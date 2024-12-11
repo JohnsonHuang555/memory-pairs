@@ -2,10 +2,8 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import CoolText from './CoolText';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 
 const TabBar = ({ state, descriptors, navigation }: any) => {
-  const router = useRouter();
   const primaryColor = '#834B4B';
   const greyColor = '#8E8E8E';
 

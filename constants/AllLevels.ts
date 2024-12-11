@@ -7,6 +7,7 @@ import { colorThemeLevels } from './levels/color';
 import { emojiThemeLevels } from './levels/emoji';
 import { furnitureThemeLevels } from './levels/furniture';
 import { leaveThemeLevels } from './levels/leave';
+import { noticeThemeLevels } from './levels/notice';
 import { smartWatchThemeLevels } from './levels/smart-watch';
 import { treeThemeLevels } from './levels/tree';
 
@@ -31,4 +32,5 @@ export const allLevels = [
   ...furnitureThemeLevels,
   ...chineseThemeLevels,
   ...smartWatchThemeLevels,
+  ...noticeThemeLevels,
 ];

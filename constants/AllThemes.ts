@@ -62,12 +62,18 @@ export const allThemes = [
     id: 10,
     title: '中文字',
     type: LevelTheme.ChineseWord,
-    image: require('@/assets/images/questions/themes/chinese.svg'),
+    image: require('@/assets/images/themes/chinese.svg'),
   },
   {
     id: 11,
-    title: '智慧錶',
-    type: LevelTheme.Clock,
-    image: require('@/assets/images/questions/themes/smart-watch-18.svg'),
+    title: '智慧手錶',
+    type: LevelTheme.SmartWatch,
+    image: require('@/assets/images/questions/smart-watch/smart-watch-18.svg'),
+  },
+  {
+    id: 12,
+    title: '公共標誌',
+    type: LevelTheme.Notice,
+    image: require('@/assets/images/questions/notice/notice-38.svg'),
   },
 ];

@@ -137,6 +137,7 @@ const ShopScreen = () => {
             type: 'success',
             visibilityTime: 1000,
             text1: '✅ 購買成功',
+            text1Style: { fontSize: 14 },
           });
           updatePlayerItem(type, 'purchase');
           setSelectedItem(undefined);
@@ -147,6 +148,7 @@ const ShopScreen = () => {
             type: 'success',
             visibilityTime: 1000,
             text1: '⬆️ 升級成功',
+            text1Style: { fontSize: 14 },
           });
           updatePlayerItem(type, 'upgrade');
           setSelectedItem(undefined);
@@ -165,6 +167,7 @@ const ShopScreen = () => {
             type: 'success',
             visibilityTime: 1000,
             text1: '✅ 購買成功',
+            text1Style: { fontSize: 14 },
           });
           updatePurchaseThemeIds(id);
           setSelectedTheme(undefined);

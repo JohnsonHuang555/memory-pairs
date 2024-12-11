@@ -74,7 +74,8 @@ const AchievementScreen = () => {
           Toast.show({
             type: 'info',
             text1: `💰 獲得 ${rewards} 金幣`,
-            visibilityTime: 2000,
+            visibilityTime: 1000,
+            text1Style: { fontSize: 14 },
           });
           receiveAchievementRewards(id, rewards);
         }}

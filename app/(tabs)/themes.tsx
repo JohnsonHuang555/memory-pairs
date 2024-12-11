@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
@@ -194,7 +195,27 @@ export default function ThemesScreen() {
                   </View>
                 </TouchableOpacity>
                 {isLock(theme) && (
-                  <View
+                  <TouchableOpacity
+                    activeOpacity={!isLock(theme) ? 0.7 : 1}
+                    onPress={() => {
+                      console.log(isLock(theme), theme.price);
+                      if (isLock(theme) && theme.price) {
+                        Toast.show({
+                          type: 'info',
+                          text1: '請到商店購買此主題',
+                          visibilityTime: 1000,
+                          text1Style: { fontSize: 14 },
+                        });
+                      }
+                      if (isLock(theme) && theme.unlockStars) {
+                        Toast.show({
+                          type: 'info',
+                          text1: `總星數須達 ${theme.unlockStars}`,
+                          visibilityTime: 1000,
+                          text1Style: { fontSize: 14 },
+                        });
+                      }
+                    }}
                     style={{
                       position: 'absolute',
                       width: '100%',
@@ -205,9 +226,12 @@ export default function ThemesScreen() {
                       backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     }}
                   >
+                    {/* <View
+                    > */}
                     <MaterialIcons name="lock" color="#FFF" size={40} />
                     {getLockInfo(theme)}
-                  </View>
+                    {/* </View> */}
+                  </TouchableOpacity>
                 )}
               </View>
             ))}

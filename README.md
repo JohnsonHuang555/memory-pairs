@@ -12,6 +12,7 @@
 - https://www.svgrepo.com/collection/tree-variations-flat-icons/
 - https://www.svgrepo.com/collection/furniture-soft-color-vectors/
 - https://www.svgrepo.com/collection/smart-watch-filled-line-icons/
+- https://www.svgrepo.com/collection/public-information-symbols-vectors/
 
 - https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
 - https://www.svgrepo.com/collection/bright-fruits-and-vegetables/
@@ -31,7 +32,6 @@
 - https://www.svgrepo.com/collection/water-sports-flat-icons/
 - https://www.svgrepo.com/collection/travel-theme-candy-vectors/
 - 
-- https://www.svgrepo.com/collection/public-information-symbols-vectors/
 - https://www.svgrepo.com/collection/cooking-food-vectors/
 - https://www.svgrepo.com/collection/autumn-and-fall-vectors/
 - https://www.svgrepo.com/collection/mobile-gestures-with-arrows/

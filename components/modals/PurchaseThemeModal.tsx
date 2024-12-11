@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { View } from 'react-native';
-import Toast from 'react-native-toast-message';
 
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
@@ -8,6 +7,8 @@ import BaseModal from './BaseModal';
 import { allLevels } from '@/constants/AllLevels';
 import { Theme } from '@/models/Theme';
 import usePlayerStore from '@/stores/PlayerStore';
+
+import { Image } from 'expo-image';
 
 type PurchaseThemeModalProps = {
   selectedTheme?: Theme;
@@ -33,71 +34,90 @@ const PurchaseThemeModal = ({
     <BaseModal
       title="購買主題"
       show={show}
-      width={75}
+      width={70}
       onClose={() => {
         setShowCoinNotEnoughText(false);
         onClose();
       }}
     >
-      <View className="items-center">
-        <View className="flex-col" style={{ marginBottom: 20, gap: 16 }}>
-          <View className="flex-row items-center justify-between">
-            <CoolText
-              text="主題"
-              fontWeight="medium"
-              style={{ fontSize: 18, color: '#717171' }}
-            />
-            <CoolText
-              text={selectedTheme?.title || ''}
-              fontWeight="medium"
-              style={{ fontSize: 20, color: '#834B4B' }}
-            />
-          </View>
-          <View className="flex-row items-center justify-between">
-            <CoolText
-              text="關卡數"
-              fontWeight="medium"
-              style={{ fontSize: 18, color: '#717171' }}
-            />
-            <CoolText
-              text={levelsCount}
-              fontWeight="medium"
-              style={{ fontSize: 20, color: '#834B4B' }}
-            />
-          </View>
-        </View>
-        {showCoinNotEnoughText && (
+      <View
+        className="flex-col"
+        style={{ marginTop: 10, marginBottom: 20, gap: 16, width: '80%' }}
+      >
+        <View className="flex-row items-center justify-between">
           <CoolText
-            text="金幣不足 !"
-            fontWeight="bold"
-            style={{ fontSize: 16, marginBottom: 20, color: '#D14343' }}
+            text="主題"
+            fontWeight="medium"
+            style={{ fontSize: 18, color: '#717171' }}
           />
-        )}
-        <View className="flex-row" style={{ gap: 12 }}>
-          <CoolButton
-            width={110}
-            height={50}
-            text="取消"
-            backgroundColor="#C1C1C1"
-            onClick={onClose}
-            fontSize={18}
-          />
-          <CoolButton
-            width={110}
-            height={50}
-            text="購買"
-            backgroundColor="#834B4B"
-            onClick={() => {
-              if (!selectedTheme) return;
-              if (selectedTheme?.price && coins < selectedTheme.price) {
-                setShowCoinNotEnoughText(true);
-                return;
-              }
-              onPurchase(selectedTheme.id);
-            }}
-            fontSize={18}
+          <CoolText
+            text={selectedTheme?.title || ''}
+            fontWeight="medium"
+            style={{ fontSize: 20, color: '#834B4B' }}
           />
         </View>
+        <View className="flex-row items-center justify-between">
+          <CoolText
+            text="關卡數"
+            fontWeight="medium"
+            style={{ fontSize: 18, color: '#717171' }}
+          />
+          <CoolText
+            text={levelsCount}
+            fontWeight="medium"
+            style={{ fontSize: 20, color: '#834B4B' }}
+          />
+        </View>
+        <View className="flex-row items-center justify-between">
+          <CoolText
+            text="價錢"
+            fontWeight="medium"
+            style={{ fontSize: 18, color: '#717171' }}
+          />
+          <View className="flex-row items-center">
+            <Image
+              source={require('@/assets/images/icons/coin-2.png')}
+              style={{ width: 20, height: 20, marginRight: 8 }}
+            />
+            <CoolText
+              text={selectedTheme?.price || 0}
+              fontWeight="medium"
+              style={{ fontSize: 20, color: '#834B4B' }}
+            />
+          </View>
+        </View>
+      </View>
+      {showCoinNotEnoughText && (
+        <CoolText
+          text="金幣不足 !"
+          fontWeight="bold"
+          style={{ fontSize: 16, marginBottom: 20, color: '#D14343' }}
+        />
+      )}
+      <View className="flex-row" style={{ gap: 12 }}>
+        <CoolButton
+          width={100}
+          height={50}
+          text="取消"
+          backgroundColor="#C1C1C1"
+          onClick={onClose}
+          fontSize={18}
+        />
+        <CoolButton
+          width={100}
+          height={50}
+          text="購買"
+          backgroundColor="#834B4B"
+          onClick={() => {
+            if (!selectedTheme) return;
+            if (selectedTheme?.price && coins < selectedTheme.price) {
+              setShowCoinNotEnoughText(true);
+              return;
+            }
+            onPurchase(selectedTheme.id);
+          }}
+          fontSize={18}
+        />
       </View>
     </BaseModal>
   );
