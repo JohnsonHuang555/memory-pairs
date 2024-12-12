@@ -106,14 +106,8 @@ const SettingsScreen = () => {
             }}
           />
           <View>
-            <CoolText
-              text="統計"
-              fontWeight="medium"
-              style={{ fontSize: 20, color: '#834B4B', marginBottom: 12 }}
-            />
             <View className="mb-4 flex-row flex-wrap justify-between">
               {allPlayerBehavior.map((item, index) => {
-                console.log(playerBehaviorStatistics)
                 let val = 0;
                 // 依照 behavior 順序顯示次數 順邊變動會有資料錯誤風險
                 switch (index) {
@@ -128,6 +122,12 @@ const SettingsScreen = () => {
                     break;
                   case 3:
                     val = playerBehaviorStatistics.maxCombo;
+                    break;
+                  case 4:
+                    val = playerBehaviorStatistics.maxRank;
+                    break;
+                  case 5:
+                    val = playerBehaviorStatistics.maxScore;
                     break;
                 }
                 return (
@@ -155,7 +155,7 @@ const SettingsScreen = () => {
                           width: 60,
                           height: 60,
                           marginTop: 8,
-                          marginBottom: 8,
+                          marginBottom: 4,
                           borderRadius: 10,
                         }}
                       />
@@ -164,23 +164,51 @@ const SettingsScreen = () => {
                         fontWeight="medium"
                         style={{
                           color: '#834B4B',
-                          marginBottom: 8,
+                          marginBottom: 10,
                           fontSize: 16,
                         }}
                       />
                       <CoolText
-                        text={val}
+                        text={val || '---'}
                         fontWeight="medium"
                         style={{
                           color: '#D14343',
                           marginBottom: 6,
-                          fontSize: val >= 10000000 ? 15 : 17,
+                          fontSize: val >= 10000000 ? 14 : 16,
                         }}
                       />
                     </View>
                   </View>
                 );
               })}
+              <View
+                className="flex-row items-center"
+                style={{ marginTop: 12, marginBottom: 10 }}
+              >
+                <CoolText
+                  text="配對成功率:"
+                  fontWeight="medium"
+                  style={{ fontSize: 20, color: '#834B4B', marginRight: 8 }}
+                />
+                <CoolText
+                  text={(
+                    (playerBehaviorStatistics.matchCount /
+                      playerBehaviorStatistics.flipCount) *
+                    100
+                  ).toFixed(2)}
+                  fontWeight="bold"
+                  style={{ fontSize: 20, color: '#D14343', marginRight: 4 }}
+                />
+                <CoolText
+                  text="%"
+                  fontWeight="bold"
+                  style={{ fontSize: 20, color: '#D14343' }}
+                />
+              </View>
+              <CoolText
+                text="計算公式: 配對次數 / 翻牌次數"
+                style={{ fontSize: 12, color: '#834B4B' }}
+              />
             </View>
           </View>
         </>

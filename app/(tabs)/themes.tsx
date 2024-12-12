@@ -209,7 +209,6 @@ export default function ThemesScreen() {
                     <TouchableOpacity
                       activeOpacity={!isLock(theme) ? 0.7 : 1}
                       onPress={() => {
-                        console.log(isLock(theme), theme.price);
                         if (isLock(theme) && theme.price) {
                           Toast.show({
                             type: 'info',

@@ -129,7 +129,7 @@ const ShopScreen = () => {
         selectedItem={selectedItem}
         onClose={() => {
           setSelectedItem(undefined);
-          setShowPurchaseItemModal(false)
+          setShowPurchaseItemModal(false);
         }}
         onPurchase={type => {
           Toast.show({
@@ -159,7 +159,7 @@ const ShopScreen = () => {
         show={showPurchaseThemeModal}
         onClose={() => {
           setSelectedTheme(undefined);
-          setShowPurchaseThemeModal(false)
+          setShowPurchaseThemeModal(false);
         }}
         onPurchase={id => {
           Toast.show({
@@ -251,23 +251,23 @@ const ShopScreen = () => {
                           </View>
                           {getItemIcon(item.type)}
                           <CoolText
-                            text={
-                              level >= maxLevel ? 'Max' : `Lv. ${level || 1}`
-                            }
-                            style={{
-                              fontSize: 14,
-                              marginVertical: 8,
-                              color: '#D14343',
-                            }}
-                            fontWeight="bold"
-                          />
-                          <CoolText
                             text={name}
                             fontWeight="medium"
                             style={{
                               color: '#834B4B',
                               fontSize: 16,
+                              marginVertical: 8,
                             }}
+                          />
+                          <CoolText
+                            text={
+                              level >= maxLevel ? 'Max' : `Lv. ${level || 1}`
+                            }
+                            style={{
+                              fontSize: 16,
+                              color: '#D14343',
+                            }}
+                            fontWeight="bold"
                           />
                         </View>
                       </TouchableOpacity>
@@ -323,16 +323,9 @@ const ShopScreen = () => {
                               style={{
                                 width: 60,
                                 height: 60,
+                                marginTop: 8,
+                                marginBottom: 4,
                               }}
-                            />
-                            <CoolText
-                              text={`$ ${String(theme.price)}`}
-                              style={{
-                                fontSize: 16,
-                                marginVertical: 8,
-                                color: '#D14343',
-                              }}
-                              fontWeight="bold"
                             />
                             <CoolText
                               text={theme.title}
@@ -340,7 +333,18 @@ const ShopScreen = () => {
                               style={{
                                 color: '#834B4B',
                                 fontSize: 16,
+                                marginTop: 4,
+                                marginBottom: 8,
                               }}
+                            />
+                            <CoolText
+                              text={`$${String(theme.price)}`}
+                              style={{
+                                fontSize: 16,
+                                marginBottom: 8,
+                                color: '#D14343',
+                              }}
+                              fontWeight="bold"
                             />
                           </View>
                           {alreadyPurchase && (

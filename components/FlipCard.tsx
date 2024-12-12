@@ -258,7 +258,7 @@ const FlipCard = React.memo(
     return (
       <TouchableOpacity
         onPress={flipCard}
-        activeOpacity={0.9}
+        activeOpacity={1}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
       >
@@ -273,7 +273,6 @@ const FlipCard = React.memo(
               }}
             />
           </Animated.View>
-
           {/* 正面 */}
           <Animated.View
             style={[

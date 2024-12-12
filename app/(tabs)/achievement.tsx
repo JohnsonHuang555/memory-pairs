@@ -60,7 +60,7 @@ const AchievementScreen = () => {
           style={{ width: 22, height: 22, marginRight: 4 }}
         />
         <CoolText
-          text={1000}
+          text={rewards}
           fontWeight="bold"
           className="text-[#834B4B]"
           style={{ fontSize: 20 }}

@@ -29,6 +29,7 @@ const GameRulesModal = ({ show, onClose }: GameRulesModalProps) => {
             style={styles.rule}
           />
           <CoolText text="- 過關即可開啟下一個關卡" style={styles.rule} />
+          <CoolText text="- 新的主題可透過購買或達到星數解鎖" style={styles.rule} />
         </View>
         <View>
           <View className="items-center">

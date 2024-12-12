@@ -66,7 +66,7 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
     <BaseModal
       title={`Level ${id}`}
       show={show}
-      width={80}
+      width={75}
       onClose={() => {
         setSelectedItems([]);
         onClose();

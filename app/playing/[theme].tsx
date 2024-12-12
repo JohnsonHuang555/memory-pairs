@@ -54,8 +54,7 @@ const PlayingScreen = () => {
   const { theme } = useLocalSearchParams();
 
   const { levelInfo } = useLevelInfo();
-  const { passGame, addFlipCount, addPassGameCount, updateMaxCombo } =
-    usePlayerStore();
+  const { passGame, addFlipCount, themeList } = usePlayerStore();
   const { updateLevel, levels } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
@@ -70,14 +69,26 @@ const PlayingScreen = () => {
   // 使用先看牌的道具
   const [itemViewFirst, setItemViewFirst] = useState(false);
 
-  // const currentAllStars = useMemo(
-  //   () =>
-  //     levels.reduce((acc, current) => {
-  //       acc += current.stars || 0;
-  //       return acc;
-  //     }, 0),
-  //   [],
-  // );
+  const currentAllStars = useMemo(
+    () =>
+      themeList.reduce((acc, current) => {
+        acc += current.starsOfLevel.reduce((a, c) => {
+          a += c.stars;
+          return a;
+        }, 0);
+        return acc;
+      }, 0),
+    [themeList],
+  );
+
+  const currentPassLevelCount = useMemo(
+    () =>
+      themeList.reduce((acc, current) => {
+        acc += current.starsOfLevel.length || 0;
+        return acc;
+      }, 0),
+    [themeList],
+  );
 
   const {
     generateCards,
@@ -159,7 +170,6 @@ const PlayingScreen = () => {
   useEffect(() => {
     scoreAnimatedValue.value = withTiming(score, { duration: 500 }, () => {
       if (needUpdatePlayerInfo) {
-        console.log(needUpdatePlayerInfo, levelInfo.id, stars, '?????');
         // 更新成績
         runOnJS(updateLevel)(levelInfo.id, stars);
 
@@ -181,6 +191,8 @@ const PlayingScreen = () => {
           lastLevelId: levels.length,
           stars,
           coins,
+          currentPassLevelCount,
+          currentAllStars: stars + currentAllStars,
         });
       }
     });
@@ -190,8 +202,7 @@ const PlayingScreen = () => {
   useEffect(() => {
     if (isCompleteGame) {
       // 更新玩家統計資料
-      addPassGameCount();
-      updateMaxCombo(maxCombo);
+      remainedTimeAnimatedValue.value = timeLeft;
 
       stopTimer();
 

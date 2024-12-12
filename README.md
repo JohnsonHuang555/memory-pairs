@@ -3,6 +3,7 @@
 ### CC0
 #### icons
 - https://www.svgrepo.com/svg/212456/coin-money
+- https://www.svgrepo.com/svg/422998/medal-gold-winner-2
 
 #### questions
 - https://www.svgrepo.com/collection/animals-25/

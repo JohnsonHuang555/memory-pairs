@@ -195,7 +195,6 @@ const LeaderboardScreen = () => {
     }
 
     previousScore = item.score;
-
     return dom;
   };
 
@@ -203,7 +202,7 @@ const LeaderboardScreen = () => {
     <MainContainer title="排行榜" showLeftIcon showRuleIcon>
       {!pageLoading ? (
         <Animated.View entering={FadeIn} exiting={FadeOut}>
-          <View style={{ height: Dimensions.get('window').height - 230 }}>
+          <View style={{ height: Dimensions.get('window').height - 280 }}>
             {leaderboard.length ? (
               <FlatList
                 showsVerticalScrollIndicator={false}
@@ -218,40 +217,42 @@ const LeaderboardScreen = () => {
               />
             ) : null}
           </View>
-          {totalScore > 0 && (
-            <Animated.View
-              entering={FadeIn.delay(100)}
-              className="flex-row items-center"
-              style={{ marginTop: 4, padding: 14, gap: 16 }}
-            >
-              <View className="items-center" style={{ width: 24 }}>
-                {myRank && myRank < 4 ? (
-                  <Image
-                    source={rankImages[myRank]}
-                    style={{ width: 24, height: 24 }}
-                  />
-                ) : (
-                  <CoolText
-                    style={[styles.rank, { fontSize: 20 }]}
-                    className="text-[#834B4B]"
-                    text={myRank || 0}
-                    fontWeight="bold"
-                  />
-                )}
-              </View>
-              <CoolText
-                style={styles.name}
-                text={name || ''}
-                className="text-[#834B4B]"
-                fontWeight="medium"
-              />
-              <CoolText
-                style={styles.score}
-                text={totalScore}
-                fontWeight="bold"
-              />
-            </Animated.View>
-          )}
+          <Animated.View
+            entering={FadeIn.delay(100)}
+            className="flex-row items-center"
+            style={{
+              marginTop: 4,
+              padding: 14,
+              gap: 16,
+              borderTopWidth: 2,
+              borderColor: '#D6D1D1',
+            }}
+          >
+            <View className="items-center" style={{ width: 24 }}>
+              {myRank && myRank < 4 ? (
+                <Image
+                  source={rankImages[myRank]}
+                  style={{ width: 24, height: 24 }}
+                />
+              ) : (
+                <CoolText
+                  style={[styles.rank, { fontSize: 20, color: '#834B4B' }]}
+                  text={myRank || 0}
+                  fontWeight="bold"
+                />
+              )}
+            </View>
+            <CoolText
+              style={styles.name}
+              text={name || ''}
+              fontWeight="medium"
+            />
+            <CoolText
+              style={styles.score}
+              text={totalScore}
+              fontWeight="bold"
+            />
+          </Animated.View>
         </Animated.View>
       ) : (
         <View
@@ -275,12 +276,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7e1d0',
     borderWidth: 2,
     borderColor: '#C08A76',
-    // justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
   },
   rank: { fontSize: 18 },
-  name: { fontSize: 18, flex: 1 },
+  name: { fontSize: 18, flex: 1, color: '#834B4B' },
   score: { fontSize: 20, color: '#834B4B' },
 });

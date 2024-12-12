@@ -21,6 +21,7 @@ export const gameTheme: { [key: string]: string } = {
   [LevelTheme.Space]: '太空',
   [LevelTheme.Grass]: '草叢',
   [LevelTheme.Coin]: '錢幣',
+  [LevelTheme.SweetDrink]: '甜點飲料',
   [LevelTheme.Gift]: '禮物盒',
   [LevelTheme.WaterSport]: '水上活動',
 };

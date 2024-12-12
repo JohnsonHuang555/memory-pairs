@@ -31,6 +31,8 @@ type PlayerBehaviorStatistics = {
   matchCount: number; // 配對次數
   gamePassCount: number; // 過關次數
   maxCombo: number; // 最高 Combo 數
+  maxRank: number; // 最高名次
+  maxScore: number; // 最高名次
 };
 
 type PlayerState = {
@@ -53,6 +55,8 @@ type PlayerState = {
     lastLevelId: number;
     stars: number;
     coins: number;
+    currentPassLevelCount: number;
+    currentAllStars: number;
   }) => void;
   // 更新玩家道具
   updatePlayerItem: (
@@ -71,10 +75,8 @@ type PlayerState = {
   addFlipCount: () => void;
   // 新增配對次數
   addMatchCount: () => void;
-  // 新增過關次數
-  addPassGameCount: () => void;
-  // 更新最高連擊數
-  updateMaxCombo: (combo: number) => void;
+  // 新增最高排名
+  updateMaxRank: (rank: number) => void;
 };
 
 const storage: StateStorage = {
@@ -119,6 +121,8 @@ const usePlayerStore = create<PlayerState>()(
         matchCount: 0,
         gamePassCount: 0,
         maxCombo: 0,
+        maxRank: 0,
+        maxScore: 0,
       },
       passGame: ({
         themeType,
@@ -128,8 +132,13 @@ const usePlayerStore = create<PlayerState>()(
         lastLevelId,
         stars,
         coins,
+        currentPassLevelCount,
+        currentAllStars,
       }) => {
         const themeList = get().themeList;
+        const currentScore = get().playerBehaviorStatistics.maxScore;
+        const currentCombo = get().playerBehaviorStatistics.maxCombo;
+
         const isExist = themeList.find(theme => theme.themeType === themeType);
 
         if (isExist) {
@@ -163,9 +172,8 @@ const usePlayerStore = create<PlayerState>()(
             }
             return themeInfo;
           });
-          set(state => ({
+          set(() => ({
             themeList: newThemeList,
-            coins: state.coins + coins,
           }));
         } else {
           // 代表是新的主題資料
@@ -184,92 +192,82 @@ const usePlayerStore = create<PlayerState>()(
                 ],
               },
             ],
-            coins: state.coins + coins,
           }));
         }
+
+        const playerAchievements = get().playerAchievements;
+        const newAchievements = [...playerAchievements].map(p => {
+          if (p.id === 'a1' && !p.completed && currentPassLevelCount >= 1) {
+            p.completed = true;
+          }
+          if (p.id === 'a2' && !p.completed && currentPassLevelCount >= 10) {
+            p.completed = true;
+          }
+          if (p.id === 'a3' && !p.completed && currentPassLevelCount >= 50) {
+            p.completed = true;
+          }
+          if (p.id === 'a4' && !p.completed && currentPassLevelCount >= 100) {
+            p.completed = true;
+          }
+          if (p.id === 'a5' && !p.completed && currentPassLevelCount >= 500) {
+            p.completed = true;
+          }
+          if (p.id === 'a6' && !p.completed && currentPassLevelCount >= 1000) {
+            p.completed = true;
+          }
+          if (p.id === 'b1' && !p.completed && levelInfo.stars === 3) {
+            p.completed = true;
+          }
+          if (p.id === 'b2' && !p.completed && currentAllStars >= 50) {
+            p.completed = true;
+          }
+          if (p.id === 'b3' && !p.completed && currentAllStars >= 100) {
+            p.completed = true;
+          }
+          if (p.id === 'b4' && !p.completed && currentAllStars >= 500) {
+            p.completed = true;
+          }
+          if (p.id === 'b5' && !p.completed && currentAllStars >= 1000) {
+            p.completed = true;
+          }
+          if (p.id === 'b6' && !p.completed && currentAllStars >= 1500) {
+            p.completed = true;
+          }
+          if (p.id === 'c1' && !p.completed && maxCombo >= 3) {
+            p.completed = true;
+          }
+          if (p.id === 'c2' && !p.completed && maxCombo >= 5) {
+            p.completed = true;
+          }
+          if (p.id === 'c3' && !p.completed && maxCombo >= 8) {
+            p.completed = true;
+          }
+          if (p.id === 'c4' && !p.completed && maxCombo >= 12) {
+            p.completed = true;
+          }
+          if (p.id === 'd1' && !p.completed && score >= 300) {
+            p.completed = true;
+          }
+          if (p.id === 'd2' && !p.completed && score >= 500) {
+            p.completed = true;
+          }
+          if (p.id === 'd3' && !p.completed && score >= 800) {
+            p.completed = true;
+          }
+          return p;
+        });
+
+        set(state => ({
+          playerAchievements: newAchievements,
+          playerBehaviorStatistics: {
+            ...state.playerBehaviorStatistics,
+            maxScore: score > currentScore ? score : currentScore,
+            maxCombo: maxCombo > currentCombo ? maxCombo : currentCombo,
+            gamePassCount: state.playerBehaviorStatistics.gamePassCount + 1,
+          },
+          coins: state.coins + coins,
+        }));
       },
-      // updateCurrentLevelId: (
-      //   themeType: LevelTheme,
-      //   levelInfo: Level,
-      //   totalStars: number,
-      //   maxCombo: number,
-      //   score: number,
-      //   lastLevelId: number,
-      // ) => {
-      //   const playerAchievements = get().playerAchievements;
-      //   const themeInfo = get().themeList.find(
-      //     t => t.themeType === themeType && t.currentLevelId === levelInfo.id,
-      //   );
-
-      //   if (!themeInfo) return;
-
-      //   const newAchievements = [...playerAchievements];
-
-      //   // 成就檢查
-      //   // if (currentLevelId > 0 && !newAchievements[0].completed) {
-      //   //   newAchievements[0].completed = true;
-      //   // }
-      //   // if (currentLevelId > 5 && !newAchievements[1].completed) {
-      //   //   newAchievements[1].completed = true;
-      //   // }
-      //   // if (currentLevelId > 20 && !newAchievements[2].completed) {
-      //   //   newAchievements[2].completed = true;
-      //   // }
-      //   // if (currentLevelId > 50 && !newAchievements[3].completed) {
-      //   //   newAchievements[3].completed = true;
-      //   // }
-      //   // if (currentLevelId > 80 && !newAchievements[4].completed) {
-      //   //   newAchievements[4].completed = true;
-      //   // }
-      //   // if (currentLevelId === 100 && !newAchievements[5].completed) {
-      //   //   newAchievements[5].completed = true;
-      //   // }
-      //   // if (levelInfo.stars === 3 && !newAchievements[6].completed) {
-      //   //   newAchievements[6].completed = true;
-      //   // }
-      //   // if (totalStars >= 30 && !newAchievements[7].completed) {
-      //   //   newAchievements[7].completed = true;
-      //   // }
-      //   // if (totalStars >= 60 && !newAchievements[8].completed) {
-      //   //   newAchievements[8].completed = true;
-      //   // }
-      //   // if (totalStars >= 90 && !newAchievements[9].completed) {
-      //   //   newAchievements[9].completed = true;
-      //   // }
-      //   // if (totalStars >= 120 && !newAchievements[10].completed) {
-      //   //   newAchievements[10].completed = true;
-      //   // }
-      //   // if (totalStars >= 150 && !newAchievements[11].completed) {
-      //   //   newAchievements[11].completed = true;
-      //   // }
-      //   // if (maxCombo >= 3 && !newAchievements[12].completed) {
-      //   //   newAchievements[12].completed = true;
-      //   // }
-      //   // if (maxCombo >= 5 && !newAchievements[13].completed) {
-      //   //   newAchievements[13].completed = true;
-      //   // }
-      //   // if (maxCombo >= 8 && !newAchievements[14].completed) {
-      //   //   newAchievements[14].completed = true;
-      //   // }
-      //   // if (maxCombo >= 12 && !newAchievements[15].completed) {
-      //   //   newAchievements[15].completed = true;
-      //   // }
-      //   // if (score >= 300 && !newAchievements[16].completed) {
-      //   //   newAchievements[16].completed = true;
-      //   // }
-      //   // if (score >= 600 && !newAchievements[17].completed) {
-      //   //   newAchievements[17].completed = true;
-      //   // }
-
-      //   // set(state => ({
-      //   //   currentLevelId:
-      //   //     levelInfo.id === state.currentLevelId &&
-      //   //     lastLevelId !== levelInfo.id
-      //   //       ? state.currentLevelId + 1
-      //   //       : state.currentLevelId,
-      //   //   playerAchievements: newAchievements,
-      //   // }));
-      // },
       updatePlayerItem: (
         type: ItemType,
         action: 'purchase' | 'upgrade' | 'use',
@@ -331,24 +329,16 @@ const usePlayerStore = create<PlayerState>()(
           },
         }));
       },
-      addPassGameCount: () => {
-        set(state => ({
-          playerBehaviorStatistics: {
-            ...state.playerBehaviorStatistics,
-            gamePassCount: state.playerBehaviorStatistics.gamePassCount + 1,
-          },
-        }));
-      },
-      updateMaxCombo: (combo: number) => {
-        set(state => ({
-          playerBehaviorStatistics: {
-            ...state.playerBehaviorStatistics,
-            maxCombo:
-              combo > state.playerBehaviorStatistics.maxCombo
-                ? combo
-                : state.playerBehaviorStatistics.maxCombo,
-          },
-        }));
+      updateMaxRank: (rank: number) => {
+        const maxRank = get().playerBehaviorStatistics.maxRank;
+        if (rank > maxRank) {
+          set(state => ({
+            playerBehaviorStatistics: {
+              ...state.playerBehaviorStatistics,
+              maxRank: rank,
+            },
+          }));
+        }
       },
     }),
     {

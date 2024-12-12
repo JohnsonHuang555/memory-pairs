@@ -16,7 +16,7 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 
 export default function HomeScreen() {
-  const { coins, name, themeList } = usePlayerStore();
+  const { coins, name, themeList, updateMaxRank } = usePlayerStore();
   const [myRank, setMyRank] = useState<number>();
 
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
@@ -47,6 +47,7 @@ export default function HomeScreen() {
       // 取得當前排名
       const myRank = await fetchRankByScore(totalScore);
       setMyRank(myRank);
+      updateMaxRank(myRank);
     };
     if (totalScore > 0) {
       getMyRank();
