@@ -6,23 +6,23 @@ import useLevelStore from '@/stores/LevelStore';
 import { useLocalSearchParams } from 'expo-router';
 
 export const gameTheme: { [key: string]: string } = {
-  [LevelTheme.ChineseWord]: '中文字',
+  [LevelTheme.Animal]: '動物',
   [LevelTheme.Color]: '顏色',
+  [LevelTheme.Avatar]: '人物',
+  [LevelTheme.Ancient]: '古人',
   [LevelTheme.Emoji]: '表情',
   [LevelTheme.Leaves]: '葉子',
-  [LevelTheme.Ancient]: '古人',
-  [LevelTheme.Grass]: '草堆',
-  [LevelTheme.Animal]: '動物',
   [LevelTheme.Tree]: '樹木',
   [LevelTheme.Cactus]: '仙人掌',
-  [LevelTheme.Avatar]: '頭像',
-  [LevelTheme.Medal]: '獎牌',
-  [LevelTheme.SmartWatch]: '智慧手錶',
-  [LevelTheme.Stickman]: '火柴人',
-  [LevelTheme.Chart]: '圖表',
-  [LevelTheme.Clothe]: '衣服',
   [LevelTheme.Furniture]: '傢俱',
+  [LevelTheme.ChineseWord]: '中文字',
+  [LevelTheme.SmartWatch]: '智慧手錶',
   [LevelTheme.Notice]: '公共標誌',
+  [LevelTheme.Space]: '太空',
+  [LevelTheme.Grass]: '草叢',
+  [LevelTheme.Coin]: '錢幣',
+  [LevelTheme.Gift]: '禮物盒',
+  [LevelTheme.WaterSport]: '水上活動',
 };
 
 export const gameMatchCount: { [key: string]: string } = {

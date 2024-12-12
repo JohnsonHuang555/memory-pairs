@@ -54,7 +54,8 @@ const PlayingScreen = () => {
   const { theme } = useLocalSearchParams();
 
   const { levelInfo } = useLevelInfo();
-  const { passGame } = usePlayerStore();
+  const { passGame, addFlipCount, addPassGameCount, updateMaxCombo } =
+    usePlayerStore();
   const { updateLevel, levels } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
@@ -158,7 +159,7 @@ const PlayingScreen = () => {
   useEffect(() => {
     scoreAnimatedValue.value = withTiming(score, { duration: 500 }, () => {
       if (needUpdatePlayerInfo) {
-        console.log(needUpdatePlayerInfo, levelInfo.id, stars, '?????')
+        console.log(needUpdatePlayerInfo, levelInfo.id, stars, '?????');
         // 更新成績
         runOnJS(updateLevel)(levelInfo.id, stars);
 
@@ -188,6 +189,10 @@ const PlayingScreen = () => {
   // 遊戲過關
   useEffect(() => {
     if (isCompleteGame) {
+      // 更新玩家統計資料
+      addPassGameCount();
+      updateMaxCombo(maxCombo);
+
       stopTimer();
 
       const interval = setInterval(() => {
@@ -251,6 +256,8 @@ const PlayingScreen = () => {
     startTimer();
     onFlip(card.id);
     checkIsMatch(card);
+    // 翻牌加一
+    addFlipCount();
   };
 
   return (

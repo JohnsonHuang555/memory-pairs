@@ -13,6 +13,7 @@ import Animated, {
 import CoolText from './CoolText';
 import { Card } from '@/models/Card';
 import { LevelTheme, LevelType } from '@/models/Level';
+import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
 
@@ -55,6 +56,7 @@ const FlipCard = React.memo(
     const rotation = useSharedValue(0); // 初始旋轉角度
     const scale = useSharedValue(1); // 初始化卡片的縮放比例
     const [isViewFirst, setIsViewFirst] = useState(false);
+    const { addMatchCount } = usePlayerStore();
 
     // 當點擊卡片時觸發翻轉
     const flipCard = () => {
@@ -148,6 +150,7 @@ const FlipCard = React.memo(
 
     useEffect(() => {
       if (prevIsMatched.current === false && card.isMatched) {
+        addMatchCount();
         scale.value = withSpring(1.15, {
           damping: 10,
           stiffness: 200,
@@ -236,11 +239,17 @@ const FlipCard = React.memo(
           );
         case LevelType.String:
         default:
+          let fontSize = 24;
+          if (columns === 3) {
+            fontSize = 52;
+          } else if (columns === 4) {
+            fontSize = 36;
+          }
           return (
             <CoolText
               text={card.content}
               fontWeight="medium"
-              style={{ fontSize: columns === 3 ? 52 : 36 }}
+              style={{ fontSize }}
             />
           );
       }
@@ -267,7 +276,12 @@ const FlipCard = React.memo(
 
           {/* 正面 */}
           <Animated.View
-            style={[styles.card, styles.cardBack, backAnimatedStyle]}
+            style={[
+              styles.card,
+              styles.cardBack,
+              backAnimatedStyle,
+              { borderWidth: columns === 3 ? 3 : 2 },
+            ]}
           >
             {cardContent}
           </Animated.View>
@@ -304,6 +318,5 @@ const styles = StyleSheet.create({
   cardBack: {
     backgroundColor: '#FFF',
     borderColor: '#ddd',
-    borderWidth: 3,
   },
 });

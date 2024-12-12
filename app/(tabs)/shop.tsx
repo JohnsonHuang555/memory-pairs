@@ -23,10 +23,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useFocusEffect } from 'expo-router';
 
-export type SelectedItem = Omit<PlayerItem, 'quantity'> & {
+export type SelectedItem = PlayerItem & {
   name: string;
   description: string;
-  quantity: number;
 };
 
 const ShopScreen = () => {
@@ -124,7 +123,7 @@ const ShopScreen = () => {
   };
 
   return (
-    <MainContainer title="商店" showLeftIcon showQuestionIcon>
+    <MainContainer title="商店" showLeftIcon showRuleIcon>
       <PurchaseItemModal
         show={showPurchaseItemModal}
         selectedItem={selectedItem}

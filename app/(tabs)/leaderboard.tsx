@@ -200,7 +200,7 @@ const LeaderboardScreen = () => {
   };
 
   return (
-    <MainContainer title="排行榜" showLeftIcon showQuestionIcon>
+    <MainContainer title="排行榜" showLeftIcon showRuleIcon>
       {!pageLoading ? (
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <View style={{ height: Dimensions.get('window').height - 230 }}>

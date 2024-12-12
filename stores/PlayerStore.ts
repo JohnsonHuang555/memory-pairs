@@ -20,9 +20,17 @@ type StarsOfLevel = {
 };
 
 type PlayerAchievement = {
-  id: number;
+  id: string;
   completed: boolean;
   received: boolean;
+};
+
+// 玩家行為統計
+type PlayerBehaviorStatistics = {
+  flipCount: number; // 翻牌次數
+  matchCount: number; // 配對次數
+  gamePassCount: number; // 過關次數
+  maxCombo: number; // 最高 Combo 數
 };
 
 type PlayerState = {
@@ -35,6 +43,8 @@ type PlayerState = {
   playerAchievements: PlayerAchievement[];
   isMusicOn: boolean;
   isSoundOn: boolean;
+  playerBehaviorStatistics: PlayerBehaviorStatistics;
+  // 過關
   passGame: (params: {
     themeType: LevelTheme;
     levelInfo: Level;
@@ -44,15 +54,27 @@ type PlayerState = {
     stars: number;
     coins: number;
   }) => void;
+  // 更新玩家道具
   updatePlayerItem: (
     type: ItemType,
     action: 'purchase' | 'upgrade' | 'use',
   ) => void;
+  // 更新購買主題
   updatePurchaseThemeIds: (id: number) => void;
-  receiveAchievementRewards: (id: number, rewards: number) => void;
+  // 收取成就報酬
+  receiveAchievementRewards: (id: string, rewards: number) => void;
   setIsMusicOn: () => void;
   setIsSoundOn: () => void;
+  // 更新玩家資料
   updatePlayerInfo: (name: string, id?: string) => void;
+  // 新增翻牌次數
+  addFlipCount: () => void;
+  // 新增配對次數
+  addMatchCount: () => void;
+  // 新增過關次數
+  addPassGameCount: () => void;
+  // 更新最高連擊數
+  updateMaxCombo: (combo: number) => void;
 };
 
 const storage: StateStorage = {
@@ -92,7 +114,12 @@ const usePlayerStore = create<PlayerState>()(
       purchaseThemeIds: [],
       isMusicOn: true,
       isSoundOn: true,
-      // 過關
+      playerBehaviorStatistics: {
+        flipCount: 0,
+        matchCount: 0,
+        gamePassCount: 0,
+        maxCombo: 0,
+      },
       passGame: ({
         themeType,
         levelInfo,
@@ -103,8 +130,8 @@ const usePlayerStore = create<PlayerState>()(
         coins,
       }) => {
         const themeList = get().themeList;
-
         const isExist = themeList.find(theme => theme.themeType === themeType);
+
         if (isExist) {
           const newThemeList = themeList.map(themeInfo => {
             const temp = { ...themeInfo };
@@ -270,7 +297,7 @@ const usePlayerStore = create<PlayerState>()(
       updatePurchaseThemeIds: (id: number) => {
         set(state => ({ purchaseThemeIds: [...state.purchaseThemeIds, id] }));
       },
-      receiveAchievementRewards: (id: number, rewards: number) => {
+      receiveAchievementRewards: (id: string, rewards: number) => {
         const playerAchievements = get().playerAchievements;
         const newAchievements = playerAchievements.map(achievement => {
           if (achievement.id === id) {
@@ -288,6 +315,41 @@ const usePlayerStore = create<PlayerState>()(
       setIsSoundOn: () => set(state => ({ isSoundOn: !state.isSoundOn })),
       updatePlayerInfo: (name: string, id?: string) =>
         set(() => ({ name, id })),
+      addFlipCount: () => {
+        set(state => ({
+          playerBehaviorStatistics: {
+            ...state.playerBehaviorStatistics,
+            flipCount: state.playerBehaviorStatistics.flipCount + 1,
+          },
+        }));
+      },
+      addMatchCount: () => {
+        set(state => ({
+          playerBehaviorStatistics: {
+            ...state.playerBehaviorStatistics,
+            matchCount: state.playerBehaviorStatistics.matchCount + 1,
+          },
+        }));
+      },
+      addPassGameCount: () => {
+        set(state => ({
+          playerBehaviorStatistics: {
+            ...state.playerBehaviorStatistics,
+            gamePassCount: state.playerBehaviorStatistics.gamePassCount + 1,
+          },
+        }));
+      },
+      updateMaxCombo: (combo: number) => {
+        set(state => ({
+          playerBehaviorStatistics: {
+            ...state.playerBehaviorStatistics,
+            maxCombo:
+              combo > state.playerBehaviorStatistics.maxCombo
+                ? combo
+                : state.playerBehaviorStatistics.maxCombo,
+          },
+        }));
+      },
     }),
     {
       name: 'player-storage',

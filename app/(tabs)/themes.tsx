@@ -121,7 +121,7 @@ export default function ThemesScreen() {
   };
 
   return (
-    <MainContainer title="主題" showLeftIcon showQuestionIcon>
+    <MainContainer title="主題" showLeftIcon showRuleIcon>
       {!isLoading ? (
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <View
@@ -151,7 +151,11 @@ export default function ThemesScreen() {
               />
             </View>
           </View>
-          <ScrollView style={{ height: Dimensions.get('window').height - 280 }}>
+          <ScrollView
+            bounces={false}
+            overScrollMode="never"
+            style={{ height: Dimensions.get('window').height - 280 }}
+          >
             <View className="mb-4 flex-row flex-wrap justify-between">
               {sortedArray.map(theme => (
                 <View

@@ -1,6 +1,6 @@
 import { LevelTheme, LevelType } from '@/models/Level';
 
-export const smartWatchThemeLevels = [
+export const spaceThemeLevels = [
   {
     id: 1,
     theme: LevelTheme.Space,

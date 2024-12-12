@@ -1,5 +1,5 @@
 export type Achievement = {
-  id: number;
+  id: string; // 為了不要有順序性
   title: string;
   description: string;
   completed: boolean;

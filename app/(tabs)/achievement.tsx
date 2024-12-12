@@ -43,7 +43,6 @@ const AchievementScreen = () => {
         <CoolText
           style={styles.title}
           text={title}
-          className="text-[#834B4B]"
           fontWeight="medium"
         />
         <CoolText
@@ -68,7 +67,7 @@ const AchievementScreen = () => {
         />
       </View>
       <CoolButton
-        text={received ? '已收取' : '收取'}
+        text={!completed ? '未達成' : received ? '已收取' : '收取'}
         disabled={received || !completed}
         onClick={() => {
           Toast.show({
@@ -90,7 +89,7 @@ const AchievementScreen = () => {
   );
 
   return (
-    <MainContainer title="成就" showLeftIcon showQuestionIcon>
+    <MainContainer title="成就" showLeftIcon showRuleIcon>
       {!isLoading ? (
         <Animated.View
           entering={FadeIn}
@@ -112,7 +111,7 @@ const AchievementScreen = () => {
                 received: playerAchievement?.received || false,
               };
             })}
-            keyExtractor={item => String(item.id)}
+            keyExtractor={item => item.id}
             renderItem={v => renderItem(v.item)}
           />
         </Animated.View>
@@ -145,6 +144,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     marginBottom: 5,
+     color: '#834B4B',
   },
   description: {
     fontSize: 14,

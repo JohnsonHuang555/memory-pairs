@@ -11,14 +11,14 @@ import { useRouter, useSegments } from 'expo-router';
 type MainContainerProps = {
   title: string;
   showLeftIcon?: boolean;
-  showQuestionIcon?: boolean;
+  showRuleIcon?: boolean;
   children: ReactNode;
   leftChildren?: ReactNode;
 };
 
 const MainContainer = ({
   showLeftIcon,
-  showQuestionIcon,
+  showRuleIcon,
   children,
   title,
   leftChildren,
@@ -62,7 +62,7 @@ const MainContainer = ({
             style={{ fontSize: 24 }}
           />
           <View style={{ width: 40, alignItems: 'flex-end' }}>
-            {showQuestionIcon && (
+            {showRuleIcon && (
               <BounceAnimation onPress={() => setGameRuleModal(true)}>
                 <MaterialCommunityIcons
                   name="file-document-outline"

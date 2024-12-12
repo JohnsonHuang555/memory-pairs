@@ -118,7 +118,7 @@ export default function LevelScreen() {
     <MainContainer
       title={gameTheme[theme as string]}
       showLeftIcon
-      showQuestionIcon
+      showRuleIcon
     >
       <LevelSelectModal
         show={showLevelModal}

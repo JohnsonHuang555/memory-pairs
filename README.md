@@ -14,6 +14,15 @@
 - https://www.svgrepo.com/collection/smart-watch-filled-line-icons/
 - https://www.svgrepo.com/collection/public-information-symbols-vectors/
 - https://www.svgrepo.com/collection/type-of-grasses-vectors/
+- https://www.svgrepo.com/collection/america-coins-3/
+- https://www.svgrepo.com/collection/sweets-and-drinks-vectors/
+
+
+
+
+
+
+
 
 - https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
 - https://www.svgrepo.com/collection/bright-fruits-and-vegetables/
@@ -23,7 +32,7 @@
 - https://www.svgrepo.com/collection/social-activities-bordered-flat-icons/
 - https://www.svgrepo.com/collection/chinese-culture-icons/
 - https://www.svgrepo.com/collection/weather-forecast-3/
-- https://www.svgrepo.com/collection/america-coins-3/
+- 
 - https://www.svgrepo.com/collection/car-maintenance-colored-icons/
 - https://www.svgrepo.com/collection/cowboy-hat-vectors/
 - https://www.svgrepo.com/collection/food-game-art/

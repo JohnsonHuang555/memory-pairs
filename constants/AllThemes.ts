@@ -79,7 +79,7 @@ export const allThemes = [
   {
     id: 13,
     title: '太空',
-    type: LevelTheme.Notice,
+    type: LevelTheme.Space,
     image: require('@/assets/images/questions/space/space-3.svg'),
   },
   {
@@ -87,5 +87,29 @@ export const allThemes = [
     title: '草叢',
     type: LevelTheme.Grass,
     image: require('@/assets/images/questions/grass/grass-2.png'),
+  },
+  {
+    id: 15,
+    title: '錢幣',
+    type: LevelTheme.Coin,
+    image: require('@/assets/images/questions/coin/coin-10.svg'),
+  },
+  {
+    id: 16,
+    title: '禮物盒',
+    type: LevelTheme.Gift,
+    image: require('@/assets/images/questions/gift/gift-7.svg'),
+  },
+  {
+    id: 17,
+    title: '水上活動',
+    type: LevelTheme.WaterSport,
+    image: require('@/assets/images/questions/water-sport/water-sport-1.svg'),
+  },
+  {
+    id: 18,
+    title: '甜點飲料',
+    type: LevelTheme.SweetDrink,
+    image: require('@/assets/images/questions/sweet-drink/sweet-drink-5.svg'),
   },
 ];

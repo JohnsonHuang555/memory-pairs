@@ -16,6 +16,8 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [assets] = useAssets([
     require('@/assets/images/background.png'),
+    require('@/assets/images/icons/yellow-star.png'),
+    require('@/assets/images/icons/grey-star.png'),
     require('@/assets/images/questions/grass/grass-1.png'),
     require('@/assets/images/questions/grass/grass-2.png'),
     require('@/assets/images/questions/grass/grass-3.png'),
