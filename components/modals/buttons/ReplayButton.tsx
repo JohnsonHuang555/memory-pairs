@@ -5,22 +5,23 @@ import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 
 import { Image } from 'expo-image';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 
-const ReplayButton = () => {
-  const { theme } = useLocalSearchParams();
+type ReplayButtonProps = {
+  onPress: () => void;
+};
+
+const ReplayButton = ({ onPress }: ReplayButtonProps) => {
   const { resetGame } = useGameStore();
   const { setShowLevelModal } = useLevelStore();
-  const { replace } = useRouter();
 
   return (
     <BounceAnimation
       onPress={() => {
+        onPress();
         setTimeout(() => {
+          resetGame();
           setShowLevelModal(true);
         }, 500);
-        resetGame();
-        replace(`/levels/${theme}`);
       }}
     >
       <View className="rounded-full" style={styles.actions}>

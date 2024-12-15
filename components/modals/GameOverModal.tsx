@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { View } from 'react-native';
 import Animated, { BounceIn, FadeIn } from 'react-native-reanimated';
 
@@ -11,10 +12,11 @@ import { Image } from 'expo-image';
 
 type GameOverModalProps = {
   show: boolean;
-  onClose: () => void;
+  onRouteChange: () => void;
 };
 
-const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
+const GameOverModal = ({ show, onRouteChange }: GameOverModalProps) => {
+  const modalRef = useRef<any>(null);
   const { score } = useGameStore();
 
   return (
@@ -22,8 +24,9 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
       title="失敗"
       show={show}
       width={70}
-      onClose={onClose}
+      onClose={onRouteChange}
       disabledBackdropPress
+      ref={modalRef}
     >
       <Animated.View
         className="mb-6 flex-row"
@@ -94,10 +97,18 @@ const GameOverModal = ({ show, onClose }: GameOverModalProps) => {
         style={{ width: '60%', marginBottom: 8 }}
       >
         <Animated.View entering={BounceIn.delay(1100)}>
-          <GoLevelsButton />
+          <GoLevelsButton
+            onPress={() => {
+              modalRef.current.close();
+            }}
+          />
         </Animated.View>
         <Animated.View entering={BounceIn.delay(1300)}>
-          <ReplayButton />
+          <ReplayButton
+            onPress={() => {
+              modalRef.current.close();
+            }}
+          />
         </Animated.View>
       </View>
     </BaseModal>

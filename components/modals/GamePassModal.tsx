@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { View } from 'react-native';
 import Animated, { BounceIn, FadeIn } from 'react-native-reanimated';
 
@@ -15,10 +15,15 @@ import { Image } from 'expo-image';
 type GamePassModalProps = {
   isLastLevel: boolean;
   show: boolean;
-  onClose: () => void;
+  onRouteChange: () => void;
 };
 
-const GamePassModal = ({ isLastLevel, show, onClose }: GamePassModalProps) => {
+const GamePassModal = ({
+  isLastLevel,
+  show,
+  onRouteChange,
+}: GamePassModalProps) => {
+  const modalRef = useRef<any>(null);
   const { score, stars } = useGameStore();
   const { levelInfo } = useLevelInfo();
 
@@ -39,8 +44,9 @@ const GamePassModal = ({ isLastLevel, show, onClose }: GamePassModalProps) => {
       title="過關"
       show={show}
       width={70}
-      onClose={onClose}
+      onClose={onRouteChange}
       disabledBackdropPress
+      ref={modalRef}
     >
       <View className="flex-row" style={{ gap: 4, marginBottom: 32 }}>
         {stars > 0 ? (
@@ -150,14 +156,26 @@ const GamePassModal = ({ isLastLevel, show, onClose }: GamePassModalProps) => {
         style={{ width: isLastLevel ? '60%' : '90%', marginBottom: 8 }}
       >
         <Animated.View entering={BounceIn.delay(1700)}>
-          <GoLevelsButton />
+          <GoLevelsButton
+            onPress={() => {
+              modalRef.current.close();
+            }}
+          />
         </Animated.View>
         <Animated.View entering={BounceIn.delay(1900)}>
-          <ReplayButton />
+          <ReplayButton
+            onPress={() => {
+              modalRef.current.close();
+            }}
+          />
         </Animated.View>
         {!isLastLevel && (
           <Animated.View entering={BounceIn.delay(2100)}>
-            <NextLevelButton />
+            <NextLevelButton
+              onPress={() => {
+                modalRef.current.close();
+              }}
+            />
           </Animated.View>
         )}
       </View>

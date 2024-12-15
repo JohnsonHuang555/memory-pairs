@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -7,16 +8,22 @@ import BaseModal from './BaseModal';
 import GamePlayButton from './buttons/GamePlayButton';
 import GoLevelsButton from './buttons/GoLevelsButton';
 import ReplayButton from './buttons/ReplayButton';
+import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
-import usePlayerStore from '@/stores/PlayerStore';
 
 type PauseGameModalProps = {
   show: boolean;
   onResume: () => void;
+  onRouteChange: () => void;
 };
 
-const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
+const PauseGameModal = ({
+  show,
+  onResume,
+  onRouteChange,
+}: PauseGameModalProps) => {
+  const modalRef = useRef<any>(null);
   const { isMusicOn, isSoundOn, setIsMusicOn, setIsSoundOn } = usePlayerStore();
   const isMusicOnValue = useSharedValue(isMusicOn);
   const isSoundOnValue = useSharedValue(isSoundOn);
@@ -32,7 +39,14 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
   };
 
   return (
-    <BaseModal title="暫停" show={show} width={65} disabledBackdropPress>
+    <BaseModal
+      title="暫停"
+      show={show}
+      width={65}
+      disabledBackdropPress
+      onClose={onRouteChange}
+      ref={modalRef}
+    >
       <View
         className="mb-4 flex-row justify-between"
         style={{ marginTop: 12, width: '100%' }}
@@ -42,11 +56,7 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
             source={require('@/assets/images/icons/music.png')}
             style={{ width: 30, height: 30 }}
           />
-          <CoolText
-            text="音樂"
-            className="ml-2 text-[#834B4B]"
-            style={styles.title}
-          />
+          <CoolText text="音樂" style={styles.title} />
         </View>
         <CoolSwitch
           value={isMusicOnValue}
@@ -63,11 +73,7 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
             source={require('@/assets/images/icons/sound.png')}
             style={{ width: 30, height: 30 }}
           />
-          <CoolText
-            text="音效"
-            className="ml-2 text-[#834B4B]"
-            style={styles.title}
-          />
+          <CoolText text="音效" style={styles.title} />
         </View>
         <CoolSwitch
           value={isSoundOnValue}
@@ -76,9 +82,23 @@ const PauseGameModal = ({ show, onResume }: PauseGameModalProps) => {
         />
       </View>
       <View className="flex-row justify-between" style={{ width: '100%' }}>
-        <GoLevelsButton />
-        <ReplayButton />
-        <GamePlayButton onResume={onResume} />
+        <GoLevelsButton
+          onPress={() => {
+            modalRef.current.close();
+          }}
+        />
+        <ReplayButton
+          onPress={() => {
+            modalRef.current.close();
+          }}
+        />
+        <GamePlayButton
+          onPress={() => {
+            modalRef.current.close(() => {
+              onResume();
+            });
+          }}
+        />
       </View>
     </BaseModal>
   );
@@ -89,5 +109,7 @@ export default PauseGameModal;
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
+    marginLeft: 4,
+    color: '#834B4B',
   },
 });

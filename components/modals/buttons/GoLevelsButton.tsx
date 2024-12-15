@@ -5,20 +5,23 @@ import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 
 import { Image } from 'expo-image';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 
-const GoLevelsButton = () => {
-  const { theme } = useLocalSearchParams();
+type GoLevelsButtonProps = {
+  onPress: () => void;
+}
+
+const GoLevelsButton = ({ onPress }: GoLevelsButtonProps) => {
   const { resetGame } = useGameStore();
-  const { replace } = useRouter();
   const { setPlayLevel } = useLevelStore();
 
   return (
     <BounceAnimation
       onPress={() => {
-        resetGame();
-        setPlayLevel(undefined);
-        replace(`/levels/${theme}`);
+        setTimeout(() => {
+          resetGame();
+          setPlayLevel(undefined);
+        }, 500);
+        onPress();
       }}
     >
       <View className="rounded-full" style={styles.actions}>

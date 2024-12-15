@@ -30,7 +30,7 @@ import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 const ANGLE = 10;
 const TIME = 100;
@@ -52,10 +52,11 @@ const ColumnMarginBottom: { [key: string]: number } = {
 
 const PlayingScreen = () => {
   const { theme } = useLocalSearchParams();
+  const { replace } = useRouter();
 
   const { levelInfo } = useLevelInfo();
   const { passGame, addFlipCount, themeList } = usePlayerStore();
-  const { updateLevel, levels } = useLevelStore();
+  const { updateLevel, levels, setShowLevelModal } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
   const [showPauseGameModal, setShowPauseGameModal] = useState(false);
@@ -104,6 +105,7 @@ const PlayingScreen = () => {
     finalCalculateScore,
     useItems,
     setAutoPairsItemEffect,
+    resetGame,
   } = useGameStore();
 
   // 使用 useSharedValue 定義動畫數值
@@ -293,12 +295,18 @@ const PlayingScreen = () => {
       />
       <GameOverModal
         show={showGameOverModal}
-        onClose={() => setShowGameOverModal(false)}
+        onRouteChange={() => {
+          setShowGameOverModal(false);
+          replace(`/levels/${theme}`);
+        }}
       />
       <GamePassModal
         isLastLevel={levels.length === levelInfo.id}
         show={showGamePassModal}
-        onClose={() => setShowGamePassModal(false)}
+        onRouteChange={() => {
+          setShowPauseGameModal(false);
+          replace(`/levels/${theme}`);
+        }}
       />
       <PauseGameModal
         show={showPauseGameModal}
@@ -308,6 +316,12 @@ const PlayingScreen = () => {
             startTimer();
           }
           setShowPauseGameModal(false);
+        }}
+        onRouteChange={() => {
+          setShowPauseGameModal(false);
+          setTimeout(() => {
+            replace(`/levels/${theme}`);
+          }, 300);
         }}
       />
       <MainContainer

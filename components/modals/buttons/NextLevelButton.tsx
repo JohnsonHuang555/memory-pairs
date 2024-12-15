@@ -6,29 +6,30 @@ import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 
 import { Image } from 'expo-image';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 
-const NextLevelButton = () => {
-  const { theme } = useLocalSearchParams();
+type NextLevelButtonProps = {
+  onPress: () => void;
+};
+
+const NextLevelButton = ({ onPress }: NextLevelButtonProps) => {
   const { resetGame } = useGameStore();
   const { setShowLevelModal, setPlayLevel, updateCurrentPage } =
     useLevelStore();
   const { levelInfo } = useLevelInfo();
-  const { replace } = useRouter();
 
   return (
     <BounceAnimation
       onPress={() => {
         if (!levelInfo) return;
+        onPress();
         setTimeout(() => {
+          resetGame();
+          setPlayLevel(levelInfo.id + 1);
+          if (levelInfo.id % 20 === 0) {
+            updateCurrentPage(1);
+          }
           setShowLevelModal(true);
-        }, 500);
-        setPlayLevel(levelInfo.id + 1);
-        if (levelInfo.id % 20 === 0) {
-          updateCurrentPage(1);
-        }
-        resetGame();
-        replace(`/levels/${theme}`);
+        }, 1000);
       }}
     >
       <View className="rounded-full" style={styles.actions}>

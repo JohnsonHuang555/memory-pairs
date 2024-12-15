@@ -181,34 +181,41 @@ const SettingsScreen = () => {
                   </View>
                 );
               })}
-              <View
-                className="flex-row items-center"
-                style={{ marginTop: 12, marginBottom: 10 }}
-              >
+              <View>
+                <View
+                  className="flex-row items-center"
+                  style={{ marginTop: 12, marginBottom: 10 }}
+                >
+                  <CoolText
+                    text="配對成功率:"
+                    fontWeight="medium"
+                    style={{ fontSize: 20, color: '#834B4B', marginRight: 8 }}
+                  />
+                  <CoolText
+                    text={
+                      playerBehaviorStatistics.matchCount > 0 &&
+                      playerBehaviorStatistics.flipCount > 0
+                        ? (
+                            (playerBehaviorStatistics.matchCount /
+                              playerBehaviorStatistics.flipCount) *
+                            100
+                          ).toFixed(2)
+                        : 0
+                    }
+                    fontWeight="bold"
+                    style={{ fontSize: 20, color: '#D14343', marginRight: 4 }}
+                  />
+                  <CoolText
+                    text="%"
+                    fontWeight="bold"
+                    style={{ fontSize: 20, color: '#D14343' }}
+                  />
+                </View>
                 <CoolText
-                  text="配對成功率:"
-                  fontWeight="medium"
-                  style={{ fontSize: 20, color: '#834B4B', marginRight: 8 }}
-                />
-                <CoolText
-                  text={(
-                    (playerBehaviorStatistics.matchCount /
-                      playerBehaviorStatistics.flipCount) *
-                    100
-                  ).toFixed(2)}
-                  fontWeight="bold"
-                  style={{ fontSize: 20, color: '#D14343', marginRight: 4 }}
-                />
-                <CoolText
-                  text="%"
-                  fontWeight="bold"
-                  style={{ fontSize: 20, color: '#D14343' }}
+                  text="計算公式: (配對次數 / 翻牌次數) x 100%"
+                  style={{ fontSize: 12, color: '#834B4B' }}
                 />
               </View>
-              <CoolText
-                text="計算公式: 配對次數 / 翻牌次數"
-                style={{ fontSize: 12, color: '#834B4B' }}
-              />
             </View>
           </View>
         </>

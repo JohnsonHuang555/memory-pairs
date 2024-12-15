@@ -5,12 +5,12 @@ import BounceAnimation from '@/components/BounceAnimation';
 import { Image } from 'expo-image';
 
 type GamePlayButtonProps = {
-  onResume: () => void;
+  onPress: () => void;
 };
 
-const GamePlayButton = ({ onResume }: GamePlayButtonProps) => {
+const GamePlayButton = ({ onPress }: GamePlayButtonProps) => {
   return (
-    <BounceAnimation onPress={onResume}>
+    <BounceAnimation onPress={onPress}>
       <View
         className="items-center justify-center rounded-full"
         style={[styles.actions, { width: 60, height: 60 }]}

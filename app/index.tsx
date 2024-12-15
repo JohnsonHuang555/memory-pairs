@@ -68,7 +68,7 @@ export default function HomeScreen() {
         >
           <BounceAnimation
             onPress={() => {
-              AsyncStorage.clear();
+              // AsyncStorage.clear();
               setShowInfoModal(true);
             }}
           >
