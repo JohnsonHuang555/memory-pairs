@@ -21,7 +21,7 @@ import ProgressBarWithStars from '@/components/ProgressBarWithStars';
 import GameOverModal from '@/components/modals/GameOverModal';
 import GamePassModal from '@/components/modals/GamePassModal';
 import PauseGameModal from '@/components/modals/PauseGameModal';
-import UseItemModal from '@/components/modals/UseItemsModal';
+import UseItemsModal from '@/components/modals/UseItemsModal';
 import useLevelInfo, { gameMatchCount } from '@/hooks/useLevelInfo';
 import { Card } from '@/models/Card';
 import { ItemType } from '@/models/Item';
@@ -56,7 +56,7 @@ const PlayingScreen = () => {
 
   const { levelInfo } = useLevelInfo();
   const { passGame, addFlipCount, themeList } = usePlayerStore();
-  const { updateLevel, levels, setShowLevelModal } = useLevelStore();
+  const { updateLevel, levels } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
   const [showPauseGameModal, setShowPauseGameModal] = useState(false);
@@ -104,8 +104,8 @@ const PlayingScreen = () => {
     needUpdatePlayerInfo,
     finalCalculateScore,
     useItems,
+    disableGame,
     setAutoPairsItemEffect,
-    resetGame,
   } = useGameStore();
 
   // 使用 useSharedValue 定義動畫數值
@@ -275,13 +275,13 @@ const PlayingScreen = () => {
 
   return (
     <>
-      <UseItemModal
+      <UseItemsModal
         usedAddTime={!!usedAddTime}
         usedViewFirst={!!usedViewFirst}
         usedAutoPairs={!!usedAutoPairs}
         show={showUseItemsModal}
-        onClose={() => setUseItemsModal(false)}
-        onModalHide={() => {
+        onClose={() => {
+          setUseItemsModal(false);
           if (usedAddTime) {
             setTimeLeft(state => state + usedAddTime.value);
           }
@@ -410,7 +410,7 @@ const PlayingScreen = () => {
                   theme={levelInfo.theme}
                   columns={levelInfo.columns}
                   updateCard={updateCard}
-                  disabled={isCompleteGame}
+                  disabled={isCompleteGame || disableGame}
                   itemViewFirst={itemViewFirst}
                   itemViewFirstValue={usedViewFirst?.value}
                   itemAutoPairs={!!usedAutoPairs}

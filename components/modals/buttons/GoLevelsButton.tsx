@@ -11,7 +11,7 @@ type GoLevelsButtonProps = {
 }
 
 const GoLevelsButton = ({ onPress }: GoLevelsButtonProps) => {
-  const { resetGame } = useGameStore();
+  const { resetGame, setDisableGame } = useGameStore();
   const { setPlayLevel } = useLevelStore();
 
   return (
@@ -20,7 +20,9 @@ const GoLevelsButton = ({ onPress }: GoLevelsButtonProps) => {
         setTimeout(() => {
           resetGame();
           setPlayLevel(undefined);
-        }, 500);
+        }, 1000);
+
+        setDisableGame();
         onPress();
       }}
     >

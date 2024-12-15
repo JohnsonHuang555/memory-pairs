@@ -39,4 +39,7 @@ export enum LevelTheme {
   Gift = 16,
   WaterSport = 17,
   SweetDrink = 18,
+  Email = 19,
+  Origami = 20,
+  CityBuilding = 21,
 }

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { View } from 'react-native';
 
 import CoolButton from '../CoolButton';
@@ -23,6 +23,7 @@ const PurchaseThemeModal = ({
   onClose,
   onPurchase,
 }: PurchaseThemeModalProps) => {
+  const modalRef = useRef<any>(null);
   const { coins } = usePlayerStore();
   const [showCoinNotEnoughText, setShowCoinNotEnoughText] = useState(false);
 
@@ -39,6 +40,7 @@ const PurchaseThemeModal = ({
         setShowCoinNotEnoughText(false);
         onClose();
       }}
+      ref={modalRef}
     >
       <View
         className="flex-col"
@@ -100,7 +102,7 @@ const PurchaseThemeModal = ({
           height={50}
           text="取消"
           backgroundColor="#C1C1C1"
-          onClick={onClose}
+          onClick={() => modalRef.current.close()}
           fontSize={18}
         />
         <CoolButton
@@ -115,6 +117,7 @@ const PurchaseThemeModal = ({
               return;
             }
             onPurchase(selectedTheme.id);
+            modalRef.current.close();
           }}
           fontSize={18}
         />

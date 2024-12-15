@@ -17,7 +17,10 @@
 - https://www.svgrepo.com/collection/type-of-grasses-vectors/
 - https://www.svgrepo.com/collection/america-coins-3/
 - https://www.svgrepo.com/collection/sweets-and-drinks-vectors/
-
+- https://www.svgrepo.com/collection/envelope-bordered-vectors/
+- https://www.svgrepo.com/collection/origami-filled-line-vectors/
+- https://www.svgrepo.com/collection/city-building-bordered-vectors/
+- 
 
 
 

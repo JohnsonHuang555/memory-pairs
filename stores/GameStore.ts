@@ -19,6 +19,7 @@ type GameState = {
   isCompleteGame: boolean;
   useItems: UseItem[];
   needUpdatePlayerInfo: boolean;
+  disableGame: boolean;
   setStars: (stars: number) => void;
   generateCards: (levelInfo: Level) => void;
   onFlip: (id: number) => void;
@@ -28,6 +29,7 @@ type GameState = {
   finalCalculateScore: (remainedTime: number) => void;
   setUseItems: (items: UseItem[]) => void;
   setAutoPairsItemEffect: (count: number) => void;
+  setDisableGame: () => void;
 };
 
 const initState = {
@@ -43,7 +45,8 @@ const initState = {
   stars: 0,
   isCompleteGame: false,
   useItems: [],
-  needUpdatePlayerInfo: false
+  needUpdatePlayerInfo: false,
+  disableGame: false,
 };
 
 const useGameStore = create<GameState>((set, get) => ({
@@ -784,7 +787,7 @@ const useGameStore = create<GameState>((set, get) => ({
       score: state.score + remainedTime * 5,
     }));
     setTimeout(() => {
-      set(() => ({needUpdatePlayerInfo: true}))
+      set(() => ({ needUpdatePlayerInfo: true }));
     }, 1000);
   },
   setUseItems: (useItems: UseItem[]) => {
@@ -808,6 +811,11 @@ const useGameStore = create<GameState>((set, get) => ({
       score: count * 30 + (count - 1) * 30,
       isPreviousMatch: true,
       combo: count - 1,
+    }));
+  },
+  setDisableGame: () => {
+    set(() => ({
+      disableGame: true,
     }));
   },
 }));

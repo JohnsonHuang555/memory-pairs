@@ -112,4 +112,22 @@ export const allThemes = [
     type: LevelTheme.SweetDrink,
     image: require('@/assets/images/questions/sweet-drink/sweet-drink-5.svg'),
   },
+  {
+    id: 19,
+    title: '郵件',
+    type: LevelTheme.Email,
+    image: require('@/assets/images/questions/email/email-11.svg'),
+  },
+  {
+    id: 20,
+    title: '摺紙',
+    type: LevelTheme.Origami,
+    image: require('@/assets/images/questions/origami/origami-2.svg'),
+  },
+  {
+    id: 21,
+    title: '城市建築',
+    type: LevelTheme.CityBuilding,
+    image: require('@/assets/images/questions/city-building/city-building-11.svg'),
+  },
 ];

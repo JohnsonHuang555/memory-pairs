@@ -12,7 +12,7 @@ type NextLevelButtonProps = {
 };
 
 const NextLevelButton = ({ onPress }: NextLevelButtonProps) => {
-  const { resetGame } = useGameStore();
+  const { resetGame, setDisableGame } = useGameStore();
   const { setShowLevelModal, setPlayLevel, updateCurrentPage } =
     useLevelStore();
   const { levelInfo } = useLevelInfo();
@@ -21,7 +21,6 @@ const NextLevelButton = ({ onPress }: NextLevelButtonProps) => {
     <BounceAnimation
       onPress={() => {
         if (!levelInfo) return;
-        onPress();
         setTimeout(() => {
           resetGame();
           setPlayLevel(levelInfo.id + 1);
@@ -30,6 +29,9 @@ const NextLevelButton = ({ onPress }: NextLevelButtonProps) => {
           }
           setShowLevelModal(true);
         }, 1000);
+
+        setDisableGame();
+        onPress();
       }}
     >
       <View className="rounded-full" style={styles.actions}>

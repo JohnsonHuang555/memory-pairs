@@ -1,8 +1,6 @@
 import { useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useSharedValue } from 'react-native-reanimated';
+import { StyleSheet, Switch, View } from 'react-native';
 
-import CoolSwitch from '../CoolSwitch';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import GamePlayButton from './buttons/GamePlayButton';
@@ -25,16 +23,12 @@ const PauseGameModal = ({
 }: PauseGameModalProps) => {
   const modalRef = useRef<any>(null);
   const { isMusicOn, isSoundOn, setIsMusicOn, setIsSoundOn } = usePlayerStore();
-  const isMusicOnValue = useSharedValue(isMusicOn);
-  const isSoundOnValue = useSharedValue(isSoundOn);
 
   const handleMusicPress = () => {
-    isMusicOnValue.value = !isMusicOnValue.value;
     setIsMusicOn();
   };
 
   const handleSoundPress = () => {
-    isSoundOnValue.value = !isSoundOnValue.value;
     setIsSoundOn();
   };
 
@@ -58,10 +52,12 @@ const PauseGameModal = ({
           />
           <CoolText text="音樂" style={styles.title} />
         </View>
-        <CoolSwitch
-          value={isMusicOnValue}
-          onPress={handleMusicPress}
-          style={{ width: 80 }}
+        <Switch
+          trackColor={{ false: '#C7C1BC', true: '#e3ccc3' }}
+          thumbColor={isMusicOn ? '#834B4B' : '#f4f3f4'}
+          onValueChange={handleMusicPress}
+          value={isMusicOn}
+          style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }}
         />
       </View>
       <View
@@ -75,10 +71,12 @@ const PauseGameModal = ({
           />
           <CoolText text="音效" style={styles.title} />
         </View>
-        <CoolSwitch
-          value={isSoundOnValue}
-          onPress={handleSoundPress}
-          style={{ width: 80 }}
+        <Switch
+          trackColor={{ false: '#C7C1BC', true: '#e3ccc3' }}
+          thumbColor={isSoundOn ? '#834B4B' : '#f4f3f4'}
+          onValueChange={handleSoundPress}
+          value={isSoundOn}
+          style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }}
         />
       </View>
       <View className="flex-row justify-between" style={{ width: '100%' }}>

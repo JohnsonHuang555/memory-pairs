@@ -3,14 +3,17 @@ import { animalThemeLevels } from './levels/animal';
 import { avatarThemeLevels } from './levels/avatar';
 import { cactusThemeLevels } from './levels/cactus';
 import { chineseThemeLevels } from './levels/chinese';
+import { cityBuildingThemeLevels } from './levels/city-building';
 import { coinThemeLevels } from './levels/coin';
 import { colorThemeLevels } from './levels/color';
+import { emailThemeLevels } from './levels/email';
 import { emojiThemeLevels } from './levels/emoji';
 import { furnitureThemeLevels } from './levels/furniture';
 import { giftThemeLevels } from './levels/gift';
 import { grassThemeLevels } from './levels/grass';
 import { leaveThemeLevels } from './levels/leave';
 import { noticeThemeLevels } from './levels/notice';
+import { origamiThemeLevels } from './levels/origami';
 import { smartWatchThemeLevels } from './levels/smart-watch';
 import { spaceThemeLevels } from './levels/space';
 import { sweetDrinkThemeLevels } from './levels/sweet-drink';
@@ -45,4 +48,7 @@ export const allLevels = [
   ...giftThemeLevels,
   ...waterSportThemeLevels,
   ...sweetDrinkThemeLevels,
+  ...emailThemeLevels,
+  ...origamiThemeLevels, // --20
+  ...cityBuildingThemeLevels,
 ];

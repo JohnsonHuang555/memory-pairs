@@ -64,7 +64,7 @@ export default function HomeScreen() {
       <Animated.View className="items-center" entering={FadeIn.delay(200)}>
         <View
           className="flex-row items-start justify-between"
-          style={{ width: '80%', position: 'fixed', top: -50 }}
+          style={{ width: '80%', position: 'fixed', top: -60 }}
         >
           <BounceAnimation
             onPress={() => {
@@ -72,7 +72,7 @@ export default function HomeScreen() {
               setShowInfoModal(true);
             }}
           >
-            <Octicons name="question" size={30} color="#834B4B" />
+            <Octicons name="question" size={28} color="#834B4B" />
           </BounceAnimation>
           <View className="flex-row items-center">
             <Image
@@ -99,7 +99,7 @@ export default function HomeScreen() {
         </Animated.View>
         <Animated.View
           entering={ZoomIn.delay(800)}
-          style={{ marginBottom: 80 }}
+          style={{ marginBottom: 70 }}
           className="items-center"
         >
           <CoolText text="排名" style={{ marginBottom: 16, fontSize: 20 }} />

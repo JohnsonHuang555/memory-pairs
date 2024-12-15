@@ -1,8 +1,6 @@
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { useSharedValue } from 'react-native-reanimated';
+import { ActivityIndicator, StyleSheet, Switch, View } from 'react-native';
 
-import CoolSwitch from '@/components/CoolSwitch';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import { allPlayerBehavior } from '@/constants/AllPlayerBehavior';
@@ -20,8 +18,6 @@ const SettingsScreen = () => {
     playerBehaviorStatistics,
   } = usePlayerStore();
   const [isLoading, setLoading] = useState(false);
-  const isMusicOnValue = useSharedValue(isMusicOn);
-  const isSoundOnValue = useSharedValue(isSoundOn);
 
   useFocusEffect(
     useCallback(() => {
@@ -36,12 +32,10 @@ const SettingsScreen = () => {
   );
 
   const handleMusicPress = () => {
-    isMusicOnValue.value = !isMusicOnValue.value;
     setIsMusicOn();
   };
 
   const handleSoundPress = () => {
-    isSoundOnValue.value = !isSoundOnValue.value;
     setIsSoundOn();
   };
 
@@ -50,11 +44,6 @@ const SettingsScreen = () => {
       {!isLoading ? (
         <>
           <View>
-            {/* <CoolText
-              text="設定"
-              fontWeight="medium"
-              style={{ fontSize: 20, color: '#834B4B', marginBottom: 6 }}
-            /> */}
             <View
               className="mb-4 flex-row justify-between"
               style={{ marginVertical: 10, width: '100%' }}
@@ -64,16 +53,14 @@ const SettingsScreen = () => {
                   source={require('@/assets/images/icons/music.png')}
                   style={{ width: 30, height: 30 }}
                 />
-                <CoolText
-                  text="音樂"
-                  className="ml-2 text-[#834B4B]"
-                  style={styles.title}
-                />
+                <CoolText text="音樂" style={styles.title} />
               </View>
-              <CoolSwitch
-                value={isMusicOnValue}
-                onPress={handleMusicPress}
-                style={{ width: 80 }}
+              <Switch
+                trackColor={{ false: '#C7C1BC', true: '#e3ccc3' }}
+                thumbColor={isMusicOn ? '#834B4B' : '#f4f3f4'}
+                onValueChange={handleMusicPress}
+                value={isMusicOn}
+                style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }}
               />
             </View>
             <View
@@ -85,16 +72,14 @@ const SettingsScreen = () => {
                   source={require('@/assets/images/icons/sound.png')}
                   style={{ width: 30, height: 30 }}
                 />
-                <CoolText
-                  text="音效"
-                  className="ml-2 text-[#834B4B]"
-                  style={styles.title}
-                />
+                <CoolText text="音效" style={styles.title} />
               </View>
-              <CoolSwitch
-                value={isSoundOnValue}
-                onPress={handleSoundPress}
-                style={{ width: 80 }}
+              <Switch
+                trackColor={{ false: '#C7C1BC', true: '#e3ccc3' }}
+                thumbColor={isSoundOn ? '#834B4B' : '#f4f3f4'}
+                onValueChange={handleSoundPress}
+                value={isSoundOn}
+                style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }}
               />
             </View>
           </View>
@@ -235,5 +220,7 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
+    color: '#834B4B',
+    marginLeft: 8,
   },
 });

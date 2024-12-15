@@ -11,17 +11,19 @@ type ReplayButtonProps = {
 };
 
 const ReplayButton = ({ onPress }: ReplayButtonProps) => {
-  const { resetGame } = useGameStore();
+  const { resetGame, setDisableGame } = useGameStore();
   const { setShowLevelModal } = useLevelStore();
 
   return (
     <BounceAnimation
       onPress={() => {
-        onPress();
         setTimeout(() => {
           resetGame();
           setShowLevelModal(true);
-        }, 500);
+        }, 1000);
+
+        setDisableGame();
+        onPress();
       }}
     >
       <View className="rounded-full" style={styles.actions}>

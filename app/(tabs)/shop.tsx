@@ -140,7 +140,6 @@ const ShopScreen = () => {
           });
           updatePlayerItem(type, 'purchase');
           setSelectedItem(undefined);
-          setShowPurchaseItemModal(false);
         }}
         onUpgrade={type => {
           Toast.show({
@@ -151,7 +150,6 @@ const ShopScreen = () => {
           });
           updatePlayerItem(type, 'upgrade');
           setSelectedItem(undefined);
-          setShowPurchaseItemModal(false);
         }}
       />
       <PurchaseThemeModal
@@ -170,7 +168,6 @@ const ShopScreen = () => {
           });
           updatePurchaseThemeIds(id);
           setSelectedTheme(undefined);
-          setShowPurchaseThemeModal(false);
         }}
       />
       {!isLoading ? (

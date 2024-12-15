@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { View } from 'react-native';
 
 import CoolButton from '../CoolButton';
@@ -23,6 +23,7 @@ const PurchaseItemModal = ({
   onPurchase,
   onUpgrade,
 }: PurchaseItemModalProps) => {
+  const modalRef = useRef<any>(null);
   const { coins } = usePlayerStore();
   const [showCoinNotEnoughText, setShowCoinNotEnoughText] = useState(false);
 
@@ -35,6 +36,7 @@ const PurchaseItemModal = ({
         setShowCoinNotEnoughText(false);
         onClose();
       }}
+      ref={modalRef}
     >
       <View className="items-center">
         <CoolText
@@ -73,6 +75,7 @@ const PurchaseItemModal = ({
               if (selectedItem && selectedItem.level < selectedItem.maxLevel) {
                 onUpgrade(selectedItem.type);
               }
+              modalRef.current.close();
             }}
             disabled={selectedItem?.level === selectedItem?.maxLevel}
             fontSize={14}
@@ -93,6 +96,7 @@ const PurchaseItemModal = ({
               if (selectedItem) {
                 onPurchase(selectedItem.type);
               }
+              modalRef.current.close();
             }}
             disabled={(selectedItem?.quantity || 0) === 99}
             fontSize={14}
