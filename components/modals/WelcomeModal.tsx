@@ -10,6 +10,7 @@ import {
 import CoolButton from '../CoolButton';
 import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
+import useAudioStore from '@/stores/AudioStore';
 import usePlayerStore from '@/stores/PlayerStore';
 import { createPlayer } from '@/utils/firebase/leaderboard';
 
@@ -20,7 +21,8 @@ type WelcomeModalProps = {
 
 const WelcomeModal = ({ show, onClose }: WelcomeModalProps) => {
   const [playerName, setPlayerName] = useState('');
-  const { updatePlayerInfo } = usePlayerStore();
+  const { updatePlayerInfo, isSoundOn } = usePlayerStore();
+  const playSound = useAudioStore(state => state.playSound);
 
   const handleInputChange = (value: string) => {
     setPlayerName(value);
@@ -105,6 +107,13 @@ const WelcomeModal = ({ show, onClose }: WelcomeModalProps) => {
             onClick={() => {
               if (playerName) {
                 handleSubmit();
+                if (isSoundOn) {
+                  playSound('confirm');
+                }
+              } else {
+                if (isSoundOn) {
+                  playSound('cancel');
+                }
               }
             }}
           />

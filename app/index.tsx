@@ -6,6 +6,7 @@ import BounceAnimation from '@/components/BounceAnimation';
 import CoolText from '@/components/CoolText';
 import InfoModal from '@/components/modals/InfoModal';
 import WelcomeModal from '@/components/modals/WelcomeModal';
+import useAudioStore from '@/stores/AudioStore';
 import usePlayerStore from '@/stores/PlayerStore';
 import { getOrdinalSuffix } from '@/utils';
 import { fetchRankByScore } from '@/utils/firebase/leaderboard';
@@ -16,11 +17,13 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 
 export default function HomeScreen() {
-  const { coins, name, themeList, updateMaxRank } = usePlayerStore();
+  const { coins, name, themeList, updateMaxRank, isSoundOn } = usePlayerStore();
   const [myRank, setMyRank] = useState<number>();
 
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+
+  const playSound = useAudioStore(state => state.playSound);
 
   const totalScore = useMemo(
     () =>
@@ -67,6 +70,9 @@ export default function HomeScreen() {
           style={{ width: '80%', position: 'fixed', top: -60 }}
         >
           <BounceAnimation
+            onPressIn={() => {
+              playSound('common');
+            }}
             onPress={() => {
               // AsyncStorage.clear();
               setShowInfoModal(true);
@@ -125,6 +131,9 @@ export default function HomeScreen() {
           <BounceAnimation
             scaleValue={0.9}
             onPress={() => {
+              if (isSoundOn) {
+                playSound('confirm');
+              }
               router.push('/themes');
             }}
             className="h-[130px] w-[130px] items-center justify-center rounded-full bg-[#E3803E]"

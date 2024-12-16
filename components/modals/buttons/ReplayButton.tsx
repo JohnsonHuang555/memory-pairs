@@ -1,8 +1,10 @@
 import { StyleSheet, View } from 'react-native';
 
 import BounceAnimation from '@/components/BounceAnimation';
+import useAudioStore from '@/stores/AudioStore';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
+import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
 
@@ -11,8 +13,10 @@ type ReplayButtonProps = {
 };
 
 const ReplayButton = ({ onPress }: ReplayButtonProps) => {
+  const playSound = useAudioStore(state => state.playSound);
   const { resetGame, setDisableGame } = useGameStore();
   const { setShowLevelModal } = useLevelStore();
+  const { isSoundOn } = usePlayerStore();
 
   return (
     <BounceAnimation
@@ -22,6 +26,9 @@ const ReplayButton = ({ onPress }: ReplayButtonProps) => {
           setShowLevelModal(true);
         }, 1000);
 
+        if (isSoundOn) {
+          playSound('confirm');
+        }
         setDisableGame();
         onPress();
       }}

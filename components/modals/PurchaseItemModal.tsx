@@ -6,6 +6,7 @@ import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import { SelectedItem } from '@/app/(tabs)/shop';
 import { ItemType } from '@/models/Item';
+import useAudioStore from '@/stores/AudioStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 type PurchaseItemModalProps = {
@@ -24,7 +25,8 @@ const PurchaseItemModal = ({
   onUpgrade,
 }: PurchaseItemModalProps) => {
   const modalRef = useRef<any>(null);
-  const { coins } = usePlayerStore();
+  const { coins, isSoundOn } = usePlayerStore();
+  const playSound = useAudioStore(state => state.playSound);
   const [showCoinNotEnoughText, setShowCoinNotEnoughText] = useState(false);
 
   return (
@@ -66,16 +68,21 @@ const PurchaseItemModal = ({
                 : '#E3803E'
             }
             onClick={() => {
-              if (!selectedItem) return;
               if (selectedItem && coins < selectedItem.upgradeGold) {
+                if (isSoundOn) {
+                  playSound('cancel');
+                }
                 setShowCoinNotEnoughText(true);
                 return;
               }
 
               if (selectedItem && selectedItem.level < selectedItem.maxLevel) {
+                if (isSoundOn) {
+                  playSound('buy');
+                }
                 onUpgrade(selectedItem.type);
+                modalRef.current.close();
               }
-              modalRef.current.close();
             }}
             disabled={selectedItem?.level === selectedItem?.maxLevel}
             fontSize={14}
@@ -89,14 +96,20 @@ const PurchaseItemModal = ({
             }
             onClick={() => {
               if (selectedItem && coins < selectedItem.purchaseGold) {
+                if (isSoundOn) {
+                  playSound('cancel');
+                }
                 setShowCoinNotEnoughText(true);
                 return;
               }
 
               if (selectedItem) {
+                if (isSoundOn) {
+                  playSound('buy');
+                }
                 onPurchase(selectedItem.type);
+                modalRef.current.close();
               }
-              modalRef.current.close();
             }}
             disabled={(selectedItem?.quantity || 0) === 99}
             fontSize={14}

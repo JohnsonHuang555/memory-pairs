@@ -4,6 +4,7 @@ import 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
 import '../global.css';
+import useAudioStore from '@/stores/AudioStore';
 
 import { useAssets } from 'expo-asset';
 import { useFonts } from 'expo-font';
@@ -18,6 +19,9 @@ export default function RootLayout() {
     require('@/assets/images/background.png'),
     require('@/assets/images/icons/yellow-star.png'),
     require('@/assets/images/icons/grey-star.png'),
+    require('@/assets/images/icons/crown.png'),
+    require('@/assets/images/icons/sliver-crown.png'),
+    require('@/assets/images/icons/brown-crown.png'),
     require('@/assets/images/questions/grass/grass-1.png'),
     require('@/assets/images/questions/grass/grass-2.png'),
     require('@/assets/images/questions/grass/grass-3.png'),
@@ -48,11 +52,27 @@ export default function RootLayout() {
     GenSenRounded2TWR: require('../assets/fonts/GenSenRounded2TW-R.otf'), // regular
   });
 
+  const loadSound = useAudioStore(state => state.loadSound);
+  const unloadAllSounds = useAudioStore(state => state.unloadAllSounds);
+
   useEffect(() => {
     if (loaded && assets) {
       SplashScreen.hideAsync();
     }
   }, [loaded, assets]);
+
+  // 在應用加載時預加載音效
+  useEffect(() => {
+    loadSound('cancel', require('@/assets/sounds/cancel.mp3'));
+    loadSound('common', require('@/assets/sounds/common.mp3'));
+    loadSound('confirm', require('@/assets/sounds/confirm.mp3'));
+    loadSound('buy', require('@/assets/sounds/buy.mp3'));
+    loadSound('correct', require('@/assets/sounds/correct.mp3'));
+
+    return () => {
+      unloadAllSounds(); // 組件卸載時清理音效
+    };
+  }, []);
 
   if (!loaded || !assets) {
     return null;

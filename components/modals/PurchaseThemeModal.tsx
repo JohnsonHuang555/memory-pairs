@@ -6,6 +6,7 @@ import CoolText from '../CoolText';
 import BaseModal from './BaseModal';
 import { allLevels } from '@/constants/AllLevels';
 import { Theme } from '@/models/Theme';
+import useAudioStore from '@/stores/AudioStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
@@ -24,7 +25,8 @@ const PurchaseThemeModal = ({
   onPurchase,
 }: PurchaseThemeModalProps) => {
   const modalRef = useRef<any>(null);
-  const { coins } = usePlayerStore();
+  const { coins, isSoundOn } = usePlayerStore();
+  const playSound = useAudioStore(state => state.playSound);
   const [showCoinNotEnoughText, setShowCoinNotEnoughText] = useState(false);
 
   const levelsCount = useMemo(() => {
@@ -111,13 +113,20 @@ const PurchaseThemeModal = ({
           text="購買"
           backgroundColor="#834B4B"
           onClick={() => {
-            if (!selectedTheme) return;
             if (selectedTheme?.price && coins < selectedTheme.price) {
+              if (isSoundOn) {
+                playSound('cancel');
+              }
               setShowCoinNotEnoughText(true);
               return;
             }
-            onPurchase(selectedTheme.id);
-            modalRef.current.close();
+            if (selectedTheme) {
+              if (isSoundOn) {
+                playSound('buy');
+              }
+              onPurchase(selectedTheme.id);
+              modalRef.current.close();
+            }
           }}
           fontSize={18}
         />

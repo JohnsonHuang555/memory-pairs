@@ -25,6 +25,7 @@ import UseItemsModal from '@/components/modals/UseItemsModal';
 import useLevelInfo, { gameMatchCount } from '@/hooks/useLevelInfo';
 import { Card } from '@/models/Card';
 import { ItemType } from '@/models/Item';
+import useAudioStore from '@/stores/AudioStore';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
@@ -55,7 +56,8 @@ const PlayingScreen = () => {
   const { replace } = useRouter();
 
   const { levelInfo } = useLevelInfo();
-  const { passGame, addFlipCount, themeList } = usePlayerStore();
+  const playSound = useAudioStore(state => state.playSound);
+  const { passGame, addFlipCount, themeList, isSoundOn } = usePlayerStore();
   const { updateLevel, levels } = useLevelStore();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showGamePassModal, setShowGamePassModal] = useState(false);
@@ -329,6 +331,9 @@ const PlayingScreen = () => {
           <BounceAnimation
             onPress={() => {
               if (isCompleteGame) return;
+              if (isSoundOn) {
+                playSound('common');
+              }
               stopTimer();
               setShowPauseGameModal(true);
             }}

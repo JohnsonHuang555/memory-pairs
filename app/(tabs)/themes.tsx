@@ -12,6 +12,7 @@ import Toast from 'react-native-toast-message';
 import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import { Theme } from '@/models/Theme';
+import useAudioStore from '@/stores/AudioStore';
 import usePlayerStore from '@/stores/PlayerStore';
 import useThemeStore from '@/stores/ThemeStore';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -20,7 +21,8 @@ import { Image } from 'expo-image';
 import { useFocusEffect, useRouter } from 'expo-router';
 
 export default function ThemesScreen() {
-  const { coins, themeList, purchaseThemeIds } = usePlayerStore();
+  const { coins, themeList, purchaseThemeIds, isSoundOn } = usePlayerStore();
+  const playSound = useAudioStore(state => state.playSound);
   const { themes } = useThemeStore();
   const [isLoading, setLoading] = useState(true);
   const { push } = useRouter();
@@ -176,6 +178,9 @@ export default function ThemesScreen() {
                     activeOpacity={!isLock(theme) ? 0.7 : 1}
                     onPress={() => {
                       if (!isLock(theme)) {
+                        if (isSoundOn) {
+                          playSound('common');
+                        }
                         push(`/levels/${theme.type}`);
                       }
                     }}

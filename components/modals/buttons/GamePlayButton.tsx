@@ -1,6 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 
 import BounceAnimation from '@/components/BounceAnimation';
+import useAudioStore from '@/stores/AudioStore';
+import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
 
@@ -9,8 +11,18 @@ type GamePlayButtonProps = {
 };
 
 const GamePlayButton = ({ onPress }: GamePlayButtonProps) => {
+  const playSound = useAudioStore(state => state.playSound);
+  const { isSoundOn } = usePlayerStore();
+
   return (
-    <BounceAnimation onPress={onPress}>
+    <BounceAnimation
+      onPress={() => {
+        if (isSoundOn) {
+          playSound('confirm');
+        }
+        onPress();
+      }}
+    >
       <View
         className="items-center justify-center rounded-full"
         style={[styles.actions, { width: 60, height: 60 }]}

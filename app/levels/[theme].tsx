@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
@@ -8,6 +8,7 @@ import MainContainer from '@/components/MainContainer';
 import LevelSelectModal from '@/components/modals/LevelSelectModal';
 import { gameTheme } from '@/hooks/useLevelInfo';
 import { useThemeInfo } from '@/hooks/useThemeInfo';
+import useAudioStore from '@/stores/AudioStore';
 import useLevelStore, { itemsPerPage } from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
@@ -16,7 +17,8 @@ import { useLocalSearchParams } from 'expo-router/build/hooks';
 
 export default function LevelScreen() {
   const { theme } = useLocalSearchParams();
-  const { coins } = usePlayerStore();
+  const { coins, isSoundOn } = usePlayerStore();
+  const playSound = useAudioStore(state => state.playSound);
   const { levels, currentLevelId, starsOfLevel } = useThemeInfo(Number(theme));
 
   const {
@@ -41,17 +43,6 @@ export default function LevelScreen() {
       setDefaultCurrentPage(page);
     }
   }, [currentLevelId]);
-
-  // const totalStars = useMemo(
-  //   () =>
-  //     starsOfLevel
-  //       .filter(s => s.id > startIdx && s.id <= 20 * currentPage)
-  //       .reduce((acc, current) => {
-  //         acc += current.stars;
-  //         return acc;
-  //       }, 0),
-  //   [currentPage, startIdx],
-  // );
 
   const totalStars = useMemo(
     () =>
@@ -115,11 +106,7 @@ export default function LevelScreen() {
   };
 
   return (
-    <MainContainer
-      title={gameTheme[theme as string]}
-      showLeftIcon
-      showRuleIcon
-    >
+    <MainContainer title={gameTheme[theme as string]} showLeftIcon showRuleIcon>
       <LevelSelectModal
         show={showLevelModal}
         onClose={() => {
@@ -186,6 +173,9 @@ export default function LevelScreen() {
               activeOpacity={!checkIsLock(level.id) ? 0.7 : 1}
               onPress={() => {
                 if (!checkIsLock(level.id)) {
+                  if (isSoundOn) {
+                    playSound('common');
+                  }
                   setPlayLevel(level.id);
                   setShowLevelModal(true);
                 }
@@ -214,7 +204,10 @@ export default function LevelScreen() {
               height={50}
               width={50}
               backgroundColor="#919191"
-              onClick={() => updateCurrentPage(-1)}
+              onClick={() => {
+                playSound('common');
+                updateCurrentPage(-1);
+              }}
             />
           )}
         </View>
@@ -229,7 +222,10 @@ export default function LevelScreen() {
             height={50}
             width={50}
             backgroundColor="#919191"
-            onClick={() => updateCurrentPage(1)}
+            onClick={() => {
+              playSound('common');
+              updateCurrentPage(1);
+            }}
           />
         )}
       </View>

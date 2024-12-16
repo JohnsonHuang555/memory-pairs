@@ -4,6 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import BounceAnimation from './BounceAnimation';
 import CoolText from './CoolText';
 import GameRulesModal from './modals/GameRulesModal';
+import useAudioStore from '@/stores/AudioStore';
+import usePlayerStore from '@/stores/PlayerStore';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 import { useRouter, useSegments } from 'expo-router';
@@ -26,6 +28,8 @@ const MainContainer = ({
   const { back, replace } = useRouter();
   const segments = useSegments();
   const [showGameRuleModal, setGameRuleModal] = useState(false);
+  const playSound = useAudioStore(state => state.playSound);
+  const { isSoundOn } = usePlayerStore();
 
   return (
     <View style={styles.container}>
@@ -39,6 +43,11 @@ const MainContainer = ({
             {leftChildren}
             {showLeftIcon && (
               <BounceAnimation
+                onPressIn={() => {
+                  if (isSoundOn) {
+                    playSound('cancel');
+                  }
+                }}
                 onPress={() => {
                   if (segments.includes('(tabs)')) {
                     replace('/');
@@ -63,7 +72,16 @@ const MainContainer = ({
           />
           <View style={{ width: 40, alignItems: 'flex-end' }}>
             {showRuleIcon && (
-              <BounceAnimation onPress={() => setGameRuleModal(true)}>
+              <BounceAnimation
+                onPressIn={() => {
+                  if (isSoundOn) {
+                    playSound('common');
+                  }
+                }}
+                onPress={() => {
+                  setGameRuleModal(true);
+                }}
+              >
                 <MaterialCommunityIcons
                   name="file-document-outline"
                   size={30}

@@ -13,6 +13,7 @@ import Animated, {
 import CoolText from './CoolText';
 import { Card } from '@/models/Card';
 import { LevelTheme, LevelType } from '@/models/Level';
+import useAudioStore from '@/stores/AudioStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
@@ -56,7 +57,8 @@ const FlipCard = React.memo(
     const rotation = useSharedValue(0); // 初始旋轉角度
     const scale = useSharedValue(1); // 初始化卡片的縮放比例
     const [isViewFirst, setIsViewFirst] = useState(false);
-    const { addMatchCount } = usePlayerStore();
+    const { addMatchCount, isSoundOn } = usePlayerStore();
+    const playSound = useAudioStore(state => state.playSound);
 
     // 當點擊卡片時觸發翻轉
     const flipCard = () => {
@@ -148,9 +150,13 @@ const FlipCard = React.memo(
       }
     }, [itemViewFirst, itemViewFirstValue, itemAutoPairs, card.isMatched]);
 
+    // 判斷是否配對成功
     useEffect(() => {
       if (prevIsMatched.current === false && card.isMatched) {
         addMatchCount();
+        if (isSoundOn) {
+          playSound('correct');
+        }
         scale.value = withSpring(1.15, {
           damping: 10,
           stiffness: 200,

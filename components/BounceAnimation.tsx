@@ -11,6 +11,7 @@ type BounceAnimationProps = {
   children: ReactNode;
   scaleValue?: number;
   onPress: () => void;
+  onPressIn?: () => void;
 };
 
 const BounceAnimation = ({
@@ -18,6 +19,7 @@ const BounceAnimation = ({
   children,
   scaleValue = 0.8,
   onPress,
+  onPressIn,
 }: BounceAnimationProps) => {
   // 控制縮放值的共享變量
   const scale = useSharedValue(1);
@@ -31,6 +33,9 @@ const BounceAnimation = ({
 
   // 當按下時，放大，帶有彈跳效果
   const handlePressIn = () => {
+    if (onPressIn) {
+      onPressIn();
+    }
     scale.value = withSpring(scaleValue, {
       damping: 1, // 控制阻尼，數值越小，彈跳幅度越大
       stiffness: 100, // 剛度，數值越大，恢復原始大小越快

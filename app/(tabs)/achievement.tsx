@@ -9,13 +9,16 @@ import CoolText from '@/components/CoolText';
 import MainContainer from '@/components/MainContainer';
 import { allAchievements } from '@/constants/AllAchievements';
 import { Achievement } from '@/models/Achievement';
+import useAudioStore from '@/stores/AudioStore';
 import usePlayerStore from '@/stores/PlayerStore';
 
 import { Image } from 'expo-image';
 import { useFocusEffect } from 'expo-router';
 
 const AchievementScreen = () => {
-  const { playerAchievements, receiveAchievementRewards } = usePlayerStore();
+  const playSound = useAudioStore(state => state.playSound);
+  const { playerAchievements, receiveAchievementRewards, isSoundOn } =
+    usePlayerStore();
   const [isLoading, setLoading] = useState(true);
 
   useFocusEffect(
@@ -40,11 +43,7 @@ const AchievementScreen = () => {
   }: Achievement) => (
     <View style={styles.achievementItem}>
       <View style={{ width: 150 }}>
-        <CoolText
-          style={styles.title}
-          text={title}
-          fontWeight="medium"
-        />
+        <CoolText style={styles.title} text={title} fontWeight="medium" />
         <CoolText
           style={styles.description}
           text={description}
@@ -69,6 +68,9 @@ const AchievementScreen = () => {
         text={!completed ? '未達成' : received ? '已收取' : '收取'}
         disabled={received || !completed}
         onClick={() => {
+          if (isSoundOn) {
+            playSound('confirm');
+          }
           Toast.show({
             type: 'info',
             text1: `💰 獲得 ${rewards} 金幣`,
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     marginBottom: 5,
-     color: '#834B4B',
+    color: '#834B4B',
   },
   description: {
     fontSize: 14,

@@ -18,6 +18,7 @@ import { allItems } from '@/constants/AllItems';
 import { allThemes } from '@/constants/AllThemes';
 import { ItemType, PlayerItem } from '@/models/Item';
 import { Theme } from '@/models/Theme';
+import useAudioStore from '@/stores/AudioStore';
 import usePlayerStore from '@/stores/PlayerStore';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -36,7 +37,9 @@ const ShopScreen = () => {
     updatePlayerItem,
     purchaseThemeIds,
     updatePurchaseThemeIds,
+    isSoundOn,
   } = usePlayerStore();
+  const playSound = useAudioStore(state => state.playSound);
   const [isLoading, setLoading] = useState(false);
   const [showPurchaseItemModal, setShowPurchaseItemModal] = useState(false);
   const [showPurchaseThemeModal, setShowPurchaseThemeModal] = useState(false);
@@ -129,10 +132,16 @@ const ShopScreen = () => {
         show={showPurchaseItemModal}
         selectedItem={selectedItem}
         onClose={() => {
+          if (isSoundOn) {
+            playSound('cancel');
+          }
           setSelectedItem(undefined);
           setShowPurchaseItemModal(false);
         }}
         onPurchase={type => {
+          if (isSoundOn) {
+            playSound('buy');
+          }
           Toast.show({
             type: 'success',
             visibilityTime: 2000,
@@ -143,6 +152,9 @@ const ShopScreen = () => {
           setSelectedItem(undefined);
         }}
         onUpgrade={type => {
+          if (isSoundOn) {
+            playSound('buy');
+          }
           Toast.show({
             type: 'success',
             visibilityTime: 2000,
@@ -310,6 +322,9 @@ const ShopScreen = () => {
                           activeOpacity={alreadyPurchase ? 1 : 0.7}
                           onPress={() => {
                             if (alreadyPurchase) return;
+                            if (isSoundOn) {
+                              playSound('common');
+                            }
                             setSelectedTheme(theme);
                             setShowPurchaseThemeModal(true);
                           }}

@@ -1,9 +1,14 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import CoolText from './CoolText';
+import useAudioStore from '@/stores/AudioStore';
+import usePlayerStore from '@/stores/PlayerStore';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 
 const TabBar = ({ state, descriptors, navigation }: any) => {
+  const playSound = useAudioStore(state => state.playSound);
+  const { isSoundOn } = usePlayerStore();
+
   const primaryColor = '#834B4B';
   const greyColor = '#8E8E8E';
 
@@ -41,11 +46,12 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
               ? options.title
               : route.name;
 
-        // if ([''])
-
         const isFocused = state.index === index;
 
         const onPress = () => {
+          if (isSoundOn) {
+            playSound('common');
+          }
           const event = navigation.emit({
             type: 'tabPress',
             target: route.key,

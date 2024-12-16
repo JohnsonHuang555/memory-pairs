@@ -7,6 +7,7 @@ import BaseModal from './BaseModal';
 import useLevelInfo, { gameMatchCount, gameTheme } from '@/hooks/useLevelInfo';
 import { useThemeInfo } from '@/hooks/useThemeInfo';
 import { ItemType, UseItem } from '@/models/Item';
+import useAudioStore from '@/stores/AudioStore';
 import useGameStore from '@/stores/GameStore';
 import useLevelStore from '@/stores/LevelStore';
 import usePlayerStore from '@/stores/PlayerStore';
@@ -24,9 +25,9 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
   const { replace } = useRouter();
   const { setShowLevelModal } = useLevelStore();
   const { levelInfo } = useLevelInfo();
-
-  const { items, updatePlayerItem } = usePlayerStore();
+  const { items, updatePlayerItem, isSoundOn } = usePlayerStore();
   const { setUseItems } = useGameStore();
+  const playSound = useAudioStore(state => state.playSound);
 
   const { starsOfLevel } = useThemeInfo(Number(theme));
 
@@ -255,6 +256,9 @@ const LevelSelectModal = ({ show, onClose }: LevelSelectModalProps) => {
               selectedItems.forEach(selectedItem => {
                 updatePlayerItem(selectedItem.type, 'use');
               });
+            }
+            if (isSoundOn) {
+              playSound('confirm');
             }
             setSelectedItems([]);
             setShowLevelModal(false);
