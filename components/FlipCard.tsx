@@ -85,7 +85,7 @@ const FlipCard = React.memo(
       if (prevIsFlipped.current === true && card.isFlipped === false) {
         // 觸發動畫，當 isFlipped 從 true 變為 false 時
         rotation.value = withDelay(
-          200,
+          100,
           withSpring(0, {
             damping: 20, // 增大阻尼，减少反弹
             stiffness: 200, // 增大刚度，加快动画响应

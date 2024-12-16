@@ -4,7 +4,6 @@ import {
   Linking,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -55,23 +54,83 @@ const InfoModal = ({ show, onClose }: InfoModalProps) => {
               fontWeight="bold"
             />
           </View>
-          <ScrollView style={{ maxHeight: 300 }}>
-            <View style={{ gap: 12 }}>
-              <View className="flex-row" style={{ borderWidth: 2 }}>
-                <Text>
-                  <OpenURLButton url="https://www.pixellove.com/free-icons/line/simple/?ref=svgrepo.com">
-                    <CoolText text="Pixellove" style={styles.fontContent} />
-                  </OpenURLButton>
-                </Text>
-                {/* <CoolText
-                  text="- Vectors and icons by"
-                  style={styles.fontContent}
-                />
-
+          <ScrollView style={{ maxHeight: 400 }}>
+            <View style={{ marginBottom: 12 }}>
+              <CoolText text="背景圖片" style={styles.fontContent} />
+              <View className="flex-row">
                 <CoolText
-                  text=" in CC Attribution License via SVG Repo"
-                  style={styles.fontContent}
-                /> */}
+                  text="Design by"
+                  style={[styles.fontContent, { marginRight: 4 }]}
+                />
+                <OpenURLButton url="www.freepik.com">
+                  <CoolText text="Freepik" style={styles.fontContent} />
+                </OpenURLButton>
+              </View>
+            </View>
+            <View style={{ marginBottom: 12 }}>
+              <CoolText text="傢俱關卡圖片" style={styles.fontContent} />
+              <View className="flex-row">
+                <CoolText
+                  text="Design by"
+                  style={[styles.fontContent, { marginRight: 4 }]}
+                />
+                <OpenURLButton url="https://dribbble.com/limastd?ref=svgrepo.com">
+                  <CoolText text="Lima Studio" style={styles.fontContent} />
+                </OpenURLButton>
+              </View>
+            </View>
+            <View style={{ marginBottom: 12 }}>
+              <CoolText text="智慧手錶關卡圖片" style={styles.fontContent} />
+              <View className="flex-row">
+                <CoolText
+                  text="Design by"
+                  style={[styles.fontContent, { marginRight: 4 }]}
+                />
+                <OpenURLButton url="https://www.dreamstime.com/sasalok_info?ref=svgrepo.com">
+                  <CoolText
+                    text="Sukho Kittiboonkul"
+                    style={styles.fontContent}
+                  />
+                </OpenURLButton>
+              </View>
+            </View>
+            <View style={{ marginBottom: 12 }}>
+              <CoolText text="郵件關卡圖片" style={styles.fontContent} />
+              <View className="flex-row">
+                <CoolText
+                  text="Design by"
+                  style={[styles.fontContent, { marginRight: 4 }]}
+                />
+                <OpenURLButton url="http://www.ibrandify.com/?ref=svgrepo.com">
+                  <CoolText text="Ibrandify" style={styles.fontContent} />
+                </OpenURLButton>
+              </View>
+            </View>
+            <View style={{ marginBottom: 12 }}>
+              <CoolText text="摺紙關卡圖片" style={styles.fontContent} />
+              <View className="flex-row">
+                <CoolText
+                  text="Design by"
+                  style={[styles.fontContent, { marginRight: 4 }]}
+                />
+                <OpenURLButton url="https://dribbble.com/limastd?ref=svgrepo.com">
+                  <CoolText text="Lima Studio" style={styles.fontContent} />
+                </OpenURLButton>
+              </View>
+            </View>
+            <View style={{ marginBottom: 12 }}>
+              <CoolText text="城市建築關卡圖片" style={styles.fontContent} />
+              <View className="flex-row">
+                <CoolText
+                  text="Design by"
+                  style={[styles.fontContent, { marginRight: 4 }]}
+                />
+                <OpenURLButton url="https://dribbble.com/ppangg?ref=svgrepo.com">
+                  <CoolText
+                    text="Manthana Chaiwong"
+                    style={styles.fontContent}
+                  />
+                </OpenURLButton>
               </View>
             </View>
           </ScrollView>

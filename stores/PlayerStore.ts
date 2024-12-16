@@ -215,7 +215,7 @@ const usePlayerStore = create<PlayerState>()(
           if (p.id === 'a6' && !p.completed && currentPassLevelCount >= 1000) {
             p.completed = true;
           }
-          if (p.id === 'b1' && !p.completed && levelInfo.stars === 3) {
+          if (p.id === 'b1' && !p.completed && stars === 3) {
             p.completed = true;
           }
           if (p.id === 'b2' && !p.completed && currentAllStars >= 50) {

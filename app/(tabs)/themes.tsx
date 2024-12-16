@@ -236,11 +236,8 @@ export default function ThemesScreen() {
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
                       }}
                     >
-                      {/* <View
-                    > */}
                       <MaterialIcons name="lock" color="#FFF" size={40} />
                       {getLockInfo(theme)}
-                      {/* </View> */}
                     </TouchableOpacity>
                   )}
                 </View>

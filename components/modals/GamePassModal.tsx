@@ -30,14 +30,14 @@ const GamePassModal = ({
   if (!levelInfo) return null;
 
   const coins = useMemo(() => {
-    if (stars === 1) {
+  if (stars === 1) {
       return levelInfo.star1Coins;
     } else if (stars === 2) {
       return levelInfo.star2Coins;
     } else {
       return levelInfo.star3Coins;
     }
-  }, []);
+  }, [stars]);
 
   return (
     <BaseModal

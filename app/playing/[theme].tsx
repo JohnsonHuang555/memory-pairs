@@ -179,7 +179,7 @@ const PlayingScreen = () => {
         if (stars === 1) {
           coins = levelInfo.star1Coins;
         } else if (stars === 2) {
-          coins = levelInfo.star1Coins;
+          coins = levelInfo.star2Coins;
         } else {
           coins = levelInfo.star3Coins;
         }
@@ -205,7 +205,6 @@ const PlayingScreen = () => {
     if (isCompleteGame) {
       // 更新玩家統計資料
       remainedTimeAnimatedValue.value = timeLeft;
-
       stopTimer();
 
       const interval = setInterval(() => {

@@ -30,6 +30,7 @@ const GameRulesModal = ({ show, onClose }: GameRulesModalProps) => {
           />
           <CoolText text="- 過關即可開啟下一個關卡" style={styles.rule} />
           <CoolText text="- 新的主題可透過購買或達到星數解鎖" style={styles.rule} />
+          <CoolText text="- 關卡越後面配對數與組數越多" style={styles.rule} />
         </View>
         <View>
           <View className="items-center">

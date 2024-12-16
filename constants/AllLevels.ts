@@ -9,8 +9,10 @@ import { colorThemeLevels } from './levels/color';
 import { emailThemeLevels } from './levels/email';
 import { emojiThemeLevels } from './levels/emoji';
 import { furnitureThemeLevels } from './levels/furniture';
+import { gesturesThemeLevels } from './levels/gestures';
 import { giftThemeLevels } from './levels/gift';
 import { grassThemeLevels } from './levels/grass';
+import { landmarkThemeLevels } from './levels/landmark';
 import { leaveThemeLevels } from './levels/leave';
 import { noticeThemeLevels } from './levels/notice';
 import { origamiThemeLevels } from './levels/origami';
@@ -19,6 +21,7 @@ import { spaceThemeLevels } from './levels/space';
 import { sweetDrinkThemeLevels } from './levels/sweet-drink';
 import { treeThemeLevels } from './levels/tree';
 import { waterSportThemeLevels } from './levels/water-sport';
+import { weatherThemeLevels } from './levels/weather';
 
 export enum MatchCount {
   Two = 2,
@@ -51,4 +54,7 @@ export const allLevels = [
   ...emailThemeLevels,
   ...origamiThemeLevels, // --20
   ...cityBuildingThemeLevels,
+  ...landmarkThemeLevels,
+  ...weatherThemeLevels,
+  ...gesturesThemeLevels,
 ];

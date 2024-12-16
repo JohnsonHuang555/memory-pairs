@@ -42,4 +42,7 @@ export enum LevelTheme {
   Email = 19,
   Origami = 20,
   CityBuilding = 21,
+  Landmark = 22,
+  Weather = 23,
+  Gestures = 24,
 }

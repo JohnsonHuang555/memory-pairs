@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -188,7 +189,9 @@ const ShopScreen = () => {
               />
             </View>
           </View>
-          <View
+          <ScrollView
+            bounces={false}
+            overScrollMode="never"
             style={{
               height: Dimensions.get('window').height - 280,
             }}
@@ -279,7 +282,7 @@ const ShopScreen = () => {
                 fontWeight="medium"
                 style={{ fontSize: 20, color: '#834B4B', marginBottom: 16 }}
               />
-              <View className="flex-row justify-between">
+              <View className="flex-row flex-wrap justify-between">
                 {allThemes
                   .filter(t => t.price)
                   .map(theme => {
@@ -289,7 +292,7 @@ const ShopScreen = () => {
 
                     return (
                       <View
-                        className="w-[31%] rounded-xl"
+                        className="mb-5 w-[31%] rounded-xl"
                         key={theme.type}
                         style={[
                           {
@@ -322,6 +325,7 @@ const ShopScreen = () => {
                                 height: 60,
                                 marginTop: 8,
                                 marginBottom: 4,
+                                borderRadius: 10,
                               }}
                             />
                             <CoolText
@@ -378,7 +382,7 @@ const ShopScreen = () => {
                   })}
               </View>
             </View>
-          </View>
+          </ScrollView>
         </Animated.View>
       ) : (
         <View
@@ -396,8 +400,8 @@ export default ShopScreen;
 const styles = StyleSheet.create({
   itemQuantity: {
     position: 'absolute',
-    right: -8,
-    top: -8,
+    right: 0,
+    top: 0,
     width: 26,
     height: 26,
     backgroundColor: '#C94343',

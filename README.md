@@ -7,7 +7,6 @@
 
 #### questions
 - https://www.svgrepo.com/collection/animals-25/
-- https://www.svgrepo.com/collection/inclusive-avatar-portrait-vectors
 - https://www.svgrepo.com/collection/types-of-leaves-vectors/
 - https://www.svgrepo.com/collection/sideview-emoji-vectors/
 - https://www.svgrepo.com/collection/tree-variations-flat-icons/
@@ -20,41 +19,18 @@
 - https://www.svgrepo.com/collection/envelope-bordered-vectors/
 - https://www.svgrepo.com/collection/origami-filled-line-vectors/
 - https://www.svgrepo.com/collection/city-building-bordered-vectors/
-- 
-
-
-
-
-
-
-
 - https://www.svgrepo.com/collection/world-famous-tourist-attractions-vectors/
-- https://www.svgrepo.com/collection/bright-fruits-and-vegetables/
 - https://www.svgrepo.com/collection/gift-packages-flat-icons/
-- https://www.svgrepo.com/collection/music-instruments-flat-icons/
-- https://www.svgrepo.com/collection/transportation-flat-icons/
-- https://www.svgrepo.com/collection/social-activities-bordered-flat-icons/
-- https://www.svgrepo.com/collection/chinese-culture-icons/
 - https://www.svgrepo.com/collection/weather-forecast-3/
-- 
-- https://www.svgrepo.com/collection/car-maintenance-colored-icons/
-- https://www.svgrepo.com/collection/cowboy-hat-vectors/
-- https://www.svgrepo.com/collection/food-game-art/
-- https://www.svgrepo.com/collection/casino-gambling-2/
-- https://www.svgrepo.com/collection/football-shirts-vectors/
-- https://www.svgrepo.com/collection/cute-ice-cream-vectors/
-- https://www.svgrepo.com/collection/water-sports-flat-icons/
-- https://www.svgrepo.com/collection/travel-theme-candy-vectors/
-- 
-- https://www.svgrepo.com/collection/cooking-food-vectors/
-- https://www.svgrepo.com/collection/autumn-and-fall-vectors/
 - https://www.svgrepo.com/collection/mobile-gestures-with-arrows/
+
+#### backup
+- https://www.svgrepo.com/collection/travel-theme-candy-vectors/
 
 ### MIT
 #### questions
 - https://www.svgrepo.com/collection/lucide-line-icons
 - https://www.svgrepo.com/collection/framework7-line-icons/
-
 
 ### CC BY
 #### icons
